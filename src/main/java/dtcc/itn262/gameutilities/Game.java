@@ -1,11 +1,16 @@
-package dtcc.itn262;
+package dtcc.itn262.gameutilities;
+
+import dtcc.itn262.character.Player;
+import dtcc.itn262.dungeon.Maze;
 
 import java.util.Scanner;
 
 public class Game {
     public Game(String playerName) {
-        Hero hero = new Hero(playerName);
+        Player player = new Player(playerName);
+        System.out.println(player);
         startGame();
+
     }
 
     private void startGame() {

@@ -4,8 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05182ae1-d102-4666-b7ff-0513447a3bd8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="05182ae1-d102-4666-b7ff-0513447a3bd8" name="Changes" comment="Testing Commit">
+      <change afterPath="$PROJECT_DIR$/.idea/git_toolbox_prj.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/PlayerAttributes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/Skills.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/TestSkill.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Movement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Room.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/GameLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/UserInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Validation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/items/items.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/Dragon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/HaroldOfTheFallen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/Monster.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/MonsterAttributes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/Skelton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Dagger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Excalibur.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Excalipoor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/LongSword.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/MerlinsWand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/TrialWand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Weapons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/Hero.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/maze.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +50,37 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="PrimaryBranch" />
+                    <option name="lastUsedInstant" value="1726285273" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1726285272" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -34,21 +94,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/kstra/OneDrive/Desktop/SCHOOL/5_Fifth_Semester_DTCC/ITN_262_Programming_III/TextBasedAdventure",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;PrimaryBranch&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kstra/OneDrive/Desktop/SCHOOL/5_Fifth_Semester_DTCC/ITN_262_Programming_III/TextBasedAdventure&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
+  <component name="RebelAgentSelection">
+    <selection>jr</selection>
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262" />
       <recent name="C:\Users\kstra\IdeaProjects\ITN262_Assignment_2\adventure_stack\src" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -91,7 +157,7 @@
       <module name="adventure_stack" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dtcc.itn262.*" />
+          <option name="PATTERN" value="monster.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -114,6 +180,30 @@
       <option name="presentableId" value="Default" />
       <updated>1726065615865</updated>
     </task>
+    <task id="LOCAL-00001" summary="Testing Commit">
+      <option name="closed" value="true" />
+      <created>1726285296264</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1726285296264</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Testing Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing Commit" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/character/Player.java</url>
+          <line>28</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

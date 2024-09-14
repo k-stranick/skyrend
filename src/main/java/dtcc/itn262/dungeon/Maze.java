@@ -1,4 +1,4 @@
-package dtcc.itn262;
+package dtcc.itn262.dungeon;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

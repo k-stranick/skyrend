@@ -1,16 +1,19 @@
-package dtcc.itn262;
+package dtcc.itn262.monster;
+
 import java.util.Random;
-public class Hero {
+
+public class Dragon extends Monster {
     private int strength;
     private int stamina;
-    private String hero;
+    private String dragon;
 
-    public Hero(String name) {
+    public Dragon(String name) {
+        super(name);
 
-        hero = !name.isEmpty() ? name : "Hero";
+        dragon = !name.isEmpty() ? name : "Dragon";
         strength = randSkill();
         stamina = randSkill();
-        System.out.println("Hero: " + hero + "\nStrength: " + strength + "\nStamina: " + stamina);
+        System.out.println("Dragon: " + dragon + "\nStrength: " + strength + "\nStamina: " + stamina);
     }
 
     private int randSkill() {
@@ -22,8 +25,8 @@ public class Hero {
         return strength;
     }
 
-    public String getHero() {
-        return hero;
+    public String getDragon() {
+        return dragon;
     }
 
     public int getStamina() {
