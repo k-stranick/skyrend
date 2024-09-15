@@ -1,10 +1,6 @@
 package dtcc.itn262.character;
 
-import java.util.Random;
-
-
 public class Player {
-    private Random rand = new Random();
     private String hero;
     private PlayerAttributes playerAttributes;
 
@@ -13,6 +9,9 @@ public class Player {
         playerAttributes = new PlayerAttributes();
     }
 
+    public PlayerAttributes getPlayerAttributes() {
+        return playerAttributes;
+    } // returns the player attributes in PlayerAttributes class
 
     public String getHero() {
         return hero;
@@ -36,5 +35,6 @@ public class Player {
                 "\nLuck: " + playerAttributes.getLuck() +
                 "\nExperience: " + playerAttributes.getExperience();
     }
+
 
 }

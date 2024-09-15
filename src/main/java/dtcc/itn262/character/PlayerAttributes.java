@@ -13,6 +13,7 @@ public class PlayerAttributes {
     private int magicDefense;  // governs magic attack resistance
     private int mana;  // governs magic pool
     private int speed; // governs how many times a player can attack before the monster attacks
+    // and subsequently reducing cooldowns
     private int luck; // governs critical hit chance
     private int experience; // governs level
 
@@ -80,6 +81,7 @@ public class PlayerAttributes {
     public int getMagic() {
         return magic;
     }
+
     public void setMagic(int magic) {
         this.magic = magic;
     }
@@ -91,9 +93,11 @@ public class PlayerAttributes {
     public void setMagicDefense(int magicDefense) {
         this.magicDefense = magicDefense;
     }
+
     public int getSpeed() {
         return speed;
     }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -101,6 +105,7 @@ public class PlayerAttributes {
     public int getLuck() {
         return luck;
     }
+
     public void setLuck(int luck) {
         this.luck = luck;
     }

@@ -2,18 +2,18 @@ package dtcc.itn262.monster;
 
 import java.util.Random;
 
-public class Skelton extends Monster {
+public class Skeleton extends Monster {
     private int strength;
     private int stamina;
-    private String skelton;
+    private String skeleton;
 
-    public Skelton(String name) {
+    public Skeleton(String name) {
         super(name);
 
-        skelton = !name.isEmpty() ? name : "Skelton";
+        skeleton = !name.isEmpty() ? name : "Skeleton";
         strength = randSkill();
         stamina = randSkill();
-        System.out.println("Skelton: " + skelton + "\nStrength: " + strength + "\nStamina: " + stamina);
+        System.out.println("Skeleton: " + skeleton + "\nStrength: " + strength + "\nStamina: " + stamina);
     }
 
     private int randSkill() {
@@ -25,8 +25,8 @@ public class Skelton extends Monster {
         return strength;
     }
 
-    public String getSkelton() {
-        return skelton;
+    public String getSkeleton() {
+        return skeleton;
     }
 
     public int getStamina() {

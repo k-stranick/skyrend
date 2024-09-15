@@ -1,5 +1,5 @@
 package dtcc.itn262.weapons;
-
+// change to interface
 public class Weapons {
 // static means you can call a method directly from class without creating an object
     private String weapon;

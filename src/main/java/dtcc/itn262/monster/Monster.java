@@ -1,26 +1,30 @@
 package dtcc.itn262.monster;
 
 public class Monster {
-    private String monster;
+    private String enemy;
     private MonsterAttributes monsterAttributes;
 
 
-    public Monster(String monster) {
-        this.monster = monster;
+    public Monster(String enemy) {
+        this.enemy = enemy;
         monsterAttributes = new MonsterAttributes();
     }
 
-    public String getMonster() {
-        return monster;
+    public String getEnemy() {
+        return enemy;
     }
 
-    public void setMonster(String monster) {
-        this.monster = monster;
+    public void setEnemy(String enemy) {
+        this.enemy = enemy;
+    }
+
+    public MonsterAttributes getMonsterAttributes() {
+        return monsterAttributes;
     }
 
     @Override
     public String toString() {
-        return "Monster: " + monster +
+        return "Monster: " + enemy +
                 "\nStrength: " + monsterAttributes.getStrength() +
                 "\nHealth: " + monsterAttributes.getHealth() +
                 "\nMana: " + monsterAttributes.getMana() +
