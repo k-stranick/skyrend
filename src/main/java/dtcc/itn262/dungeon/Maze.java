@@ -1,5 +1,9 @@
 package dtcc.itn262.dungeon;
 
+import dtcc.itn262.character.Player;
+import dtcc.itn262.combat.CombatLogic;
+import dtcc.itn262.monster.Monster;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -88,6 +92,9 @@ public class Maze {
                     keyFound = false;
                     System.out.println("You have reset the game");
                     break;
+                case 'b':
+                    CombatLogic combat = new CombatLogic(new Player("Hero"), new Monster("Skeleton"));
+                    combat.startFight();
                 default:
                     System.out.println("What did you mean? Invalid move");
                     break;

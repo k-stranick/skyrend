@@ -12,7 +12,7 @@ public interface PlayerSkill {
 
     public boolean isOnCooldown();
 
-    public void reduceCooldown();
+    public void reduceCooldown();  // I do not think this should be in the interface should be in turn logic??
 
     public void setCooldown();
 

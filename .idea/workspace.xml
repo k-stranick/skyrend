@@ -4,23 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05182ae1-d102-4666-b7ff-0513447a3bd8" name="Changes" comment="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/MonsterCombatLogic.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/PlayerCombatLogic.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/MonsterSkill.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/PlayerSkill.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/TestMonsterSkill.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/TestPlayerSkill.java" afterDir="false" />
+    <list default="true" id="05182ae1-d102-4666-b7ff-0513447a3bd8" name="Changes" comment="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??">
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/CombatLogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/MonsterActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/PlayerActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/PlayerAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/PlayerAttributes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Validation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Validation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/HaroldOfTheFallen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/HaroldOfTheFallen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/Monster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/Skelton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/Skeleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/Skills.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/TestSkill.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Weapons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Weapons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/MonsterCombatLogic.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/PlayerCombatLogic.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/PlayerSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/PlayerSkill.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,13 +175,22 @@
       <option name="project" value="LOCAL" />
       <updated>1726304029498</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??">
+      <option name="closed" value="true" />
+      <created>1726372151416</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1726372151416</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Testing Commit" />
     <MESSAGE value="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map" />
-    <option name="LAST_COMMIT_MESSAGE" value="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map" />
+    <MESSAGE value="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??" />
+    <option name="LAST_COMMIT_MESSAGE" value="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
