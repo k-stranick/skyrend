@@ -10,7 +10,7 @@ public interface MonsterSkill {
 
     public boolean isOnCooldown();
 
-    public void reduceCooldown();
+    //public void reduceCooldown();
 
     public void setCooldown();
 

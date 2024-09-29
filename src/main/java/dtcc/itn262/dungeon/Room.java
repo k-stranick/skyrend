@@ -5,8 +5,9 @@ public class Room {
     private int n, s, w, e;
     private boolean visited;
     private String description;
+    private boolean isSpecial;
 
-    public Room(String name, String description, int n, int s, int w, int e) {
+    public Room(String name, String description, int n, int s, int w, int e, boolean isSpecial) {
         this.name = name;
         this.description = description;
         this.n = n;
@@ -14,8 +15,12 @@ public class Room {
         this.w = w;
         this.e = e;
         this.visited = false;
-    }
+        this.isSpecial = isSpecial;  // Set if the room has a fight or story dialogue
 
+    }
+public boolean isSpecial() {
+        return isSpecial;
+    }
     public String getName() {
         return name;
     }

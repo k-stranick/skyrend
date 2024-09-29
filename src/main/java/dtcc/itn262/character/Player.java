@@ -1,12 +1,20 @@
 package dtcc.itn262.character;
 
+import static dtcc.itn262.gameutilities.Validation.validateName;
+
 public class Player {
     private String hero;
     private PlayerAttributes playerAttributes;
 
-    public Player(String name) {
-        hero = !name.isEmpty() ? name : "Hero";
+    public Player(String hero) {
+        this.hero = hero;
         playerAttributes = new PlayerAttributes();
+    }
+
+    // Factory method to create a Player with validation
+    public static Player createPlayer(String name) {
+        String validatedName = validateName(name);
+        return new Player(validatedName);
     }
 
     public PlayerAttributes getPlayerAttributes() {

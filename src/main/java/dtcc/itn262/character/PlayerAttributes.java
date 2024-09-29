@@ -28,7 +28,7 @@ public class PlayerAttributes {
         luck = randStat();
         experience = 0; // base experience
         health = 100;  // base health
-        mana = 100; // base mana
+        mana = 1000; // base mana
         level = 1; // base level
     }
 

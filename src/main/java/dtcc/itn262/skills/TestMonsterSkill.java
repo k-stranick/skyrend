@@ -35,16 +35,6 @@ public class TestMonsterSkill implements MonsterSkill {
         return currentCooldown > 0;
     }
 
-    /**
-     *
-     */
-    @Override
-    public void reduceCooldown() {
-        if (currentCooldown > 0) {
-            currentCooldown--;
-        }
-
-    }
 
     /**
      *

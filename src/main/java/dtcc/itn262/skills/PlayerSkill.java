@@ -12,9 +12,11 @@ public interface PlayerSkill {
 
     public boolean isOnCooldown();
 
-    public void reduceCooldown();  // I do not think this should be in the interface should be in turn logic??
+    public void reduceCooldown(); // I do not think this should be in the interface should be in turn logic??
 
     public void setCooldown();
 
     void useSkill(Player player, Monster target); // player targeting monster with skills
+
+    int getCurrentCooldown();
 }
