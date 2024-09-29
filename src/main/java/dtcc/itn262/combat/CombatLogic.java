@@ -72,6 +72,9 @@ public class CombatLogic {
                 case 4:
                     handleEnemyScan(); // Show enemy stats
                     break;
+                case 5:
+                    handleRun();
+                    break;
                 default:
                     System.out.println("Invalid choice.");
                     playerTurn();// loop back to battle-menu
@@ -97,6 +100,10 @@ public class CombatLogic {
 
     private void handleEnemyScan() {
         playerActions.showEnemyStats(monster);
+    }
+
+    private void handleRun() {
+        playerActions.run();
     }
 
     public void handleSkillUsage() {
@@ -142,6 +149,6 @@ public class CombatLogic {
         System.out.println("2. Defend");
         System.out.println("3. Use Skill");
         System.out.println("4. Scan Enemy");
+        System.out.println("5. Run");
     }
-
 }

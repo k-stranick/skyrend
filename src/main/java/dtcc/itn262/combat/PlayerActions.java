@@ -5,8 +5,8 @@ import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.PlayerSkill;
 import dtcc.itn262.skills.TestPlayerSkill;
 import dtcc.itn262.skills.TestSkillPlayerTwo;
-
 import java.util.ArrayList;
+import java.util.Random;
 
 public class PlayerActions {
     protected ArrayList<PlayerSkill> skills = new ArrayList<>();
@@ -50,7 +50,7 @@ public class PlayerActions {
     }
 
 
-    public void showEnemyStats(Monster target) {
+    protected void showEnemyStats(Monster target) {
         System.out.println("Enemy: " + target.getEnemy() +
                 "\nHealth: " + target.getMonsterAttributes().getHealth() +
                 "\nDefense: " + target.getMonsterAttributes().getDefense() +
@@ -61,18 +61,27 @@ public class PlayerActions {
     }
 
 
-    public void showSkills() {  // need to return a skill list in human-readable format
+    protected void showSkills() {  // need to return a skill list in human-readable format
         for (int i = 0; i < skills.size(); i++) {
             System.out.println((i + 1) + ". " + skills.get(i).getSkillName());
         }
     }
 
 
-    public PlayerSkill getSkill(int index) {
+    protected PlayerSkill getSkill(int index) {
         if (index >= 0 && index < skills.size()) {
             return skills.get(index);
         }else {
             throw new IndexOutOfBoundsException("Invalid skill index: " + index);
         }
+    }
+
+    protected void run() {
+        Random rand = new Random();
+        int chance = rand.nextInt(100);
+        if(chance<50){
+            System.out.println("You failed to run away!");
+        }
+        System.out.println("You ran away!");
     }
 }

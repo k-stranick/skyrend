@@ -13,6 +13,7 @@ public class Maze {
     private Set<String> uniqueVisitedRooms;
     private List<Room> rooms;
     private int currentRoomIndex;
+    private List<String> moveHistory = new ArrayList<>(); // tracks all moves
     private Stack<String> moves = new Stack<>(); // stack of moves
     private Player player;
 
@@ -32,15 +33,15 @@ public class Maze {
         rooms.add(new Room("The Outskirts", "A lawless area on the edge of the city, filled with rogue Aether users and hackers.", 1, -1, 2, -1, false)); // Room 0
         rooms.add(new Room("Neon Corridor", "A bustling district filled with traders, technomancers, and black market dealers.", 3, 0, 4, -1, false)); // Room 1
         rooms.add(new Room("Abandoned Tech Labs", "A research facility overrun with failed AI experiments and corrupted magic.", -1, -1, 5, 0, true)); // Room 2
-        rooms.add(new Room("The Driftway", "A dangerous floating skyrail system connecting the lower city to the elite Nexus towers.", 6, 1, -1, -1, false)); // Room 3
-        rooms.add(new Room("Aetheric Sanctum", "A hidden sanctum where the raw power of the Aether flows freely. Only the most powerful technomancers dare enter.", -1, 5, -1, 7, true));
-        rooms.add(new Room("Rune Street Markets", "A chaotic black market where rogue technomancers trade AetherGrid enhancements.", 7, -1, -1, 1, false)); // Room 4
-        rooms.add(new Room("Ghost Terminal", "An underground server room where the Ghost Code emerged, guarded by ArcTech enforcers.", 8, -1, -1, 2, true)); // Room 5
-        rooms.add(new Room("Arcane Synth Bay", "A fusion lab for cybernetic enhancements, pulsing with corrupted spells.", 9, 3, -1, -1, false)); // Room 6
-        rooms.add(new Room("Echo Vault", "A hidden digital vault where echoes of past Aether events are stored, distorted by the Ghost Code.", 8, 4, -1, -1, false)); // Room 7
-        rooms.add(new Room("Obsidian Relay", "A central hub of the AetherGrid where the Council of Circuits monitors all magical and digital activity.", 10, 5, -1, 7, true)); // Room 8
-        rooms.add(new Room("Nullspace Hub", "A digital realm within the AetherGrid where space and time distort unpredictably.", 10, 6, -1, -1, false)); // Room 9
-        rooms.add(new Room("Aether Nexus", "The towering heart of Skyrend, controlled by the Council of Circuits.", -1, 8, -1, 9, true)); // Room 10
+        rooms.add(new Room("The Driftway", "A dangerous floating sky rail system connecting the lower city to the elite Nexus towers.", 6, 1, -1, -1, false)); // Room 3
+        rooms.add(new Room("Aetheric Sanctum", "A hidden sanctum where the raw power of the Aether flows freely. Only the most powerful technomancers dare enter.", -1, 5, -1, 7, true)); // Room 4
+        rooms.add(new Room("Rune Street Markets", "A chaotic black market where rogue technomancers trade AetherGrid enhancements.", 7, -1, -1, 1, false)); // Room 5
+        rooms.add(new Room("Ghost Terminal", "An underground server room where the Ghost Code emerged, guarded by ArcTech enforcers.", 8, -1, -1, 2, true)); // Room 6
+        rooms.add(new Room("Arcane Synth Bay", "A fusion lab for cybernetic enhancements, pulsing with corrupted spells.", 9, 3, -1, -1, false)); // Room 7
+        rooms.add(new Room("Echo Vault", "A hidden digital vault where echoes of past Aether events are stored, distorted by the Ghost Code.", 8, 4, -1, -1, false)); // Room 8
+        rooms.add(new Room("Obsidian Relay", "A central hub of the AetherGrid where the Council of Circuits monitors all magical and digital activity.", 10, 5, -1, 7, true)); // Room 9
+        rooms.add(new Room("Nullspace Hub", "A digital realm within the AetherGrid where space and time distort unpredictably.", 10, 6, -1, -1, false)); // Room 10
+        rooms.add(new Room("Aether Nexus", "The towering heart of Skyrend, controlled by the Council of Circuits.", -1, 8, -1, 9, true)); // Room 11
     }
 
     // Handle movement
@@ -69,7 +70,7 @@ public class Maze {
 
     public void undoMove() {
         String lastMove = movement.undoMove();
-        if (!lastMove.equals("")) {
+        if (!lastMove.isEmpty()) {
             Room currentroom = rooms.get(currentRoomIndex);
             switch (lastMove.toLowerCase()) {
                 case "north":
@@ -87,6 +88,25 @@ public class Maze {
             }
             showCurrentRoom();
         }
+    }
+
+    public void showMap() {
+        // Display a simple text-based map and mark the player's current location
+        String[] map = new String[] {
+                "[The Outskirts]", "[Neon Corridor]", "[Abandoned Tech Labs]", "[The Driftway]",
+                "[Aetheric Sanctum]", "[Rune Street Markets]", "[Ghost Terminal]",
+                "[Arcane Synth Bay]", "[Echo Vault]", "[Obsidian Relay]", "[Nullspace Hub]", "[Aether Nexus]"
+        };
+
+        // Mark the player's current location
+        for (int i = 0; i < map.length; i++) {
+            if (i == currentRoomIndex) {
+                System.out.print("[[x] " + rooms.get(i).getName() + "]] ");  // Mark current player location
+            } else {
+                System.out.print(map[i] + " ");
+            }
+        }
+        System.out.println();  // Newline after map display
     }
 
     // Show the rooms the player has visited

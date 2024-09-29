@@ -12,7 +12,7 @@ public class Game {
     }
 
 
-// TODO: WHY DOES THIS MAKE ME HIT ENTER TWICE
+    // TODO: WHY DOES THIS MAKE ME HIT ENTER TWICE
     private void startGame() {
         Scanner input = new Scanner(System.in);
 
@@ -37,11 +37,17 @@ public class Game {
         do {
             System.out.print("? ");
             value = input.nextLine().trim();
-            if (!value.equalsIgnoreCase("exit")) {
-                m.move(value);
+
+            if (value.equalsIgnoreCase("exit")) {
+                cont = false;  // Exit the game loop
+            } else if (value.equalsIgnoreCase("map")) {
+                // Command to show the map
+                m.showMap();  // Show the current map and player's position
             } else {
-                cont = false;
+                // Handle movement commands
+                m.move(value);  // Move player based on input
             }
         } while (cont);
+
     }
 }
