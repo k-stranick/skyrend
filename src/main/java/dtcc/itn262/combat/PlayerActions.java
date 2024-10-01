@@ -5,11 +5,13 @@ import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.PlayerSkill;
 import dtcc.itn262.skills.TestPlayerSkill;
 import dtcc.itn262.skills.TestSkillPlayerTwo;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 public class PlayerActions {
     protected ArrayList<PlayerSkill> skills = new ArrayList<>();
+    Random rand = new Random();
 
     public PlayerActions() { // adding skills to the player
         skills.add(new TestPlayerSkill());
@@ -41,7 +43,7 @@ public class PlayerActions {
             if (!skill.isOnCooldown()) {
                 skill.useSkill(player, target);
 
-            }else {
+            } else {
                 System.out.println("Cannot use " + skill.getSkillName() + " for " + skill.getCurrentCooldown() + " more turns.");
             }
         } else {
@@ -71,17 +73,22 @@ public class PlayerActions {
     protected PlayerSkill getSkill(int index) {
         if (index >= 0 && index < skills.size()) {
             return skills.get(index);
-        }else {
+        } else {
             throw new IndexOutOfBoundsException("Invalid skill index: " + index);
         }
     }
 
-    protected void run() {
-        Random rand = new Random();
-        int chance = rand.nextInt(100);
-        if(chance<50){
+
+    protected boolean run(Player player) {
+        int luck = player.getPlayerAttributes().getLuck();  // Use player's luck to influence run success
+        int chanceToRun = rand.nextInt(100);  // Generate a random number between 0 and 99
+        if (chanceToRun + luck > 50) {  // Add player's luck to the chance and compare
+            System.out.println("You successfully ran away!");
+            return true;
+        } else {
             System.out.println("You failed to run away!");
+            return false;
         }
-        System.out.println("You ran away!");
     }
+
 }

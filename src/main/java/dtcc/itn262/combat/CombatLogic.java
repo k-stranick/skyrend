@@ -29,31 +29,104 @@ public class CombatLogic {
 
     public void startFight() {
         boolean playerGoesFirst = player.getPlayerAttributes().getSpeed() > monster.getMonsterAttributes().getSpeed();
+        boolean fightOnGoing = true;
+
         do {
-            if (playerGoesFirst) {
-                playerTurn();
-
-            } else {
+            // Monster's turn first if its speed is higher
+            if (!playerGoesFirst) {
                 monsterTurn();
+                if (monsterAttributes.getHealth() <= 0) {
+                    break;  // Exit if monster is defeated
+                }
             }
-            reduceCooldown();  // should this be here it?
-            playerGoesFirst = !playerGoesFirst;
 
-        } while (playerAttributes.getHealth() > 0 && monsterAttributes.getHealth() > 0);
+            // Player's turn (after monster's if monster is faster)
+            fightOnGoing = playerTurn();  // If player runs successfully, fightOnGoing becomes false
+            if (!fightOnGoing || monsterAttributes.getHealth() <= 0) {
+                break;  // Exit if player runs or monster is defeated
+            }
 
-        if (playerAttributes.getHealth() > 0) {
-            System.out.println("Player wins!");
+            // Player attacks first if their speed is higher
+            if (playerGoesFirst) {
+                monsterTurn();  // Monster attacks after player's turn
+            }
+
+            reduceCooldown();  // Reduce cooldowns after each turn
+        } while (playerAttributes.getHealth() > 0 && monsterAttributes.getHealth() > 0 && fightOnGoing);
+
+        // Determine the outcome of the combat
+        if (playerAttributes.getHealth() > 0 && monsterAttributes.getHealth() <= 0) {
+            System.out.println("Player wins! The monster is defeated.");
+        } else if (!fightOnGoing) {
+            System.out.println("You successfully ran away!");
         } else {
             System.out.println("Monster wins!\nGame Over!");
-            System.exit(0); // exit the game
+            System.exit(0);  // Exit the game after losing
         }
     }
+
+
+
+    private boolean playerTurn() {
+        boolean validChoice = false;
+
+        while (!validChoice) {  // Loop until a valid choice is made
+            displayBattleMenu();
+
+            if (s.hasNextInt()) {
+                int choice = s.nextInt();
+                s.nextLine();  // Clear buffer
+
+                try {
+                    switch (choice) {
+                        case 1:
+                            handleAttack();
+                            validChoice = true;
+                            break;
+                        case 2:
+                            handleDefense();
+                            validChoice = true;
+                            break;
+                        case 3:
+                            handleSkillUsage();
+                            validChoice = true;
+                            break;
+                        case 4:
+                            handleEnemyScan();  // Show enemy stats
+                            validChoice = true;
+                            break;
+                        case 5:
+                            if (handleRun()) {
+                                return false;  // Player successfully ran away
+                            } else {
+                                monsterTurn();  // Monster attacks if player fails to run
+                                validChoice = true;  // Continue after monster's turn
+                            }
+                            break;
+                        default:
+                            System.out.println("Invalid choice. Please select a valid option.");
+                            break;  // Invalid input, loop back to display menu again
+                    }
+                } catch (Exception e) {
+                    System.out.println("An error occurred: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                s.nextLine();  // Clear invalid input
+            }
+        }
+
+        return true;  // Return true if player continues fighting
+    }
+
+
+
 
     private void monsterTurn() {
         System.out.println("Monster attacks!"); // placeholder
     }
 
-    // BATTLE LOGIC IS BROKEN AND NEEDS TO BE FIXED
+   /* // BATTLE LOGIC IS BROKEN AND NEEDS TO BE FIXED
     private void playerTurn() {
         displayBattleMenu();
         int choice = s.nextInt();  // returns null if improper choice is entered need to fix this
@@ -88,7 +161,7 @@ public class CombatLogic {
             System.out.println("An Error Occured: " + e.getMessage());
 
         }
-    }
+    }*/
 
     private void handleAttack() {
         playerActions.attack(player, monster);
@@ -102,8 +175,8 @@ public class CombatLogic {
         playerActions.showEnemyStats(monster);
     }
 
-    private void handleRun() {
-        playerActions.run();
+    private boolean handleRun() {
+        return playerActions.run(player);
     }
 
     public void handleSkillUsage() {
@@ -130,15 +203,15 @@ public class CombatLogic {
 
     public void reduceCooldown() {
         ArrayList<PlayerSkill> tempList = new ArrayList<>();
-            for (PlayerSkill currentSkill : cooldownList) {
-                currentSkill.reduceCooldown();
-                if (currentSkill.getCurrentCooldown() == 0) {
-                    System.out.println(currentSkill.getSkillName() + " is off cooldown.");
-                } else {
-                    tempList.add(currentSkill);  // Add skill back to temp stack if it's still on cooldown
-                }
+        for (PlayerSkill currentSkill : cooldownList) {
+            currentSkill.reduceCooldown();
+            if (currentSkill.getCurrentCooldown() == 0) {
+                System.out.println(currentSkill.getSkillName() + " is off cooldown.");
+            } else {
+                tempList.add(currentSkill);  // Add skill back to temp stack if it's still on cooldown
             }
-            cooldownList = tempList;  // replace cooldown stack with updated temp stack
+        }
+        cooldownList = tempList;  // replace cooldown stack with updated temp stack
 
     }
 

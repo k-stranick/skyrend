@@ -12,38 +12,36 @@ public class Game {
     }
 
 
-    // TODO: WHY DOES THIS MAKE ME HIT ENTER TWICE
     private void startGame() {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Debug: Prompting for player name");  // Debug statement
-
-// Prompt for the player's name first
+        // Prompt for the player's name first
         System.out.print("Enter your hero's name: ");
         String playerName = input.nextLine().trim();  // Read and trim player input
-        System.out.println("Debug: Player name entered: " + playerName);  // Debug statement
 
-        // Now create the player with the provided name
-        Player player = Player.createPlayer(playerName);
+        // create the player with the provided name
+        Player player = Player.createPlayer(playerName, 0, 0);
         System.out.println("Welcome, " + player.getHero() + "!");
 
         // Display player stats after the name has been entered
         System.out.println(player);  // This will invoke player.toString() and print the stats
 
         Maze m = new Maze();
-        String value = "";
+        String value;
         boolean cont = true;
 
         do {
             System.out.print("? ");
-            value = input.nextLine().trim();
-
+            value = input.nextLine().trim();  // Read and trim player input
             if (value.equalsIgnoreCase("exit")) {
                 cont = false;  // Exit the game loop
             } else if (value.equalsIgnoreCase("map")) {
                 // Command to show the map
-                m.showMap();  // Show the current map and player's position
-            } else {
+                m.displayMap();  // Show the current map and player's position
+            } else if (value.equalsIgnoreCase("progress")) {
+                // command to show current progress to escape
+                m.showProgress();
+            }else {
                 // Handle movement commands
                 m.move(value);  // Move player based on input
             }

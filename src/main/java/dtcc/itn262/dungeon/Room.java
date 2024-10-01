@@ -1,11 +1,14 @@
 package dtcc.itn262.dungeon;
 
 public class Room {
-    private String name;
-    private int n, s, w, e;
+    private final String name;
+    private final int n;
+    private final int s;
+    private final int w;
+    private final int e;
     private boolean visited;
-    private String description;
-    private boolean isSpecial;
+    private final String description;
+    private final boolean isSpecial;
 
     public Room(String name, String description, int n, int s, int w, int e, boolean isSpecial) {
         this.name = name;
