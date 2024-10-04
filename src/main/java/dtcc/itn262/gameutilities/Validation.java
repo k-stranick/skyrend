@@ -3,8 +3,7 @@ package dtcc.itn262.gameutilities;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.dungeon.Maze;
 import dtcc.itn262.dungeon.Room;
-
-import java.io.File;
+import dtcc.itn262.monster.MonsterAttributes;
 
 public class Validation { // this will be a class of static methods
 
@@ -20,6 +19,7 @@ public class Validation { // this will be a class of static methods
     public static boolean isValidMenuChoice(int minVal, int maxVal, int choice) {
         return choice >= minVal && choice <= maxVal;
     }
+
     // Method for validating the player name
     public static String validateName(String name) {
         if (name.isEmpty()) {
@@ -35,9 +35,11 @@ public class Validation { // this will be a class of static methods
             return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
         }
     }
- public static boolean isValidRoom(int newRow, int newCol, Room[][] map) {
-     return newRow >= 0 && newRow < map.length && newCol >= 0 && newCol < map[0].length;
- }
+
+    public static boolean isValidRoom(int newRow, int newCol, Room[][] map) {
+        return newRow >= 0 && newRow < map.length && newCol >= 0 && newCol < map[0].length;
+    }
+
     public static boolean move(Room currentRoom, String direction) {
         try {
             direction = direction.toLowerCase();  // character is a byte that represents a letter
@@ -86,16 +88,29 @@ public class Validation { // this will be a class of static methods
         }
 
     }
-    public boolean isGameOver(Maze maze, Player player) {
-        return checkWinCondition(maze) || checkLoseCondition(player);
-    }
 
-    public boolean checkWinCondition(Maze maze) {
+    public static boolean checkPostTurnConditions(Player player, MonsterAttributes monsterAttributes) {
+        // Check if the player has lost
+        if (Validation.checkLoseCondition(player)) {
+            System.out.println("Monster wins! Game Over.");
+            System.exit(0);  // Exit the game after losing
+            return true;  // Break out of the fight
+        }
+
+        // Check if the monster is defeated
+        if (monsterAttributes.getHealth() <= 0) {
+            System.out.println("Player wins! The monster is defeated.");
+            return true;  // Break out of the fight
+        }
+
+        return false;  // Continue the fight
+    }
+    protected static boolean checkWinCondition(Maze maze) {
         // Logic for checking if the player has won (e.g., visited all special rooms)
         return maze.getUniqueVisitedRooms().size() >= maze.getRequiredVisitedRooms();
     }
 
-    public boolean checkLoseCondition(Player player) {
+    protected static boolean checkLoseCondition(Player player) {
         // Logic for checking if the player has lost (e.g., health is 0)
         return !player.isAlive();
     }

@@ -2,7 +2,7 @@ package dtcc.itn262.monster;
 
 public class Monster {
     private String enemy;
-    private MonsterAttributes monsterAttributes;
+    private final MonsterAttributes monsterAttributes;
 
 
     public Monster(String enemy) {

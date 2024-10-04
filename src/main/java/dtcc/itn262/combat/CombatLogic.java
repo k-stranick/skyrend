@@ -6,183 +6,142 @@ import dtcc.itn262.gameutilities.DisplayUtility;
 import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.skills.PlayerSkill;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class CombatLogic {
-    private Scanner s = new Scanner(System.in);
-    private Player player;
-    private Monster monster;
-    private PlayerAttributes playerAttributes;
-    private MonsterAttributes monsterAttributes;
-    private PlayerActions playerActions = new PlayerActions();
+    private final Scanner s = new Scanner(System.in);
+    private final Player player;
+    private final Monster monster;
+    private final PlayerActions playerActions = new PlayerActions();
     private MonsterActions monsterActions = new MonsterActions();
     private ArrayList<PlayerSkill> cooldownList = new ArrayList<>();  // this is a generic stack that holds PlayerSkill objects
-
+    private boolean playerFailedToRun = false;  // Flag to track failed run attempts
 
     public CombatLogic(Player player, Monster monster) {
         this.player = player;
         this.monster = monster;
-        this.playerAttributes = player.getPlayerAttributes();
-        this.monsterAttributes = monster.getMonsterAttributes();
     }
 
+    private static void determineOutcome(Player player, MonsterAttributes monsterAttributes) {
+        if (player.isAlive() && monsterAttributes.getHealth() <= 0) {
+            System.out.println("Player wins! The monster is defeated.");
+        } else if (!player.isAlive()) {
+            System.out.println("Monster wins!\nGame Over!");
+            System.exit(0);  // Exit the game after losing
+        } else {
+            System.out.println("You successfully ran away!");
+        }
+    }
 
     public void startFight() {
-        boolean playerGoesFirst = player.getPlayerAttributes().getSpeed() > monster.getMonsterAttributes().getSpeed();
         boolean fightOnGoing = true;
 
         do {
-            // Monster's turn first if its speed is higher
-            if (!playerGoesFirst) {
-                monsterTurn();
-                if (monsterAttributes.getHealth() <= 0) {
-                    break;  // Exit if monster is defeated
-                }
-            }
+            playerFailedToRun = false;  // Reset at the beginning of each player turn
 
-            // Player's turn (after monster's if monster is faster)
-            fightOnGoing = playerTurn();  // If player runs successfully, fightOnGoing becomes false
-            if (!fightOnGoing || monsterAttributes.getHealth() <= 0) {
-                break;  // Exit if player runs or monster is defeated
-            }
-
-            // Player attacks first if their speed is higher
-            if (playerGoesFirst) {
-                monsterTurn();  // Monster attacks after player's turn
-            }
-
-            reduceCooldown();  // Reduce cooldowns after each turn
-        } while (playerAttributes.getHealth() > 0 && monsterAttributes.getHealth() > 0 && fightOnGoing);
-
-        // Determine the outcome of the combat
-        if (playerAttributes.getHealth() > 0 && monsterAttributes.getHealth() <= 0) {
-            System.out.println("Player wins! The monster is defeated.");
-        } else if (!fightOnGoing) {
-            System.out.println("You successfully ran away!");
-        } else {
-            System.out.println("Monster wins!\nGame Over!");
-            System.exit(0);  // Exit the game after losing
-        }
-    }
-
-
-    private boolean playerTurn() {
-        boolean validChoice = false;
-
-        while (!validChoice) {  // Loop until a valid choice is made
-            displayBattleMenu();
-
-            if (s.hasNextInt()) {
-                int choice = s.nextInt();
-                s.nextLine();  // Clear buffer
-
-                try {
-                    switch (choice) {
-                        case 1:
-                            handleAttack();
-                            validChoice = true;
-                            break;
-                        case 2:
-                            handleDefense();
-                            validChoice = true;
-                            break;
-                        case 3:
-                            handleSkillUsage();
-                            validChoice = true;
-                            break;
-                        case 4:
-                            handleEnemyScan();  // Show enemy stats
-                            validChoice = true;
-                            break;
-                        case 5:
-                            if (handleRun()) {
-                                return false;  // Player successfully ran away
-                            } else {
-                                monsterTurn();  // Monster attacks if player fails to run
-                                validChoice = true;  // Continue after monster's turn
-                            }
-                            break;
-                        default:
-                            System.out.println("Invalid choice. Please select a valid option.");
-                            break;  // Invalid input, loop back to display menu again
+            // Player goes first if their speed is higher
+            if (player.getPlayerAttributes().getSpeed() > monster.getMonsterAttributes().getSpeed()) {
+                if (playerTurn()) {
+                    fightOnGoing = false;  // Player successfully ends the battle by running away
+                } else {
+                    if (!playerFailedToRun) {
+                        monsterTurn();  // Monster's turn if the fight continues
                     }
-                } catch (Exception e) {
-                    System.out.println("An error occurred: " + e.getMessage());
                 }
             } else {
-                System.out.println("Invalid input. Please enter a number.");
-                s.nextLine();  // Clear invalid input
+                monsterTurn();  // Monster's turn first
+                if (!player.isAlive() || playerTurn()) {
+                    fightOnGoing = false;  // Player turn ends the battle or player is dead
+                }
             }
-        }
 
-        return true;  // Return true if player continues fighting
+            // Reduce cooldowns if fight is ongoing
+            if (fightOnGoing) {
+                reduceCooldown();
+            }
+
+        } while (fightOnGoing && player.isAlive() && monster.getMonsterAttributes().getHealth() > 0);
+
+        // Determine the outcome of the combat
+        determineOutcome(player, monster.getMonsterAttributes());
     }
 
+    private boolean playerTurn() {
+        while (true) {  // Loop until a valid choice is made
+            displayBattleMenu();
+            int choice = getPlayerChoice();  // Extracted method for getting choice
+
+            try {
+                // If executePlayerChoice returns true, it means the player successfully ran away
+                return executePlayerChoice(choice);
+            } catch (Exception e) {
+                System.out.println("An error occurred: " + e.getMessage());
+            }
+        }
+    }
+
+    // Helper method to get player's input
+    private int getPlayerChoice() {
+        while (!s.hasNextInt()) {
+            System.out.println("Invalid input. Please enter a number.");
+            s.nextLine();  // Clear invalid input
+        }
+        int choice = s.nextInt();
+        s.nextLine();  // Clear buffer
+        return choice;
+    }
+
+    // Helper method to execute the player's choice
+    private boolean executePlayerChoice(int choice) {
+        switch (choice) {
+            case 1 -> handleAttack();
+            case 2 -> handleDefense();
+            case 3 -> {
+                return handleSkillUsage();
+            }
+            case 4 -> handleEnemyScan();
+            case 5 -> {
+                return handleRunAttempt();
+            }
+            default -> {
+                System.out.println("Invalid choice. Please select a valid option.");
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private boolean handleRunAttempt() {
+        if (playerActions.run(player)) {
+            return true;  // Successfully ran away, exit battle loop
+        } else {
+            monsterTurn();  // Monster attacks if run fails
+            if (!player.isAlive()) {
+                return true;  // Player is dead, end combat
+            }
+            playerFailedToRun = true;  // Track that the monster already attacked
+            return false;  // Continue combat if the player is still alive
+        }
+    }
 
     private void monsterTurn() {
-        System.out.println("Monster attacks!"); // placeholder
+        System.out.println("Monster attacks!"); // Implement monster attack logic here
     }
-
-   /* // BATTLE LOGIC IS BROKEN AND NEEDS TO BE FIXED
-    private void playerTurn() {
-        displayBattleMenu();
-        int choice = s.nextInt();  // returns null if improper choice is entered need to fix this
-        s.nextLine();  // clear buffer
-        try {
-            switch (choice) {
-                case 1:
-                    handleAttack();
-                    break;
-                case 2:
-                    handleDefense();
-                    break;
-                case 3:
-                    handleSkillUsage();
-                    break;
-                case 4:
-                    handleEnemyScan(); // Show enemy stats
-                    break;
-                case 5:
-                    handleRun();
-                    break;
-                default:
-                    System.out.println("Invalid choice.");
-                    playerTurn();// loop back to battle-menu
-            }
-
-        } catch (IndexOutOfBoundsException e) {
-            //TODO: ADD LOGGER HERE
-            System.out.println(e.getMessage());
-
-        } catch (Exception e) {
-            System.out.println("An Error Occured: " + e.getMessage());
-
-        }
-    }*/
-
 
     private void handleAttack() {
         playerActions.attack(player, monster);
     }
 
-
     private void handleDefense() {
         playerActions.defend(player);
     }
-
 
     private void handleEnemyScan() {
         playerActions.showEnemyStats(monster);
     }
 
-
-    private boolean handleRun() {
-        return playerActions.run(player);
-    }
-
-
-    public void handleSkillUsage() {
+    public boolean handleSkillUsage() {
         playerActions.showSkills();  // Show available skills
         System.out.println("Choose a skill: ");
         int skillIndex = (s.nextInt() - 1);  // Get skill choice by converting user input to 0-based index
@@ -190,33 +149,31 @@ public class CombatLogic {
 
         if (skillIndex < 0 || skillIndex >= playerActions.skills.size()) {
             System.out.println("Invalid skill index.");
-            return;  // Skill choice was invalid
+            return false;  // Skill choice was invalid
         }
 
         PlayerSkill skill = playerActions.getSkill(skillIndex);
         if (skill.isOnCooldown()) {
             System.out.println("Cannot use " + skill.getSkillName() + " for " + skill.getCurrentCooldown() + " more turns.");
-            return;  // Skill is on cooldown
+            return false;  // Skill is on cooldown
         }
 
         playerActions.useSkill(player, monster, skillIndex);
         cooldownList.add(skill);  // Add skill to cooldown stack
+        return true;  // Skill was used successfully
     }
 
-
     public void reduceCooldown() {
-        ArrayList<PlayerSkill> tempList = new ArrayList<>();
-        for (PlayerSkill currentSkill : cooldownList) {
+        for (int i = 0; i < cooldownList.size(); i++) {
+            PlayerSkill currentSkill = cooldownList.get(i);
             currentSkill.reduceCooldown();
             if (currentSkill.getCurrentCooldown() == 0) {
                 System.out.println(currentSkill.getSkillName() + " is off cooldown.");
-            } else {
-                tempList.add(currentSkill);  // Add skill back to temp stack if it's still on cooldown
+                cooldownList.remove(i);
+                i--;
             }
         }
-        cooldownList = tempList;  // replace cooldown stack with updated temp stack
     }
-
 
     private void displayBattleMenu() {
         DisplayUtility.printSeparator(20);

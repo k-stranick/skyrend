@@ -28,10 +28,13 @@ public class Game {
                 value = input.nextLine().trim(); // Read and trim player input
                 handleInput(value, m);
 
-                // check if game is onver
-                if(m.isGameOver()){
-                    System.out.println("Game Over!");
-                    System.exit(0);
+                // Check for win or lose conditions
+                if (Validation.checkWinCondition(m)) {
+                    System.out.println("Congratulations! You've won the game!");
+                    cont = false;  // End the game loop
+                } else if (Validation.checkLoseCondition(player)) {
+                    System.out.println("Game Over! You have lost the game.");
+                    cont = false;  // End the game loop
                 }
             } while (cont);
         }
@@ -40,17 +43,16 @@ public class Game {
 
     }
 
-    private void handleInput(String value, Maze m) {
+    private boolean handleInput(String value, Maze m) {
         Command command = parseCommand(value);
         if (command == null) {
             System.out.println("Invalid command. Please try again.");
-            return;
+            return true; // Return true if the command is invalid and continue the loop
         }
         switch (command) {
             case EXIT:
                 System.out.println("Thank you for playing!");
-                System.exit(0);
-                break;
+                return false;
             case MAP:
                 m.displayMap();
                 break;
@@ -69,6 +71,7 @@ public class Game {
             default:
                 System.out.println("Invalid command. Please try again.");
         }
+        return true; // continue the game by default
     }
 
     private Command parseCommand(String value) {

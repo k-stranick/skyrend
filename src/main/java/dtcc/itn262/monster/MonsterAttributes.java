@@ -18,7 +18,7 @@ public class MonsterAttributes {
     private String description;
 
     public MonsterAttributes() {
-        health = 1000;
+        health = 100;
         strength = randStat();
         defense = randStat();
         magic = randStat();

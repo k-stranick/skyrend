@@ -83,7 +83,6 @@ public class PlayerActions {
         int luck = player.getPlayerAttributes().getLuck();  // Use player's luck to influence run success
         int chanceToRun = rand.nextInt(100);  // Generate a random number between 0 and 99
         if (chanceToRun + luck > 50) {  // Add player's luck to the chance and compare
-            System.out.println("You successfully ran away!");
             return true;
         } else {
             System.out.println("You failed to run away!");

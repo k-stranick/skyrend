@@ -83,5 +83,6 @@ public class Player {
     }
 
     public boolean isAlive() {
+        return playerAttributes.getHealth() > 0;
     }
 }
