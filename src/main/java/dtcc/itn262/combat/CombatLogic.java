@@ -6,7 +6,6 @@ import dtcc.itn262.gameutilities.DisplayUtility;
 import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.skills.PlayerSkill;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,12 +19,14 @@ public class CombatLogic {
     private MonsterActions monsterActions = new MonsterActions();
     private ArrayList<PlayerSkill> cooldownList = new ArrayList<>();  // this is a generic stack that holds PlayerSkill objects
 
+
     public CombatLogic(Player player, Monster monster) {
         this.player = player;
         this.monster = monster;
         this.playerAttributes = player.getPlayerAttributes();
         this.monsterAttributes = monster.getMonsterAttributes();
     }
+
 
     public void startFight() {
         boolean playerGoesFirst = player.getPlayerAttributes().getSpeed() > monster.getMonsterAttributes().getSpeed();
@@ -64,7 +65,6 @@ public class CombatLogic {
             System.exit(0);  // Exit the game after losing
         }
     }
-
 
 
     private boolean playerTurn() {
@@ -120,8 +120,6 @@ public class CombatLogic {
     }
 
 
-
-
     private void monsterTurn() {
         System.out.println("Monster attacks!"); // placeholder
     }
@@ -163,21 +161,26 @@ public class CombatLogic {
         }
     }*/
 
+
     private void handleAttack() {
         playerActions.attack(player, monster);
     }
+
 
     private void handleDefense() {
         playerActions.defend(player);
     }
 
+
     private void handleEnemyScan() {
         playerActions.showEnemyStats(monster);
     }
 
+
     private boolean handleRun() {
         return playerActions.run(player);
     }
+
 
     public void handleSkillUsage() {
         playerActions.showSkills();  // Show available skills
@@ -198,8 +201,8 @@ public class CombatLogic {
 
         playerActions.useSkill(player, monster, skillIndex);
         cooldownList.add(skill);  // Add skill to cooldown stack
-
     }
+
 
     public void reduceCooldown() {
         ArrayList<PlayerSkill> tempList = new ArrayList<>();
@@ -212,7 +215,6 @@ public class CombatLogic {
             }
         }
         cooldownList = tempList;  // replace cooldown stack with updated temp stack
-
     }
 
 

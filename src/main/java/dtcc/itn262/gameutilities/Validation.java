@@ -1,5 +1,7 @@
 package dtcc.itn262.gameutilities;
 
+import dtcc.itn262.character.Player;
+import dtcc.itn262.dungeon.Maze;
 import dtcc.itn262.dungeon.Room;
 
 import java.io.File;
@@ -83,5 +85,18 @@ public class Validation { // this will be a class of static methods
             return false;
         }
 
+    }
+    public boolean isGameOver(Maze maze, Player player) {
+        return checkWinCondition(maze) || checkLoseCondition(player);
+    }
+
+    public boolean checkWinCondition(Maze maze) {
+        // Logic for checking if the player has won (e.g., visited all special rooms)
+        return maze.getUniqueVisitedRooms().size() >= maze.getRequiredVisitedRooms();
+    }
+
+    public boolean checkLoseCondition(Player player) {
+        // Logic for checking if the player has lost (e.g., health is 0)
+        return !player.isAlive();
     }
 }

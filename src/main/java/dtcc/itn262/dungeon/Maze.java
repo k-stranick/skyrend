@@ -3,32 +3,220 @@ package dtcc.itn262.dungeon;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
 import dtcc.itn262.gameutilities.Constants;
+import dtcc.itn262.gameutilities.DisplayUtility;
 import dtcc.itn262.gameutilities.Validation;
 import dtcc.itn262.monster.Monster;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-/*
-import java.util.;
-*/
+
 
 public class Maze {
+    private static Maze instance;
+    private final Room[][] map;
+    private final int requiredVisitedRooms;
     // private Movement movement;
     private List<String> visitedRooms;
-    private Set<String> uniqueVisitedRooms;
-    private Room[][] map;
+    private final Set<String> uniqueVisitedRooms;
     // private List<Room> rooms;
     private int currentRoomIndex;
-    // private List<String> moveHistory = new ArrayList<>(); // tracks all moves
-    //private Stack<String> moves = new Stack<>(); // stack of moves
-    private Player player;
+    private final List<String> moveHistory = new ArrayList<>(); // tracks all moves
+    private final Player player;
 
 
     //constructor
-    public Maze() {
+    private Maze() {
         // movement = new Movement();
-        map = new Room[][]{
+        map = initializeMap();
+        player = Player.createPlayer("Hero", 0, 0);
+        requiredVisitedRooms = countSpecialRooms();
+        uniqueVisitedRooms = new HashSet<>();  //If a player visits the same room multiple times, the HashSet will only store that room once.
+        visitRoom(map[player.getPlayerRow()][player.getPlayerCol()]);  // Mark the starting room as visited
+/*
+        visitedRooms = new ArrayList<>();
+*/
+
+        // rooms = new ArrayList<>();
+        //currentRoomIndex = 0;
+        //createRooms();
+        DisplayUtility.showCurrentRoom(map, player);
+    }
+
+    public static Maze getInstance() {
+        if (instance == null) {
+            instance = new Maze();
+        }
+        return instance;
+    }
+
+    public List<String> getMoveHistory() {
+        return moveHistory;
+    }
+
+    public Set<String> getUniqueVisitedRooms() {
+        return uniqueVisitedRooms;
+    }
+
+    public void move(String direction) {
+        int newRow = player.getPlayerRow();
+        int newCol = player.getPlayerCol();
+
+        switch (direction.toLowerCase()) {
+            case "north": newRow--;break;
+            case "south": newRow++;break;
+            case "east": newCol++;break;
+            case "west": newCol--;break;
+            default:
+                System.out.println("Invalid direction. Use 'north', 'south', 'east', 'west'.");
+                return;
+        }
+        positionValidation(newRow, newCol);
+  /*      // Check if the new position is valid
+        if (Validation.isValidRoom(newRow, newCol, map)) {
+            player.moveTo(newRow, newCol); // Move the player to the new room
+            Room newRoom = map[newRow][newCol];
+            visitRoom(newRoom); // Mark the new room as visited
+            showCurrentRoom(); // Display the new room's details
+            checkEscapeCondition(); // Check if the player can escape after moving
+            handleSpecialRoom(newRoom); // Handle special events if the room is special
+            displayMap();  // Display the updated map
+        } else {
+            System.out.println("You can't move in that direction.");
+        }*/
+    }
+
+
+    private void positionValidation(int newRow, int newCol) {
+        // Check if the new position is valid
+        if (Validation.isValidRoom(newRow, newCol, map)) {
+            player.moveTo(newRow, newCol); // Move the player to the new room
+            Room newRoom = map[newRow][newCol];
+            processRoomAfterMove(newRoom);
+        } else {
+            System.out.println("You can't move in that direction.");
+        }
+    }
+
+
+    private void processRoomAfterMove(Room newRoom) {
+        visitRoom(newRoom);
+        DisplayUtility.showCurrentRoom(map, player);
+        triggerSpecialEvent(newRoom);
+        //displayMap(); // DO I NEED THIS?
+        checkEscapeCondition();
+        updateMoveHistory(newRoom);
+    }
+
+    private void updateMoveHistory(Room room) {
+        moveHistory.add("Moved to " + room.getName()); // Add the move to the history
+
+    }
+
+
+    public void visitRoom(Room currentRoom) {
+        if (currentRoom.isSpecial() && !currentRoom.isVisited()) {
+            uniqueVisitedRooms.add(currentRoom.getName());  // Track unique visited rooms
+        }
+        currentRoom.setVisited(true);  // Mark the room as visited when the player enters
+    }
+
+
+    // Display the map with the player's current position
+    public void displayMap() {
+        for (int row = 0; row < map.length; row++) {
+            for (int col = 0; col < map[row].length; col++) {
+                if (row == player.getPlayerRow() && col == player.getPlayerCol()) {
+                    System.out.print("[o-|-<] ");  // Show player's position
+                } else if (map[row][col].isVisited()) {
+                    System.out.print("[ ] ");  // Show visited rooms
+                } else {
+                    System.out.print("[X] ");  // Unvisited rooms
+                }
+            }
+            System.out.println();  // Newline after each row
+        }
+    }
+
+
+ /*   // Show the rooms the player has visited
+    public void showProgress() {
+        System.out.println("Special rooms you have visited: ");
+        for (String room : uniqueVisitedRooms) {
+            System.out.println(room);
+        }
+    }*/
+
+ /*   public void showMoveHistory() {
+        System.out.println("Move History: ");
+        System.out.println("----------------------");
+        int counter = 1;
+        for (String move : moveHistory) {
+            System.out.println(counter + ": Moved to " + move);  // Print each move on a new line
+            counter++;
+        }
+    }*/
+
+/*    private void showCurrentRoom() {
+        Room currentRoom = map[player.getPlayerRow()][player.getPlayerCol()];
+        System.out.println("You are in: " + currentRoom.getName());
+        System.out.println(currentRoom.getDescription());
+    }*/
+
+
+    private void checkEscapeCondition() {
+        // Check if the player has visited enough rooms to escape
+        if (uniqueVisitedRooms.size() >= Constants.MAX_ROOMS_TO_ESCAPE) {
+            System.out.println("You have visited enough rooms to escape the city!");
+            System.exit(0);  // Exit or trigger escape
+        }
+    }
+
+
+    // Trigger special event if the room is marked as special
+    private void handleSpecialRoom(Room currentRoom) {
+        if (currentRoom.isSpecial()) {
+            System.out.println("A special event occurs here! This could be a fight, story dialogue, or other unique event.");
+            // initiate a battle or dialogue based on the game design
+            // Example: start a battle or display story
+            triggerSpecialEvent(currentRoom);
+        }
+    }
+
+
+    // Define a method to trigger special events
+    private void triggerSpecialEvent(Room room) { //TODO add more and make switch
+        switch (room.getName()){
+            case "Ghost Terminal":
+                System.out.println("You encounter ArcTech enforcers! Prepare for battle.");
+                Monster monster = new Monster("ArcTech Enforcer");
+                CombatLogic combat = new CombatLogic(player, monster);
+                combat.startFight();
+                break;
+            case "Aether Nexus":
+                System.out.println("The final confrontation with the Council of Circuits awaits...");
+                break;
+            default:
+                System.out.println("No special event in this room.");
+        }
+    }
+
+    // Method to count special rooms
+    private int countSpecialRooms() {
+        int count = 0;
+        for (Room[] row : map) {
+            for (Room room : row) {
+                if (room.isSpecial()) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private Room[][] initializeMap() {
+        return new Room[][]{
                 {
                         new Room("The Outskirts", "A lawless area on the edge of the city, filled with rogue Aether users and hackers.", 1, -1, 2, -1, false), // Room 0
                         new Room("Neon Corridor", "A bustling district filled with traders, technomancers, and black market dealers.", 3, 0, 4, -1, false),   // Room 1
@@ -50,151 +238,11 @@ public class Maze {
                         new Room("Aether Nexus", "The towering heart of Skyrend, controlled by the Council of Circuits.", -1, 8, -1, 9, true)  // Room 11
                 }
         };
-
-        player = new Player("Hero", 0, 0);
-        uniqueVisitedRooms = new HashSet<>();
-        visitRoom(map[player.getPlayerRow()][player.getPlayerCol()]);  // Mark the starting room as visited
-        //
-        // visitedRooms = new ArrayList<>();
-
-        // rooms = new ArrayList<>();
-        //currentRoomIndex = 0;
-        //createRooms();
-        showCurrentRoom();
     }
 
-
-    public void move(String direction) {
-        int newRow = player.getPlayerRow();
-        int newCol = player.getPlayerCol();
-
-        switch (direction.toLowerCase()) {
-            case "north":
-                newRow = player.getPlayerRow() - 1;
-                break;
-            case "south":
-                newRow = player.getPlayerRow() + 1;
-                break;
-            case "east":
-                newCol = player.getPlayerCol() + 1;
-                break;
-            case "west":
-                newCol = player.getPlayerCol() - 1;
-                break;
-            default:
-                System.out.println("Invalid direction. Use 'north', 'south', 'east', 'west'.");
-                return;
-        }
-        positionValidation(newRow, newCol, map);
-  /*      // Check if the new position is valid
-        if (Validation.isValidRoom(newRow, newCol, map)) {
-            player.moveTo(newRow, newCol); // Move the player to the new room
-            Room newRoom = map[newRow][newCol];
-            visitRoom(newRoom); // Mark the new room as visited
-            showCurrentRoom(); // Display the new room's details
-            checkEscapeCondition(); // Check if the player can escape after moving
-            handleSpecialRoom(newRoom); // Handle special events if the room is special
-            displayMap();  // Display the updated map
-        } else {
-            System.out.println("You can't move in that direction.");
-        }*/
+    public int getRequiredVisitedRooms() {
+        return requiredVisitedRooms;
     }
-
-    private void positionValidation(int newRow, int newCol, Room[][] map) {
-        // Check if the new position is valid
-        if (Validation.isValidRoom(newRow, newCol, map)) {
-            player.moveTo(newRow, newCol); // Move the player to the new room
-            Room newRoom = map[newRow][newCol];
-            visitRoom(newRoom); // Mark the new room as visited
-            showCurrentRoom(); // Display the new room's details
-            checkEscapeCondition(); // Check if the player can escape after moving
-            handleSpecialRoom(newRoom); // Handle special events if the room is special
-            displayMap();  // Display the updated map
-        } else {
-            System.out.println("You can't move in that direction.");
-        }
-    }
-
-
-    public void visitRoom(Room currentRoom) {
-        if (currentRoom.isSpecial() && !currentRoom.isVisited()) {
-            uniqueVisitedRooms.add(currentRoom.getName());  // Track unique visited rooms
-        }
-        currentRoom.setVisited(true);  // Mark the room as visited when the player enters
-
-    }
-
-
-    // Display the map with the player's current position
-    public void displayMap() {
-        for (int row = 0; row < map.length; row++) {
-            for (int col = 0; col < map[row].length; col++) {
-                if (row == player.getPlayerRow() && col == player.getPlayerCol()) {
-                    System.out.print("[P] ");  // Show player's position
-                } else if (map[row][col].isVisited()) {
-                    System.out.print("[ ] ");  // Show visited rooms
-                } else {
-                    System.out.print("[X] ");  // Unvisited rooms
-                }
-            }
-            System.out.println();  // Newline after each row
-        }
-    }
-
-
-    // Show the rooms the player has visited
-    public void showProgress() {
-        int counter = 1;
-        int progress = uniqueVisitedRooms.size();
-        System.out.println("Rooms you have visited:");
-        for (String room : uniqueVisitedRooms) {
-            System.out.println(room);
-        }
-    }
-
-
-    private void showCurrentRoom() {
-        Room currentRoom = map[player.getPlayerRow()][player.getPlayerCol()];
-        System.out.println("You are in: " + currentRoom.getName());
-        System.out.println(currentRoom.getDescription());
-    }
-
-
-    private void checkEscapeCondition() {
-        // Check if the player has visited enough rooms to escape
-        if (uniqueVisitedRooms.size() >= Constants.MAX_ROOMS_TO_ESCAPE) {
-            System.out.println("You have visited enough rooms to escape the city!");
-            System.exit(0);  // Exit or trigger escape
-        }
-    }
-
-
-    // Trigger special event if the room is marked as special
-    private void handleSpecialRoom(Room currentRoom) {
-        if (currentRoom.isSpecial()) {
-            uniqueVisitedRooms.add(currentRoom.getName()); // Add the current room to unique visited rooms
-            System.out.println("A special event occurs here! This could be a fight, story dialogue, or other unique event.");
-            // initiate a battle or dialogue based on the game design
-            // Example: start a battle or display story
-            triggerSpecialEvent(currentRoom);
-        }
-    }
-
-
-    // Define a method to trigger special events
-    private void triggerSpecialEvent(Room room) {
-        if (room.getName().equals("Ghost Terminal")) {
-            System.out.println("You encounter ArcTech enforcers! Prepare for battle.");
-            Monster monster = new Monster("ArcTech Enforcer");
-            // Add battle logic (possibly call CombatLogic here)
-            CombatLogic combat = new CombatLogic(player, monster);
-            combat.startFight();
-        } else if (room.getName().equals("Aether Nexus")) {
-            System.out.println("The final confrontation with the Council of Circuits awaits...");
-            // Add final battle or story logic
-        }
-    }
-
 /*
     public void search() {
         Random rand = new Random();
@@ -210,7 +258,6 @@ public class Maze {
             moves.push("no key found");
         }
     }*/
-
     /*public void move(String input) {
         try {
             char value = input.toLowerCase().charAt(0);  // character is a byte that represents a letter
@@ -274,7 +321,6 @@ public class Maze {
             System.out.println(ex.getMessage());
         }
     }*/
-
   /*  private void loadScenes() {
         String file = "src/maze.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -286,7 +332,6 @@ public class Maze {
             System.out.println(ex.getMessage());
         }
     }*/
-
     /*    public void undoMove() {
         String lastMove = movement.undoMove();
         if (!lastMove.isEmpty()) {
@@ -308,7 +353,6 @@ public class Maze {
             showCurrentRoom();
         }
     }*/
-
     /*    private void createRooms() {
         rooms.add(new Room("The Outskirts", "A lawless area on the edge of the city, filled with rogue Aether users and hackers.", 1, -1, 2, -1, false)); // Room 0
         rooms.add(new Room("Neon Corridor", "A bustling district filled with traders, technomancers, and black market dealers.", 3, 0, 4, -1, false)); // Room 1
@@ -323,8 +367,6 @@ public class Maze {
         rooms.add(new Room("Nullspace Hub", "A digital realm within the AetherGrid where space and time distort unpredictably.", 10, 6, -1, -1, false)); // Room 10
         rooms.add(new Room("Aether Nexus", "The towering heart of Skyrend, controlled by the Council of Circuits.", -1, 8, -1, 9, true)); // Room 11
     }*/
-
-
     // Handle movement
 /*    public void move(String direction) {
        // Room currentRoom = rooms.get(currentRoomIndex);// get current room
@@ -354,8 +396,6 @@ public class Maze {
             handleSpecialRoom(currentRoom);  // Check if the room is special before moving
         }
     }*/
-
-
 /*    public void showMap() {
         // Display a simple text-based map and mark the player's current location
         String[] map = new String[]{
