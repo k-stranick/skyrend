@@ -21,14 +21,14 @@ public class Maze {
     private List<String> visitedRooms;
     private final Set<String> uniqueVisitedRooms;
     private final List<String> moveHistory = new ArrayList<>(); // tracks all moves
-    private final Player player;
+    private final Player player; // change this if I add more characters to the game
 
 
     //constructor
-    private Maze() {
+    private Maze(Player player) {
         // movement = new Movement();
         map = initializeMap();
-        player = Player.createPlayer("Hero", 0, 0);
+        this.player = player;
         requiredVisitedRooms = countSpecialRooms();
         uniqueVisitedRooms = new HashSet<>();  //If a player visits the same room multiple times, the HashSet will only store that room once.
         visitRoom(map[player.getPlayerRow()][player.getPlayerCol()]);  // Mark the starting room as visited
@@ -42,9 +42,9 @@ public class Maze {
         DisplayUtility.showCurrentRoom(map, player);
     }
 
-    public static Maze getInstance() {
+    public static Maze getInstance(Player player) {
         if (instance == null) {
-            instance = new Maze();
+            instance = new Maze(player);
         }
         return instance;
     }
@@ -71,18 +71,6 @@ public class Maze {
                 return;
         }
         positionValidation(newRow, newCol);
-  /*      // Check if the new position is valid
-        if (Validation.isValidRoom(newRow, newCol, map)) {
-            player.moveTo(newRow, newCol); // Move the player to the new room
-            Room newRoom = map[newRow][newCol];
-            visitRoom(newRoom); // Mark the new room as visited
-            showCurrentRoom(); // Display the new room's details
-            checkEscapeCondition(); // Check if the player can escape after moving
-            handleSpecialRoom(newRoom); // Handle special events if the room is special
-            displayMap();  // Display the updated map
-        } else {
-            System.out.println("You can't move in that direction.");
-        }*/
     }
 
 
@@ -188,6 +176,7 @@ public class Maze {
                 System.out.println("No special event in this room.");
         }
     }
+
 
     // Method to count special rooms
     private int countSpecialRooms() {

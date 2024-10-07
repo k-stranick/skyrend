@@ -5,7 +5,6 @@ import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.PlayerSkill;
 import dtcc.itn262.skills.TestPlayerSkill;
 import dtcc.itn262.skills.TestSkillPlayerTwo;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -18,8 +17,8 @@ public class PlayerActions {
         skills.add(new TestSkillPlayerTwo());
     }
 
-    protected void attack(Player player, Monster target) {
-        int damage = player.getPlayerAttributes().getStrength() - target.getMonsterAttributes().getDefense();
+    protected void attack(Player player, Monster target) { //TODO does not truly take away form health
+        int damage = (player.getPlayerAttributes().getStrength() - target.getMonsterAttributes().getDefense());
         if (damage > 0) {
             target.getMonsterAttributes().setHealth(target.getMonsterAttributes().getHealth() - damage);
             System.out.println(player.getHero() + " attacks " + target.getEnemy() + " for " + damage + " damage.");
@@ -79,15 +78,15 @@ public class PlayerActions {
     }
 
 
-    protected boolean run(Player player) {
+    protected boolean run(Player player) { //TODO: change run bound
+
         int luck = player.getPlayerAttributes().getLuck();  // Use player's luck to influence run success
-        int chanceToRun = rand.nextInt(100);  // Generate a random number between 0 and 99
-        if (chanceToRun + luck > 50) {  // Add player's luck to the chance and compare
+        int chanceToRun = rand.nextInt(10);  // Generate a random number between 0 and 99
+        if ((chanceToRun + luck) > 50) {  // Add player's luck to the chance and compare
             return true;
         } else {
             System.out.println("You failed to run away!");
             return false;
         }
     }
-
 }

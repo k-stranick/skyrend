@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05182ae1-d102-4666-b7ff-0513447a3bd8" name="Changes" comment="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at map to see where player it">
+    <list default="true" id="05182ae1-d102-4666-b7ff-0513447a3bd8" name="Changes" comment="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at map to see where player it&#10;&#10;combat is less broken need to fix issue with monster attacking multiple times and if i uise the other code i exit right after I attack">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/PlayerAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/PlayerAttributes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/CombatLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/CombatLogic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/PlayerActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/PlayerActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Validation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Validation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/Monster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/MonsterAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/MonsterAttributes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/UserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/UserInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/TestPlayerSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/TestPlayerSkill.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,28 +73,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Maven.adventure_stack [clean].executor": "Run",
-    "Maven.adventure_stack [compile].executor": "Run",
-    "Maven.adventure_stack [test].executor": "Run",
-    "OverrideImplement.generate.javadoc": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "PrimaryBranch",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/kstra/OneDrive/Desktop/SCHOOL/5_Fifth_Semester_DTCC/ITN_262_Programming_III/TextBasedAdventure",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.32988507",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Debug&quot;,
+    &quot;Maven.adventure_stack [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.adventure_stack [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.adventure_stack [test].executor&quot;: &quot;Run&quot;,
+    &quot;OverrideImplement.generate.javadoc&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;PrimaryBranch&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kstra/OneDrive/Desktop/SCHOOL/5_Fifth_Semester_DTCC/ITN_262_Programming_III/TextBasedAdventure&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.32988507&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RebelAgentSelection">
     <selection>jr</selection>
   </component>
@@ -230,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728007412740</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at map to see where player it&#10;&#10;combat is less broken need to fix issue with monster attacking multiple times and if i uise the other code i exit right after I attack">
+      <option name="closed" value="true" />
+      <created>1728023936134</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1728023936134</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -240,7 +248,8 @@
     <MESSAGE value="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken" />
     <MESSAGE value="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken&#10;&#10;worked on movement and setting up for special events" />
     <MESSAGE value="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at map to see where player it" />
-    <option name="LAST_COMMIT_MESSAGE" value="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at map to see where player it" />
+    <MESSAGE value="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at map to see where player it&#10;&#10;combat is less broken need to fix issue with monster attacking multiple times and if i uise the other code i exit right after I attack" />
+    <option name="LAST_COMMIT_MESSAGE" value="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at map to see where player it&#10;&#10;combat is less broken need to fix issue with monster attacking multiple times and if i uise the other code i exit right after I attack" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -249,6 +258,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/TestPlayerSkill.java</url>
           <line>73</line>
           <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Game.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/TestPlayerSkill.java</url>
@@ -260,15 +274,39 @@
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java</url>
-          <line>175</line>
-          <properties class="dtcc.itn262.dungeon.Maze" method="triggerSpecialEvent">
+          <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/PlayerActions.java</url>
+          <line>80</line>
+          <properties class="dtcc.itn262.combat.PlayerActions" method="run">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="27" />
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/CombatLogic.java</url>
+          <line>136</line>
+          <properties class="dtcc.itn262.combat.CombatLogic" method="handleSkillUsage">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/PlayerActions.java</url>
+          <line>19</line>
+          <properties class="dtcc.itn262.combat.PlayerActions" method="attack">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="dtcc.itn262.character.PlayerAttributes" memberName="strength" />
+        <PinnedItemInfo parentTag="dtcc.itn262.character.Player" memberName="playerAttributes" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

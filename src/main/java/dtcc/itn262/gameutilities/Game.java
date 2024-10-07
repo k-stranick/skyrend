@@ -2,7 +2,6 @@ package dtcc.itn262.gameutilities;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.dungeon.Maze;
-
 import java.util.Scanner;
 
 public class Game {
@@ -19,7 +18,7 @@ public class Game {
             Player player = Player.createPlayer(playerName, 0, 0);  // create the player with the provided name
             System.out.println("Welcome, " + player.getHero() + "!");
             System.out.println(player); //This will invoke player.toString() and print the stats after the name has been entered
-            Maze m = Maze.getInstance(); // ensures I am using the same instance of Maze by using a Singleton pattern
+            Maze m = Maze.getInstance(player); // ensures I am using the same instance of Maze by using a Singleton pattern
             String value;
             boolean cont = true;
 
@@ -43,16 +42,16 @@ public class Game {
 
     }
 
-    private boolean handleInput(String value, Maze m) {
+    private void handleInput(String value, Maze m) { // TODO TEST MADE THIS RETURN VOID
         Command command = parseCommand(value);
         if (command == null) {
             System.out.println("Invalid command. Please try again.");
-            return true; // Return true if the command is invalid and continue the loop
+            return; // Return true if the command is invalid and continue the loop
         }
         switch (command) {
             case EXIT:
                 System.out.println("Thank you for playing!");
-                return false;
+                return;
             case MAP:
                 m.displayMap();
                 break;
@@ -71,7 +70,6 @@ public class Game {
             default:
                 System.out.println("Invalid command. Please try again.");
         }
-        return true; // continue the game by default
     }
 
     private Command parseCommand(String value) {
