@@ -4,7 +4,6 @@ import dtcc.itn262.character.Player;
 import dtcc.itn262.gameutilities.DisplayUtility;
 import dtcc.itn262.gameutilities.UserInput;
 import dtcc.itn262.monster.Monster;
-import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.skills.PlayerSkill;
 
 import java.util.ArrayList;
@@ -33,22 +32,24 @@ public class CombatLogic {
             System.out.println("You successfully ran away!");
         } else if (!player.isAlive()) {
             System.out.println("You were defeated!");
-        } else if (monster.getMonsterAttributes().getHealth() <= 0) {
+        } else{// will this print if I win??
+            //!monster.isAlive()
             System.out.println("Player wins! The monster is defeated.");
         }
     }
 
 
-    public void startFight() { // need tocheck status for this also
-        boolean battleEnded = false;  // Declare battleEnded at the start of the method
+    public void startFight() { // need to check status for this also
+        boolean battleHasEnded = false;  // Declare battleEnded at the start of the method
+        boolean playerGoesFirst = player.getPlayerAttributes().getSpeed() > monster.getMonsterAttributes().getSpeed(); // move inside the if statement
+        // if I introduce buffs or de-buffs for speed
 
-        while (player.isAlive() && monster.getMonsterAttributes().getHealth() > 0 && !battleEnded) {
+        while (player.isAlive() && monster.isAlive() && !battleHasEnded) {
             playerFailedToRun = false;  // Reset at the beginning of each player turn
 
-            // Player goes first if their speed is higher
-            if (player.getPlayerAttributes().getSpeed() > monster.getMonsterAttributes().getSpeed()) {
-                battleEnded = playerTurn();  // Check if the player ends the battle
-                if (!battleEnded && playerFailedToRun) {
+            if (playerGoesFirst) {   // Player goes first if their speed is higher
+                battleHasEnded = playerTurn();  // Check if the player ends the battle
+                if (!battleHasEnded && player.isAlive() && monster.isAlive()) { // monster's turn still goes if dead...
                     monsterTurn();  // Monster's turn if the fight continues
                 }
             } else {
@@ -56,32 +57,31 @@ public class CombatLogic {
                 if (!player.isAlive()) {
                     break;  // End the battle if the player is dead
                 }
-                battleEnded = playerTurn();  // Player's turn after monster
+                battleHasEnded = playerTurn();  // Player's turn after monster
             }
 
             // Reduce cooldowns if the fight continues
-            if (!battleEnded) {
+            if (!battleHasEnded) {
                 reduceCooldown();
             }
         }
 
         // Check for win/loss conditions once the battle is over
-        determineOutcome(battleEnded,player,monster);
+        determineOutcome(battleHasEnded, player, monster);
     }
 
 
     private boolean playerTurn() {
-        while (true) {  // Loop until a valid choice is made
-            displayBattleMenu();
-            int choice = UserInput.getPlayerChoice();  // Extracted method for getting choice
+        displayBattleMenu();
+        int choice = UserInput.getPlayerChoice();  // Extracted method for getting choice
 
-            try {
-                // If the method returns true, it means the player successfully ran away
-                return battleMenuChoice(choice); //TODO is this the correct type for this method????
-            } catch (Exception e) {
-                System.out.println("An error occurred: " + e.getMessage());
-            }
+        try {
+            // If the method returns true, it means the player successfully ran away
+            return battleMenuChoice(choice);
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
         }
+        return false;
     }
 
 
@@ -109,7 +109,7 @@ public class CombatLogic {
             return true;  // Successfully ran away, exit battle loop
         } else {
             playerFailedToRun = true;  // Track that the monster already attacked
-           return false;  // Continue combat if the player is still alive
+            return false;  // Continue combat if the player is still alive
         }
     }
 

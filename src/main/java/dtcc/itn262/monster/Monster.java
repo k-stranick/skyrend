@@ -40,6 +40,8 @@ public class Monster {
 
 
     }
-
+    public boolean isAlive() {
+        return monsterAttributes.getHealth() > 0;
+    }
 
 }

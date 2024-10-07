@@ -21,14 +21,14 @@ public class PlayerAttributes {
     public PlayerAttributes() {
         magic = randStat();
         magicDefense = randStat();
-        strength = randStat();
+        strength = 1000; //TODO
         defense = randStat();
         magic = randStat();
-        speed = randStat();
+        speed = 100;  //TODO
         luck = randStat();
         experience = 0; // base experience
         health = 100;  // base health
-        mana = 1000; // base mana
+        mana = 1000; // base mana  //TODO
         level = 1; // base level
     }
 

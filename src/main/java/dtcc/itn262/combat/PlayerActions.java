@@ -78,10 +78,10 @@ public class PlayerActions {
     }
 
 
-    protected boolean run(Player player) { //TODO: change run bound
+    protected boolean run(Player player) {
 
         int luck = player.getPlayerAttributes().getLuck();  // Use player's luck to influence run success
-        int chanceToRun = rand.nextInt(10);  // Generate a random number between 0 and 99
+        int chanceToRun = rand.nextInt(100);  // Generate a random number between 0 and 99
         if ((chanceToRun + luck) > 50) {  // Add player's luck to the chance and compare
             return true;
         } else {
