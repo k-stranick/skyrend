@@ -2,6 +2,10 @@ package dtcc.itn262.gameutilities;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.dungeon.Maze;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Game {
@@ -21,7 +25,7 @@ public class Game {
             Maze m = Maze.getInstance(player); // ensures I am using the same instance of Maze by using a Singleton pattern
             String value;
             boolean cont = true;
-
+            loadScenes();
             do {
                 System.out.print("?: "); // Prompt for the player's input
                 value = input.nextLine().trim(); // Read and trim player input
@@ -31,7 +35,7 @@ public class Game {
                 if (Validation.checkWinCondition(m)) {
                     System.out.println("Congratulations! You've won the game!");
                     cont = false;  // End the game loop
-                } else if (Validation.checkLoseCondition(player)) {
+                } else if (!player.isAlive()) {
                     System.out.println("Game Over! You have lost the game.");
                     cont = false;  // End the game loop
                 }
@@ -69,6 +73,19 @@ public class Game {
                 break;
             default:
                 System.out.println("Invalid command. Please try again.");
+        }
+    }
+
+
+    private void loadScenes() {
+        String file = "src/maze.txt";
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line; // grab each line  in the text file
+            while ((line = br.readLine()) != null) {
+                scenes.add(line);
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 

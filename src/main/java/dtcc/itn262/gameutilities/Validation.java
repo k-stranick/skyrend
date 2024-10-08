@@ -38,7 +38,8 @@ public class Validation { // this will be a class of static methods
     }
 
     public static boolean isValidRoom(int newRow, int newCol, Room[][] map) {
-        return newRow >= 0 && newRow < map.length && newCol >= 0 && newCol < map[0].length;
+        return newRow >= 0 && newRow < map.length &&
+                newCol >= 0 && newCol < map[newRow].length && map[newRow][newCol] != null;
     }
 
 
@@ -58,18 +59,21 @@ public class Validation { // this will be a class of static methods
 
         return false;  // Continue the fight
     }
-    protected static boolean checkWinCondition(Maze maze) {
+
+
+    public static boolean checkWinCondition(Maze maze) {
         // Logic for checking if the player has won (e.g., visited all special rooms)
         return maze.getUniqueVisitedRooms().size() >= maze.getRequiredVisitedRooms();
     }
+
 
     protected static boolean checkLoseCondition(Player player) {
         // Logic for checking if the player has lost (e.g., health is 0)
         return !player.isAlive();
     }
 
+
     public static boolean keepBattleGoing(boolean battleHasEnded, Player player, Monster monster) {
         return !battleHasEnded && player.isAlive() && monster.isAlive();
     }
-
 }
