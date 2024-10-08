@@ -5,14 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05182ae1-d102-4666-b7ff-0513447a3bd8" name="Changes" comment="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at map to see where player it&#10;&#10;combat is less broken need to fix issue with monster attacking multiple times and if i uise the other code i exit right after I attack&#10;&#10;fixed issue of re-instantiating player a second time when maze is created&#10;&#10;currently runs but I am facing issues where turns will still execute even after death.&#10;need to still refactor turn based fight logic.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/RoomConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Movement.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Room.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/UserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/UserInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Validation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/gameutilities/Validation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -264,7 +262,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728366179122</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at map to see where player it&#10;&#10;combat is less broken need to fix issue with monster attacking multiple times and if i uise the other code i exit right after I attack&#10;&#10;fixed issue of re-instantiating player a second time when maze is created&#10;&#10;currently runs but I am facing issues where turns will still execute even after death.&#10;need to still refactor turn based fight logic.">
+      <option name="closed" value="true" />
+      <created>1728420904274</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1728420904274</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -336,15 +342,6 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java</url>
-          <line>115</line>
-          <properties class="dtcc.itn262.dungeon.Maze" method="processRoomAfterMove">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java</url>

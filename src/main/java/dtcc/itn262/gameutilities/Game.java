@@ -6,10 +6,12 @@ import dtcc.itn262.dungeon.Maze;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Game {
-
+private final List<String> scenes = new ArrayList<>();
     public Game() {
         startGame();
     }
@@ -80,7 +82,7 @@ public class Game {
     private void loadScenes() {
         String file = "src/maze.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line; // grab each line  in the text file
+            String line; // grab each line in the text file
             while ((line = br.readLine()) != null) {
                 scenes.add(line);
             }

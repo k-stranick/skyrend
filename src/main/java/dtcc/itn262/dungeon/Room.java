@@ -4,21 +4,23 @@ public class Room {
 	private final String name;
 	private final String description;
 	private final boolean isSpecial;
-	private boolean hasNorthExit;
-	private boolean hasSouthExit;
-	private boolean hasEastExit;
-	private boolean hasWestExit;
+	private final boolean hasNorthExit;
+	private final boolean hasSouthExit;
+	private final boolean hasEastExit;
+	private final boolean hasWestExit;
 	private boolean visited;
+	private final int sceneIndex;
 
-	public Room(String name, String description, boolean hasNorthExit, boolean hasSouthExit, boolean hasEastExit, boolean hasWestExit, boolean isSpecial) {
-		this.name = name;
-		this.description = description;
+	public Room(RoomConfiguration roomConfiguration) {
+		this.name = roomConfiguration.name();
+		this.description = roomConfiguration.description();
 		this.visited = false;
-		this.isSpecial = isSpecial; // Set if the room has a fight or story dialogue
-		this.hasNorthExit = hasNorthExit;
-		this.hasSouthExit = hasSouthExit;
-		this.hasEastExit = hasEastExit;
-		this.hasWestExit = hasWestExit;
+		this.isSpecial = roomConfiguration.isSpecial(); // Set if the room has a fight or story dialogue
+		this.hasNorthExit = roomConfiguration.hasNorthExit();
+		this.hasSouthExit = roomConfiguration.hasSouthExit();
+		this.hasEastExit = roomConfiguration.hasEastExit();
+		this.hasWestExit = roomConfiguration.hasWestExit();
+		this.sceneIndex = roomConfiguration.sceneIndex();
 	}
 
 	public boolean isSpecial() {

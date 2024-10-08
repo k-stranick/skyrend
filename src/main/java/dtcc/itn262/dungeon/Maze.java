@@ -2,6 +2,7 @@ package dtcc.itn262.dungeon;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
+import dtcc.itn262.gameutilities.Constants;
 import dtcc.itn262.gameutilities.DisplayUtility;
 import dtcc.itn262.gameutilities.UserInput;
 import dtcc.itn262.gameutilities.Validation;
@@ -221,64 +222,64 @@ public class Maze {
 		return new Room[][]{
 				// Row 1
 				{
-						new Room("The Outskirts", "A lawless area on the edge of the city.", false, false, true, false, false), // Room 0
-						new Room("Neon Corridor", "A bustling district filled with traders.", false, false, true, true, false),   // Room 1
-						new Room("Fusion Park", "A public park where nature and tech blend.", false, false, true, true, false),   // Room 2
-						new Room("Cyber Alley", "A narrow alley with questionable tech.", false, true, false, true, false)  // Room 3
+						new Room(new RoomConfiguration("The Outskirts", "A lawless area on the edge of the city.", false, false, true, false, false, Constants.NO_SCENE)), // Room 0
+						new Room(new RoomConfiguration("Neon Corridor", "A bustling district filled with traders.", false, false, true, true, false, Constants.NO_SCENE)),  // Room 1
+						new Room(new RoomConfiguration("Fusion Park", "A public park where nature and tech blend.", false, false, true, true, false, Constants.NO_SCENE)),   // Room 2
+						new Room(new RoomConfiguration("Cyber Alley", "A narrow alley with questionable tech.", false, true, false, true, false, Constants.NO_SCENE))  // Room 3
 				},
 				// Row 2
 				{
 						null, null, null,
-						new Room("DataFall Plaza", "A bustling square surrounded by neon billboards.", true, true, true, true, false), // Room 4
-						new Room("Power Conduit", "A maintenance area for energy conduits.", true, true, true, true, false)  // Room 5
+						new Room(new RoomConfiguration("DataFall Plaza", "A bustling square surrounded by neon billboards.", true, true, true, true, false, Constants.NO_SCENE)), // Room 4
+						new Room(new RoomConfiguration("Power Conduit", "A maintenance area for energy conduits.", true, true, true, true, false, Constants.NO_SCENE))  // Room 5
 				},
 				// Row 3
 				{
 						null, null, null, null,
-						new Room("Stormwell Station", "An old train station repurposed as a meeting ground.", true, true, true, false, false),  // Room 6
-						new Room("The Driftway", "A dangerous floating sky rail.", false, false, true, true, false),  // Room 7
-						new Room("Rune Street Markets", "A chaotic black market.", false, true, false, true, false)  // Room 8
+						new Room(new RoomConfiguration("Stormwell Station", "An old train station repurposed as a meeting ground.", true, true, true, false, false, Constants.NO_SCENE)),  // Room 6
+						new Room(new RoomConfiguration("The Driftway", "A dangerous floating sky rail.", false, false, true, true, false, Constants.NO_SCENE)),  // Room 7
+						new Room(new RoomConfiguration("Rune Street Markets", "A chaotic black market.", false, true, false, true, false, Constants.NO_SCENE)) // Room 8
 				},
 				// Row 4
 				{
 						null,
-						new Room("Arcane Synth Bay", "A fusion lab for cybernetic enhancements.", false, false, true, false, true), // Room 9
-						new Room("Ghost Terminal", "A server room where Ghost Code emerged.", false, true, true, true, false),  // Room 10
-						new Room("Giga Tower", "A towering skyscraper.", false, false, true, true, false),  // Room 11
-						new Room("Circuit Yard", "A spacious yard used by traders and scavengers.", true, false, false, true, false),  // Room 12
+						new Room(new RoomConfiguration("Arcane Synth Bay", "A fusion lab for cybernetic enhancements.", false, false, true, false, true, Constants.NO_SCENE)), // Room 9
+						new Room(new RoomConfiguration("Ghost Terminal", "A server room where Ghost Code emerged.", false, true, true, true, false, Constants.NO_SCENE)),  // Room 10
+						new Room(new RoomConfiguration("Giga Tower", "A towering skyscraper.", false, false, true, true, false, Constants.NO_SCENE)),  // Room 11
+						new Room(new RoomConfiguration("Circuit Yard", "A spacious yard used by traders and scavengers.", true, false, false, true, false, Constants.NO_SCENE)),  // Room 12
 						null,
-						new Room("Abandoned Tech Labs", "A research facility overrun with AI.", true, false, false, false, true)  // Room 13
+						new Room(new RoomConfiguration("Abandoned Tech Labs", "A research facility overrun with AI.", true, false, false, false, true, Constants.NO_SCENE)),  // Room 13
 				},
 				// Row 5
 				{
 						null, null,
-						new Room("Skybridge", "A high-altitude bridge connecting sectors.", true, true, false, false, true),  // Room 14
+						new Room(new RoomConfiguration("Skybridge", "A high-altitude bridge connecting sectors.", true, true, false, false, true, Constants.NO_SCENE)),  // Room 14
 						null,
-						new Room("Aetheric Sanctum", "A hidden sanctum where the Aether flows.", false, true, false, false, true),  // Room 15
+						new Room(new RoomConfiguration("Aetheric Sanctum", "A hidden sanctum where the Aether flows.", false, true, false, false, true, Constants.NO_SCENE)),  // Room 15
 				},
 				// Row 6
 				{
 						null, null,
-						new Room("Iron District", "An industrial zone filled with factories.", true, false, true, false, false), // Room 16
-						new Room("Scrapyard", "A graveyard of discarded machinery.", false, false, true, true, false),  // Room 17
-						new Room("Red Circuit Warehouse", "A storage facility for stolen tech.", true, true, false, true, false)  // Room 18
+						new Room(new RoomConfiguration("Iron District", "An industrial zone filled with factories.", true, false, true, false, false, Constants.NO_SCENE)), // Room 16
+						new Room(new RoomConfiguration("Scrapyard", "A graveyard of discarded machinery.", false, false, true, true, false, Constants.NO_SCENE)),  // Room 17
+						new Room(new RoomConfiguration("Red Circuit Warehouse", "A storage facility for stolen tech.", true, true, false, true, false, Constants.NO_SCENE)), // Room 18
 				},
 				// Row 7
 				{
 						null, null, null, null,
-						new Room("Obsidian Relay", "A central hub of the AetherGrid.", true, true, true, false, false),  // Room 19
-						new Room("Nullspace Hub", "A digital realm where space and time distort.", false, false, false, true, true),  // Room 20
+						new Room(new RoomConfiguration("Obsidian Relay", "A central hub of the AetherGrid.", true, true, true, false, false, Constants.NO_SCENE)),  // Room 19
+						new Room(new RoomConfiguration("Nullspace Hub", "A digital realm where space and time distort.", false, false, false, true, true, Constants.NO_SCENE))  // Room 20
 
 				},
 				// Row 8
 				{
 						null, null, null, null,
-						new Room("Aether Nexus", "The towering heart of Skyrend.", true, true, false, false, true),  // Room 21
+						new Room(new RoomConfiguration("Aether Nexus", "The towering heart of Skyrend.", true, true, false, false, true, Constants.HAS_SCENES)),  // Room 21
 				},
 				// Row 9
 				{
 						null, null, null, null,
-						new Room("Echo Vault", "A hidden digital vault.", true, false, false, false, false)  // Room 22
+						new Room(new RoomConfiguration("Echo Vault", "A hidden digital vault.", true, false, false, false, false, Constants.NO_SCENE))  // Room 22
 				}
 		};
 	}
