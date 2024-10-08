@@ -4,7 +4,7 @@ import dtcc.itn262.character.Player;
 import dtcc.itn262.monster.Monster;
 
 public class TestPlayerSkill implements PlayerSkill {
-// damage for kills is based off a multiplier of the player's magic attribute shold this be a concrete value??
+// damage for kills is based off a multiplier of the player's magic attribute should this be a concrete value??
 // should I display all skill stats up top?
     private static final int MANA_COST = 33;
     private int currentCooldown = 0;

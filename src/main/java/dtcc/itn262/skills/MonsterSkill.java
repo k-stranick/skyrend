@@ -4,15 +4,9 @@ import dtcc.itn262.character.Player;
 import dtcc.itn262.monster.Monster;
 
 public interface MonsterSkill {
-    String getSkillName();
+	String getSkillName();
 
-    int getManaCost();
+	int getManaCost();
 
-    boolean isOnCooldown();
-
-    //public void reduceCooldown();
-
-    void setCooldown();
-
-    void useSkill(Monster monster, Player target); // monster targeting player with skills
+	void useSkill(Monster monster, Player target); // monster targeting player with skills
 }

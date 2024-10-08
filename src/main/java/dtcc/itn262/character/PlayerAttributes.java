@@ -12,10 +12,10 @@ public class PlayerAttributes {
     private int magic;  // governs magic attack power
     private int magicDefense;  // governs magic attack resistance
     private int mana;  // governs magic pool
-    private int speed; // governs how many times a player can attack before the monster attacks
-    // and subsequently reducing cooldowns
+    private int speed; // governs who attacks first
     private int luck; // governs critical hit chance
     private int experience; // governs level
+    private int defenseBuffDuration = 0; // governs defense buff duration
 
 
     public PlayerAttributes() {

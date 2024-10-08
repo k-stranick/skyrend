@@ -5,63 +5,39 @@ import dtcc.itn262.monster.Monster;
 
 public class TestMonsterSkill implements MonsterSkill {
 
-    private String skillName = "Test Skill";
-    private double damageMultiplier = 1.5;
-    private int manaCost = 33;
-    private int cooldown = 3;  // cooldown in turns
-    private int currentCooldown = 0;
+	private static final int MANA_COST = 33;
 
-    /**
-     * @return skillName the name of the skill
-     */
-    @Override
-    public String getSkillName() {
-        return skillName;
-    }
+	/**
+	 * @return skillName the name of the skill
+	 */
+	@Override
+	public String getSkillName() {
+		return "Test Skill";
+	}
 
-    /**
-     * @return manaCost the cost of the skill
-     */
-    @Override
-    public int getManaCost() {
-        return manaCost;
-    }
-
-    /**
-     * @return
-     */
-    @Override
-    public boolean isOnCooldown() {
-        return currentCooldown > 0;
-    }
+	/**
+	 * @return manaCost the cost of the skill
+	 */
+	@Override
+	public int getManaCost() {
+		return MANA_COST;
+	}
 
 
-    /**
-     *
-     */
-    @Override
-    public void setCooldown() {
-        currentCooldown = cooldown;
+	/**
+	 * @param monster
+	 * @param target
+	 */
+	@Override
+	public void useSkill(Monster monster, Player target) {
+		double damageMultiplier = 1.5;
+		double damage = (monster.getMonsterAttributes().getMagic() * damageMultiplier) - target.getPlayerAttributes().getMagicDefense();
+		if (monster.getMonsterAttributes().getMana() < getManaCost()) {
+			System.out.println("Not enough mana to use " + getSkillName());
 
-    }
-
-    /**
-     * @param monster
-     * @param target
-     */
-    @Override
-    public void useSkill(Monster monster, Player target) {
-        double damage = (monster.getMonsterAttributes().getMagic() * damageMultiplier) - target.getPlayerAttributes().getMagicDefense();
-        if (isOnCooldown()) {
-            System.out.println(getSkillName() + "is on cooldown");
-
-        } else if (monster.getMonsterAttributes().getMana() < getManaCost()) {
-            System.out.println("Not enough mana to use " + getSkillName());
-
-        } else if (monster.getMonsterAttributes().getMana() >= manaCost && damage > 0) {
-            monster.getMonsterAttributes().setMana(monster.getMonsterAttributes().getMana() - manaCost);
-            target.getPlayerAttributes().setHealth((int) Math.round(target.getPlayerAttributes().getHealth() - damage));
-            setCooldown();
-        }
-    }
+		} else if (monster.getMonsterAttributes().getMana() >= MANA_COST && damage > 0) {
+			monster.getMonsterAttributes().setMana(monster.getMonsterAttributes().getMana() - MANA_COST);
+			target.getPlayerAttributes().setHealth((int) Math.round(target.getPlayerAttributes().getHealth() - damage));
+			System.out.println(monster.getEnemy() + " uses " + getSkillName() + " on " + target.getHero() + " for " + damage + " damage.");}
+	}
 }
