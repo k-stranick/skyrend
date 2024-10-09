@@ -1,12 +1,13 @@
-package dtcc.itn262.gameutilities;
+package dtcc.itn262.utilities.display;
 
 import dtcc.itn262.dungeon.Room;
 import java.util.List;
 import java.util.Set;
 import dtcc.itn262.character.Player;
-public class DisplayUtility {
 
-    private DisplayUtility() {
+public class TextDisplayUtility {
+
+    private TextDisplayUtility() {
     }
 
 
@@ -29,7 +30,7 @@ public class DisplayUtility {
 
     public static void showMoveHistory(List<String> moveHistory) {
         System.out.println("Move History: ");
-        System.out.println("----------------------");
+        printSeparator(20);
         int counter = 1;
         for (String move : moveHistory) {
             System.out.println(counter + ": Moved to " + move);  // Print each move on a new line

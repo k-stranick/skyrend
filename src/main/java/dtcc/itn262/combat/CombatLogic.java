@@ -2,9 +2,9 @@ package dtcc.itn262.combat;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
-import dtcc.itn262.gameutilities.DisplayUtility;
-import dtcc.itn262.gameutilities.UserInput;
-import dtcc.itn262.gameutilities.Validation;
+import dtcc.itn262.utilities.display.TextDisplayUtility;
+import dtcc.itn262.utilities.input.UserInput;
+import dtcc.itn262.utilities.input.Validation;
 import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.skills.PlayerSkill;
@@ -185,7 +185,7 @@ public class CombatLogic {
 	}
 
 	private void displayBattleMenu() {
-		DisplayUtility.printSeparator(20);
+		TextDisplayUtility.printSeparator(20);
 		System.out.println("1. Attack");
 		System.out.println("2. Defend");
 		System.out.println("3. Use Skill");

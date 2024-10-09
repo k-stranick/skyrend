@@ -1,6 +1,6 @@
 package dtcc.itn262.character;
 
-import static dtcc.itn262.gameutilities.Validation.validateName;
+import static dtcc.itn262.utilities.input.Validation.validateName;
 
 public class Player {
     private final String hero;

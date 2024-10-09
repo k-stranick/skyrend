@@ -1,4 +1,4 @@
-package dtcc.itn262.gameutilities;
+package dtcc.itn262.utilities.gamecore;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;

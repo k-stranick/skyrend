@@ -2,7 +2,7 @@ package dtcc.itn262.combat;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
-import dtcc.itn262.gameutilities.Constants;
+import dtcc.itn262.utilities.gamecore.Constants;
 import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.PlayerSkill;
 import dtcc.itn262.skills.TestPlayerSkill;

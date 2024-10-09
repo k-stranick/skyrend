@@ -1,7 +1,7 @@
 package dtcc.itn262.combat;
 
 import dtcc.itn262.character.PlayerAttributes;
-import dtcc.itn262.gameutilities.Constants;
+import dtcc.itn262.utilities.gamecore.Constants;
 
 public class DefenseBuff implements BuffAndDeBuff<PlayerAttributes> {
     private int duration;

@@ -1,4 +1,4 @@
-package dtcc.itn262.gameutilities;
+package dtcc.itn262.utilities.gamecore;
 
 public class Constants {
 	//Map Constants

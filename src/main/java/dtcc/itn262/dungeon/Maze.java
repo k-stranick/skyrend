@@ -2,18 +2,18 @@ package dtcc.itn262.dungeon;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
-import dtcc.itn262.gameutilities.Constants;
-import dtcc.itn262.gameutilities.DisplayUtility;
-import dtcc.itn262.gameutilities.UserInput;
-import dtcc.itn262.gameutilities.Validation;
 import dtcc.itn262.monster.Monster;
-
+import dtcc.itn262.utilities.display.SceneManager;
+import dtcc.itn262.utilities.display.TextDisplayUtility;
+import dtcc.itn262.utilities.gamecore.Constants;
+import dtcc.itn262.utilities.input.UserInput;
+import dtcc.itn262.utilities.input.Validation;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static dtcc.itn262.gameutilities.Validation.checkWinCondition;
+import static dtcc.itn262.utilities.input.Validation.checkWinCondition;
 
 
 public class Maze {
@@ -23,17 +23,17 @@ public class Maze {
 	private final Set<String> uniqueVisitedRooms;
 	private final List<String> moveHistory = new ArrayList<>(); // tracks all moves
 	private final Player player; // change this if I add more characters to the game
-
+	private final SceneManager sceneManager;
 
 	//constructor
 	private Maze(Player player) {
-		// movement = new Movement();
-		map = initializeMap();
+		this.map = initializeMap();
 		this.player = player;
-		requiredVisitedRooms = countSpecialRooms();
-		uniqueVisitedRooms = new HashSet<>();  //If a player visits the same room multiple times, the HashSet will only store that room once.
+		this.requiredVisitedRooms = countSpecialRooms();
+		this.uniqueVisitedRooms = new HashSet<>();  //If a player visits the same room multiple times, the HashSet will only store that room once.
+		this.sceneManager = SceneManager.getInstance();
 		visitRoom(map[player.getPlayerRow()][player.getPlayerCol()]);  // Mark the starting room as visited
-		DisplayUtility.showCurrentRoom(map, player);
+		TextDisplayUtility.showCurrentRoom(map, player);
 	}
 
 
@@ -98,7 +98,7 @@ public class Maze {
 
 	private void positionValidation(int newRow, int newCol) {
 		try {
-			if (Validation.isValidRoom(newRow, newCol, map)) { // Check if the new position is valid
+			if (Validation.isRoomValid(newRow, newCol, map)) { // Check if the new position is valid
 				player.moveTo(newRow, newCol); // Move the player to the new room
 				Room newRoom = map[newRow][newCol];
 				processRoomAfterMove(newRoom);
@@ -119,7 +119,9 @@ public class Maze {
 				return;
 			}
 			visitRoom(newRoom);
-			DisplayUtility.showCurrentRoom(map, player);
+			TextDisplayUtility.showCurrentRoom(map, player);
+			sceneManager.displayScene(newRoom.getSceneIndex());
+
 			triggerSpecialEvent(newRoom);
 			//displayMap();
 			checkEscapeCondition();
@@ -152,8 +154,7 @@ public class Maze {
 	}
 
 
-	// Display the map with the player's current position
-	public void displayMap() {
+	public void displayMap() {    // Display the map with the player's current position
 		for (int row = 0; row < map.length; row++) {
 			for (int col = 0; col < map[row].length; col++) {
 				Room room = this.map[row][col];  // Get the room from the map
@@ -236,26 +237,26 @@ public class Maze {
 				// Row 3
 				{
 						null, null, null, null,
-						new Room(new RoomConfiguration("Stormwell Station", "An old train station repurposed as a meeting ground.", true, true, true, false, false, Constants.NO_SCENE)),  // Room 6
-						new Room(new RoomConfiguration("The Driftway", "A dangerous floating sky rail.", false, false, true, true, false, Constants.NO_SCENE)),  // Room 7
+						new Room(new RoomConfiguration("StormW3ll Station", "An old train station repurposed as a meeting ground.", true, true, true, false, false, Constants.NO_SCENE)),  // Room 6
+						new Room(new RoomConfiguration("The Drift Way", "A dangerous floating sky rail.", false, false, true, true, false, Constants.NO_SCENE)),  // Room 7
 						new Room(new RoomConfiguration("Rune Street Markets", "A chaotic black market.", false, true, false, true, false, Constants.NO_SCENE)) // Room 8
 				},
 				// Row 4
 				{
 						null,
-						new Room(new RoomConfiguration("Arcane Synth Bay", "A fusion lab for cybernetic enhancements.", false, false, true, false, true, Constants.NO_SCENE)), // Room 9
+						new Room(new RoomConfiguration("Arcane Synth Bay", "A fusion lab for cybernetic enhancements.", false, false, true, false, true, Constants.SCENE_1)), // Room 9
 						new Room(new RoomConfiguration("Ghost Terminal", "A server room where Ghost Code emerged.", false, true, true, true, false, Constants.NO_SCENE)),  // Room 10
 						new Room(new RoomConfiguration("Giga Tower", "A towering skyscraper.", false, false, true, true, false, Constants.NO_SCENE)),  // Room 11
 						new Room(new RoomConfiguration("Circuit Yard", "A spacious yard used by traders and scavengers.", true, false, false, true, false, Constants.NO_SCENE)),  // Room 12
 						null,
-						new Room(new RoomConfiguration("Abandoned Tech Labs", "A research facility overrun with AI.", true, false, false, false, true, Constants.NO_SCENE)),  // Room 13
+						new Room(new RoomConfiguration("Abandoned Tech Labs", "A research facility overrun with AI.", true, false, false, false, true, Constants.SCENE_2)),  // Room 13
 				},
 				// Row 5
 				{
 						null, null,
-						new Room(new RoomConfiguration("Skybridge", "A high-altitude bridge connecting sectors.", true, true, false, false, true, Constants.NO_SCENE)),  // Room 14
+						new Room(new RoomConfiguration("Sky bridge", "A high-altitude bridge connecting sectors.", true, true, false, false, true, Constants.SCENE_3)),  // Room 14
 						null,
-						new Room(new RoomConfiguration("Aetheric Sanctum", "A hidden sanctum where the Aether flows.", false, true, false, false, true, Constants.NO_SCENE)),  // Room 15
+						new Room(new RoomConfiguration("Aetheric Sanctum", "A hidden sanctum where the Aether flows.", false, true, false, false, true, Constants.SCENE_4)) // Room 15
 				},
 				// Row 6
 				{
@@ -268,13 +269,13 @@ public class Maze {
 				{
 						null, null, null, null,
 						new Room(new RoomConfiguration("Obsidian Relay", "A central hub of the AetherGrid.", true, true, true, false, false, Constants.NO_SCENE)),  // Room 19
-						new Room(new RoomConfiguration("Nullspace Hub", "A digital realm where space and time distort.", false, false, false, true, true, Constants.NO_SCENE))  // Room 20
+						new Room(new RoomConfiguration("NullSpace Hub", "A digital realm where space and time distort.", false, false, false, true, true, Constants.SCENE_5))  // Room 20
 
 				},
 				// Row 8
 				{
 						null, null, null, null,
-						new Room(new RoomConfiguration("Aether Nexus", "The towering heart of Skyrend.", true, true, false, false, true, Constants.HAS_SCENES)),  // Room 21
+						new Room(new RoomConfiguration("Aether Nexus", "The towering heart of Skyrend.", true, true, false, false, true, Constants.SCENE_6)),  // Room 21
 				},
 				// Row 9
 				{
@@ -312,7 +313,6 @@ public class Maze {
             moves.push("no key found");
         }
     }*/
-
 
 
 }

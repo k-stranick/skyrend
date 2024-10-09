@@ -1,6 +1,5 @@
-package dtcc.itn262.gameutilities;
+package dtcc.itn262.utilities.input;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInput {

@@ -36,8 +36,11 @@ public class Room {
 	}
 
 	public boolean hasNorthExit() { return hasNorthExit; }
+
 	public boolean hasSouthExit() { return hasSouthExit; }
+
 	public boolean hasEastExit() { return hasEastExit; }
+
 	public boolean hasWestExit() { return hasWestExit; }
 
 	public boolean isVisited() {
@@ -46,6 +49,10 @@ public class Room {
 
 	public void setVisited(boolean visited) {
 		this.visited = visited;
+	}
+
+	public int getSceneIndex() {
+		return sceneIndex;
 	}
 
 	public String toString() {
