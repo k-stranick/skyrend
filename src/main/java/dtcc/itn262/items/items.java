@@ -1,9 +1,9 @@
 package dtcc.itn262.items;
 
 public class items {
-    private String name;
-    private int value;
-    private int weight;
+    private final String name;
+    private final int value;
+    private final int weight;
 
     public items(String name, int value, int weight) {
         this.name = name;

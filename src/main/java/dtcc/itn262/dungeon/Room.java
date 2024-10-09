@@ -4,27 +4,37 @@ public class Room {
 	private final String name;
 	private final String description;
 	private final boolean isSpecial;
-	private final boolean hasNorthExit;
-	private final boolean hasSouthExit;
-	private final boolean hasEastExit;
-	private final boolean hasWestExit;
-	private boolean visited;
+	private final int n;
+	private final int s;
+	private final int w;
+	private final int e;
 	private final int sceneIndex;
+	private boolean specialEventTriggered;
+	private boolean visited;
 
 	public Room(RoomConfiguration roomConfiguration) {
 		this.name = roomConfiguration.name();
 		this.description = roomConfiguration.description();
 		this.visited = false;
 		this.isSpecial = roomConfiguration.isSpecial(); // Set if the room has a fight or story dialogue
-		this.hasNorthExit = roomConfiguration.hasNorthExit();
-		this.hasSouthExit = roomConfiguration.hasSouthExit();
-		this.hasEastExit = roomConfiguration.hasEastExit();
-		this.hasWestExit = roomConfiguration.hasWestExit();
+		this.specialEventTriggered = false;
+		this.n = roomConfiguration.n();
+		this.s = roomConfiguration.s();
+		this.e = roomConfiguration.e();
+		this.w = roomConfiguration.w();
 		this.sceneIndex = roomConfiguration.sceneIndex();
 	}
 
 	public boolean isSpecial() {
 		return isSpecial;
+	}
+
+	public boolean isSpecialEventTriggered() {
+		return specialEventTriggered;
+	}
+
+	public void setSpecialEventTriggered(boolean triggered) {
+		this.specialEventTriggered = triggered;
 	}
 
 	public String getName() {
@@ -35,13 +45,22 @@ public class Room {
 		return "This is " + description;
 	}
 
-	public boolean hasNorthExit() { return hasNorthExit; }
 
-	public boolean hasSouthExit() { return hasSouthExit; }
+	public int getN() {
+		return n;
+	}
 
-	public boolean hasEastExit() { return hasEastExit; }
+	public int getS() {
+		return s;
+	}
 
-	public boolean hasWestExit() { return hasWestExit; }
+	public int getW() {
+		return w;
+	}
+
+	public int getE() {
+		return e;
+	}
 
 	public boolean isVisited() {
 		return visited;
@@ -56,6 +75,8 @@ public class Room {
 	}
 
 	public String toString() {
-		return "Room: " + name + "\nDescription: " + description + "\nN: " + hasNorthExit + "\nS: " + hasSouthExit + "\nW: " + hasWestExit + "\nE: " + hasEastExit;
+		//return "Room: " + name + "\nDescription: " + description + "\nN: " + hasNorthExit + "\nS: " + hasSouthExit + "\nW: " + hasWestExit + "\nE: " + hasEastExit;
+		return "Room: " + name + "\nDescription: " + description + "\nN: " + n + "\nS: " + s + "\nW: " + w + "\nE: " + e;
+
 	}
 }

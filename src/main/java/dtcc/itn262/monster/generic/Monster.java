@@ -7,9 +7,9 @@ public class Monster {
     private final MonsterAttributes monsterAttributes;
 
 
-    public Monster(String enemy) {
+    public Monster(String enemy, MonsterAttributes attributes) {
         this.enemy = enemy;
-        monsterAttributes = new MonsterAttributes();
+        this.monsterAttributes = attributes;
     }
 
     public String getEnemy() {

@@ -3,7 +3,7 @@ package dtcc.itn262.monster;
 import java.util.Random;
 
 public class MonsterAttributes {
-    Random rand = new Random();
+    static Random rand = new Random();
     private int health;
     private int strength;
     private int defense;
@@ -17,26 +17,21 @@ public class MonsterAttributes {
     private String type;
     private String description;
 
-    public MonsterAttributes() {
-        health = 100;
-        strength = randStat();
-        defense = randStat();
-        magic = randStat();
-        magicDefense = randStat();
-        speed = randStat();
-        luck = randStat();
-        experience = 0;
-        gold = 0;
-        mana = 0;
-        type = "Monster";
-        description = "A monster";
+
+    // Custom constructor for specific monsters or bosses
+    public MonsterAttributes(MonsterAttributesBuilder builder) {
+        this.health = builder.health;
+        this.strength = builder.strength;
+        this.defense = builder.defense;
+        this.magic = builder.magic;
+        this.magicDefense = builder.magicDefense;
+        this.speed = builder.speed;
+        this.luck = builder.luck;
+        this.mana = builder.mana;
+        this.type = builder.type;
+        this.description = builder.description;
     }
 
-    private int randStat() {
-        //TODO add a range for stats
-        //TODO make equations constants to avoid magic numbers and allow for easier balancing
-        return rand.nextInt(10) + 8; // generates a random int between 10 and 18
-    }
 
     public int getDefense() {
         return defense;
@@ -134,5 +129,74 @@ public class MonsterAttributes {
         this.description = description;
     }
 
+    public static class MonsterAttributesBuilder { // for generic monsters
+        private int health = 100;
+       private int strength = randStat();
+        private int defense = randStat();
+        private int magic = randStat();
+        private int magicDefense = randStat();
+        private int speed = randStat();
+        private int luck = randStat();
+        private int experience = 0;
+        private int gold = 0;
+        private int mana = 100;
+        private String type = "Monster";
+        private String description = "A monster";
+
+        private int randStat() {
+            //TODO add a range for stats
+            //TODO make equations constants to avoid magic numbers and allow for easier balancing
+            return rand.nextInt(10) + 8; // generates a random int between 10 and 18
+        }
+        public MonsterAttributesBuilder withHealth(int health) {
+            this.health = health;
+            return this;
+        }
+
+        public MonsterAttributesBuilder withStrength(int strength) {
+            this.strength = strength;
+            return this;
+        }
+
+        public MonsterAttributesBuilder withDefense(int defense) {
+            this.defense = defense;
+            return this;
+        }
+
+        public MonsterAttributesBuilder withMagic(int magic) {
+            this.magic = magic;
+            return this;
+        }
+
+        public MonsterAttributesBuilder withMagicDefense(int magicDefense) {
+            this.magicDefense = magicDefense;
+            return this;
+        }
+
+        public MonsterAttributesBuilder withSpeed(int speed) {
+            this.speed = speed;
+            return this;
+        }
+
+        public MonsterAttributesBuilder withLuck(int luck) {
+            this.luck = luck;
+            return this;
+        }
+
+        public MonsterAttributesBuilder withType(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public MonsterAttributesBuilder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        // Build method to return a MonsterAttributes instance
+        public MonsterAttributes build() {
+            return new MonsterAttributes(this);
+        }
+    }
 }
 

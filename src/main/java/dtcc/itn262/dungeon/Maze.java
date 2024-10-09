@@ -2,7 +2,10 @@ package dtcc.itn262.dungeon;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
-import dtcc.itn262.monster.generic.Monster;
+import dtcc.itn262.monster.boss.GhostCodeManifest;
+import dtcc.itn262.monster.boss.Gilgmesh;
+import dtcc.itn262.monster.boss.TheArchitect;
+import dtcc.itn262.monster.generic.*;
 import dtcc.itn262.utilities.display.SceneManager;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.gamecore.Constants;
@@ -23,6 +26,7 @@ public class Maze {
 	private final List<String> moveHistory = new ArrayList<>(); // tracks all moves
 	private final Player player; // change this if I add more characters to the game
 	private final SceneManager sceneManager;
+	private final Random random = new Random();
 
 	//constructor
 	private Maze(Player player) {
@@ -57,36 +61,16 @@ public class Maze {
 	public void move(String direction) {
 		int newRow = player.getPlayerRow();
 		int newCol = player.getPlayerCol();
-		Room currentRoom = map[newRow][newCol];
 		switch (direction.toLowerCase()) {
 			case "north":
-				if (!currentRoom.hasNorthExit()) {
-					System.out.println("You can't move in that direction.");
-					return;
-				}
-				newRow--;
-				break;
+				newRow--;break;
 			case "south":
-				if (!currentRoom.hasSouthExit()) {
-					System.out.println("You can't move south.");
-					return;
-				}
-				newRow++;
-				break;
+
+				newRow++;break;
 			case "east":
-				if (!currentRoom.hasEastExit()) {
-					System.out.println("You can't move east.");
-					return;
-				}
-				newCol++;
-				break;
+				newCol++;break;
 			case "west":
-				if (!currentRoom.hasWestExit()) {
-					System.out.println("You can't move west.");
-					return;
-				}
-				newCol--;
-				break;
+				newCol--;break;
 			default:
 				System.out.println("Invalid direction. Use 'north', 'south', 'east', 'west'.");
 				return;
@@ -105,33 +89,34 @@ public class Maze {
 				System.out.println("You can't move in that direction.");
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("You can't move in that direction.");
+			GameLogger.logWarning("You can't move in that direction.");
 		} catch (NullPointerException e) {
-			System.out.println("Room is not initialized");
+			GameLogger.logWarning(Constants.ROOM_ERROR + e.getMessage());
 		}
 	}
 
 
 	private void processRoomAfterMove(Room newRoom) {
+		TextDisplayUtility.showCurrentRoom(map, player);
 		try {
 			if (checkNullRoom(newRoom)) {
 				return;
-			}else if(newRoom.isSpecial()){
+			} else if (newRoom.isSpecial() && !newRoom.isSpecialEventTriggered()) { // Check if the room is special and if the event has not been triggered
 				sceneManager.displayScene(newRoom.getSceneIndex());
 				triggerSpecialEvent(newRoom);
-			}else{
+				newRoom.setSpecialEventTriggered(true); // Mark the event as triggered
+			} else {
 				triggerRandomEncounter();
 			}
 			visitRoom(newRoom);
-			TextDisplayUtility.showCurrentRoom(map, player);
-			//displayMap();
+			displayMap();
 			checkEscapeCondition();
 			updateMoveHistory(newRoom);
 
 		} catch (ArrayIndexOutOfBoundsException e) {
 			GameLogger.logInfo(e.getMessage());
 		} catch (NullPointerException e) {
-			GameLogger.logError("Room is not initialized" + e.getMessage());
+			GameLogger.logError(Constants.ROOM_ERROR + e.getMessage());
 		}
 	}
 
@@ -141,21 +126,22 @@ public class Maze {
 
 	}
 
+
 	void triggerRandomEncounter() {
-		Random random = new Random();
 		int chance = random.nextInt(100); // Generate a random number between 0 and 99
 		if (chance < 20) { // 20% chance for an encounter
 			System.out.println("A wild monster appears!");
 			List<Monster> monsters = Arrays.asList(
-					new Monster("Monster1"),
-					new Monster("Monster2"),
-					new Monster("Monster3")
+					new ArcTechSoldier(),
+					new CorruptedAutomaton(),
+					new CyberHound(),
+					new SteelDevourer()
 			); // Add your custom monster instances here
 			Monster randomMonster = monsters.get(random.nextInt(monsters.size())); // Select a random monster
 			CombatLogic combat = new CombatLogic(player, randomMonster);
 			combat.startFight();
 		}
-}
+	}
 
 
 	public void visitRoom(Room currentRoom) {
@@ -167,7 +153,7 @@ public class Maze {
 				}
 			}
 		} catch (NullPointerException e) {
-			System.out.println("Room is not initialized");
+			GameLogger.logError(Constants.ROOM_ERROR + e.getMessage());
 		}
 	}
 
@@ -192,6 +178,44 @@ public class Maze {
 	}
 
 
+	// Define a method to trigger special events
+	private void triggerSpecialEvent(Room room) { //TODO add more
+		Monster monster;
+		CombatLogic combat;
+		switch (room.getName()) {
+			case "Arcane Synth Bay": // set up for 3 rounds of fighting??
+				System.out.println("some kind of logic here get a weapon?");
+
+				break;
+			case "Abandoned Tech Labs":
+				System.out.println("some kind of logic here get a weapon?");
+
+				break;
+			case "Sky bridge":
+				monster = new Gilgmesh();
+				combat = new CombatLogic(player, monster);
+				combat.startFight();
+				break;
+			case "Aetheric Sanctum":
+				monster = new GhostCodeManifest();
+				combat = new CombatLogic(player, monster);
+				combat.startFight();
+				break;
+			case "NullSpace Hub":
+				System.out.println("some kind of logic here get a weapon?");
+
+				break;
+			case "Aether Nexus":
+				System.out.println("The final confrontation awaits...");
+				monster = new TheArchitect();
+				combat = new CombatLogic(player, monster);
+				combat.startFight();
+				break;
+			default:
+		}
+	}
+
+
 	private void checkEscapeCondition() {
 		if (checkWinCondition(this)) { // Check if the player has visited enough rooms to escape
 			System.out.println("You have visited enough rooms to escape the city!");
@@ -201,24 +225,6 @@ public class Maze {
 			} else {
 				System.out.println("Continuing the game... You are free to explore more.");
 			}
-		}
-	}
-
-
-	// Define a method to trigger special events
-	private void triggerSpecialEvent(Room room) { //TODO add more
-		switch (room.getName()) {
-			case "Ghost Terminal":
-				System.out.println("You encounter ArcTech enforcers! Prepare for battle.");
-				Monster monster = new Monster("ArcTech Enforcer");
-				CombatLogic combat = new CombatLogic(player, monster);
-				combat.startFight();
-				break;
-			case "Aether Nexus":
-				System.out.println("The final confrontation with the Council of Circuits awaits...");
-				break;
-			default:
-				System.out.println("logic for random encounter here .");
 		}
 	}
 
@@ -237,73 +243,6 @@ public class Maze {
 	}
 
 
-	private Room[][] initializeMap() {
-		return new Room[][]{
-				// Row 1
-				{
-						new Room(new RoomConfiguration("The Outskirts", "A lawless area on the edge of the city.", false, false, true, false, false, Constants.NO_SCENE)), // Room 0
-						new Room(new RoomConfiguration("Neon Corridor", "A bustling district filled with traders.", false, false, true, true, false, Constants.NO_SCENE)),  // Room 1
-						new Room(new RoomConfiguration("Fusion Park", "A public park where nature and tech blend.", false, false, true, true, false, Constants.NO_SCENE)),   // Room 2
-						new Room(new RoomConfiguration("Cyber Alley", "A narrow alley with questionable tech.", false, true, false, true, false, Constants.NO_SCENE))  // Room 3
-				},
-				// Row 2
-				{
-						null, null, null,
-						new Room(new RoomConfiguration("DataFall Plaza", "A bustling square surrounded by neon billboards.", true, true, true, true, false, Constants.NO_SCENE)), // Room 4
-						new Room(new RoomConfiguration("Power Conduit", "A maintenance area for energy conduits.", true, true, true, true, false, Constants.NO_SCENE))  // Room 5
-				},
-				// Row 3
-				{
-						null, null, null, null,
-						new Room(new RoomConfiguration("StormW3ll Station", "An old train station repurposed as a meeting ground.", true, true, true, false, false, Constants.NO_SCENE)),  // Room 6
-						new Room(new RoomConfiguration("The Drift Way", "A dangerous floating sky rail.", false, false, true, true, false, Constants.NO_SCENE)),  // Room 7
-						new Room(new RoomConfiguration("Rune Street Markets", "A chaotic black market.", false, true, false, true, false, Constants.NO_SCENE)) // Room 8
-				},
-				// Row 4
-				{
-						null,
-						new Room(new RoomConfiguration("Arcane Synth Bay", "A fusion lab for cybernetic enhancements.", false, false, true, false, true, Constants.SCENE_1)), // Room 9
-						new Room(new RoomConfiguration("Ghost Terminal", "A server room where Ghost Code emerged.", false, true, true, true, false, Constants.NO_SCENE)),  // Room 10
-						new Room(new RoomConfiguration("Giga Tower", "A towering skyscraper.", false, false, true, true, false, Constants.NO_SCENE)),  // Room 11
-						new Room(new RoomConfiguration("Circuit Yard", "A spacious yard used by traders and scavengers.", true, false, false, true, false, Constants.NO_SCENE)),  // Room 12
-						null,
-						new Room(new RoomConfiguration("Abandoned Tech Labs", "A research facility overrun with AI.", true, false, false, false, true, Constants.SCENE_2)),  // Room 13
-				},
-				// Row 5
-				{
-						null, null,
-						new Room(new RoomConfiguration("Sky bridge", "A high-altitude bridge connecting sectors.", true, true, false, false, true, Constants.SCENE_3)),  // Room 14
-						null,
-						new Room(new RoomConfiguration("Aetheric Sanctum", "A hidden sanctum where the Aether flows.", false, true, false, false, true, Constants.SCENE_4)) // Room 15
-				},
-				// Row 6
-				{
-						null, null,
-						new Room(new RoomConfiguration("Iron District", "An industrial zone filled with factories.", true, false, true, false, false, Constants.NO_SCENE)), // Room 16
-						new Room(new RoomConfiguration("Scrapyard", "A graveyard of discarded machinery.", false, false, true, true, false, Constants.NO_SCENE)),  // Room 17
-						new Room(new RoomConfiguration("Red Circuit Warehouse", "A storage facility for stolen tech.", true, true, false, true, false, Constants.NO_SCENE)), // Room 18
-				},
-				// Row 7
-				{
-						null, null, null, null,
-						new Room(new RoomConfiguration("Obsidian Relay", "A central hub of the AetherGrid.", true, true, true, false, false, Constants.NO_SCENE)),  // Room 19
-						new Room(new RoomConfiguration("NullSpace Hub", "A digital realm where space and time distort.", false, false, false, true, true, Constants.SCENE_5))  // Room 20
-
-				},
-				// Row 8
-				{
-						null, null, null, null,
-						new Room(new RoomConfiguration("Aether Nexus", "The towering heart of Skyrend.", true, true, false, false, true, Constants.SCENE_6)),  // Room 21
-				},
-				// Row 9
-				{
-						null, null, null, null,
-						new Room(new RoomConfiguration("Echo Vault", "A hidden digital vault.", true, false, false, false, false, Constants.NO_SCENE))  // Room 22
-				}
-		};
-	}
-
-
 	public int getRequiredVisitedRooms() {
 		return requiredVisitedRooms;
 	}
@@ -316,6 +255,76 @@ public class Maze {
 		}
 		return false;
 	}
+
+
+	private Room[][] initializeMap() {
+		return new Room[][]{
+				// Row 1
+				{
+						new Room(new RoomConfiguration("The Outskirts", "A lawless area on the edge of the city.", -1, -1, 1, -1, false, Constants.NO_SCENE)), // Room 0
+						new Room(new RoomConfiguration("Neon Corridor", "A bustling district filled with traders.", -1, -1, 0, 2, false, Constants.NO_SCENE)),  // Room 1
+						new Room(new RoomConfiguration("Fusion Park", "A public park where nature and tech blend.", -1, -1, 1, 3, false, Constants.NO_SCENE)),   // Room 2
+						new Room(new RoomConfiguration("Cyber Alley", "A narrow alley with questionable tech.", -1, 4, 3, -1, false, Constants.NO_SCENE))  // Room 3
+				},
+				// Row 2
+				{
+						null, null, null,
+						new Room(new RoomConfiguration("DataFall Plaza", "A bustling square surrounded by neon billboards.", 3, -1, -1, 5, false, Constants.NO_SCENE)), // Room 4
+						new Room(new RoomConfiguration("Power Conduit", "A maintenance area for energy conduits.", -1, 6, 4, -1, false, Constants.NO_SCENE))  // Room 5
+				},
+				// Row 3
+				{
+						null, null, null, null,
+						new Room(new RoomConfiguration("StormW3ll Station", "An old train station repurposed as a meeting ground.", 5, 12, 7, -1, false, Constants.NO_SCENE)),  // Room 6
+						new Room(new RoomConfiguration("The Drift Way", "A dangerous floating sky rail.", -1, -1, 6, 8, false, Constants.NO_SCENE)),  // Room 7
+						new Room(new RoomConfiguration("Rune Street Markets", "A chaotic black market.", -1, 13, 7, -1, false, Constants.NO_SCENE)) // Room 8
+				},
+				// Row 4
+				{
+						null,
+						new Room(new RoomConfiguration("Arcane Synth Bay", "A fusion lab for cybernetic enhancements.", -1, -1, 10, -1, true, Constants.SCENE_1)), // Room 9
+						new Room(new RoomConfiguration("Ghost Terminal", "A server room where Ghost Code emerged.", -1, 14, 11, 9, false, Constants.NO_SCENE)),  // Room 10
+						new Room(new RoomConfiguration("Giga Tower", "A towering skyscraper.", -1, -1, 12, 10, false, Constants.NO_SCENE)),  // Room 11
+						new Room(new RoomConfiguration("Circuit Yard", "A spacious yard used by traders and scavengers.", 6, -1, -1, 11, false, Constants.NO_SCENE)),  // Room 12
+						null,
+						new Room(new RoomConfiguration("Abandoned Tech Labs", "A research facility overrun with AI.", 8, -1, -1, -1, true, Constants.SCENE_2)),  // Room 13
+				},
+				// Row 5
+				{
+						null, null,
+						new Room(new RoomConfiguration("Sky bridge", "A high-altitude bridge connecting sectors.", 10, 16, -1, -1, true, Constants.SCENE_3)),  // Room 14
+						null,
+						new Room(new RoomConfiguration("Aetheric Sanctum", "A hidden sanctum where the Aether flows.", -1, 18, -1, -1, true, Constants.SCENE_4)) // Room 15
+				},
+				// Row 6
+				{
+						null, null,
+						new Room(new RoomConfiguration("Iron District", "An industrial zone filled with factories.", 14, -1, 17, -1, false, Constants.NO_SCENE)), // Room 16
+						new Room(new RoomConfiguration("Scrapyard", "A graveyard of discarded machinery.", -1, -1, 18, 16, false, Constants.NO_SCENE)),  // Room 17
+						new Room(new RoomConfiguration("Red Circuit Warehouse", "A storage facility for stolen tech.", 15, 19, -1, 17, false, Constants.NO_SCENE)), // Room 18
+				},
+				// Row 7
+				{
+						null, null, null, null,
+						new Room(new RoomConfiguration("Obsidian Relay", "A central hub of the AetherGrid.", 18, 21, 20, -1, false, Constants.NO_SCENE)),  // Room 19
+						new Room(new RoomConfiguration("NullSpace Hub", "A digital realm where space and time distort.", -1, -1, -1, 19, true, Constants.SCENE_5))  // Room 20
+
+				},
+				// Row 8
+				{
+						null, null, null, null,
+						new Room(new RoomConfiguration("Aether Nexus", "The towering heart of Skyrend.", 19, 22, -1, -1, true, Constants.SCENE_6)),  // Room 21
+				},
+				// Row 9
+				{
+						null, null, null, null,
+						new Room(new RoomConfiguration("Echo Vault", "A hidden digital vault.", 21, -1, -1, -1, false, Constants.NO_SCENE))  // Room 22
+				}
+		};
+	}
+
+
+
 /*
     public void search() {
         Random rand = new Random();
