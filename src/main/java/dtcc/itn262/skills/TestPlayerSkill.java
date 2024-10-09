@@ -1,7 +1,7 @@
 package dtcc.itn262.skills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.Monster;
+import dtcc.itn262.monster.generic.Monster;
 
 public class TestPlayerSkill implements PlayerSkill {
 // damage for kills is based off a multiplier of the player's magic attribute should this be a concrete value??

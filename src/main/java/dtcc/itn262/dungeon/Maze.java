@@ -2,16 +2,15 @@ package dtcc.itn262.dungeon;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
-import dtcc.itn262.monster.Monster;
+import dtcc.itn262.monster.generic.Monster;
 import dtcc.itn262.utilities.display.SceneManager;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.gamecore.Constants;
+import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
 
 import static dtcc.itn262.utilities.input.Validation.checkWinCondition;
 
@@ -117,19 +116,22 @@ public class Maze {
 		try {
 			if (checkNullRoom(newRoom)) {
 				return;
+			}else if(newRoom.isSpecial()){
+				sceneManager.displayScene(newRoom.getSceneIndex());
+				triggerSpecialEvent(newRoom);
+			}else{
+				triggerRandomEncounter();
 			}
 			visitRoom(newRoom);
 			TextDisplayUtility.showCurrentRoom(map, player);
-			sceneManager.displayScene(newRoom.getSceneIndex());
-
-			triggerSpecialEvent(newRoom);
 			//displayMap();
 			checkEscapeCondition();
 			updateMoveHistory(newRoom);
+
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("You can't move in that direction.");
+			GameLogger.logInfo(e.getMessage());
 		} catch (NullPointerException e) {
-			System.out.println("Room is not initialized");
+			GameLogger.logError("Room is not initialized" + e.getMessage());
 		}
 	}
 
@@ -138,6 +140,22 @@ public class Maze {
 		moveHistory.add("Moved to " + room.getName()); // Add the move to the history
 
 	}
+
+	void triggerRandomEncounter() {
+		Random random = new Random();
+		int chance = random.nextInt(100); // Generate a random number between 0 and 99
+		if (chance < 20) { // 20% chance for an encounter
+			System.out.println("A wild monster appears!");
+			List<Monster> monsters = Arrays.asList(
+					new Monster("Monster1"),
+					new Monster("Monster2"),
+					new Monster("Monster3")
+			); // Add your custom monster instances here
+			Monster randomMonster = monsters.get(random.nextInt(monsters.size())); // Select a random monster
+			CombatLogic combat = new CombatLogic(player, randomMonster);
+			combat.startFight();
+		}
+}
 
 
 	public void visitRoom(Room currentRoom) {

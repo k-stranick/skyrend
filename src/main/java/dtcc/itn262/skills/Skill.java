@@ -1,8 +1,5 @@
 package dtcc.itn262.skills;
 
-import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.Monster;
-
 public interface Skill<T> {
 
     String getSkillName();

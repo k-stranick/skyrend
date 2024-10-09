@@ -1,4 +1,6 @@
-package dtcc.itn262.monster;
+package dtcc.itn262.monster.generic;
+
+import dtcc.itn262.monster.MonsterAttributes;
 
 public class Monster {
     private String enemy;

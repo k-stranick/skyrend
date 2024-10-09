@@ -1,7 +1,7 @@
 package dtcc.itn262.skills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.Monster;
+import dtcc.itn262.monster.generic.Monster;
 
 
     public class TestSkillPlayerTwo implements PlayerSkill {

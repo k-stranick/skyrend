@@ -1,7 +1,7 @@
 package dtcc.itn262.skills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.Monster;
+import dtcc.itn262.monster.generic.Monster;
 
 
 // interface Skill defines what a skill MUST do but does not specify how to do them

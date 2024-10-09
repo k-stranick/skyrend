@@ -2,12 +2,14 @@ package dtcc.itn262.combat;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
+import dtcc.itn262.monster.MonsterAttributes;
+import dtcc.itn262.monster.generic.Monster;
+import dtcc.itn262.skills.PlayerSkill;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
+import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
-import dtcc.itn262.monster.Monster;
-import dtcc.itn262.monster.MonsterAttributes;
-import dtcc.itn262.skills.PlayerSkill;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,7 +25,6 @@ public class CombatLogic {
 	protected List<BuffAndDeBuff<MonsterAttributes>> activeMonsterBuffs;
 	private MonsterActions monsterActions = new MonsterActions(CombatLogic.this);
 	private ArrayList<PlayerSkill> cooldownList = new ArrayList<>();  // this is a generic stack that holds PlayerSkill objects
-	private boolean playerFailedToRun = false;  // Flag to track failed run attempts
 
 
 	public CombatLogic(Player player, Monster monster) {
@@ -34,7 +35,6 @@ public class CombatLogic {
 
 
 	private static void determineOutcome(boolean battleEnded, Player player, Monster monster) {
-
 		if (battleEnded) {
 			System.out.println("You successfully ran away!");
 		} else if (!player.isAlive()) {
@@ -51,7 +51,6 @@ public class CombatLogic {
 		boolean playerGoesFirst = player.getPlayerAttributes().getSpeed() > monster.getMonsterAttributes().getSpeed(); // move inside the if statement if I introduce buffs or de-buffs for speed
 
 		while (Validation.keepBattleGoing(battleHasEnded, player, monster)) {
-			playerFailedToRun = false;  // Reset at the beginning of each player turn
 			reduceCooldown();  // Reduce cooldowns at the start of each turn
 
 			if (playerGoesFirst) {   // Player goes first if their speed is higher
@@ -65,7 +64,7 @@ public class CombatLogic {
 					battleHasEnded = playerTurn(); // Player's turn after monster
 				}
 			}
-			updateBuffs(player); // Update buffs at the end of each turn TODO: TEST
+			updateBuffs(player); // Update buffs at the end of each turn
 		}
 		determineOutcome(battleHasEnded, player, monster); // Check for win/loss conditions once the battle is over
 
@@ -80,7 +79,7 @@ public class CombatLogic {
 			// If the method returns true, it means the player successfully ran away
 			return battleMenuChoice(choice);
 		} catch (Exception e) {
-			System.out.println("An error occurred: " + e.getMessage());
+			GameLogger.logError("An error occurred: " + e.getMessage());
 		}
 		return false;
 	}
@@ -97,7 +96,7 @@ public class CombatLogic {
 				return handleRunAttempt();
 			}
 			default -> {
-				System.out.println("Invalid choice. Please select a valid option.");
+			GameLogger.logWarning("Invalid choice. Please select a valid option.");
 				return false;
 			}
 		}
@@ -105,13 +104,9 @@ public class CombatLogic {
 	}
 
 
-	private boolean handleRunAttempt() {
-		if (playerActions.run(player)) {
-			return true;  // Successfully ran away, exit battle loop
-		} else {
-			playerFailedToRun = true;  // Track that the monster already attacked
-			return false;  // Continue combat if the player is still alive
-		}
+	private boolean handleRunAttempt() { //TODO test
+		// Continue combat if the player is still alive
+		return playerActions.run(player);  // Successfully ran away, exit battle loop
 	}
 
 
