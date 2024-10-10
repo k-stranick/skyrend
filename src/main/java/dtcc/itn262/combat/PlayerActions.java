@@ -47,7 +47,10 @@ public class PlayerActions {
 
 	protected void showEnemyStats(Monster target) {
 		System.out.println("Enemy: " + target.getMonster() +
+				"\nDescription: " + target.getMonsterAttributes().getDescription() +
 				"\nHealth: " + target.getMonsterAttributes().getHealth() +
+				"\nStrength: " + target.getMonsterAttributes().getStrength() +
+				"\nMana: " + target.getMonsterAttributes().getMana() +
 				"\nDefense: " + target.getMonsterAttributes().getDefense() +
 				"\nMagic: " + target.getMonsterAttributes().getMagic() +
 				"\nMagic Defense: " + target.getMonsterAttributes().getMagicDefense() +

@@ -1,6 +1,6 @@
 package dtcc.itn262.utilities.display;
 
-import dtcc.itn262.dungeon.Room;
+import dtcc.itn262.maze.Room;
 import java.util.List;
 import java.util.Set;
 import dtcc.itn262.character.Player;

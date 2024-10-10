@@ -1,18 +1,69 @@
 package dtcc.itn262.utilities.gamecore;
 
+import com.google.gson.Gson;
 import dtcc.itn262.character.Player;
-import dtcc.itn262.dungeon.Maze;
+import dtcc.itn262.json.HelpMenu;
+import dtcc.itn262.maze.Maze;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.input.Validation;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Game {
+	private final HelpMenu helpMenu;
+
 	public Game() {
-		startGame();
+		this.helpMenu = loadHelpMenu();
+		showStartMenu();
+	}
+
+	private void showStartMenu() {
+		boolean running = true;
+		Scanner scanner = new Scanner(System.in);
+
+		while (running) {
+			displayAsciiArt("src/main/java/dtcc/itn262/assets/logo.txt");  // Display the game logo
+			System.out.println("===== START MENU =====");
+			System.out.println("1. Start New Game");
+			System.out.println("2. Load Game");
+			System.out.println("3. View Help");
+			System.out.println("4. Exit");
+			System.out.print("Enter your choice: ");
+
+			String choice = scanner.nextLine().trim();
+
+			switch (choice) {
+				case "1":
+					startGame();  // Start a new game
+					running = false;  // Exit the menu after starting the game
+					break;
+				case "2":
+					loadGame();  // Load a saved game (optional)
+					break;
+				case "3":
+					displayHelp();  // Show the help menu
+					break;
+				case "4":
+					System.out.println("Thank you for playing! Exiting...");
+					running = false;  // Exit the game
+					break;
+				default:
+					System.out.println("Invalid choice, please try again.");
+					break;
+			}
+		}
+	}
+
+	private void loadGame() {
+		System.out.println("Loading game...NOT I will figure this out at some poiint");  // Placeholder for loading a saved game
 	}
 
 
 	private void startGame() {
+
 		try (Scanner input = new Scanner(System.in)) {
 			System.out.print("Enter your hero's name: "); // Prompt for the player's name first
 			String playerName = input.nextLine().trim();  // Read and trim player input
@@ -68,7 +119,7 @@ public class Game {
 				TextDisplayUtility.showProgress(m.getUniqueVisitedRooms());
 				break;
 			case HELP:
-				System.out.println("Commands: map, progress, help, exit, north, south, east, west");
+				displayHelp();
 				break;
 			case HISTORY:
 				TextDisplayUtility.showMoveHistory(m.getMoveHistory());
@@ -82,13 +133,35 @@ public class Game {
 	}
 
 
-	private Command parseCommand(String value) {
-		try {
-			return Command.valueOf(value.toUpperCase());
-		} catch (IllegalArgumentException e) {
-			GameLogger.logWarning("Invalid command: " + value + e.getMessage());
-			return null;  // Return null if the command is invalid
+	private HelpMenu loadHelpMenu() {
+		Gson gson = new Gson();
+		HelpMenu helpMenu = new HelpMenu();
+
+		try (FileReader reader = new FileReader("src/main/java/dtcc/itn262/json/help_menu.json")) {
+			helpMenu = gson.fromJson(reader, HelpMenu.class); // Deserialize JSON into HelpMenu class
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+
+		return helpMenu;
 	}
 
+	public void displayHelp() {
+		if (helpMenu != null) {
+			helpMenu.displayHelpMenu(); // Display the help menu when requested
+		} else {
+			System.out.println("Help menu not available.");
+		}
+	}
+	// Method to display ASCII art
+	public static void displayAsciiArt(String filePath) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

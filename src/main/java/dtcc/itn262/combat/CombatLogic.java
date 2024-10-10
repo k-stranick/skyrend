@@ -29,7 +29,7 @@ public class CombatLogic {
 		this.player = player;
 		this.monster = monster;
 		this.playerActions = new PlayerActions(CombatLogic.this, player);
-		this.monsterActions = new MonsterActions(CombatLogic.this, monster);
+		this.monsterActions = new MonsterActions(CombatLogic.this);
 		this.activeBuffs = new ArrayList<>();
 		this.activeMonsterBuffs = new ArrayList<>();
 	}

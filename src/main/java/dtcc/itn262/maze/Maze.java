@@ -1,4 +1,4 @@
-package dtcc.itn262.dungeon;
+package dtcc.itn262.maze;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;

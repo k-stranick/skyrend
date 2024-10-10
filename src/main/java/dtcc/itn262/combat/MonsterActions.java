@@ -11,14 +11,12 @@ import java.util.List;
 import java.util.Random;
 
 public class MonsterActions {
-	private final Monster monster;
 	private final List<MonsterSkill> monsterSkills = new ArrayList<>();
 	CombatLogic combatLogic;
 
 
-	public MonsterActions(CombatLogic combatLogic, Monster monster) { // adding skills to the player
+	public MonsterActions(CombatLogic combatLogic) { // adding skills to the player
 		monsterSkills.add(new TestMonsterSkill());
-		this.monster = monster;
 		this.combatLogic = combatLogic;
 	}
 

@@ -5,42 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05182ae1-d102-4666-b7ff-0513447a3bd8" name="Changes" comment="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at map to see where player it&#10;&#10;combat is less broken need to fix issue with monster attacking multiple times and if i uise the other code i exit right after I attack&#10;&#10;fixed issue of re-instantiating player a second time when maze is created&#10;&#10;currently runs but I am facing issues where turns will still execute even after death.&#10;need to still refactor turn based fight logic.&#10;&#10;refactored the turn based logic, able to implement random encounters, flushed out classes implementing logging&#10;&#10;added monsters and bosses, fixed repeating special event logic, fixed special events maybe implement leveling up or just increase stats for the time being">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/armor/Armor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Weapon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/json/CommandDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/json/HelpMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/json/help_menu.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/PlayerAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/PlayerAttributes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/CombatLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/CombatLogic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/MonsterActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/MonsterActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/PlayerActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/PlayerActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/MonsterAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/MonsterAttributes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/boss/GhostCodeManifest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/boss/GhostCodeManifested.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/boss/Gilgmesh.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/boss/Gilgamesh.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/boss/TheArchitect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/boss/TheArchitect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/generic/ArcTechSoldier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/generic/ArcTechSoldier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/generic/CorruptedAutomaton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/generic/CorruptedAutomaton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/generic/CyberHound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/generic/CyberHound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/generic/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/generic/Monster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/generic/SteelDevourer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/generic/SteelDevourer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/MonsterSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/monsterskills/MonsterSkill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/PlayerSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/playerskills/PlayerSkill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/Skill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/TestMonsterSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/monsterskills/TestMonsterSkill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/TestPlayerSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/playerskills/TestPlayerSkill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/TestSkillPlayerTwo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/playerskills/TestSkillPlayerTwo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/maze/Maze.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/maze/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/RoomConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/maze/RoomConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/display/TextDisplayUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/display/TextDisplayUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/gamecore/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/gamecore/Command.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/gamecore/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/gamecore/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/gamecore/GameLogger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/gamecore/GameLogger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/input/UserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/input/UserInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Dagger.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Excalibur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Excalibur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Excalipoor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/LongSword.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/MerlinsWand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/TrialWand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Weapons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/weapons/Weapons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/input/Validation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/input/Validation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,8 +28,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -117,8 +95,8 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "PrimaryBranch",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/kstra/OneDrive/Desktop/SCHOOL/5_Fifth_Semester_DTCC/ITN_262_Programming_III/TextBasedAdventure",
-    "project.structure.last.edited": "Modules",
+    "last_opened_file_path": "C:/Users/kstra/OneDrive/Desktop/SCHOOL/5_Fifth_Semester_DTCC/ITN_262_Programming_III/gson-2.11.0.jar",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.32988507",
     "run.code.analysis.last.selected.profile": "pProject Default",
@@ -179,19 +157,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="text_based_adventure" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="text_based_adventure" />
-      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -347,7 +312,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728510561127</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="building the basis for a turned based text based game but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at map to see where player it&#10;&#10;combat is less broken need to fix issue with monster attacking multiple times and if i uise the other code i exit right after I attack&#10;&#10;fixed issue of re-instantiating player a second time when maze is created&#10;&#10;currently runs but I am facing issues where turns will still execute even after death.&#10;need to still refactor turn based fight logic.&#10;&#10;refactored the turn based logic, able to implement random encounters, flushed out classes implementing logging&#10;&#10;added monsters and bosses, fixed repeating special event logic, fixed special events maybe implement leveling up or just increase stats for the time being">
+      <option name="closed" value="true" />
+      <created>1728539515166</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1728539515166</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -374,7 +347,7 @@
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/dungeon/Maze.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/maze/Maze.java</url>
           <line>141</line>
           <option name="timeStamp" value="65" />
         </line-breakpoint>
@@ -387,6 +360,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/CombatLogic.java</url>
           <line>81</line>
           <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/gamecore/Game.java</url>
+          <line>119</line>
+          <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/playerskills/TestPlayerSkill.java</url>
@@ -408,12 +386,30 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/MonsterActions.java</url>
-          <line>41</line>
+          <line>39</line>
           <properties class="dtcc.itn262.combat.MonsterActions" method="defend">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/gamecore/Game.java</url>
+          <line>133</line>
+          <properties class="dtcc.itn262.utilities.gamecore.Game" method="loadHelpMenu">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/gamecore/Game.java</url>
+          <line>146</line>
+          <properties class="dtcc.itn262.utilities.gamecore.Game" method="displayHelp">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="74" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

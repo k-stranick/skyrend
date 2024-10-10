@@ -1,4 +1,4 @@
-package dtcc.itn262.dungeon;
+package dtcc.itn262.maze;
 
 public class Room {
 	private final String name;
