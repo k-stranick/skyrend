@@ -3,8 +3,7 @@ package dtcc.itn262.skills.monsterskills;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.monster.generic.Monster;
 
-public class TestMonsterSkill implements MonsterSkill {
-
+public class SelfDestruct implements MonsterSkill {
 	private static final int MANA_COST = 33;
 
 	/**
@@ -12,7 +11,7 @@ public class TestMonsterSkill implements MonsterSkill {
 	 */
 	@Override
 	public String getSkillName() {
-		return "Test Skill";
+		return "Self Destruct";
 	}
 
 	/**
@@ -23,14 +22,13 @@ public class TestMonsterSkill implements MonsterSkill {
 		return MANA_COST;
 	}
 
-
 	/**
 	 * @param monster
 	 * @param target
 	 */
 	@Override
 	public void useSkill(Monster monster, Player target) {
-		double damageMultiplier = 1.5;
+		double damageMultiplier = 3;
 		double damage = (monster.getMonsterAttributes().getMagic() * damageMultiplier) - target.getPlayerAttributes().getMagicDefense();
 		if (monster.getMonsterAttributes().getMana() < getManaCost()) {
 			System.out.println("Not enough mana to use " + getSkillName());

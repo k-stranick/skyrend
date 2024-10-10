@@ -58,7 +58,7 @@ public class Game {
 	}
 
 	private void loadGame() {
-		System.out.println("Loading game...NOT I will figure this out at some poiint");  // Placeholder for loading a saved game
+		System.out.println("Loading game...NOT I will figure this out at some point");  // Placeholder for loading a saved game
 	}
 
 
@@ -92,7 +92,7 @@ public class Game {
 				}
 			} while (cont);
 		}catch (Exception e) {
-			e.printStackTrace();
+
 			GameLogger.logError("An error occurred: " + e.getMessage());
 		}
 		System.out.println("Thank You for playing!");
@@ -140,7 +140,7 @@ public class Game {
 		try (FileReader reader = new FileReader("src/main/java/dtcc/itn262/json/help_menu.json")) {
 			helpMenu = gson.fromJson(reader, HelpMenu.class); // Deserialize JSON into HelpMenu class
 		} catch (IOException e) {
-			e.printStackTrace();
+			GameLogger.logError("An error occurred while loading the help menu: " + e.getMessage());
 		}
 
 		return helpMenu;

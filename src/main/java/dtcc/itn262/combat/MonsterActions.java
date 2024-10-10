@@ -1,11 +1,12 @@
 package dtcc.itn262.combat;
 
 import dtcc.itn262.character.Player;
+import dtcc.itn262.combat.effects.MonsterDefenseBuff;
 import dtcc.itn262.utilities.gamecore.Constants;
 import dtcc.itn262.monster.generic.Monster;
 import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.skills.monsterskills.MonsterSkill;
-import dtcc.itn262.skills.monsterskills.TestMonsterSkill;
+import dtcc.itn262.skills.monsterskills.QuantumDistortion;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,7 +17,7 @@ public class MonsterActions {
 
 
 	public MonsterActions(CombatLogic combatLogic) { // adding skills to the player
-		monsterSkills.add(new TestMonsterSkill());
+		monsterSkills.add(new QuantumDistortion());
 		this.combatLogic = combatLogic;
 	}
 

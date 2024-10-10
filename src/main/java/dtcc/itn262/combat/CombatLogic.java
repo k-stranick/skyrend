@@ -19,7 +19,7 @@ public class CombatLogic {
 	private final Player player;
 	private final Monster monster;
 	private final PlayerActions playerActions;
-	protected List<BuffAndDeBuff<PlayerAttributes>> activeBuffs;
+	protected List<dtcc.itn262.combat.effects.BuffAndDeBuff<PlayerAttributes>> activeBuffs;
 	protected List<BuffAndDeBuff<MonsterAttributes>> activeMonsterBuffs;
 	private final MonsterActions monsterActions;
 	private final ArrayList<PlayerSkill> cooldownList = new ArrayList<>();  // this is a generic stack that holds PlayerSkill objects

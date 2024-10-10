@@ -4,7 +4,7 @@ import dtcc.itn262.character.Player;
 import dtcc.itn262.monster.generic.Monster;
 
 
-public class TestSkillPlayerTwo implements PlayerSkill {
+public class PulseBlade implements PlayerSkill {
         // damage for kills is based off a multiplier of the player's magic attribute shold this be a concrete value??
 // should i display all skill stats up top?
         private static final int MANA_COST = 33;

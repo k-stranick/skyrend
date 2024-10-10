@@ -1,0 +1,61 @@
+package dtcc.itn262.skills.playerskills;
+
+import dtcc.itn262.character.Player;
+import dtcc.itn262.monster.generic.Monster;
+
+public class Heal implements PlayerSkill {
+	private static final int MANA_COST = 33;
+	private int currentCooldown = 0;
+
+	@Override
+	public String getSkillName() {
+		return "Heal";
+	}
+
+	@Override
+	public int getManaCost() {
+		return MANA_COST;
+	}
+
+	@Override
+	public boolean isOnCooldown() {
+		return currentCooldown > 0;
+	}
+
+	@Override
+	public void reduceCooldown() {
+		if (currentCooldown > 0) {
+			currentCooldown--;
+		}
+	}
+
+	@Override
+	public void setCooldown() {
+		currentCooldown = 3;
+	}
+
+	/**
+	 * @param player
+	 * @param target
+	 */
+	@Override
+	public void useSkill(Player player, Monster target) {
+		double healMultiplier = 3;
+		double heal = player.getPlayerAttributes().getMagic() * healMultiplier;
+		if (player.getPlayerAttributes().getMana() < getManaCost()) {
+			System.out.println("Not enough mana to use " + getSkillName());
+		} else if (player.getPlayerAttributes().getMana() >= MANA_COST) {
+			player.getPlayerAttributes().setMana(player.getPlayerAttributes().getMana() - MANA_COST);
+			player.getPlayerAttributes().setHealth((int) Math.round(player.getPlayerAttributes().getHealth() + heal));
+			System.out.println(player.getHero() + " uses " + getSkillName() + " on " + target.getMonster() + " for " + heal + " health.");
+		}
+	}
+
+	/**
+	 * @return
+	 */
+	@Override
+	public int getCurrentCooldown() {
+		return 0;
+	}
+}

@@ -3,10 +3,10 @@ package dtcc.itn262.skills.playerskills;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.monster.generic.Monster;
 
-public class TestPlayerSkill implements PlayerSkill {
+public class DivineStrike implements PlayerSkill {
 // damage for kills is based off a multiplier of the player's magic attribute should this be a concrete value??
 // should I display all skill stats up top?
-    private static final int MANA_COST = 33;
+    private static final int MANA_COST = 66;
     private int currentCooldown = 0;
 
 
@@ -15,7 +15,7 @@ public class TestPlayerSkill implements PlayerSkill {
      */
     @Override
     public String getSkillName() {
-        return "Test Skill";
+        return "Divine Strike";
     }
 
 
@@ -52,7 +52,7 @@ public class TestPlayerSkill implements PlayerSkill {
     @Override
     public void setCooldown() {
         // cooldown in turns
-        currentCooldown = 3;
+        currentCooldown = 6;
 
     }
 
@@ -63,7 +63,7 @@ public class TestPlayerSkill implements PlayerSkill {
      */
     @Override
     public void useSkill(Player player, Monster target) {
-        double damageMultiplier = 1.5;
+        double damageMultiplier = 4;
         double damage = (player.getPlayerAttributes().getMagic() * damageMultiplier) - target.getMonsterAttributes().getMagicDefense();
         if (isOnCooldown()) {
             System.out.println(getSkillName() + "is on cooldown");

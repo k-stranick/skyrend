@@ -1,4 +1,4 @@
-package dtcc.itn262.combat;
+package dtcc.itn262.combat.effects;
 
 public interface BuffAndDeBuff<T> {
     void apply(T target);

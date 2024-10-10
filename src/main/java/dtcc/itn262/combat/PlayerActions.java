@@ -2,10 +2,11 @@ package dtcc.itn262.combat;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
+import dtcc.itn262.combat.effects.DefenseBuff;
 import dtcc.itn262.monster.generic.Monster;
 import dtcc.itn262.skills.playerskills.PlayerSkill;
-import dtcc.itn262.skills.playerskills.TestPlayerSkill;
-import dtcc.itn262.skills.playerskills.TestSkillPlayerTwo;
+import dtcc.itn262.skills.playerskills.DivineStrike;
+import dtcc.itn262.skills.playerskills.PulseBlade;
 import dtcc.itn262.utilities.gamecore.Constants;
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,8 +19,8 @@ public class PlayerActions {
 
 
 	public PlayerActions(CombatLogic combatLogic, Player player) { // adding skills to the player
-		skills.add(new TestPlayerSkill());
-		skills.add(new TestSkillPlayerTwo());
+		skills.add(new DivineStrike());
+		skills.add(new PulseBlade());
 		this.combatLogic = combatLogic;
 		this.player = player;
 	}

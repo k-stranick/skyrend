@@ -1,4 +1,4 @@
-package dtcc.itn262.combat;
+package dtcc.itn262.combat.effects;
 
 import dtcc.itn262.character.PlayerAttributes;
 import dtcc.itn262.utilities.gamecore.Constants;

@@ -1,7 +1,9 @@
 package dtcc.itn262.character;
 
 import dtcc.itn262.armor.Armor;
+import dtcc.itn262.combat.effects.StatusEffect;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static dtcc.itn262.utilities.input.Validation.validateName;
@@ -13,6 +15,8 @@ public class Player {
     private int playerCol;
     private List<Armor> armorInventory;
     private Armor equippedArmor;
+    private final List<StatusEffect> statusEffects = new ArrayList<>();
+
 
     private Player(String hero, int startRow, int startCol) {
         this.hero = hero;
@@ -65,7 +69,25 @@ public class Player {
     public String getHero() {
         return hero;
     }
+    public void takeDamage(int damage) {
+        int currentHealth = playerAttributes.getHealth();
+        playerAttributes.setHealth(currentHealth - damage);  // Update health using the setter
+        System.out.println(getHero() + " took " + damage + " damage. Current health: " + playerAttributes.getHealth());
+    }
 
+
+    public void addStatusEffect(StatusEffect effect) {
+        System.out.println(getHero() + " is now affected by " + effect.getName() + ".");
+        statusEffects.add(effect);
+    }
+
+    public void updateStatusEffects() {
+        // Apply each active status effect
+        statusEffects.removeIf(effect -> !effect.isEffectActive());  // Remove expired effects
+        for (StatusEffect effect : statusEffects) {
+            effect.applyEffect(this);
+        }
+    }
 
     private void updateDefense() {
 		int totalDefense = playerAttributes.getDefense();
