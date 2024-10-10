@@ -1,5 +1,5 @@
 {
-  "welcomeMessage": "Welcome to the Text-Based Adventure Game! In this game, you will face off against powerful monsters in turn-based combat and navigate a mysterious maze.",
+  "welcomeMessage": "Welcome to Skyrend! In this game, you will face off against powerful monsters in turn-based combat and navigate a mysterious maze.",
   "combatCommands": {
     "1": {
       "command": "Attack",
@@ -80,6 +80,6 @@
     "1": "Each turn in combat, you and the monster will take actions based on your speed.",
     "2": "Buffs and debuffs will expire over time, and skills may have cooldown periods.",
     "3": "Keep an eye on your health and use items or defensive tactics to survive longer battles.",
-    "4": "As you explore the maze, be cautious of monster encounters and hidden traps."
+    "4": "As you explore the maze, be cautious of monster encounters."
   }
 }

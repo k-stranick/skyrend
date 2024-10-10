@@ -4,10 +4,10 @@ import com.google.gson.Gson;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.json.HelpMenu;
 import dtcc.itn262.maze.Maze;
+import dtcc.itn262.utilities.display.AsciiArt;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.input.Validation;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -25,11 +25,11 @@ public class Game {
 		Scanner scanner = new Scanner(System.in);
 
 		while (running) {
-			displayAsciiArt("src/main/java/dtcc/itn262/assets/logo.txt");  // Display the game logo
-			System.out.println("===== START MENU =====");
-			System.out.println("1. Start New Game");
-			System.out.println("2. Load Game");
-			System.out.println("3. View Help");
+			AsciiArt.displayAsciiArt("src/main/java/dtcc/itn262/json/ascii-text-art.txt");  // Display the game logo
+			System.out.println("========================= START MENU ===============================");
+			System.out.println("1. Start New Game - Begin a new adventure and create your hero.");
+			System.out.println("2. Load Game - Load a saved game (coming soon).");
+			System.out.println("3. View Help - Learn how to play the game.");
 			System.out.println("4. Exit");
 			System.out.print("Enter your choice: ");
 
@@ -153,15 +153,5 @@ public class Game {
 			System.out.println("Help menu not available.");
 		}
 	}
-	// Method to display ASCII art
-	public static void displayAsciiArt(String filePath) {
-		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				System.out.println(line);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
 }
