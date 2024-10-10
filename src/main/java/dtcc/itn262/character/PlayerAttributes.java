@@ -8,10 +8,12 @@ public class PlayerAttributes {
     private int level;
     private int strength;  // governs attack power
     private int defense;  // governs attack resistance
-    private int health; // governs life
+    private int health; // governs current life
+    private int maxHealth; // governs max life
     private int magic;  // governs magic attack power
     private int magicDefense;  // governs magic attack resistance
-    private int mana;  // governs magic pool
+    private int mana;  // governs current magic pool
+    private int maxMana; // governs max magic pool
     private int speed; // governs who attacks first
     private int luck; // governs critical hit chance
     private int experience; // governs level
@@ -27,9 +29,15 @@ public class PlayerAttributes {
         speed = 100;  //TODO
         luck = randStat();
         experience = 0; // base experience
-        health = 100;  // base health
-        mana = 1000; // base mana  //TODO
+        maxHealth = 100;  // base max health
+        health = maxHealth;  // set current health to max health //TODO
+        maxMana = 1000; // base max mana  //TODO
+        mana = maxMana; // set current mana to max mana //TODO
         level = 1; // base level
+    }
+    {
+        this.health = maxHealth;
+        this.mana = maxMana;
     }
 
     private int randStat() {
@@ -37,6 +45,7 @@ public class PlayerAttributes {
         //TODO make equations constants to avoid magic numbers and allow for easier balancing
         return rand.nextInt(10) + 8; // generates a random int between 10 and 18
     }
+
 
     public int getStrength() {
         return strength;
@@ -46,29 +55,46 @@ public class PlayerAttributes {
         this.strength = strength;
     }
 
+
     public int getHealth() {
         return health;
     }
-
     public void setHealth(int health) {
-        this.health = health;
+        //this.health = health;
+        // Prevent health from going over maxHealth or below 0
+        this.health = Math.max(0, Math.min(health, maxHealth));
     }
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
 
     public int getMana() {
         return mana;
     }
-
     public void setMana(int mana) {
-        this.mana = mana;
+        //this.mana = mana;
+        // Prevent mana from going over maxMana or below 0
+        this.mana = Math.max(0, Math.min(mana, maxMana));
     }
+    public int getMaxMana() {
+        return maxMana;
+    }
+    public void setMaxMana(int maxMana){
+        this.maxMana=maxMana;
+    }
+
 
     public int getLevel() {
         return level;
     }
-
     public void setLevel(int level) {
         this.level = level;
     }
+
 
     public int getDefense() {
         return defense;
@@ -78,6 +104,7 @@ public class PlayerAttributes {
         this.defense = defense;
     }
 
+
     public int getMagic() {
         return magic;
     }
@@ -85,6 +112,7 @@ public class PlayerAttributes {
     public void setMagic(int magic) {
         this.magic = magic;
     }
+
 
     public int getMagicDefense() {
         return magicDefense;
@@ -94,6 +122,7 @@ public class PlayerAttributes {
         this.magicDefense = magicDefense;
     }
 
+
     public int getSpeed() {
         return speed;
     }
@@ -102,6 +131,7 @@ public class PlayerAttributes {
         this.speed = speed;
     }
 
+
     public int getLuck() {
         return luck;
     }
@@ -109,6 +139,7 @@ public class PlayerAttributes {
     public void setLuck(int luck) {
         this.luck = luck;
     }
+
 
     public int getExperience() {
         return experience;

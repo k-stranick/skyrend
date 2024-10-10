@@ -1,5 +1,9 @@
 package dtcc.itn262.character;
 
+import dtcc.itn262.armor.Armor;
+
+import java.util.List;
+
 import static dtcc.itn262.utilities.input.Validation.validateName;
 
 public class Player {
@@ -7,9 +11,10 @@ public class Player {
     private final PlayerAttributes playerAttributes;
     private int playerRow;
     private int playerCol;
+    private List<Armor> armorInventory;
+    private Armor equippedArmor;
 
-
-    public Player(String hero, int startRow, int startCol) {
+    private Player(String hero, int startRow, int startCol) {
         this.hero = hero;
         playerAttributes = new PlayerAttributes();
         this.playerRow = startRow;
@@ -24,6 +29,11 @@ public class Player {
     }
 
 
+    public PlayerAttributes getPlayerAttributes() {
+        return playerAttributes;
+    } // returns the player attributes in PlayerAttributes class
+
+
     public int getPlayerRow() {
         return playerRow;
     }
@@ -35,7 +45,7 @@ public class Player {
 
 
     // Getter and Setter for playerCol
-    public int getPlayerCol() {
+	public int getPlayerCol() {
         return playerCol;
     }
 
@@ -52,15 +62,18 @@ public class Player {
     }
 
 
-    public PlayerAttributes getPlayerAttributes() {
-        return playerAttributes;
-    } // returns the player attributes in PlayerAttributes class
-
-
     public String getHero() {
         return hero;
     }
 
+
+    private void updateDefense() {
+		int totalDefense = playerAttributes.getDefense();
+        if (equippedArmor != null) {
+            totalDefense += equippedArmor.getDefenseBoost();
+        }
+        playerAttributes.setDefense(totalDefense);
+    }
 
 /*    public void setHero(String hero) {
         this.hero = hero;
@@ -68,7 +81,7 @@ public class Player {
 
 
     @Override
-    public String toString() {
+    public String toString() {  //Should I move this to PlayerAttributes class?
         return "Hero: " + hero +
                 "\nStrength: " + playerAttributes.getStrength() +
                 "\nHealth: " + playerAttributes.getHealth() +

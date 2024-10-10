@@ -3,10 +3,13 @@ package dtcc.itn262.monster.boss;
 import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.monster.generic.Monster;
 
-public class Gilgmesh extends Monster {
-	public Gilgmesh() {
+public class Gilgamesh extends Monster {
+	public Gilgamesh() {
 		super("G1lg@mesh", new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(700)
+				.withMaxHealth(700)
+				.withMaxMana(150)
+				.withMana(150)
 				.withStrength(60)
 				.withDefense(40)
 				.withSpeed(30)

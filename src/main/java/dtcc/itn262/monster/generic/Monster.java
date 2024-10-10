@@ -3,21 +3,21 @@ package dtcc.itn262.monster.generic;
 import dtcc.itn262.monster.MonsterAttributes;
 
 public class Monster {
-    private String enemy;
+    private String monster;
     private final MonsterAttributes monsterAttributes;
 
 
-    public Monster(String enemy, MonsterAttributes attributes) {
-        this.enemy = enemy;
+    public Monster(String monster, MonsterAttributes attributes) {
+        this.monster = monster;
         this.monsterAttributes = attributes;
     }
 
-    public String getEnemy() {
-        return enemy;
+    public String getMonster() {
+        return monster;
     }
 
-    public void setEnemy(String enemy) {
-        this.enemy = enemy;
+    public void setMonster(String monster) {
+        this.monster = monster;
     }
 
     public MonsterAttributes getMonsterAttributes() {
@@ -26,11 +26,10 @@ public class Monster {
 
     @Override
     public String toString() {
-        return "Monster: " + enemy +
-                "\nStrength: " + monsterAttributes.getStrength() +
-                "\nHealth: " + monsterAttributes.getHealth() +
-                "\nMana: " + monsterAttributes.getMana() +
-                "\nDefense: " + monsterAttributes.getDefense()
+        return "Monster: " + monster + "\nStrength: " + monsterAttributes.getStrength()
+                + "\nHealth: " + monsterAttributes.getHealth()
+                + "\nMana: " + monsterAttributes.getMana()
+                + "\nDefense: " + monsterAttributes.getDefense()
                 + "\nSpeed: " + monsterAttributes.getSpeed()
                 + "\nLuck: " + monsterAttributes.getLuck()
                 + "\nExperience: " + monsterAttributes.getExperience()

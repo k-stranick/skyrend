@@ -6,7 +6,10 @@ public class CyberHound extends Monster {
 	public CyberHound() {
 		super("Cyber Hound", new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(100)
-				.withStrength(15)
+				.withMaxHealth(100)
+				.withStrength(30)
+				.withMana(45)
+				.withMaxMana(45)
 				.withDefense(10)
 				.withSpeed(20)
 				.withMagic(0)

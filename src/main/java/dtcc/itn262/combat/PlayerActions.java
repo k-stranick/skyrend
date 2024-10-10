@@ -2,70 +2,76 @@ package dtcc.itn262.combat;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
-import dtcc.itn262.utilities.gamecore.Constants;
 import dtcc.itn262.monster.generic.Monster;
-import dtcc.itn262.skills.PlayerSkill;
-import dtcc.itn262.skills.TestPlayerSkill;
-import dtcc.itn262.skills.TestSkillPlayerTwo;
-
+import dtcc.itn262.skills.playerskills.PlayerSkill;
+import dtcc.itn262.skills.playerskills.TestPlayerSkill;
+import dtcc.itn262.skills.playerskills.TestSkillPlayerTwo;
+import dtcc.itn262.utilities.gamecore.Constants;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class PlayerActions {
 	protected ArrayList<PlayerSkill> skills = new ArrayList<>();
 	CombatLogic combatLogic;
+	Player player;
 	Random rand = new Random();
 
 
-	public PlayerActions(CombatLogic combatLogic) { // adding skills to the player
+	public PlayerActions(CombatLogic combatLogic, Player player) { // adding skills to the player
 		skills.add(new TestPlayerSkill());
 		skills.add(new TestSkillPlayerTwo());
-        this.combatLogic = combatLogic;
+		this.combatLogic = combatLogic;
+		this.player = player;
 	}
+
 
 	protected void attack(Player player, Monster target) {
 		int damage = (player.getPlayerAttributes().getStrength() - target.getMonsterAttributes().getDefense());
 		if (damage > 0) {
 			target.getMonsterAttributes().setHealth(target.getMonsterAttributes().getHealth() - damage);
-			System.out.println(player.getHero() + " attacks " + target.getEnemy() + " for " + damage + " damage.");
+			System.out.println(player.getHero() + " attacks " + target.getMonster() + " for " + damage + " damage.");
 		} else {
-			System.out.println(player.getHero() + " attacks " + target.getEnemy() + " but the attack is ineffective.");
+			System.out.println(player.getHero() + " attacks " + target.getMonster() + " but the attack is ineffective.");
 		}
 	}
 
 
 	protected void defend(Player player) {
-		int buffDuration = 2;
+		int buffDuration = 1; // buff lasts for 1 turn
 		BuffAndDeBuff<PlayerAttributes> defenseBuff = new DefenseBuff(buffDuration, Constants.DEFENSE_BUFF);
 		defenseBuff.apply(player.getPlayerAttributes());
-        System.out.println(player.getHero() + " defends and gains " + Constants.DEFENSE_BUFF + " defense for " + buffDuration + " turns.");
-        combatLogic.activeBuffs.add(defenseBuff);
-	}
-
-
-	protected void useSkill(Player player, Monster target, int skillIndex) {
-		if (skillIndex >= 0 && skillIndex < skills.size()) {
-			PlayerSkill skill = skills.get(skillIndex);
-			if (!skill.isOnCooldown()) {
-				skill.useSkill(player, target);
-
-			} else {
-				System.out.println("Cannot use " + skill.getSkillName() + " for " + skill.getCurrentCooldown() + " more turns.");
-			}
-		} else {
-			System.out.println("Invalid skill index.");
-		}
+		System.out.println(player.getHero() + " defends and gains " + Constants.DEFENSE_BUFF + " defense for " + buffDuration  + " turns.");
+		combatLogic.activeBuffs.add(defenseBuff);
 	}
 
 
 	protected void showEnemyStats(Monster target) {
-		System.out.println("Enemy: " + target.getEnemy() +
+		System.out.println("Enemy: " + target.getMonster() +
 				"\nHealth: " + target.getMonsterAttributes().getHealth() +
 				"\nDefense: " + target.getMonsterAttributes().getDefense() +
 				"\nMagic: " + target.getMonsterAttributes().getMagic() +
 				"\nMagic Defense: " + target.getMonsterAttributes().getMagicDefense() +
 				"\nSpeed: " + target.getMonsterAttributes().getSpeed() +
 				"\nLuck: " + target.getMonsterAttributes().getLuck());
+	}
+
+
+	protected void useSkill(Player player, Monster target, int skillIndex) {
+		try {
+			if (skillIndex >= 0 && skillIndex < skills.size()) {
+				PlayerSkill skill = skills.get(skillIndex);
+				if (!skill.isOnCooldown()) {
+					skill.useSkill(player, target);
+
+				} else {
+					System.out.println("Cannot use " + skill.getSkillName() + " for " + skill.getCurrentCooldown() + " more turns.");
+				}
+			} else {
+				System.out.println("Invalid skill index.");
+			}
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("An error occurred while using the skill: " + e.getMessage());
+		}
 	}
 
 

@@ -6,6 +6,9 @@ public class SteelDevourer extends Monster {
 	public SteelDevourer() {
 		super("Steel Devourer", new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(300)
+				.withMaxHealth(300)
+				.withMana(50)
+				.withMaxMana(50)
 				.withStrength(30)
 				.withDefense(25)
 				.withSpeed(5)

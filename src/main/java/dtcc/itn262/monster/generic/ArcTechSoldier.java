@@ -6,7 +6,10 @@ public class ArcTechSoldier extends Monster {
 	public ArcTechSoldier() {
 		super("ArcTech Enforcer", new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(150)
+				.withMaxHealth(150)
 				.withStrength(20)
+				.withMana(50)
+				.withMaxMana(50)
 				.withDefense(15)
 				.withSpeed(12)
 				.withMagic(5)

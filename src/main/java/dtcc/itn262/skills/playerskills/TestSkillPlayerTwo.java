@@ -1,10 +1,10 @@
-package dtcc.itn262.skills;
+package dtcc.itn262.skills.playerskills;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.monster.generic.Monster;
 
 
-    public class TestSkillPlayerTwo implements PlayerSkill {
+public class TestSkillPlayerTwo implements PlayerSkill {
         // damage for kills is based off a multiplier of the player's magic attribute shold this be a concrete value??
 // should i display all skill stats up top?
         private static final int MANA_COST = 33;
@@ -80,10 +80,10 @@ import dtcc.itn262.monster.generic.Monster;
                     // then in next else if block put logic for spell type and monster type the damage in the else statement will
                     // add the negative damage to the target's health
                     damage = 0; // explicitly set damage to 0
-                    System.out.println(target.getEnemy() + " blocked " + getSkillName() + ".");
+                    System.out.println(target.getMonster() + " blocked " + getSkillName() + ".");
                 } else {
                     target.getMonsterAttributes().setHealth((int) Math.round(target.getMonsterAttributes().getHealth() - damage)); // deals damage
-                    System.out.println(player.getHero() + " uses " + getSkillName() + " on " + target.getEnemy() + " for " + damage + " damage.");
+                    System.out.println(player.getHero() + " uses " + getSkillName() + " on " + target.getMonster() + " for " + damage + " damage.");
                 }
                 setCooldown();
             }

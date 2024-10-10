@@ -1,4 +1,4 @@
-package dtcc.itn262.skills;
+package dtcc.itn262.skills.playerskills;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.monster.generic.Monster;
@@ -79,10 +79,10 @@ public class TestPlayerSkill implements PlayerSkill {
                 // then in next else if block put logic for spell type and monster type the damage in the else statement will
                 // add the negative damage to the target's health
                 damage = 0; // explicitly set damage to 0
-                System.out.println(target.getEnemy() + " blocked " + getSkillName() + ".");
+                System.out.println(target.getMonster() + " blocked " + getSkillName() + ".");
             } else {
                 target.getMonsterAttributes().setHealth((int) Math.round(target.getMonsterAttributes().getHealth() - damage)); // deals damage
-                System.out.println(player.getHero() + " uses " + getSkillName() + " on " + target.getEnemy() + " for " + damage + " damage.");
+                System.out.println(player.getHero() + " uses " + getSkillName() + " on " + target.getMonster() + " for " + damage + " damage.");
             }
             setCooldown();
         }

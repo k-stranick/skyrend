@@ -2,12 +2,13 @@ package dtcc.itn262.dungeon;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
-import dtcc.itn262.monster.boss.GhostCodeManifest;
-import dtcc.itn262.monster.boss.Gilgmesh;
+import dtcc.itn262.monster.boss.GhostCodeManifested;
+import dtcc.itn262.monster.boss.Gilgamesh;
 import dtcc.itn262.monster.boss.TheArchitect;
 import dtcc.itn262.monster.generic.*;
 import dtcc.itn262.utilities.display.SceneManager;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
+import dtcc.itn262.utilities.gamecore.Command;
 import dtcc.itn262.utilities.gamecore.Constants;
 import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.UserInput;
@@ -58,18 +59,17 @@ public class Maze {
 	}
 
 
-	public void move(String direction) {
+	public void move(Command direction) {
 		int newRow = player.getPlayerRow();
 		int newCol = player.getPlayerCol();
-		switch (direction.toLowerCase()) {
-			case "north":
+		switch (direction) {
+			case NORTH:
 				newRow--;break;
-			case "south":
-
+			case SOUTH:
 				newRow++;break;
-			case "east":
+			case EAST:
 				newCol++;break;
-			case "west":
+			case WEST:
 				newCol--;break;
 			default:
 				System.out.println("Invalid direction. Use 'north', 'south', 'east', 'west'.");
@@ -116,7 +116,7 @@ public class Maze {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			GameLogger.logInfo(e.getMessage());
 		} catch (NullPointerException e) {
-			GameLogger.logError(Constants.ROOM_ERROR + e.getMessage());
+			GameLogger.logError("Critical Error " + e.getMessage());
 		}
 	}
 
@@ -127,9 +127,9 @@ public class Maze {
 	}
 
 
-	void triggerRandomEncounter() {
+	private void triggerRandomEncounter() {
 		int chance = random.nextInt(100); // Generate a random number between 0 and 99
-		if (chance < 20) { // 20% chance for an encounter
+		if (chance <= 20) { // 20% chance for an encounter
 			System.out.println("A wild monster appears!");
 			List<Monster> monsters = Arrays.asList(
 					new ArcTechSoldier(),
@@ -144,7 +144,7 @@ public class Maze {
 	}
 
 
-	public void visitRoom(Room currentRoom) {
+	private void visitRoom(Room currentRoom) {
 		try {
 			if (!currentRoom.isVisited()) {
 				currentRoom.setVisited(true);  // Mark room as visited
@@ -192,12 +192,12 @@ public class Maze {
 
 				break;
 			case "Sky bridge":
-				monster = new Gilgmesh();
+				monster = new Gilgamesh();
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
 				break;
 			case "Aetheric Sanctum":
-				monster = new GhostCodeManifest();
+				monster = new GhostCodeManifested();
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
 				break;
@@ -248,7 +248,7 @@ public class Maze {
 	}
 
 
-	public boolean checkNullRoom(Room currentRoom) {
+	private boolean checkNullRoom(Room currentRoom) {
 		if (currentRoom == null) {
 			System.out.println("This space is empty. You can't visit it.");
 			return true;

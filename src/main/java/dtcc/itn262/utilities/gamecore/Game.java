@@ -25,7 +25,7 @@ public class Game {
 
 			do {
 				System.out.print("?: "); // Prompt for the player's input
-				value = input.nextLine().trim(); // Read and trim player input
+				value = input.nextLine().trim().toLowerCase(); // Read and trim player input
 				handleInput(value, m);
 				if(value.equalsIgnoreCase("exit")) {
 					cont = false;
@@ -41,6 +41,7 @@ public class Game {
 				}
 			} while (cont);
 		}catch (Exception e) {
+			e.printStackTrace();
 			GameLogger.logError("An error occurred: " + e.getMessage());
 		}
 		System.out.println("Thank You for playing!");
@@ -50,7 +51,7 @@ public class Game {
 
 
 	private void handleInput(String value, Maze m) {
-		Command command = parseCommand(value);
+		Command command = Command.fromString(value);
 		if (command == null) {
 			GameLogger.logWarning("Invalid command. Please try again.");
 			return; // Return true if the command is invalid and continue the loop
@@ -73,7 +74,7 @@ public class Game {
 				TextDisplayUtility.showMoveHistory(m.getMoveHistory());
 				break;
 			case EAST, NORTH, SOUTH, WEST:
-				m.move(value);
+				m. move(command);
 				break;
 			default:
 				GameLogger.logWarning("Invalid command. Please try again.");

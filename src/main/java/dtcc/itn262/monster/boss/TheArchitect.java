@@ -1,4 +1,3 @@
-
 package dtcc.itn262.monster.boss;
 
 import dtcc.itn262.monster.MonsterAttributes;
@@ -8,6 +7,9 @@ public class TheArchitect extends Monster {
 	public TheArchitect() {
 		super("The Architect", new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(600)
+				.withMaxHealth(600)
+				.withMaxMana(250)
+				.withMana(250)
 				.withStrength(40)
 				.withDefense(55)
 				.withSpeed(25)

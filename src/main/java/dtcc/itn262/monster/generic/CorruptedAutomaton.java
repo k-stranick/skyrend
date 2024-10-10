@@ -6,6 +6,9 @@ public class CorruptedAutomaton extends Monster {
 	public CorruptedAutomaton() {
 		super("Corrupted Automaton", new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(200)
+				.withMaxHealth(200)
+				.withMaxMana(100)
+				.withMana(100)
 				.withStrength(25)
 				.withDefense(20)
 				.withSpeed(10)

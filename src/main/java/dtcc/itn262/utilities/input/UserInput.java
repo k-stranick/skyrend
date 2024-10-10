@@ -19,6 +19,7 @@ public class UserInput {
         return choice;
     }
 
+
     public static boolean askToContinue() {
         Scanner input = new Scanner(System.in);
         System.out.println("Would you like to continue the game? (yes/no)");

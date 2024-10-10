@@ -1,4 +1,4 @@
-package dtcc.itn262.skills;
+/*package dtcc.itn262.skills;
 
 public interface Skill<T> {
 
@@ -16,4 +16,4 @@ public interface Skill<T> {
 
     int getCurrentCooldown();
 
-}
+}*/

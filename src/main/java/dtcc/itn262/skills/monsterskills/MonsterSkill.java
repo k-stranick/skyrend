@@ -1,4 +1,4 @@
-package dtcc.itn262.skills;
+package dtcc.itn262.skills.monsterskills;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.monster.generic.Monster;

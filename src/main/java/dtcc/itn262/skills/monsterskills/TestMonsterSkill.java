@@ -1,4 +1,4 @@
-package dtcc.itn262.skills;
+package dtcc.itn262.skills.monsterskills;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.monster.generic.Monster;
@@ -38,6 +38,9 @@ public class TestMonsterSkill implements MonsterSkill {
 		} else if (monster.getMonsterAttributes().getMana() >= MANA_COST && damage > 0) {
 			monster.getMonsterAttributes().setMana(monster.getMonsterAttributes().getMana() - MANA_COST);
 			target.getPlayerAttributes().setHealth((int) Math.round(target.getPlayerAttributes().getHealth() - damage));
-			System.out.println(monster.getEnemy() + " uses " + getSkillName() + " on " + target.getHero() + " for " + damage + " damage.");}
+			System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHero() + " for " + damage + " damage.");
+		} else {
+			System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHero() + " but the attack is ineffective.");
+		}
 	}
 }

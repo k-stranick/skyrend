@@ -18,7 +18,7 @@ public class GameLogger {
             FileHandler fh = new FileHandler("errors.log", true);
             fh.setFormatter(new SimpleFormatter());
             logger.addHandler(fh);
-            //logger.setUseParentHandlers(false);  // Disable console logging
+            logger.setUseParentHandlers(false);  // Disable console logging
         } catch (IOException e) {
             e.printStackTrace();
         }
