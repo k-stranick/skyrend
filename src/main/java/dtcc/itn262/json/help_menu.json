@@ -1,5 +1,5 @@
 {
-  "welcomeMessage": "Welcome to Skyrend! In this game, you will face off against powerful monsters in turn-based combat and navigate a mysterious maze.",
+  "welcomeMessage": "Welcome to Skyrend! In this game, you will face off against powerful monsters in turn-based combat and navigate a mysterious maze. Type Help at any point while in in the maze to see the help menu.",
   "combatCommands": {
     "1": {
       "command": "Attack",

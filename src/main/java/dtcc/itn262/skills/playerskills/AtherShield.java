@@ -29,6 +29,14 @@ public class AtherShield implements PlayerSkill {
 		}
 	}
 
+	/**
+	 *
+	 */
+	@Override
+	public void setCooldown() {
+
+	}
+
 	public void useSkill(Player player, Monster attacker) {
 		if (player.getPlayerAttributes().getMana() < MANA_COST) {
 			System.out.println("Not enough mana to use " + getSkillName());
@@ -42,12 +50,20 @@ public class AtherShield implements PlayerSkill {
 		player.setShielded(true);
 	}
 
+	/**
+	 * @return
+	 */
+	@Override
+	public int getCurrentCooldown() {
+		return 0;
+	}
+
 	public void absorbAndReflectDamage(Player player, Monster attacker, double damage) {
 		double absorbedDamage = damage;
 		double reflectedDamage = damage * 0.15;
 
-		player.getPlayerAttributes().setHealth(player.getPlayerAttributes().getHealth() - absorbedDamage);
-		attacker.getMonsterAttributes().setHealth(attacker.getMonsterAttributes().getHealth() - reflectedDamage);
+		player.getPlayerAttributes().setHealth((int) (player.getPlayerAttributes().getHealth() - absorbedDamage));
+		attacker.getMonsterAttributes().setHealth((int) (attacker.getMonsterAttributes().getHealth() - reflectedDamage));
 
 		System.out.println(player.getHero() + " absorbs " + absorbedDamage + " damage and reflects " + reflectedDamage + " damage back to " + attacker.getMonster() + "!");
 	}

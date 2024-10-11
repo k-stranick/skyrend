@@ -2,6 +2,7 @@ package dtcc.itn262.character;
 
 import dtcc.itn262.armor.Armor;
 import dtcc.itn262.combat.effects.StatusEffect;
+import dtcc.itn262.items.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Player {
     private List<Armor> armorInventory;
     private Armor equippedArmor;
     private final List<StatusEffect> statusEffects = new ArrayList<>();
+    private final List<Items> inventory = new ArrayList<>();  // Add an inventory
 
 
     private Player(String hero, int startRow, int startCol) {
@@ -76,6 +78,23 @@ public class Player {
     }
 
 
+    public void useItem(int index) {
+        if (index >= 0 && index < inventory.size()) {
+            Items item = inventory.get(index);
+            item.apply(this); // Apply the item's effect
+            inventory.remove(index); // Remove the item after use (optional for consumables)
+        } else {
+            System.out.println("Invalid item choice.");
+        }
+    }
+
+    public void displayInventory() {
+        for (int i = 0; i < inventory.size(); i++) {
+            System.out.println(i + ". " + inventory.get(i).getName());
+        }
+    }
+
+
     public void addStatusEffect(StatusEffect effect) {
         System.out.println(getHero() + " is now affected by " + effect.getName() + ".");
         statusEffects.add(effect);
@@ -100,7 +119,26 @@ public class Player {
 /*    public void setHero(String hero) {
         this.hero = hero;
     }*/  // keep give players option later to change their same
+// Method to add an item to the player's inventory
+public void addItem(Items item) { // TODO: move this somwhere?
+    inventory.add(item);
+    System.out.println(item.getName() + " added to the inventory.");
+}
 
+
+    // Example method for restoring health (you should already have this)
+    public void restoreHealth(int amount) {
+        int newHealth = playerAttributes.getHealth() + amount;
+        playerAttributes.setHealth(newHealth);
+        System.out.println("Restored " + amount + " health. New health: " + playerAttributes.getHealth());
+    }
+
+    // Example method for restoring mana (if applicable)
+    public void restoreMana(int amount) {
+        int newMana = playerAttributes.getMana() + amount;
+        playerAttributes.setMana(newMana);
+        System.out.println("Restored " + amount + " mana. New mana: " + playerAttributes.getMana());
+    }
 
     @Override
     public String toString() {  //Should I move this to PlayerAttributes class?
@@ -120,4 +158,14 @@ public class Player {
     public boolean isAlive() {
         return playerAttributes.getHealth() > 0;
     }
+
+    public void setShielded(boolean b) {// TODO: Implement this method
+    }
+
+/*    // Method to remove an item from the player's inventory
+    public void removeItem(Items item) {
+        inventory.remove(item);
+        System.out.println(item.getName() + " removed from the inventory.");
+    }*/ // KEEP THIS I CAN TRY AND USE IT FOR OUTSIDE OF COMBAT??
+
 }

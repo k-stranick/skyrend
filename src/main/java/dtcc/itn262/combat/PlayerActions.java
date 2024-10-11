@@ -39,10 +39,10 @@ public class PlayerActions {
 
 	protected void defend(Player player) {
 		int buffDuration = 1; // buff lasts for 1 turn
-		BuffAndDeBuff<PlayerAttributes> defenseBuff = new DefenseBuff(buffDuration, Constants.DEFENSE_BUFF);
-		defenseBuff.apply(player.getPlayerAttributes());
+		DefenseBuff<PlayerAttributes> playerDefenseBuff = new DefenseBuff<>(buffDuration, Constants.DEFENSE_BUFF);
+		playerDefenseBuff.apply(player.getPlayerAttributes());
 		System.out.println(player.getHero() + " defends and gains " + Constants.DEFENSE_BUFF + " defense for " + buffDuration  + " turns.");
-		combatLogic.activeBuffs.add(defenseBuff);
+		combatLogic.activePlayerBuffs.add(playerDefenseBuff);
 	}
 
 
@@ -58,6 +58,8 @@ public class PlayerActions {
 				"\nSpeed: " + target.getMonsterAttributes().getSpeed() +
 				"\nLuck: " + target.getMonsterAttributes().getLuck());
 	}
+
+
 
 
 	protected void useSkill(Player player, Monster target, int skillIndex) {

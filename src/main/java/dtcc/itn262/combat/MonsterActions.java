@@ -1,7 +1,8 @@
 package dtcc.itn262.combat;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.combat.effects.MonsterDefenseBuff;
+import dtcc.itn262.combat.effects.BuffAndDeBuff;
+import dtcc.itn262.combat.effects.DefenseBuff;
 import dtcc.itn262.utilities.gamecore.Constants;
 import dtcc.itn262.monster.generic.Monster;
 import dtcc.itn262.monster.MonsterAttributes;
@@ -40,10 +41,10 @@ public class MonsterActions {
 
 	protected void defend(Monster monster) {
 		int buffDuration = 1;
-		BuffAndDeBuff<MonsterAttributes> defenseBuff = new MonsterDefenseBuff(buffDuration, Constants.DEFENSE_BUFF);
-		defenseBuff.apply(monster.getMonsterAttributes());
+		DefenseBuff<MonsterAttributes> monsterDefenseBuff = new DefenseBuff<>(buffDuration, Constants.DEFENSE_BUFF);
+		monsterDefenseBuff.apply(monster.getMonsterAttributes());
 		System.out.println(monster.getMonster() + " defends and gains " + Constants.DEFENSE_BUFF + " defense for " + buffDuration + " turns.");
-		combatLogic.activeMonsterBuffs.add(defenseBuff);
+		combatLogic.activeMonsterBuffs.add(monsterDefenseBuff);
 	}
 
 

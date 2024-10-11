@@ -11,17 +11,16 @@ public class GlitchSwipe implements MonsterSkill {
 		this.damage = damage;
 	}
 
-	@Override
+
 	public void apply(MonsterAttributes target) {
 		target.setHealth(target.getHealth() - damage);
 	}
 
-	@Override
+
 	public void decreaseDuration() {
 		// Do nothing
 	}
 
-	@Override
 	public boolean isExpired() {
 		return true;
 	}

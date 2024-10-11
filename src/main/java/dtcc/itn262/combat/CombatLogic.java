@@ -2,6 +2,8 @@ package dtcc.itn262.combat;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
+import dtcc.itn262.combat.effects.BuffAndDeBuff;
+import dtcc.itn262.items.Items;
 import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.monster.generic.Monster;
 import dtcc.itn262.skills.playerskills.PlayerSkill;
@@ -9,17 +11,15 @@ import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+
+import java.util.*;
 
 
 public class CombatLogic {
 	private final Player player;
 	private final Monster monster;
 	private final PlayerActions playerActions;
-	protected List<dtcc.itn262.combat.effects.BuffAndDeBuff<PlayerAttributes>> activeBuffs;
+	protected List<BuffAndDeBuff<PlayerAttributes>> activePlayerBuffs;
 	protected List<BuffAndDeBuff<MonsterAttributes>> activeMonsterBuffs;
 	private final MonsterActions monsterActions;
 	private final ArrayList<PlayerSkill> cooldownList = new ArrayList<>();  // this is a generic stack that holds PlayerSkill objects
@@ -30,7 +30,7 @@ public class CombatLogic {
 		this.monster = monster;
 		this.playerActions = new PlayerActions(CombatLogic.this, player);
 		this.monsterActions = new MonsterActions(CombatLogic.this);
-		this.activeBuffs = new ArrayList<>();
+		this.activePlayerBuffs = new ArrayList<>();
 		this.activeMonsterBuffs = new ArrayList<>();
 	}
 
@@ -56,19 +56,20 @@ public class CombatLogic {
 
 			if (playerGoesFirst) {   // Player goes first if their speed is higher
 				battleHasEnded = playerTurn();  // Check if the player ends the battle
-				updateMonsterBuffs(monster); // Update buffs at the end of each PLAYER TURN
+				updateBuffs(monster.getMonsterAttributes(),activeMonsterBuffs); // Update buffs at the end of each PLAYER TURN
 				if (Validation.keepBattleGoing(battleHasEnded, player, monster)) { // monster's turn still goes if dead...
 					monsterTurn();  // Monster's turn if the fight continues
-					updatePlayerBuffs(player); // Update buffs at the end of each turn??
+					updateBuffs(player.getPlayerAttributes(), activePlayerBuffs); // Update buffs at the end of each turn??
 				}
 			} else {
 				monsterTurn(); // Monster's turn first
-				updatePlayerBuffs(player); // Update buffs at the end of each turn??
+				updateBuffs(player.getPlayerAttributes(), activePlayerBuffs); // Update buffs at the end of each turn??
 				if (player.isAlive()) {
 					battleHasEnded = playerTurn(); // Player's turn after monster
-					updateMonsterBuffs(monster); // Update buffs at the end of each PLAYER TURN
+					updateBuffs(monster.getMonsterAttributes(),activeMonsterBuffs); // Update buffs at the end of each PLAYER TURN
 				}
 			}
+			//CREATE METHOD FOR HERE TO HANDLE DEBUFF,COOLDOWN,STATUSEFFECTS, ETC
 		}
 		determineOutcome(battleHasEnded, player); // Check for win/loss conditions once the battle is over
 	}
@@ -88,8 +89,8 @@ public class CombatLogic {
 
 	private boolean playerTurn() {
 		TextDisplayUtility.showBattleScreen(player, monster);
-		System.out.print("Choose an action: ");
-		int choice = UserInput.getPlayerChoice();  // Extracted method for getting choice
+		//System.out.print("Choose an action: ");
+		int choice = UserInput.getPlayerChoice("Choose an Action: ");  // Extracted method for getting choice
 		try {
 			// If the method returns true, it means the player successfully ran away
 			return battleMenuChoice(choice);
@@ -128,6 +129,14 @@ public class CombatLogic {
 	}
 
 	private void handleItemUsage() {
+		Items healthPotion = new Items("Health Potion", "Health Potion", 50);
+		player.addItem(healthPotion);  // Add a health potion to the player's inventory
+		//Scanner scanner = new Scanner(System.in);
+		//System.out.print("Choose an item to use:");
+		player.displayInventory();  // Display player's items
+		int itemChoice = UserInput.getPlayerChoice("Choose an item to use: ");  // why is this returning 0?
+		player.useItem(itemChoice);  // Use the selected item
+
 	}
 
 
@@ -156,7 +165,7 @@ public class CombatLogic {
 	private void handleSkillUsage() {
 		playerActions.showSkills();  // Show available skills
 		System.out.println("Choose a skill: ");
-		int skillIndex = UserInput.getPlayerChoice() - 1;  // Get skill choice by converting user input to 0-based index
+		int skillIndex = UserInput.getPlayerChoice("Choose A Skill: ") - 1;  // Get skill choice by converting user input to 0-based index
 		PlayerSkill skill = playerActions.getSkill(skillIndex);
 		playerActions.useSkill(player, monster, skillIndex);
 		cooldownList.add(skill);  // Add skill to cooldown stack
@@ -177,20 +186,20 @@ public class CombatLogic {
 
 
 	// Add a method to update buffs at the end of each turn
-	private void updatePlayerBuffs(Player player) {
-		Iterator<BuffAndDeBuff<PlayerAttributes>> iterator = activeBuffs.iterator();
+	private <T> void updateBuffs(T character, List<BuffAndDeBuff<T>> activeBuffs) {
+		Iterator<BuffAndDeBuff<T>> iterator = activeBuffs.iterator();
 		while (iterator.hasNext()) {
-			BuffAndDeBuff<PlayerAttributes> buff = iterator.next();
+			BuffAndDeBuff<T> buff = iterator.next();
 			buff.decreaseDuration();  // Decrease the duration of each buff
 			if (buff.isExpired()) {
-				buff.revert(player.getPlayerAttributes());  // Revert the buff when it expires
+				buff.revert(character);  // Revert the buff when it expires
 				iterator.remove();  // Remove the expired buff from the list
 				System.out.println("Defense buff expired for " + player.getHero());
 			}
 		}
 	}
 
-	private void updateMonsterBuffs(Monster monster) {
+/*	private void updateMonsterBuffs(Monster monster) {
 		Iterator<BuffAndDeBuff<MonsterAttributes>> iterator = activeMonsterBuffs.iterator();
 		while (iterator.hasNext()) {
 			BuffAndDeBuff<MonsterAttributes> buff = iterator.next();
@@ -201,5 +210,5 @@ public class CombatLogic {
 				System.out.println("Defense buff expired for " + monster.getMonster());
 			}
 		}
-	}
+	}*/
 }

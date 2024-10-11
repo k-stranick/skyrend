@@ -1,6 +1,7 @@
+package dtcc.itn262.skills.monsterskills;
+
 import dtcc.itn262.character.Player;
 import dtcc.itn262.monster.generic.Monster;
-import dtcc.itn262.skills.monsterskills.MonsterSkill;
 
 public class DataDrain implements MonsterSkill {
 	private static final int MANA_COST = 33;
@@ -43,7 +44,7 @@ public class DataDrain implements MonsterSkill {
 		target.getPlayerAttributes().setMana((int) (target.getPlayerAttributes().getMana() - manaToAbsorb));
 
 		monster.getMonsterAttributes().setHealth((int) (monster.getMonsterAttributes().getHealth() + healthToAbsorb));
-		monster.getMonsterAttributes().setMana(monster.getMonsterAttributes().getMana() + manaToAbsorb);
+		monster.getMonsterAttributes().setMana((int) (monster.getMonsterAttributes().getMana() + manaToAbsorb));
 
 		System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHero() + " and absorbs " + healthToAbsorb + " health and " + manaToAbsorb + " mana.");
 	}
