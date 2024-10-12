@@ -7,6 +7,7 @@ public enum Command {
     MAP("map"),
     PROGRESS("progress"),
     HISTORY("history"),
+    SEARCH("search"),
     NORTH("north", "n"),
     SOUTH("south", "s"),
     EAST("east", "e"),

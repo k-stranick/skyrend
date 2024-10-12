@@ -1,11 +1,17 @@
 package dtcc.itn262.maze;
 
+import dtcc.itn262.items.armor.AetherReaverSuit;
+import dtcc.itn262.items.armor.Armor;
+import dtcc.itn262.items.armor.PhantomCircuitArmor;
+import dtcc.itn262.items.armor.PhantomCloak;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
+import dtcc.itn262.items.usableitems.UsableItems;
 import dtcc.itn262.monster.boss.GhostCodeManifested;
 import dtcc.itn262.monster.boss.Gilgamesh;
 import dtcc.itn262.monster.boss.TheArchitect;
 import dtcc.itn262.monster.generic.*;
+import dtcc.itn262.monster.hiddenbosses.TheCipher;
 import dtcc.itn262.utilities.display.SceneManager;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.gamecore.Command;
@@ -13,6 +19,10 @@ import dtcc.itn262.utilities.gamecore.Constants;
 import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
+import dtcc.itn262.items.weapons.Aetherblade;
+import dtcc.itn262.items.weapons.GhostReaver;
+import dtcc.itn262.items.weapons.Voidbreaker;
+import dtcc.itn262.items.weapons.IWeapon;
 
 import java.util.*;
 
@@ -28,6 +38,9 @@ public class Maze {
 	private final Player player; // change this if I add more characters to the game
 	private final SceneManager sceneManager;
 	private final Random random = new Random();
+	private final List<IWeapon> weapons = new ArrayList<>();
+	private final List<Armor> armors = new ArrayList<>();
+	private final List<UsableItems> items = new ArrayList<>();  // For items that aren't weapons or armor
 
 	//constructor
 	private Maze(Player player) {
@@ -38,6 +51,9 @@ public class Maze {
 		this.sceneManager = SceneManager.getInstance();
 		visitRoom(map[player.getPlayerRow()][player.getPlayerCol()]);  // Mark the starting room as visited
 		TextDisplayUtility.showCurrentRoom(map, player);
+		initializeWeapons();
+		initializeArmors();
+		initializeItems();
 	}
 
 
@@ -64,13 +80,17 @@ public class Maze {
 		int newCol = player.getPlayerCol();
 		switch (direction) {
 			case NORTH:
-				newRow--;break;
+				newRow--;
+				break;
 			case SOUTH:
-				newRow++;break;
+				newRow++;
+				break;
 			case EAST:
-				newCol++;break;
+				newCol++;
+				break;
 			case WEST:
-				newCol--;break;
+				newCol--;
+				break;
 			default:
 				System.out.println("Invalid direction. Use 'north', 'south', 'east', 'west'.");
 				return;
@@ -211,6 +231,10 @@ public class Maze {
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
 				break;
+			case "Fractured Nexus":
+				monster = new TheCipher();
+				combat = new CombatLogic(player, monster);
+				combat.startFight();
 			default:
 		}
 	}
@@ -256,6 +280,81 @@ public class Maze {
 		return false;
 	}
 
+
+	private boolean chanceToFindItem() {
+		return random.nextDouble() < 5.0;  // 10% chance
+	}
+
+
+	public void searchRoom(Room room)
+	{
+		if (!chanceToFindItem()) {
+			System.out.println("You didn't find anything.");
+			return;
+		}
+			Object item = generateRandomItem();
+			System.out.println("You found a " + item);
+			if (item instanceof IWeapon) {
+				player.addWeapon((IWeapon) item);
+			} else if (item instanceof Armor) {
+				player.addArmor((Armor) item);
+			} else if (item instanceof UsableItems) {
+				player.addItem((UsableItems) item);
+			}
+
+	}
+
+	private Object generateRandomItem() {
+		Random random = new Random();
+		int itemType = random.nextInt(3);  // 0 for a weapon, 1 for armor, 2 for items
+
+		if (itemType == 0) {
+			return generateRandomWeapon();
+		} else if (itemType == 1) {
+			return generateRandomArmor();
+		} else {
+			return generateRandomOtherItem();
+		}
+	}
+
+
+	private void initializeWeapons() {// can search for a weapon across the entire map maybe change this
+		weapons.add(new GhostReaver());
+		weapons.add(new Aetherblade());
+		weapons.add(new Voidbreaker());;
+	}
+
+	// Randomly pick a weapon from the list of custom weapons
+	private IWeapon generateRandomWeapon() {
+		Random random = new Random();
+		return weapons.get(random.nextInt(weapons.size()));
+	}
+
+	private void initializeArmors() {
+		armors.add(new AetherReaverSuit());
+		armors.add(new PhantomCircuitArmor());
+		armors.add(new PhantomCloak());
+	}
+
+	// Randomly pick an armor from the list of custom armors
+	private Armor generateRandomArmor() {
+		Random random = new Random();
+		return armors.get(random.nextInt(armors.size()));
+	}
+
+	private void initializeItems() {
+		items.add(new UsableItems("Health Potion", "Health Potion", 20)); // placeholders for now
+		items.add(new UsableItems("super Health Potion", "Health Potion", 40)); // placeholders for now
+		items.add(new UsableItems("Mana Potion", "Health Potion", 20));  // placeholders for now
+		items.add(new UsableItems("Super Mana Potion", "Health Potion", 40));  // placeholders for now
+		items.add(new UsableItems("Elixir", "Elixir",100, 100));  // placeholders for now
+	}
+
+	// Randomly pick an item from the list of custom other items
+	private UsableItems generateRandomOtherItem() {
+		Random random = new Random();
+		return items.get(random.nextInt(items.size()));
+	}
 
 	private Room[][] initializeMap() {
 		return new Room[][]{
@@ -318,30 +417,20 @@ public class Maze {
 				// Row 9
 				{
 						null, null, null, null,
-						new Room(new RoomConfiguration("Echo Vault", "A hidden digital vault.", 21, -1, -1, -1, false, Constants.NO_SCENE))  // Room 22
+						new Room(new RoomConfiguration("Echo Vault", "A hidden digital vault.", 21, -1, -1, 23, false, Constants.NO_SCENE)),  // Room 22
+						new Room(new RoomConfiguration("Void Space", "The long path to a worthy foe...", 19, 22, 22, 24, false, Constants.NO_SCENE)),  // Room 23
+						new Room(new RoomConfiguration("Void Space", "...", 19, 22, -1, -1, false, Constants.NO_SCENE)),  // Room 24
+						new Room(new RoomConfiguration("Void Space", "...getting closer...", 19, 22, -1, -1, false, Constants.NO_SCENE)),  // Room 25
+						new Room(new RoomConfiguration("Void Space", "... in the words of Scar 'Be Prepared'...", 19, 22, -1, -1, false, Constants.NO_SCENE)),  // Room 26
+						new Room(new RoomConfiguration("Fractured Nexus", "A hidden digital plane where reality fractures, distorting time and space. The very fabric of this place is unstable, with chunks of the world flickering in and out of existence. Endless streams of corrupted data pulse through the air, intertwining with threads of Aether energy, creating a chaotic, ever-shifting environment. In this eerie realm, the laws of physics and magic bend and break, revealing the presence of the Cipher, an entity that lurks in the shadows, waiting to rewrite reality.", -1, -1, 26, -1, true, Constants.SCENE_7))  // Room 27 Hidden room
 				}
 		};
 	}
 
 
-
-/*
-    public void search() {
-        Random rand = new Random();
-        int intSearch = rand.nextInt(10);
-        if (intSearch > 7) {
-
-            keyFound = true;
-            System.out.println("You found the key!");
-            moves.push("keyFound");
-
-        } else {
-            System.out.println("You did not find the key.");
-            moves.push("no key found");
-        }
-    }*/
-
-
+	public Room getCurrentRoom() {
+		return map[player.getPlayerRow()][player.getPlayerCol()];
+	}
 }
 
 

@@ -36,9 +36,4 @@ public class UserInput {
         }
         return true; // Return true to continue playing
     }
-
-
-    public static int getIntInput(String s) {
-        return 0;
-    }
 }

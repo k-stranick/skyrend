@@ -52,6 +52,11 @@
       "command": "EXIT",
       "description": "Exit the game.",
       "usage": "Type 'EXIT' to quit the game."
+    },
+    "Search": {
+      "command": "SEARCH",
+      "description": "Search for items.",
+      "usage": "Type 'SEARCH' to look for items in the current room."
     }
   },
   "movementCommands": {

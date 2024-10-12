@@ -30,9 +30,9 @@ public class PlayerAttributes {
         luck = randStat();
         experience = 0; // base experience
         maxHealth = 100;  // base max health
-        health = maxHealth;  // set current health to max health //TODO
+        health = maxHealth;  // set current health to max health
         maxMana = 1000; // base max mana  //TODO
-        mana = maxMana; // set current mana to max mana //TODO
+        mana = maxMana; // set current mana to max mana
         level = 1; // base level
     }
     {

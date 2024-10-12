@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.json.HelpMenu;
 import dtcc.itn262.maze.Maze;
+import dtcc.itn262.maze.Room;
 import dtcc.itn262.utilities.display.AsciiArt;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.input.Validation;
@@ -78,20 +79,19 @@ public class Game {
 				System.out.print("?: "); // Prompt for the player's input
 				value = input.nextLine().trim().toLowerCase(); // Read and trim player input
 				handleInput(value, m);
-				if(value.equalsIgnoreCase("exit")) {
+				if (value.equalsIgnoreCase("exit")) {
 					cont = false;
-				}
-				else if (Validation.checkWinCondition(m)) { // Check for win or lose conditions
+				} else if (Validation.checkWinCondition(m)) { // Check for win or lose conditions
 					System.out.println("Congratulations! You've won the game!");
 					cont = false;  // End the game loop
 				} else if (Validation.checkLoseCondition(player)) {
 					System.out.println("Game Over! You have lost the game.");
 					cont = false;  // End the game loop
-				}else {
+				} else {
 					// Continue the game loop
 				}
 			} while (cont);
-		}catch (Exception e) {
+		} catch (Exception e) {
 
 			GameLogger.logError("An error occurred: " + e.getMessage());
 		}
@@ -124,8 +124,12 @@ public class Game {
 			case HISTORY:
 				TextDisplayUtility.showMoveHistory(m.getMoveHistory());
 				break;
+			case SEARCH:
+				Room currentRoom = m.getCurrentRoom(); // Get the current room from the Maze
+				m.searchRoom(currentRoom);
+				break;
 			case EAST, NORTH, SOUTH, WEST:
-				m. move(command);
+				m.move(command);
 				break;
 			default:
 				GameLogger.logWarning("Invalid command. Please try again.");

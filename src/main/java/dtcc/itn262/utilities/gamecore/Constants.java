@@ -13,6 +13,9 @@ public class Constants {
 	public static final int SCENE_4 = 4; // scene 4
 	public static final int SCENE_5 = 5; // scene 5
 	public static final int SCENE_6 = 6; // scene 6
+	public static final int SCENE_7 = 7;
+
+
 
 	//ERROR Constants
 	public static final String ROOM_ERROR = "Room not initialized";

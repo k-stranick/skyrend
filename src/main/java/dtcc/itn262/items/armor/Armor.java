@@ -1,4 +1,4 @@
-package dtcc.itn262.armor;
+package dtcc.itn262.items.armor;
 
 public interface Armor {
 	String getArmor();

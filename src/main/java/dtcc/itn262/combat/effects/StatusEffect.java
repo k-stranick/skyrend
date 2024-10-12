@@ -1,7 +1,7 @@
 package dtcc.itn262.combat.effects;
 
 import dtcc.itn262.character.Player;
-
+//TODO work on this class
 /**
  * Represents a status effect, such as ongoing damage.
  */
@@ -31,9 +31,11 @@ public class StatusEffect {
 		}
 	}
 
+
 	public boolean isEffectActive() {
 		return remainingTurns > 0;
 	}
+
 
 	public String getName() {
 		return name;

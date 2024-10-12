@@ -1,6 +1,6 @@
-package dtcc.itn262.weapons;
+package dtcc.itn262.items.weapons;
 
-public interface Weapons {
+public interface IWeapon {
 	String getWeapon();
 	int getDamage();
 	String getType();

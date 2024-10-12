@@ -3,16 +3,20 @@ package dtcc.itn262.combat;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
 import dtcc.itn262.combat.effects.DefenseBuff;
+import dtcc.itn262.items.usableitems.UsableItems;
 import dtcc.itn262.monster.generic.Monster;
 import dtcc.itn262.skills.playerskills.PlayerSkill;
 import dtcc.itn262.skills.playerskills.DivineStrike;
 import dtcc.itn262.skills.playerskills.PulseBlade;
 import dtcc.itn262.utilities.gamecore.Constants;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class PlayerActions {
-	protected ArrayList<PlayerSkill> skills = new ArrayList<>();
+	private final ArrayList<PlayerSkill> skills = new ArrayList<>();
+	private final List<UsableItems> inventory = new ArrayList<>();  // Add an inventory
+
 	CombatLogic combatLogic;
 	Player player;
 	Random rand = new Random();
@@ -60,8 +64,6 @@ public class PlayerActions {
 	}
 
 
-
-
 	protected void useSkill(Player player, Monster target, int skillIndex) {
 		try {
 			if (skillIndex >= 0 && skillIndex < skills.size()) {
@@ -96,6 +98,20 @@ public class PlayerActions {
 		}
 	}
 
+	public void useItem(Player player,int index) {
+		if (index >= 0 && index < inventory.size()) {
+			UsableItems item = inventory.get(index);
+			item.apply(player); // Apply the item's effect
+			inventory.remove(index); // Remove the item after use (optional for consumables)
+		} else {
+			System.out.println("Invalid item choice.");
+		}
+	}
+
+	public void addItem(UsableItems item) { // TODO: move this somwhere?
+		inventory.add(item);
+		System.out.println(item.getName() + " added to the inventory.");
+	}
 
 	protected boolean run(Player player) {
 		int luck = player.getPlayerAttributes().getLuck();  // Use player's luck to influence run success

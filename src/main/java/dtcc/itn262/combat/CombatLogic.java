@@ -3,7 +3,7 @@ package dtcc.itn262.combat;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
 import dtcc.itn262.combat.effects.BuffAndDeBuff;
-import dtcc.itn262.items.Items;
+import dtcc.itn262.items.usableitems.UsableItems;
 import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.monster.generic.Monster;
 import dtcc.itn262.skills.playerskills.PlayerSkill;
@@ -12,17 +12,20 @@ import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 
 public class CombatLogic {
 	private final Player player;
 	private final Monster monster;
 	private final PlayerActions playerActions;
-	protected List<BuffAndDeBuff<PlayerAttributes>> activePlayerBuffs;
-	protected List<BuffAndDeBuff<MonsterAttributes>> activeMonsterBuffs;
 	private final MonsterActions monsterActions;
 	private final ArrayList<PlayerSkill> cooldownList = new ArrayList<>();  // this is a generic stack that holds PlayerSkill objects
+	protected List<BuffAndDeBuff<PlayerAttributes>> activePlayerBuffs;
+	protected List<BuffAndDeBuff<MonsterAttributes>> activeMonsterBuffs;
 
 
 	public CombatLogic(Player player, Monster monster) {
@@ -46,7 +49,6 @@ public class CombatLogic {
 		}
 	}
 
-
 	public void startFight() { // need to check status for this also
 		boolean battleHasEnded = false;  // Declare battleEnded at the start of the method
 		boolean playerGoesFirst = player.getPlayerAttributes().getSpeed() > monster.getMonsterAttributes().getSpeed(); // move inside the if statement if I introduce buffs or de-buffs for speed
@@ -56,7 +58,7 @@ public class CombatLogic {
 
 			if (playerGoesFirst) {   // Player goes first if their speed is higher
 				battleHasEnded = playerTurn();  // Check if the player ends the battle
-				updateBuffs(monster.getMonsterAttributes(),activeMonsterBuffs); // Update buffs at the end of each PLAYER TURN
+				updateBuffs(monster.getMonsterAttributes(), activeMonsterBuffs); // Update buffs at the end of each PLAYER TURN
 				if (Validation.keepBattleGoing(battleHasEnded, player, monster)) { // monster's turn still goes if dead...
 					monsterTurn();  // Monster's turn if the fight continues
 					updateBuffs(player.getPlayerAttributes(), activePlayerBuffs); // Update buffs at the end of each turn??
@@ -66,14 +68,13 @@ public class CombatLogic {
 				updateBuffs(player.getPlayerAttributes(), activePlayerBuffs); // Update buffs at the end of each turn??
 				if (player.isAlive()) {
 					battleHasEnded = playerTurn(); // Player's turn after monster
-					updateBuffs(monster.getMonsterAttributes(),activeMonsterBuffs); // Update buffs at the end of each PLAYER TURN
+					updateBuffs(monster.getMonsterAttributes(), activeMonsterBuffs); // Update buf fs at the end of each PLAYER TURN
 				}
 			}
 			//CREATE METHOD FOR HERE TO HANDLE DEBUFF,COOLDOWN,STATUSEFFECTS, ETC
 		}
 		determineOutcome(battleHasEnded, player); // Check for win/loss conditions once the battle is over
 	}
-
 
 	private void monsterTurn() {
 		Random rand = new Random();
@@ -84,8 +85,6 @@ public class CombatLogic {
 			case 3 -> monsterActions.useSkill(monster, player);
 		}
 	}
-
-
 
 	private boolean playerTurn() {
 		TextDisplayUtility.showBattleScreen(player, monster);
@@ -99,7 +98,6 @@ public class CombatLogic {
 		}
 		return false;
 	}
-
 
 	// Helper method to execute the player's choice
 	private boolean battleMenuChoice(int choice) {
@@ -115,7 +113,7 @@ public class CombatLogic {
 				return handleRunAttempt();
 			}
 			default -> {
-			GameLogger.logWarning("Invalid choice. Please select a valid option.");
+				GameLogger.logWarning("Invalid choice. Please select a valid option.");
 				return false;
 			}
 		}
@@ -129,38 +127,31 @@ public class CombatLogic {
 	}
 
 	private void handleItemUsage() {
-		Items healthPotion = new Items("Health Potion", "Health Potion", 50);
-		player.addItem(healthPotion);  // Add a health potion to the player's inventory
-		//Scanner scanner = new Scanner(System.in);
-		//System.out.print("Choose an item to use:");
+		//UsableItems healthPotion = new UsableItems("Health Potion", "Health Potion", 50);
+		//playerActions.addItem(healthPotion);  // Add a health potion to the player's inventory
 		player.displayInventory();  // Display player's items
 		int itemChoice = UserInput.getPlayerChoice("Choose an item to use: ");  // why is this returning 0?
-		player.useItem(itemChoice);  // Use the selected item
+		playerActions.useItem(player, itemChoice);  // Use the selected item
 
 	}
-
 
 	private boolean handleRunAttempt() { //TODO test
 		// Continue combat if the player is still alive
 		return playerActions.run(player);  // Successfully ran away, exit battle loop
 	}
 
-
 	private void handleAttack() {
 		playerActions.attack(player, monster);
 	}
-
 
 	private void handleDefense() {
 		playerActions.defend(player);
 
 	}
 
-
 	private void handleEnemyScan() {
 		playerActions.showEnemyStats(monster);
 	}
-
 
 	private void handleSkillUsage() {
 		playerActions.showSkills();  // Show available skills
@@ -170,7 +161,6 @@ public class CombatLogic {
 		playerActions.useSkill(player, monster, skillIndex);
 		cooldownList.add(skill);  // Add skill to cooldown stack
 	}
-
 
 	private void reduceCooldown() { //todo: test this method
 		Iterator<PlayerSkill> iterator = cooldownList.iterator();
@@ -194,21 +184,8 @@ public class CombatLogic {
 			if (buff.isExpired()) {
 				buff.revert(character);  // Revert the buff when it expires
 				iterator.remove();  // Remove the expired buff from the list
-				System.out.println("Defense buff expired for " + player.getHero());
+				System.out.println("Defense buff expired for " + character);
 			}
 		}
 	}
-
-/*	private void updateMonsterBuffs(Monster monster) {
-		Iterator<BuffAndDeBuff<MonsterAttributes>> iterator = activeMonsterBuffs.iterator();
-		while (iterator.hasNext()) {
-			BuffAndDeBuff<MonsterAttributes> buff = iterator.next();
-			buff.decreaseDuration();  // Decrease the duration of each buff
-			if (buff.isExpired()) {
-				buff.revert(monster.getMonsterAttributes());  // Revert the buff when it expires
-				iterator.remove();  // Remove the expired buff from the list
-				System.out.println("Defense buff expired for " + monster.getMonster());
-			}
-		}
-	}*/
 }
