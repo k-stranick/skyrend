@@ -1,6 +1,6 @@
 package dtcc.itn262.maze;
 
-public record RoomConfiguration(String name, String description,int n, int s, int e,int w, boolean isSpecial, int sceneIndex) {
+public record RoomConfiguration(int index,String name, String description,int n, int s, int e,int w, boolean isSpecial, int sceneIndex) {
 
 
 }

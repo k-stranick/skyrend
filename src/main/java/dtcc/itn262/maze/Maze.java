@@ -41,10 +41,12 @@ public class Maze {
 	private final List<IWeapon> weapons = new ArrayList<>();
 	private final List<Armor> armors = new ArrayList<>();
 	private final List<UsableItems> items = new ArrayList<>();  // For items that aren't weapons or armor
+	private Map<Integer, int[]> roomIndexToPosition;
 
 	//constructor
 	private Maze(Player player) {
 		this.map = initializeMap();
+		initializeRoomIndexMapping();
 		this.player = player;
 		this.requiredVisitedRooms = countSpecialRooms();
 		this.uniqueVisitedRooms = new HashSet<>();  //If a player visits the same room multiple times, the HashSet will only store that room once.
@@ -74,31 +76,60 @@ public class Maze {
 		return uniqueVisitedRooms;
 	}
 
-
+	private void initializeRoomIndexMapping() {
+		roomIndexToPosition = new HashMap<>();
+		for (int row = 0; row < map.length; row++) {
+			for (int col = 0; col < map[row].length; col++) {
+				Room room = map[row][col];
+				if (room != null) {
+					roomIndexToPosition.put(room.getRoomIndex(), new int[]{row, col});
+				}
+			}
+		}
+	}
 	public void move(Command direction) {
-		int newRow = player.getPlayerRow();
-		int newCol = player.getPlayerCol();
+		if (direction == null) {
+			System.out.println("Invalid direction. Use 'north', 'south', 'east', 'west'.");
+			return;
+		}
+
+		Room currentRoom = getCurrentRoom();
+		int nextRoomIndex = -1;
+
 		switch (direction) {
 			case NORTH:
-				newRow--;
+				nextRoomIndex = currentRoom.getN();
 				break;
 			case SOUTH:
-				newRow++;
+				nextRoomIndex = currentRoom.getS();
 				break;
 			case EAST:
-				newCol++;
+				nextRoomIndex = currentRoom.getE();
 				break;
 			case WEST:
-				newCol--;
+				nextRoomIndex = currentRoom.getW();
 				break;
 			default:
-				System.out.println("Invalid direction. Use 'north', 'south', 'east', 'west'.");
+				System.out.println("Invalid direction.");
 				return;
 		}
+
+		if (nextRoomIndex == -1) {
+			System.out.println("Cannot move " + direction + " from here");
+			return;
+		}
+
+		int[] position = roomIndexToPosition.get(nextRoomIndex);
+		if (position == null) {
+			System.out.println("You can't move in that direction. INVALID ROOM");
+			return;
+		}
+
+		int newRow = position[0];
+		int newCol = position[1];
+
 		positionValidation(newRow, newCol);
 	}
-
-
 	private void positionValidation(int newRow, int newCol) {
 		try {
 			if (Validation.isRoomValid(newRow, newCol, map)) { // Check if the new position is valid
@@ -358,69 +389,69 @@ public class Maze {
 		return new Room[][]{
 				// Row 1
 				{
-						new Room(new RoomConfiguration("The Outskirts", "A lawless area on the edge of the city.", -1, -1, 1, -1, false, Constants.NO_SCENE)), // Room 0
-						new Room(new RoomConfiguration("Neon Corridor", "A bustling district filled with traders.", -1, -1, 0, 2, false, Constants.NO_SCENE)),  // Room 1
-						new Room(new RoomConfiguration("Fusion Park", "A public park where nature and tech blend.", -1, -1, 1, 3, false, Constants.NO_SCENE)),   // Room 2
-						new Room(new RoomConfiguration("Cyber Alley", "A narrow alley with questionable tech.", -1, 4, 3, -1, false, Constants.NO_SCENE))  // Room 3
+						new Room(new RoomConfiguration(0,"The Outskirts", "A lawless area on the edge of the city.", -1, -1, 1, -1, false, Constants.NO_SCENE)), // Room 0
+						new Room(new RoomConfiguration(1,"Neon Corridor", "A bustling district filled with traders.", -1, -1, 2, 0, false, Constants.NO_SCENE)),  // Room 1
+						new Room(new RoomConfiguration(2,"Fusion Park", "A public park where nature and tech blend.", -1, -1, 3, 2, false, Constants.NO_SCENE)),   // Room 2
+						new Room(new RoomConfiguration(3,"Cyber Alley", "A narrow alley with questionable tech.", -1, 4, -1, 3, false, Constants.NO_SCENE))  // Room 3
 				},
 				// Row 2
 				{
 						null, null, null,
-						new Room(new RoomConfiguration("DataFall Plaza", "A bustling square surrounded by neon billboards.", 3, -1, -1, 5, false, Constants.NO_SCENE)), // Room 4
-						new Room(new RoomConfiguration("Power Conduit", "A maintenance area for energy conduits.", -1, 6, 4, -1, false, Constants.NO_SCENE))  // Room 5
+						new Room(new RoomConfiguration(4,"DataFall Plaza", "A bustling square surrounded by neon billboards.", 3, -1, 5, -1, false, Constants.NO_SCENE)), // Room 4
+						new Room(new RoomConfiguration(5,"Power Conduit", "A maintenance area for energy conduits.", -1, 6, -1, -1, false, Constants.NO_SCENE))  // Room 5
 				},
 				// Row 3
 				{
 						null, null, null, null,
-						new Room(new RoomConfiguration("StormW3ll Station", "An old train station repurposed as a meeting ground.", 5, 12, 7, -1, false, Constants.NO_SCENE)),  // Room 6
-						new Room(new RoomConfiguration("The Drift Way", "A dangerous floating sky rail.", -1, -1, 6, 8, false, Constants.NO_SCENE)),  // Room 7
-						new Room(new RoomConfiguration("Rune Street Markets", "A chaotic black market.", -1, 13, 7, -1, false, Constants.NO_SCENE)) // Room 8
+						new Room(new RoomConfiguration(6,"StormW3ll Station", "An old train station repurposed as a meeting ground.", 5, 12, 7, -1, false, Constants.NO_SCENE)),  // Room 6
+						new Room(new RoomConfiguration(7,"The Drift Way", "A dangerous floating sky rail.", -1, -1, 8, 9, false, Constants.NO_SCENE)),  // Room 7
+						new Room(new RoomConfiguration(8,"Rune Street Markets", "A chaotic black market.", -1, 13, -1, 7, false, Constants.NO_SCENE)) // Room 8
 				},
 				// Row 4
 				{
 						null,
-						new Room(new RoomConfiguration("Arcane Synth Bay", "A fusion lab for cybernetic enhancements.", -1, -1, 10, -1, true, Constants.SCENE_1)), // Room 9
-						new Room(new RoomConfiguration("Ghost Terminal", "A server room where Ghost Code emerged.", -1, 14, 11, 9, false, Constants.NO_SCENE)),  // Room 10
-						new Room(new RoomConfiguration("Giga Tower", "A towering skyscraper.", -1, -1, 12, 10, false, Constants.NO_SCENE)),  // Room 11
-						new Room(new RoomConfiguration("Circuit Yard", "A spacious yard used by traders and scavengers.", 6, -1, -1, 11, false, Constants.NO_SCENE)),  // Room 12
+						new Room(new RoomConfiguration(9,"Arcane Synth Bay", "A fusion lab for cybernetic enhancements.", -1, -1, 10, -1, true, Constants.SCENE_1)), // Room 9
+						new Room(new RoomConfiguration(10,"Ghost Terminal", "A server room where Ghost Code emerged.", -1, 14, 11, 9, false, Constants.NO_SCENE)),  // Room 10
+						new Room(new RoomConfiguration(11,"Giga Tower", "A towering skyscraper.", -1, -1, 12, 10, false, Constants.NO_SCENE)),  // Room 11
+						new Room(new RoomConfiguration(12,"Circuit Yard", "A spacious yard used by traders and scavengers.", 6, -1, -1, 11, false, Constants.NO_SCENE)),  // Room 12
 						null,
-						new Room(new RoomConfiguration("Abandoned Tech Labs", "A research facility overrun with AI.", 8, -1, -1, -1, true, Constants.SCENE_2)),  // Room 13
+						new Room(new RoomConfiguration(13,"Abandoned Tech Labs", "A research facility overrun with AI.", 8, -1, -1, -1, true, Constants.SCENE_2)),  // Room 13
 				},
 				// Row 5
 				{
 						null, null,
-						new Room(new RoomConfiguration("Sky bridge", "A high-altitude bridge connecting sectors.", 10, 16, -1, -1, true, Constants.SCENE_3)),  // Room 14
+						new Room(new RoomConfiguration(14,"Sky bridge", "A high-altitude bridge connecting sectors.", 10, 16, -1, -1, true, Constants.SCENE_3)),  // Room 14
 						null,
-						new Room(new RoomConfiguration("Aetheric Sanctum", "A hidden sanctum where the Aether flows.", -1, 18, -1, -1, true, Constants.SCENE_4)) // Room 15
+						new Room(new RoomConfiguration(15,"Aetheric Sanctum", "A hidden sanctum where the Aether flows.", -1, 18, -1, -1, true, Constants.SCENE_4)) // Room 15
 				},
 				// Row 6
 				{
 						null, null,
-						new Room(new RoomConfiguration("Iron District", "An industrial zone filled with factories.", 14, -1, 17, -1, false, Constants.NO_SCENE)), // Room 16
-						new Room(new RoomConfiguration("Scrapyard", "A graveyard of discarded machinery.", -1, -1, 18, 16, false, Constants.NO_SCENE)),  // Room 17
-						new Room(new RoomConfiguration("Red Circuit Warehouse", "A storage facility for stolen tech.", 15, 19, -1, 17, false, Constants.NO_SCENE)), // Room 18
+						new Room(new RoomConfiguration(16,"Iron District", "An industrial zone filled with factories.", 14, -1, 17, -1, false, Constants.NO_SCENE)), // Room 16
+						new Room(new RoomConfiguration(17,"Scrapyard", "A graveyard of discarded machinery.", -1, -1, 18, 16, false, Constants.NO_SCENE)),  // Room 17
+						new Room(new RoomConfiguration(18,"Red Circuit Warehouse", "A storage facility for stolen tech.", 15, 19, -1, 17, false, Constants.NO_SCENE)), // Room 18
 				},
 				// Row 7
 				{
 						null, null, null, null,
-						new Room(new RoomConfiguration("Obsidian Relay", "A central hub of the AetherGrid.", 18, 21, 20, -1, false, Constants.NO_SCENE)),  // Room 19
-						new Room(new RoomConfiguration("NullSpace Hub", "A digital realm where space and time distort.", -1, -1, -1, 19, true, Constants.SCENE_5))  // Room 20
+						new Room(new RoomConfiguration(19,"Obsidian Relay", "A central hub of the AetherGrid.", 18, 21, 20, -1, false, Constants.NO_SCENE)),  // Room 19
+						new Room(new RoomConfiguration(20,"NullSpace Hub", "A digital realm where space and time distort.", -1, -1, -1, 19, true, Constants.SCENE_5))  // Room 20
 
 				},
 				// Row 8
 				{
 						null, null, null, null,
-						new Room(new RoomConfiguration("Aether Nexus", "The towering heart of Skyrend.", 19, 22, -1, -1, true, Constants.SCENE_6)),  // Room 21
+						new Room(new RoomConfiguration(21,"Aether Nexus", "The towering heart of Skyrend.", 19, 22, -1, -1, true, Constants.SCENE_6)),  // Room 21
 				},
 				// Row 9
 				{
 						null, null, null, null,
-						new Room(new RoomConfiguration("Echo Vault", "A hidden digital vault.", 21, -1, -1, 23, false, Constants.NO_SCENE)),  // Room 22
-						new Room(new RoomConfiguration("Void Space", "The long path to a worthy foe...", 19, 22, 22, 24, false, Constants.NO_SCENE)),  // Room 23
-						new Room(new RoomConfiguration("Void Space", "...", 19, 22, -1, -1, false, Constants.NO_SCENE)),  // Room 24
-						new Room(new RoomConfiguration("Void Space", "...getting closer...", 19, 22, -1, -1, false, Constants.NO_SCENE)),  // Room 25
-						new Room(new RoomConfiguration("Void Space", "... in the words of Scar 'Be Prepared'...", 19, 22, -1, -1, false, Constants.NO_SCENE)),  // Room 26
-						new Room(new RoomConfiguration("Fractured Nexus", "A hidden digital plane where reality fractures, distorting time and space. The very fabric of this place is unstable, with chunks of the world flickering in and out of existence. Endless streams of corrupted data pulse through the air, intertwining with threads of Aether energy, creating a chaotic, ever-shifting environment. In this eerie realm, the laws of physics and magic bend and break, revealing the presence of the Cipher, an entity that lurks in the shadows, waiting to rewrite reality.", -1, -1, 26, -1, true, Constants.SCENE_7))  // Room 27 Hidden room
+						new Room(new RoomConfiguration(22,"Echo Vault", "A hidden digital vault.", 21, -1, -1, 23, false, Constants.NO_SCENE)),  // Room 22
+						new Room(new RoomConfiguration(23,"Void Space", "The long path to a worthy foe...", -1, -1, 22, 24, false, Constants.NO_SCENE)),  // Room 23
+						new Room(new RoomConfiguration(24,"Void Space", "...", -1, -1, 23, 25, false, Constants.NO_SCENE)),  // Room 24
+						new Room(new RoomConfiguration(25,"Void Space", "...getting closer...", -1, -1, 24, 26, false, Constants.NO_SCENE)),  // Room 25
+						new Room(new RoomConfiguration(26,"Void Space", "... in the words of Scar 'Be Prepared'...", -1, -1, 25, 27, false, Constants.NO_SCENE)),  // Room 26
+						new Room(new RoomConfiguration(27,"Fractured Nexus", "A hidden digital plane where reality fractures, distorting time and space. The very fabric of this place is unstable, with chunks of the world flickering in and out of existence. Endless streams of corrupted data pulse through the air, intertwining with threads of Aether energy, creating a chaotic, ever-shifting environment. In this eerie realm, the laws of physics and magic bend and break, revealing the presence of the Cipher, an entity that lurks in the shadows, waiting to rewrite reality.", -1, -1, 26, -1, true, Constants.SCENE_7))  // Room 27 Hidden room
 				}
 		};
 	}

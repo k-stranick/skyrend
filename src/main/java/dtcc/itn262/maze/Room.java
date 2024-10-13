@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
+	private final int roomIndex;
 	private final String name;
 	private final String description;
 	private final boolean isSpecial;
@@ -19,6 +20,7 @@ public class Room {
 	private List<UsableItems> items;
 
 	public Room(RoomConfiguration roomConfiguration) {
+		this.roomIndex = roomConfiguration.index();
 		this.name = roomConfiguration.name();
 		this.description = roomConfiguration.description();
 		this.visited = false;
@@ -42,6 +44,10 @@ public class Room {
 
 	public void setSpecialEventTriggered(boolean triggered) {
 		this.specialEventTriggered = triggered;
+	}
+
+	public int getRoomIndex() {
+		return roomIndex;
 	}
 
 	public String getName() {
