@@ -1,9 +1,9 @@
 package dtcc.itn262.skills.monsterskills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.generic.Monster;
+import dtcc.itn262.monster.genericmonsters.Monster;
 
-public class PhantomCode implements MonsterSkill {
+public class PhantomCode implements IMonsterSkill {
 	private static final int MANA_COST = 33;
 
 	/**
@@ -28,7 +28,7 @@ public class PhantomCode implements MonsterSkill {
 	 */
 	@Override
 	public void useSkill(Monster monster, Player target) {
-		double damageMultiplier = 3;
+		double damageMultiplier = 4;
 		double damage = (monster.getMonsterAttributes().getMagic() * damageMultiplier) - target.getPlayerAttributes().getMagicDefense();
 		if (monster.getMonsterAttributes().getMana() < getManaCost()) {
 			System.out.println("Not enough mana to use " + getSkillName());

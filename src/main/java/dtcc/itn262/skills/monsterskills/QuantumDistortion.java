@@ -1,9 +1,9 @@
 package dtcc.itn262.skills.monsterskills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.generic.Monster;
+import dtcc.itn262.monster.genericmonsters.Monster;
 
-public class QuantumDistortion implements MonsterSkill {
+public class QuantumDistortion implements IMonsterSkill {
 
 	private static final int MANA_COST = 33;
 
@@ -12,7 +12,7 @@ public class QuantumDistortion implements MonsterSkill {
 	 */
 	@Override
 	public String getSkillName() {
-		return "Test Skill";
+		return "Quantum Distortion";
 	}
 
 	/**
@@ -38,7 +38,8 @@ public class QuantumDistortion implements MonsterSkill {
 		} else if (monster.getMonsterAttributes().getMana() >= MANA_COST && damage > 0) {
 			monster.getMonsterAttributes().setMana(monster.getMonsterAttributes().getMana() - MANA_COST);
 			target.getPlayerAttributes().setHealth((int) Math.round(target.getPlayerAttributes().getHealth() - damage));
-			System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHero() + " for " + damage + " damage.");
+			target.getPlayerAttributes().setMana((int) Math.round(target.getPlayerAttributes().getMana() - damage));
+			System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHero() + " for " + damage + " damage to HP and Mana.");
 		} else {
 			System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHero() + " but the attack is ineffective.");
 		}

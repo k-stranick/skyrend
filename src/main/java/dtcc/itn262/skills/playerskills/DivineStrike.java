@@ -1,7 +1,7 @@
 package dtcc.itn262.skills.playerskills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.generic.Monster;
+import dtcc.itn262.monster.genericmonsters.Monster;
 
 public class DivineStrike implements PlayerSkill {
 // damage for kills is based off a multiplier of the player's magic attribute should this be a concrete value??
@@ -86,6 +86,14 @@ public class DivineStrike implements PlayerSkill {
             }
             setCooldown();
         }
+    }
+
+    /**
+     * @param player
+     */
+    @Override
+    public void useSKill(Player player) {
+
     }
 
 

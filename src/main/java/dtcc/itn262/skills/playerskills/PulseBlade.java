@@ -1,7 +1,7 @@
 package dtcc.itn262.skills.playerskills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.generic.Monster;
+import dtcc.itn262.monster.genericmonsters.Monster;
 
 
 public class PulseBlade implements PlayerSkill {
@@ -16,7 +16,7 @@ public class PulseBlade implements PlayerSkill {
          */
         @Override
         public String getSkillName() {
-            return "Test Skill 2";
+            return "Pulse Blade";
         }
 
 
@@ -64,7 +64,7 @@ public class PulseBlade implements PlayerSkill {
          */
         @Override
         public void useSkill(Player player, Monster target) {
-            double damageMultiplier = 1.5;
+            double damageMultiplier = 2;
             double damage = (player.getPlayerAttributes().getMagic() * damageMultiplier) - target.getMonsterAttributes().getMagicDefense();
             if (isOnCooldown()) {
                 System.out.println(getSkillName() + "is on cooldown");
@@ -89,8 +89,16 @@ public class PulseBlade implements PlayerSkill {
             }
         }
 
+    /**
+     * @param player
+     */
+    @Override
+    public void useSKill(Player player) {
 
-        /**
+    }
+
+
+    /**
          * @return
          */
         @Override

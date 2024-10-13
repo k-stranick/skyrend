@@ -1,9 +1,9 @@
 package dtcc.itn262.skills.monsterskills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.generic.Monster;
+import dtcc.itn262.monster.genericmonsters.Monster;
 
-public class TailWhip implements MonsterSkill {
+public class Slash implements IMonsterSkill {
 	private static final int MANA_COST = 33;
 
 	/**
@@ -11,7 +11,7 @@ public class TailWhip implements MonsterSkill {
 	 */
 	@Override
 	public String getSkillName() {
-		return "Tail Whip";
+		return "Slash";
 	}
 
 	/**

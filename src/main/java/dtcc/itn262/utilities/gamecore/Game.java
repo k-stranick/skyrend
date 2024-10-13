@@ -128,6 +128,9 @@ public class Game {
 				Room currentRoom = m.getCurrentRoom(); // Get the current room from the Maze
 				m.searchRoom(currentRoom);
 				break;
+			case INVENTORY:
+				m.displayInventory();
+				break;
 			case EAST, NORTH, SOUTH, WEST:
 				m.move(command);
 				break;

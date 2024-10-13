@@ -57,6 +57,11 @@
       "command": "SEARCH",
       "description": "Search for items.",
       "usage": "Type 'SEARCH' to look for items in the current room."
+    },
+    "Inventory": {
+      "command": "INVENTORY",
+      "description": "Display Player Inventory.",
+      "usage": "Type 'INVENTORY' to look at current inventory and (use items or equip armaments -> UNDER CONSTRUCTION)."
     }
   },
   "movementCommands": {

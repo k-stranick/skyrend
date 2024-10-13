@@ -1,6 +1,9 @@
-package dtcc.itn262.monster.generic;
+package dtcc.itn262.monster.genericmonsters;
 
 import dtcc.itn262.monster.MonsterAttributes;
+import dtcc.itn262.skills.monsterskills.DataDrain;
+import dtcc.itn262.skills.monsterskills.MemoryLeak;
+import dtcc.itn262.skills.monsterskills.Slash;
 
 public class SteelDevourer extends Monster {
 	public SteelDevourer() {
@@ -18,7 +21,11 @@ public class SteelDevourer extends Monster {
 				.withType("Mechanical Beast")
 				.withDescription("A massive, corrupted machine created to dismantle buildings but now turned against the people. Its enormous size and power make it a devastating force in battle.")
 				.build());
-	}
 
-	// Define unique abilities here like Devour, Metal Claw, etc.
+		// Define unique abilities here like Devour, Metal Claw, etc.
+		//addSkill(new Heal());
+		addSkill(new MemoryLeak());
+		addSkill(new Slash());
+		addSkill(new DataDrain());
+	}
 }

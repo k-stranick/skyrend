@@ -1,16 +1,20 @@
 package dtcc.itn262.maze;
 
+import dtcc.itn262.character.Player;
+import dtcc.itn262.combat.CombatLogic;
 import dtcc.itn262.items.armor.AetherReaverSuit;
 import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.items.armor.PhantomCircuitArmor;
 import dtcc.itn262.items.armor.PhantomCloak;
-import dtcc.itn262.character.Player;
-import dtcc.itn262.combat.CombatLogic;
 import dtcc.itn262.items.usableitems.UsableItems;
+import dtcc.itn262.items.weapons.Aetherblade;
+import dtcc.itn262.items.weapons.GhostReaver;
+import dtcc.itn262.items.weapons.IWeapon;
+import dtcc.itn262.items.weapons.Voidbreaker;
 import dtcc.itn262.monster.boss.GhostCodeManifested;
 import dtcc.itn262.monster.boss.Gilgamesh;
 import dtcc.itn262.monster.boss.TheArchitect;
-import dtcc.itn262.monster.generic.*;
+import dtcc.itn262.monster.genericmonsters.*;
 import dtcc.itn262.monster.hiddenbosses.TheCipher;
 import dtcc.itn262.utilities.display.SceneManager;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
@@ -19,10 +23,6 @@ import dtcc.itn262.utilities.gamecore.Constants;
 import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
-import dtcc.itn262.items.weapons.Aetherblade;
-import dtcc.itn262.items.weapons.GhostReaver;
-import dtcc.itn262.items.weapons.Voidbreaker;
-import dtcc.itn262.items.weapons.IWeapon;
 
 import java.util.*;
 
@@ -282,25 +282,23 @@ public class Maze {
 
 
 	private boolean chanceToFindItem() {
-		return random.nextDouble() < 5.0;  // 10% chance
+		return random.nextDouble() < .2;  // 20% chance
 	}
 
-
-	public void searchRoom(Room room)
-	{
+	public void searchRoom(Room room) { // random item generator from a predefined list and adds it to player's inventory
 		if (!chanceToFindItem()) {
 			System.out.println("You didn't find anything.");
 			return;
 		}
-			Object item = generateRandomItem();
-			System.out.println("You found a " + item);
-			if (item instanceof IWeapon) {
-				player.addWeapon((IWeapon) item);
-			} else if (item instanceof Armor) {
-				player.addArmor((Armor) item);
-			} else if (item instanceof UsableItems) {
-				player.addItem((UsableItems) item);
-			}
+		Object item = generateRandomItem();
+		System.out.println("You found a " + item);
+		if (item instanceof IWeapon) {
+			player.addWeapon((IWeapon) item);
+		} else if (item instanceof Armor) {
+			player.addArmor((Armor) item);
+		} else if (item instanceof UsableItems) {
+			player.addItem((UsableItems) item);
+		}
 
 	}
 
@@ -317,11 +315,11 @@ public class Maze {
 		}
 	}
 
-
 	private void initializeWeapons() {// can search for a weapon across the entire map maybe change this
 		weapons.add(new GhostReaver());
 		weapons.add(new Aetherblade());
-		weapons.add(new Voidbreaker());;
+		weapons.add(new Voidbreaker());
+		;
 	}
 
 	// Randomly pick a weapon from the list of custom weapons
@@ -347,7 +345,7 @@ public class Maze {
 		items.add(new UsableItems("super Health Potion", "Health Potion", 40)); // placeholders for now
 		items.add(new UsableItems("Mana Potion", "Health Potion", 20));  // placeholders for now
 		items.add(new UsableItems("Super Mana Potion", "Health Potion", 40));  // placeholders for now
-		items.add(new UsableItems("Elixir", "Elixir",100, 100));  // placeholders for now
+		items.add(new UsableItems("Elixir", "Elixir", 100, 100));  // placeholders for now
 	}
 
 	// Randomly pick an item from the list of custom other items
@@ -427,10 +425,39 @@ public class Maze {
 		};
 	}
 
-
 	public Room getCurrentRoom() {
 		return map[player.getPlayerRow()][player.getPlayerCol()];
 	}
+
+	public void displayInventory() {
+		List<Object> inventory = player.getInventory();
+
+		for (Object item : inventory) {
+			if (item instanceof IWeapon) {
+				System.out.println("Weapon: " + ((IWeapon) item).getWeapon());
+			} else if (item instanceof Armor) {
+				System.out.println("Armor: " + ((Armor) item).getArmor());
+			} else if (item instanceof UsableItems) {
+				System.out.println("Usable Item: " + ((UsableItems) item).getName());
+			}
+		}
+	}
 }
+
+/*	}
+
+	public void handleInventoryFromMap() {
+		displayInventory();  // Display the inventory
+
+		Scanner scanner = new Scanner(System.in); // Get input from the player
+		System.out.print("Enter the index of the item you want to equip or use: ");
+
+		try {
+			int index = scanner.nextInt();  // Read player's choice of item index
+			PlayerActions.equipOrUseItem(index);  // Call equip or use item method with the selected index
+		} catch (Exception e) {
+			System.out.println("Invalid input. Please enter a valid index.");
+		}
+	}*/// BROKEN
 
 

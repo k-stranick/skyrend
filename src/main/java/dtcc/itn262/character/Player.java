@@ -1,24 +1,26 @@
 package dtcc.itn262.character;
 
-import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.combat.effects.StatusEffect;
+import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.items.usableitems.UsableItems;
 import dtcc.itn262.items.weapons.IWeapon;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static dtcc.itn262.utilities.input.Validation.validateName;
 
 public class Player {
+	private final List<UsableItems> itemsList;// = new ArrayList<>();  // Add an inventory
+	public final List<IWeapon> weaponList; // = new ArrayList<>();
+	public final List<Armor> armorList; // = new ArrayList<>();
 	private final String hero;
 	private final PlayerAttributes playerAttributes;
-	private final List<StatusEffect> statusEffects = new ArrayList<>();
-	private final List<UsableItems> inventory = new ArrayList<>();  // Add an inventory
-	private final List<IWeapon> weaponInventory = new ArrayList<>();
-	private final List<Armor> armorInventory = new ArrayList<>();
 	private int playerRow;
 	private int playerCol;
 	private Armor equippedArmor;
+	//private final List<StatusEffect> statusEffects = new ArrayList<>();
+
 
 
 	private Player(String hero, int startRow, int startCol) {
@@ -26,6 +28,9 @@ public class Player {
 		playerAttributes = new PlayerAttributes();
 		this.playerRow = startRow;
 		this.playerCol = startCol;
+		this.armorList = new ArrayList<>();
+		this.weaponList = new ArrayList<>();
+		this.itemsList = new ArrayList<>();
 	}
 
 
@@ -35,35 +40,21 @@ public class Player {
 		return new Player(validatedName, startRow, startCol);
 	}
 
-
 	public PlayerAttributes getPlayerAttributes() {
 		return playerAttributes;
 	} // returns the player attributes in PlayerAttributes class
-
 
 	public int getPlayerRow() {
 		return playerRow;
 	}
 
+	public int getPlayerCol() { 	// Getter playerCol
 
- /*   public void setPlayerRow(int playerRow) {
-        this.playerRow = playerRow;
-    }*/ // keep I can set up random entry once a player object is created
-
-
-	// Getter and Setter for playerCol
-	public int getPlayerCol() {
 		return playerCol;
 	}
 
+	public void moveTo(int newRow, int newCol) {	// Method to move the player to a new position
 
-/*    public void setPlayerCol(int playerCol) {
-        this.playerCol = playerCol;
-    }*/ // keep I can set up random entry once a player object is created
-
-
-	// Method to move the player to a new position
-	public void moveTo(int newRow, int newCol) {
 		this.playerRow = newRow;
 		this.playerCol = newCol;
 	}
@@ -78,51 +69,24 @@ public class Player {
 		System.out.println(getHero() + " took " + damage + " damage. Current health: " + playerAttributes.getHealth());
 	}
 
-
-	public void displayInventory() {
-		for (int i = 0; i < inventory.size(); i++) {
-			System.out.println(i + ". " + inventory.get(i).getName());
+	public void displayItems() {
+		for (int i = 0; i < itemsList.size(); i++) {
+			System.out.println(i + ". " + itemsList.get(i).getName());
 		}
 	}
 
-	public void addStatusEffect(StatusEffect effect) {
-		System.out.println(getHero() + " is now affected by " + effect.getName() + ".");
-		statusEffects.add(effect);
-	}
+	public void addItem(UsableItems item) { 	// Method to add an item to the player's inventory
 
-	public void updateStatusEffects() {
-		// Apply each active status effect
-		statusEffects.removeIf(effect -> !effect.isEffectActive());  // Remove expired effects
-		for (StatusEffect effect : statusEffects) {
-			effect.applyEffect(this);
-		}
-	}
-
-	private void updateDefense() {
-		int totalDefense = playerAttributes.getDefense();
-		if (equippedArmor != null) {
-			totalDefense += equippedArmor.getDefenseBoost();
-		}
-		playerAttributes.setDefense(totalDefense);
-	}
-
-	/*    public void setHero(String hero) {
-			this.hero = hero;
-		}*/  // keep give players option later to change their same
-// Method to add an item to the player's inventory
-	public void addItem(UsableItems item) { // TODO: move this somwhere?
-		inventory.add(item);
+		itemsList.add(item);
 		System.out.println(item.getName() + " added to the inventory.");
 	}
 
-	// Example method for restoring health (you should already have this)
 	public void restoreHealth(int amount) {
 		int newHealth = playerAttributes.getHealth() + amount;
 		playerAttributes.setHealth(newHealth);
 		System.out.println("Restored " + amount + " health. New health: " + playerAttributes.getHealth());
 	}
 
-	// Example method for restoring mana (if applicable)
 	public void restoreMana(int amount) {
 		int newMana = playerAttributes.getMana() + amount;
 		playerAttributes.setMana(newMana);
@@ -133,7 +97,65 @@ public class Player {
 		return playerAttributes.getHealth() > 0;
 	}
 
-	public void setShielded(boolean b) {// TODO: Implement this method
+	public void addWeapon(IWeapon item) {
+		weaponList.add(item);
+		System.out.println(item.getWeapon() + " added to the inventory.");
+	}
+
+	public void addArmor(Armor armor) {
+		armorList.add(armor);
+		System.out.println(armor.getArmor() + " added to the inventory.");
+
+	}
+
+	private void updateDefense() {
+		int totalDefense = playerAttributes.getDefense();
+		if (equippedArmor != null) {
+			totalDefense += equippedArmor.getDefenseBoost();
+		}
+		playerAttributes.setDefense(totalDefense);
+	}
+
+	public void equipArmor(Armor armor) {
+		if (armorList.contains(armor)) {
+			equippedArmor = armor;
+			updateDefense();
+			System.out.println(getHero() + " equipped " + armor.getArmor() + ".");
+		} else {
+			System.out.println("You do not have " + armor.getArmor() + " in your inventory.");
+		}
+	}
+
+	public void displayWeapons() {
+		for (int i = 0; i < weaponList.size(); i++) {
+			System.out.println(i + ". " + weaponList.get(i).getWeapon());
+		}
+	}
+
+
+	public void displayArmor() {
+		for (int i = 0; i < armorList.size(); i++) {
+			System.out.println(i + ". " + armorList.get(i).getArmor());
+		}
+	}
+
+	public List<UsableItems> getItemsList() {
+		return itemsList;
+	}
+
+	public List<Object> getInventory() {
+		List<Object> inventory = new ArrayList<>();
+
+		// Add all weapons to the inventory
+		inventory.addAll(weaponList);
+
+		// Add all armor to the inventory
+		inventory.addAll(armorList);
+
+		// Add all usable items to the inventory
+		inventory.addAll(itemsList);
+
+		return inventory;
 	}
 
 	@Override
@@ -151,21 +173,59 @@ public class Player {
 				"\nExperience: " + playerAttributes.getExperience();
 	}
 
-	public void addWeapon(IWeapon item) {
-		weaponInventory.add(item);
-		System.out.println(item.getWeapon() + " added to the inventory.");
+	/*	public void setShielded(boolean b) {// TODO: Implement this method
+	}*/
+	/*	public void equipWeapon(int weaponIndex) {
+		if (weaponIndex >= 0 && weaponIndex < weaponList.size()) {
+			IWeapon weapon = weaponList.get(weaponIndex);
+			playerAttributes.setStrength(weapon.getDamage());
+			System.out.println(getHero() + " equipped " + weapon.getWeapon() + ".");
+		} else {
+			System.out.println("Invalid weapon choice.");
+		}
+	}*/
+	/*    public void setHero(String hero) {
+			this.hero = hero;
+		}*/  // keep give players option later to change their same
+	/*	public void unequipArmor() {
+		if (equippedArmor != null) {
+			System.out.println(getHero() + " unequipped " + equippedArmor.getArmor() + ".");
+			equippedArmor = null;
+			updateDefense();
+		} else {
+			System.out.println(getHero() + " has no armor equipped.");
+		}
+	}*/
+	/*	public void unequipWeapon() {
+		playerAttributes.setStrength(0);
+		System.out.println(getHero() + " unequipped weapon.");
+	}*/
+	/*
+
+
+	public void addStatusEffect(StatusEffect effect) {
+		System.out.println(getHero() + " is now affected by " + effect.getName() + ".");
+		statusEffects.add(effect);
 	}
 
-	public void addArmor(Armor armor) {
-		armorInventory.add(armor);
-		System.out.println(armor.getArmor() + " added to the inventory.");
-
+	public void updateStatusEffects() {
+		// Apply each active status effect
+		statusEffects.removeIf(effect -> !effect.isEffectActive());  // Remove expired effects
+		for (StatusEffect effect : statusEffects) {
+			effect.applyEffect(this);
+		}
 	}
 
-/*    // Method to remove an item from the player's inventory
+*/
+	/*    public void setPlayerCol(int playerCol) {
+        this.playerCol = playerCol;
+    }*/ // keep I can set up random entry once a player object is created
+	/*    // Method to remove an item from the player's inventory
     public void removeItem(Items item) {
         inventory.remove(item);
         System.out.println(item.getName() + " removed from the inventory.");
     }*/ // KEEP THIS I CAN TRY AND USE IT FOR OUTSIDE OF COMBAT??
-
+ 	/*   public void setPlayerRow(int playerRow) {
+        this.playerRow = playerRow;
+    }*/ // keep I can set up random entry once a player object is created
 }

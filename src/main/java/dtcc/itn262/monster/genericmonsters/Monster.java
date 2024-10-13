@@ -1,15 +1,20 @@
-package dtcc.itn262.monster.generic;
+package dtcc.itn262.monster.genericmonsters;
 
 import dtcc.itn262.monster.MonsterAttributes;
+import dtcc.itn262.skills.monsterskills.IMonsterSkill;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Monster {
     private String monster;
     private final MonsterAttributes monsterAttributes;
+    private final List<IMonsterSkill> monsterSkills;
 
 
     public Monster(String monster, MonsterAttributes attributes) {
         this.monster = monster;
         this.monsterAttributes = attributes;
+        this.monsterSkills = new ArrayList<>();
     }
 
     public String getMonster() {
@@ -22,6 +27,19 @@ public class Monster {
 
     public MonsterAttributes getMonsterAttributes() {
         return monsterAttributes;
+    }
+
+    public boolean isAlive() {
+        return monsterAttributes.getHealth() > 0;
+    }
+
+    public List<IMonsterSkill> getMonsterSkills() {
+        return monsterSkills;
+    }
+
+    public void addSkill(IMonsterSkill skill) {   // Method to add skills to the actions
+
+        monsterSkills.add(skill);
     }
 
     @Override
@@ -41,8 +59,4 @@ public class Monster {
 
 
     }
-    public boolean isAlive() {
-        return monsterAttributes.getHealth() > 0;
-    }
-
 }

@@ -1,9 +1,9 @@
 package dtcc.itn262.skills.monsterskills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.generic.Monster;
+import dtcc.itn262.monster.genericmonsters.Monster;
 
-public class CoreDisruption implements MonsterSkill {
+public class CoreDisruption implements IMonsterSkill {
 	private static final int MANA_COST = 33;
 
 	/**
@@ -35,7 +35,7 @@ public class CoreDisruption implements MonsterSkill {
 
 		} else if (monster.getMonsterAttributes().getMana() >= MANA_COST && damage > 0) {
 			monster.getMonsterAttributes().setMana(monster.getMonsterAttributes().getMana() - MANA_COST);
-			target.getPlayerAttributes().setHealth((int) Math.round(target.getPlayerAttributes().getHealth() - damage));
+			target.getPlayerAttributes().setHealth((int) ((target.getPlayerAttributes().getHealth() + target.getPlayerAttributes().getDefense()) - damage));
 			System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHero() + " for " + damage + " damage.");
 		} else {
 			System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHero() + " but the attack is ineffective.");

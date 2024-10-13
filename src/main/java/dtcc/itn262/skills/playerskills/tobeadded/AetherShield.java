@@ -1,15 +1,17 @@
-package dtcc.itn262.skills.playerskills;
+/*
+package dtcc.itn262.skills.playerskills.tobeadded;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.generic.Monster;
+import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.skills.playerskills.PlayerSkill;
 
-public class AtherShield implements PlayerSkill {
+public class AetherShield implements PlayerSkill {
 	private static final int MANA_COST = 33;
 	private int currentCooldown = 0;
 
 	@Override
 	public String getSkillName() {
-		return "Ather Shield";
+		return "Aether Shield";
 	}
 
 	@Override
@@ -29,9 +31,11 @@ public class AtherShield implements PlayerSkill {
 		}
 	}
 
-	/**
+	*/
+/**
 	 *
-	 */
+	 *//*
+
 	@Override
 	public void setCooldown() {
 
@@ -50,9 +54,11 @@ public class AtherShield implements PlayerSkill {
 		player.setShielded(true);
 	}
 
-	/**
+	*/
+/**
 	 * @return
-	 */
+	 *//*
+
 	@Override
 	public int getCurrentCooldown() {
 		return 0;
@@ -67,4 +73,4 @@ public class AtherShield implements PlayerSkill {
 
 		System.out.println(player.getHero() + " absorbs " + absorbedDamage + " damage and reflects " + reflectedDamage + " damage back to " + attacker.getMonster() + "!");
 	}
-}
+}*/

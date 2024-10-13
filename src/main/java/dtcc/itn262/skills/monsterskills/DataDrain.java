@@ -1,9 +1,9 @@
 package dtcc.itn262.skills.monsterskills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.generic.Monster;
+import dtcc.itn262.monster.genericmonsters.Monster;
 
-public class DataDrain implements MonsterSkill {
+public class DataDrain implements IMonsterSkill {
 	private static final int MANA_COST = 33;
 	private static final double HEALTH_ABSORB_PERCENTAGE = 0.2; // 20% of the player's health
 	private static final double MANA_ABSORB_PERCENTAGE = 0.1; // 10% of the player's mana
