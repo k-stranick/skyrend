@@ -404,7 +404,7 @@ public class Maze {
 				{
 						null, null, null, null,
 						new Room(new RoomConfiguration(6,"StormW3ll Station", "An old train station repurposed as a meeting ground.", 5, 12, 7, -1, false, Constants.NO_SCENE)),  // Room 6
-						new Room(new RoomConfiguration(7,"The Drift Way", "A dangerous floating sky rail.", -1, -1, 8, 9, false, Constants.NO_SCENE)),  // Room 7
+						new Room(new RoomConfiguration(7,"The Drift Way", "A dangerous floating sky rail.", -1, -1, 8, 6, false, Constants.NO_SCENE)),  // Room 7
 						new Room(new RoomConfiguration(8,"Rune Street Markets", "A chaotic black market.", -1, 13, -1, 7, false, Constants.NO_SCENE)) // Room 8
 				},
 				// Row 4
