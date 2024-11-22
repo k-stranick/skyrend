@@ -10,7 +10,6 @@ dtcc\itn262\items\weapons\GhostReaver.class
 dtcc\itn262\combat\effects\StatusEffect.class
 dtcc\itn262\combat\effects\MonsterDefenseBuff.class
 dtcc\itn262\monster\genericmonsters\SteelDevourer.class
-dtcc\itn262\app\Main.class
 dtcc\itn262\skills\monsterskills\Zantetsuken.class
 dtcc\itn262\monster\genericmonsters\CyberHound.class
 dtcc\itn262\skills\playerskills\Heal.class
@@ -27,6 +26,7 @@ dtcc\itn262\skills\monsterskills\SelfDestruct.class
 dtcc\itn262\items\usableitems\UsableItems.class
 dtcc\itn262\character\PlayerAttributes.class
 dtcc\itn262\maze\Maze$1.class
+dtcc\itn262\app\Skyrend.class
 dtcc\itn262\monster\genericmonsters\Monster.class
 dtcc\itn262\utilities\gamecore\Game$1.class
 dtcc\itn262\maze\RoomConfiguration.class
