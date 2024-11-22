@@ -75,6 +75,7 @@ public class Game {
 			String value;
 			boolean cont = true;
 
+
 			do { //TODO CHANGE TO SWITCH
 				System.out.print("?: "); // Prompt for the player's input
 				value = input.nextLine().trim().toLowerCase(); // Read and trim player input
