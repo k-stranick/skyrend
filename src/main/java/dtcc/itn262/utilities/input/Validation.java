@@ -3,7 +3,7 @@ package dtcc.itn262.utilities.input;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.maze.Maze;
 import dtcc.itn262.maze.Room;
-import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.monster.Monster;
 
 public class Validation { // this will be a class of static methods
 

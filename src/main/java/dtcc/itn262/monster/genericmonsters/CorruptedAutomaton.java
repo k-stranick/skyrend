@@ -1,5 +1,6 @@
 package dtcc.itn262.monster.genericmonsters;
 
+import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.skills.monsterskills.DataDrain;
 import dtcc.itn262.skills.monsterskills.Slash;

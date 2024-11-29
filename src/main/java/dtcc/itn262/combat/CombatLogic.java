@@ -4,7 +4,7 @@ import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
 import dtcc.itn262.combat.effects.BuffAndDeBuff;
 import dtcc.itn262.monster.MonsterAttributes;
-import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.playerskills.PlayerSkill;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.gamecore.GameLogger;
@@ -133,7 +133,7 @@ public class CombatLogic {
 	private void handleItemUsage() {
 		player.displayItems();  // Display player's items
 		int itemChoice = UserInput.getPlayerChoice("Choose an item to use: ");  // why is this returning 0?
-		PlayerActions.useItem(player, itemChoice);  // Use the selected item
+		playerActions.useItem(player, itemChoice);  // Use the selected item
 
 	}
 

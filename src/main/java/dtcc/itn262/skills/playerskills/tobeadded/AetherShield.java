@@ -2,7 +2,7 @@
 package dtcc.itn262.skills.playerskills.tobeadded;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.playerskills.PlayerSkill;
 
 public class AetherShield implements PlayerSkill {

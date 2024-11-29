@@ -11,6 +11,7 @@ import dtcc.itn262.items.weapons.Aetherblade;
 import dtcc.itn262.items.weapons.GhostReaver;
 import dtcc.itn262.items.weapons.IWeapon;
 import dtcc.itn262.items.weapons.Voidbreaker;
+import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.boss.GhostCodeManifested;
 import dtcc.itn262.monster.boss.Gilgamesh;
 import dtcc.itn262.monster.boss.TheArchitect;
@@ -426,7 +427,8 @@ public class Maze {
 				},
 				// Row 6
 				{
-						null, null,
+						new Room(new RoomConfiguration(43,"test", "An industrial zone filled with factories.", -1, -1, -1, -1, false, Constants.NO_SCENE)), // Room 16
+						null,
 						new Room(new RoomConfiguration(16,"Iron District", "An industrial zone filled with factories.", 14, -1, 17, -1, false, Constants.NO_SCENE)), // Room 16
 						new Room(new RoomConfiguration(17,"Scrapyard", "A graveyard of discarded machinery.", -1, -1, 18, 16, false, Constants.NO_SCENE)),  // Room 17
 						new Room(new RoomConfiguration(18,"Red Circuit Warehouse", "A storage facility for stolen tech.", 15, 19, -1, 17, false, Constants.NO_SCENE)), // Room 18

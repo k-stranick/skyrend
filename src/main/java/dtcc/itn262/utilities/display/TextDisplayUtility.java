@@ -4,7 +4,7 @@ import dtcc.itn262.maze.Room;
 import java.util.List;
 import java.util.Set;
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.monster.Monster;
 
 public class TextDisplayUtility {
 

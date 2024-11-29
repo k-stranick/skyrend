@@ -5,7 +5,7 @@ import dtcc.itn262.character.PlayerAttributes;
 import dtcc.itn262.combat.effects.DefenseBuff;
 import dtcc.itn262.items.usableitems.UsableItems;
 import dtcc.itn262.items.weapons.IWeapon;
-import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.playerskills.DivineStrike;
 import dtcc.itn262.skills.playerskills.Heal;
 import dtcc.itn262.skills.playerskills.PlayerSkill;
@@ -30,7 +30,7 @@ public class PlayerActions {
 	}
 
 	// make these 3 private methods and add to a parent public method
-	public static void useItem(Player player, int index) {
+	public void useItem(Player player, int index) {
 		try {
 			if (index >= 0 && index < player.getItemsList().size()) {
 				UsableItems item = player.getItemsList().get(index);
@@ -44,7 +44,7 @@ public class PlayerActions {
 		}
 	}
 
-	public static void equipWeapon(int weaponIndex) {
+	public void equipWeapon(int weaponIndex) {
 		try {
 			if (weaponIndex >= 0 && weaponIndex < player.weaponList.size()) {
 				IWeapon weapon = player.weaponList.get(weaponIndex);
@@ -58,7 +58,7 @@ public class PlayerActions {
 		}
 	}
 
-	public static void equipArmor(int armorIndex) {
+	public void equipArmor(int armorIndex) {
 		try {
 			if (armorIndex >= 0 && armorIndex < player.armorList.size()) {
 				player.equipArmor(player.armorList.get(armorIndex));

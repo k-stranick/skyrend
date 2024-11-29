@@ -1,6 +1,6 @@
-package dtcc.itn262.monster.genericmonsters;
+package dtcc.itn262.monster;
+// TODO Turn this into an interface and allow generic monsters and bosses implement it
 
-import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.skills.monsterskills.IMonsterSkill;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,6 @@ public class Monster {
     private String monster;
     private final MonsterAttributes monsterAttributes;
     private final List<IMonsterSkill> monsterSkills;
-
 
     public Monster(String monster, MonsterAttributes attributes) {
         this.monster = monster;

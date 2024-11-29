@@ -1,7 +1,7 @@
 package dtcc.itn262.monster.hiddenbosses;
 
 import dtcc.itn262.monster.MonsterAttributes;
-import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.monsterskills.*;
 
 public class TheCipher extends Monster {
