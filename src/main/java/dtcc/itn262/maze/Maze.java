@@ -1,5 +1,8 @@
 package dtcc.itn262.maze;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
 import dtcc.itn262.items.armor.AetherReaverSuit;
@@ -15,7 +18,10 @@ import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.boss.GhostCodeManifested;
 import dtcc.itn262.monster.boss.Gilgamesh;
 import dtcc.itn262.monster.boss.TheArchitect;
-import dtcc.itn262.monster.genericmonsters.*;
+import dtcc.itn262.monster.genericmonsters.ArcTechSoldier;
+import dtcc.itn262.monster.genericmonsters.CorruptedAutomaton;
+import dtcc.itn262.monster.genericmonsters.CyberHound;
+import dtcc.itn262.monster.genericmonsters.SteelDevourer;
 import dtcc.itn262.monster.hiddenbosses.TheCipher;
 import dtcc.itn262.utilities.display.SceneManager;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
@@ -24,7 +30,8 @@ import dtcc.itn262.utilities.gamecore.Constants;
 import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
-
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 import static dtcc.itn262.utilities.input.Validation.checkWinCondition;
@@ -46,16 +53,18 @@ public class Maze {
 
 	//constructor
 	private Maze(Player player) {
-		this.map = initializeMap();
-		initializeRoomIndexMapping();
+		this.map = MazeLoader.loadMazeFromJson();
+
+		//this.map = initializeMap();
 		this.player = player;
 		this.requiredVisitedRooms = countSpecialRooms();
 		this.uniqueVisitedRooms = new HashSet<>();  //If a player visits the same room multiple times, the HashSet will only store that room once.
 		this.sceneManager = SceneManager.getInstance();
+		initializeRoomIndexMapping();
 		visitRoom(map[player.getPlayerRow()][player.getPlayerCol()]);  // Mark the starting room as visited
-		TextDisplayUtility.showCurrentRoom(map, player);
+		TextDisplayUtility.showCurrentRoom(map, player); // <-does this need to be here?
 		initializeWeapons();
-		initializeArmors();
+		initializeArmor();
 		initializeItems();
 	}
 
@@ -88,6 +97,7 @@ public class Maze {
 			}
 		}
 	}
+
 	public void move(Command direction) {
 		if (direction == null) {
 			System.out.println("Invalid direction. Use 'north', 'south', 'east', 'west'.");
@@ -131,6 +141,7 @@ public class Maze {
 
 		positionValidation(newRow, newCol);
 	}
+
 	private void positionValidation(int newRow, int newCol) {
 		try {
 			if (Validation.isRoomValid(newRow, newCol, map)) { // Check if the new position is valid
@@ -181,7 +192,8 @@ public class Maze {
 
 	private void triggerRandomEncounter() {
 		int chance = random.nextInt(100); // Generate a random number between 0 and 99
-		if (chance <= 20) { // 20% chance for an encounter
+		if (chance <= -1) { // 20% chance for an encounter //TODO 1
+
 			System.out.println("A wild monster appears!");
 			List<Monster> monsters = Arrays.asList(
 					new ArcTechSoldier(),
@@ -227,11 +239,14 @@ public class Maze {
 			}
 			System.out.println();  // Newline after each row
 		}
-	}
+	}  // TODO move this outside of this class to display class
 
 
 	// Define a method to trigger special events
 	private void triggerSpecialEvent(Room room) { //TODO add more
+		System.out.println("DEBUG: Triggering special event for Room - Name: " + room.getName() +
+				", Index: " + room.getRoomIndex() +
+				", SceneIndex: " + room.getSceneIndex()); //TODO
 		Monster monster;
 		CombatLogic combat;
 		switch (room.getName()) {
@@ -243,7 +258,7 @@ public class Maze {
 				System.out.println("some kind of logic here get a weapon?");
 
 				break;
-			case "Sky bridge":
+			case "Sky Bridge":
 				monster = new Gilgamesh();
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
@@ -267,7 +282,9 @@ public class Maze {
 				monster = new TheCipher();
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
+				break;
 			default:
+				break;
 		}
 	}
 
@@ -281,8 +298,8 @@ public class Maze {
 			} else {
 				System.out.println("Continuing the game... You are free to explore more.");
 			}
-		}
-	}
+		} // TODO need to remove or refactor for jsut beating the final boss
+	} // TODO maybe jsut a check ONLY IN final boss?
 
 
 	// Method to count special rooms
@@ -296,7 +313,7 @@ public class Maze {
 			}
 		}
 		return count;
-	}
+	} // TODO will need to  remove only condition is to beat boss
 
 
 	public int getRequiredVisitedRooms() {
@@ -317,41 +334,38 @@ public class Maze {
 		return random.nextDouble() < .2;  // 20% chance
 	}
 
+
 	public void searchRoom(Room room) { // random item generator from a predefined list and adds it to player's inventory
-		if (!chanceToFindItem()) {
+		if (!chanceToFindItem()) {  // upgraded from if/else to enhanced switch
 			System.out.println("You didn't find anything.");
 			return;
 		}
 		Object item = generateRandomItem();
-		System.out.println("You found a " + item);
-		if (item instanceof IWeapon) {
-			player.addWeapon((IWeapon) item);
-		} else if (item instanceof Armor) {
-			player.addArmor((Armor) item);
-		} else if (item instanceof UsableItems) {
-			player.addItem((UsableItems) item);
-		}
 
+		System.out.println("You found a " + item);
+		switch (item) {
+			case IWeapon weapon -> player.addWeapon(weapon);
+			case Armor armor -> player.addArmor(armor);
+			case UsableItems usableItem -> player.addItem(usableItem);
+			default -> throw new IllegalStateException("Unexpected value: " + item);
+		}
 	}
 
 	private Object generateRandomItem() {
 		Random random = new Random();
 		int itemType = random.nextInt(3);  // 0 for a weapon, 1 for armor, 2 for items
-
-		if (itemType == 0) {
-			return generateRandomWeapon();
-		} else if (itemType == 1) {
-			return generateRandomArmor();
-		} else {
-			return generateRandomOtherItem();
-		}
+		return switch (itemType) {
+			case 0 -> generateRandomWeapon();
+			case 1 -> generateRandomArmor();
+			case 2 -> generateRandomOtherItem();
+			default -> throw new IllegalStateException("Unexpected value: " + itemType);
+		};
 	}
 
 	private void initializeWeapons() {// can search for a weapon across the entire map maybe change this
 		weapons.add(new GhostReaver());
 		weapons.add(new Aetherblade());
 		weapons.add(new Voidbreaker());
-		;
 	}
 
 	// Randomly pick a weapon from the list of custom weapons
@@ -360,7 +374,7 @@ public class Maze {
 		return weapons.get(random.nextInt(weapons.size()));
 	}
 
-	private void initializeArmors() {
+	private void initializeArmor() {
 		armors.add(new AetherReaverSuit());
 		armors.add(new PhantomCircuitArmor());
 		armors.add(new PhantomCloak());
@@ -386,77 +400,9 @@ public class Maze {
 		return items.get(random.nextInt(items.size()));
 	}
 
-	private Room[][] initializeMap() {
-		return new Room[][]{
-				// Row 1
-				{
-						new Room(new RoomConfiguration(0,"The Outskirts", "A lawless area on the edge of the city.", -1, -1, 1, -1, false, Constants.NO_SCENE)), // Room 0
-						new Room(new RoomConfiguration(1,"Neon Corridor", "A bustling district filled with traders.", -1, -1, 2, 0, false, Constants.NO_SCENE)),  // Room 1
-						new Room(new RoomConfiguration(2,"Fusion Park", "A public park where nature and tech blend.", -1, -1, 3, 2, false, Constants.NO_SCENE)),   // Room 2
-						new Room(new RoomConfiguration(3,"Cyber Alley", "A narrow alley with questionable tech.", -1, 4, -1, 3, false, Constants.NO_SCENE))  // Room 3
-				},
-				// Row 2
-				{
-						null, null, null,
-						new Room(new RoomConfiguration(4,"DataFall Plaza", "A bustling square surrounded by neon billboards.", 3, -1, 5, -1, false, Constants.NO_SCENE)), // Room 4
-						new Room(new RoomConfiguration(5,"Power Conduit", "A maintenance area for energy conduits.", -1, 6, -1, -1, false, Constants.NO_SCENE))  // Room 5
-				},
-				// Row 3
-				{
-						null, null, null, null,
-						new Room(new RoomConfiguration(6,"StormW3ll Station", "An old train station repurposed as a meeting ground.", 5, 12, 7, -1, false, Constants.NO_SCENE)),  // Room 6
-						new Room(new RoomConfiguration(7,"The Drift Way", "A dangerous floating sky rail.", -1, -1, 8, 6, false, Constants.NO_SCENE)),  // Room 7
-						new Room(new RoomConfiguration(8,"Rune Street Markets", "A chaotic black market.", -1, 13, -1, 7, false, Constants.NO_SCENE)) // Room 8
-				},
-				// Row 4
-				{
-						null,
-						new Room(new RoomConfiguration(9,"Arcane Synth Bay", "A fusion lab for cybernetic enhancements.", -1, -1, 10, -1, true, Constants.SCENE_1)), // Room 9
-						new Room(new RoomConfiguration(10,"Ghost Terminal", "A server room where Ghost Code emerged.", -1, 14, 11, 9, false, Constants.NO_SCENE)),  // Room 10
-						new Room(new RoomConfiguration(11,"Giga Tower", "A towering skyscraper.", -1, -1, 12, 10, false, Constants.NO_SCENE)),  // Room 11
-						new Room(new RoomConfiguration(12,"Circuit Yard", "A spacious yard used by traders and scavengers.", 6, -1, -1, 11, false, Constants.NO_SCENE)),  // Room 12
-						null,
-						new Room(new RoomConfiguration(13,"Abandoned Tech Labs", "A research facility overrun with AI.", 8, -1, -1, -1, true, Constants.SCENE_2)),  // Room 13
-				},
-				// Row 5
-				{
-						null, null,
-						new Room(new RoomConfiguration(14,"Sky bridge", "A high-altitude bridge connecting sectors.", 10, 16, -1, -1, true, Constants.SCENE_3)),  // Room 14
-						null,
-						new Room(new RoomConfiguration(15,"Aetheric Sanctum", "A hidden sanctum where the Aether flows.", -1, 18, -1, -1, true, Constants.SCENE_4)) // Room 15
-				},
-				// Row 6
-				{
-						new Room(new RoomConfiguration(43,"test", "An industrial zone filled with factories.", -1, -1, -1, -1, false, Constants.NO_SCENE)), // Room 16
-						null,
-						new Room(new RoomConfiguration(16,"Iron District", "An industrial zone filled with factories.", 14, -1, 17, -1, false, Constants.NO_SCENE)), // Room 16
-						new Room(new RoomConfiguration(17,"Scrapyard", "A graveyard of discarded machinery.", -1, -1, 18, 16, false, Constants.NO_SCENE)),  // Room 17
-						new Room(new RoomConfiguration(18,"Red Circuit Warehouse", "A storage facility for stolen tech.", 15, 19, -1, 17, false, Constants.NO_SCENE)), // Room 18
-				},
-				// Row 7
-				{
-						null, null, null, null,
-						new Room(new RoomConfiguration(19,"Obsidian Relay", "A central hub of the AetherGrid.", 18, 21, 20, -1, false, Constants.NO_SCENE)),  // Room 19
-						new Room(new RoomConfiguration(20,"NullSpace Hub", "A digital realm where space and time distort.", -1, -1, -1, 19, true, Constants.SCENE_5))  // Room 20
-
-				},
-				// Row 8
-				{
-						null, null, null, null,
-						new Room(new RoomConfiguration(21,"Aether Nexus", "The towering heart of Skyrend.", 19, 22, -1, -1, true, Constants.SCENE_6)),  // Room 21
-				},
-				// Row 9
-				{
-						null, null, null, null,
-						new Room(new RoomConfiguration(22,"Echo Vault", "A hidden digital vault.", 21, -1, -1, 23, false, Constants.NO_SCENE)),  // Room 22
-						new Room(new RoomConfiguration(23,"Void Space", "The long path to a worthy foe...", -1, -1, 22, 24, false, Constants.NO_SCENE)),  // Room 23
-						new Room(new RoomConfiguration(24,"Void Space", "...", -1, -1, 23, 25, false, Constants.NO_SCENE)),  // Room 24
-						new Room(new RoomConfiguration(25,"Void Space", "...getting closer...", -1, -1, 24, 26, false, Constants.NO_SCENE)),  // Room 25
-						new Room(new RoomConfiguration(26,"Void Space", "... in the words of Scar 'Be Prepared'...", -1, -1, 25, 27, false, Constants.NO_SCENE)),  // Room 26
-						new Room(new RoomConfiguration(27,"Fractured Nexus", "A hidden digital plane where reality fractures, distorting time and space. The very fabric of this place is unstable, with chunks of the world flickering in and out of existence. Endless streams of corrupted data pulse through the air, intertwining with threads of Aether energy, creating a chaotic, ever-shifting environment. In this eerie realm, the laws of physics and magic bend and break, revealing the presence of the Cipher, an entity that lurks in the shadows, waiting to rewrite reality.", -1, -1, 26, -1, true, Constants.SCENE_7))  // Room 27 Hidden room
-				}
-		};
-	}
+/*	private Room[][] initializeMap() {
+		return MazeLoader.loadMazeFromJson("src/main/java/dtcc/itn262/maze/maze.json");
+	}*/
 
 	public Room getCurrentRoom() {
 		return map[player.getPlayerRow()][player.getPlayerCol()];
@@ -475,8 +421,65 @@ public class Maze {
 			}
 		}
 	}
-}
 
+/**
+* Private inner class to load the maze from a JSON file
+* */
+	private static class MazeLoader {
+		private static Room[][] loadMazeFromJson() {
+			Gson gson = new Gson();
+
+			try (FileReader reader = new FileReader("src/main/java/dtcc/itn262/maze/maze.json")) {
+				// Deserialize the JSON file
+				MazeJson mazeJson = gson.fromJson(reader, MazeJson.class);
+
+				// Convert List<List<RoomConfiguration>> to Room[][]
+				List<List<RoomConfiguration>> roomConfigurations = mazeJson.getRooms();
+				int rows = roomConfigurations.size();
+				int cols = roomConfigurations.getFirst().size();
+				Room[][] maze = new Room[rows][cols];
+
+				for (int i = 0; i < rows; i++) {
+					for (int j = 0; j < cols; j++) {
+						RoomConfiguration config = roomConfigurations.get(i).get(j);
+						if (config != null) {
+							maze[i][j] = new Room(config);
+						} else {
+							maze[i][j] = null;
+						}
+					}
+				}
+				for (Room[] row : maze) { //TODO remove this debug
+					for (Room room : row) {
+						if (room != null) {
+							System.out.println("DEBUG: Room Index: " + room.getRoomIndex() +
+									", Name: " + room.getName() +
+									", isSpecial: " + room.isSpecial() +
+									", SceneIndex: " + room.getSceneIndex());
+						}
+					}
+				}
+
+				return maze;
+			} catch (JsonIOException | JsonSyntaxException | IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	}
+
+	private static class MazeJson {
+		private List<List<RoomConfiguration>> rooms;
+
+		public List<List<RoomConfiguration>> getRooms() {
+			return rooms;
+		}
+
+		public void setRooms(List<List<RoomConfiguration>> rooms) {
+			this.rooms = rooms;
+		}
+	}
+}
 /*	}
 
 	public void handleInventoryFromMap() {

@@ -621,8 +621,8 @@
         "description": "A hidden digital vault.",
         "n": 21,
         "s": -1,
-        "e": -1,
-        "w": 23,
+        "e": 23,
+        "w": -1,
         "isSpecial": false,
         "sceneIndex": -1
       },
@@ -637,10 +637,49 @@
         "isSpecial": false,
         "sceneIndex": -1
       },
-      { "index": 24, "name": "Void Space", "description": "...", "n": -1, "s": -1, "e": 25, "w": 23, "isSpecial": false, "sceneIndex": -1 },
-      { "index": 25, "name": "Void Space", "description": "...getting closer...", "n": -1, "s": -1, "e": 26, "w": 24, "isSpecial": false, "sceneIndex": -1 },
-      { "index": 26, "name": "Void Space", "description": "... in the words of Scar 'Be Prepared'...", "n": -1, "s": -1, "e": 27, "w": 25, "isSpecial": false, "sceneIndex": -1 },
-      { "index": 27, "name": "Fractured Nexus", "description": "A hidden digital plane where reality fractures, distorting time and space.", "n": -1, "s": -1, "e": -1, "w": 26, "isSpecial": true, "sceneIndex": 7 }
+      {
+        "index": 24,
+        "name": "Void Space",
+        "description": "...",
+        "n": -1,
+        "s": -1,
+        "e": 25,
+        "w": 23,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 25,
+        "name": "Void Space",
+        "description": "...getting closer...",
+        "n": -1,
+        "s": -1,
+        "e": 26,
+        "w": 24,
+        "isSpecial": false,
+        "sceneIndex": -1 },
+      {
+        "index": 26,
+        "name": "Void Space",
+        "description": "... in the words of Scar 'Be Prepared'...",
+        "n": -1,
+        "s": -1,
+        "e": 27,
+        "w": 25,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 27,
+        "name": "Fractured Nexus",
+        "description": "A hidden digital plane where reality fractures, distorting time and space.",
+        "n": -1,
+        "s": -1,
+        "e": -1,
+        "w": 26,
+        "isSpecial": true,
+        "sceneIndex": 7
+      }
     ]
   ]
 }
