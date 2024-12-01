@@ -12,7 +12,8 @@ public enum Command {
     NORTH("north", "n"),
     SOUTH("south", "s"),
     EAST("east", "e"),
-    WEST("west", "w");
+    WEST("west", "w"),
+    SAVE("save");
 
     private final String fullName;
     private final String shortName;

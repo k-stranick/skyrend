@@ -4,7 +4,7 @@ import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
 import dtcc.itn262.combat.effects.DefenseBuff;
 import dtcc.itn262.items.usableitems.UsableItems;
-import dtcc.itn262.items.weapons.IWeapon;
+import dtcc.itn262.items.weapons.Weapon;
 import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.playerskills.DivineStrike;
 import dtcc.itn262.skills.playerskills.Heal;
@@ -47,7 +47,7 @@ public class PlayerActions {
 	public void equipWeapon(int weaponIndex) {
 		try {
 			if (weaponIndex >= 0 && weaponIndex < player.weaponList.size()) {
-				IWeapon weapon = player.weaponList.get(weaponIndex);
+				Weapon weapon = player.weaponList.get(weaponIndex);
 				player.getPlayerAttributes().setStrength(weapon.getDamage() + player.getPlayerAttributes().getStrength());
 				System.out.println(player.getHero() + " equipped " + weapon.getWeapon() + ".");
 			} else {

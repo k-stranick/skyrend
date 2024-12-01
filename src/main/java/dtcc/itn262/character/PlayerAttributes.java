@@ -3,7 +3,7 @@ package dtcc.itn262.character;
 import java.util.Random;
 
 public class PlayerAttributes {
-	Random rand = new Random();
+	//Random rand = new Random();
 
 	private int level;
 	private int strength;  // governs attack power
@@ -18,32 +18,36 @@ public class PlayerAttributes {
 	private int luck; // governs critical hit chance
 	private int experience; // governs level
 
+/*
 	{
 		this.health = maxHealth;
 		this.mana = maxMana;
 	}
+*/
 
 	public PlayerAttributes() {
-		magic = randStat();
-		magicDefense = randStat();
-		strength = 1200; //TODO
-		defense = randStat();
-		magic = randStat();
-		speed = randStat();  //TODO
-		luck = randStat();
-		experience = 0; // base experience
-		maxHealth = 200;  // base max health, need it for a leveling system
-		health = maxHealth;  // set current health to max health
-		maxMana = 150; // base max mana  //TODO
-		mana = maxMana; // set current mana to max mana, need it for a leveling system
-		level = 1; // base level
+
+		this.magicDefense = 100;
+		this.strength = 1200; //TODO
+		this.defense = 100;
+		this.magic = 100;
+		this.speed = 100;  //TODO
+		this.luck = 100;
+		this.experience = 0; // base experience
+		this.maxHealth = 200;  // base max health, need it for a leveling system
+		this.health = maxHealth;  // set current health to max health
+		this.maxMana = 150; // base max mana  //TODO
+		this.mana = maxMana; // set current mana to max mana, need it for a leveling system
+		this.level = 1; // base level
 	}
+/*
 
 	private int randStat() {
-
+		Random rand = new Random();
 		//TODO make equations constants to avoid magic numbers and allow for easier balancing
 		return rand.nextInt(16) + 13; // generates a random int between 13 and 29
 	}
+*/
 
 
 	public int getStrength() {

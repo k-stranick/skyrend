@@ -10,10 +10,7 @@ import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.items.armor.PhantomCircuitArmor;
 import dtcc.itn262.items.armor.PhantomCloak;
 import dtcc.itn262.items.usableitems.UsableItems;
-import dtcc.itn262.items.weapons.Aetherblade;
-import dtcc.itn262.items.weapons.GhostReaver;
-import dtcc.itn262.items.weapons.IWeapon;
-import dtcc.itn262.items.weapons.Voidbreaker;
+import dtcc.itn262.items.weapons.*;
 import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.boss.GhostCodeManifested;
 import dtcc.itn262.monster.boss.Gilgamesh;
@@ -46,7 +43,7 @@ public class Maze {
 	private final Player player; // change this if I add more characters to the game
 	private final SceneManager sceneManager;
 	private final Random random = new Random();
-	private final List<IWeapon> weapons = new ArrayList<>();
+	private final List<Weapon> weapons = new ArrayList<>();
 	private final List<Armor> armors = new ArrayList<>();
 	private final List<UsableItems> items = new ArrayList<>();  // For items that aren't weapons or armor
 	private Map<Integer, int[]> roomIndexToPosition;
@@ -244,19 +241,14 @@ public class Maze {
 
 	// Define a method to trigger special events
 	private void triggerSpecialEvent(Room room) { //TODO add more
-		System.out.println("DEBUG: Triggering special event for Room - Name: " + room.getName() +
-				", Index: " + room.getRoomIndex() +
-				", SceneIndex: " + room.getSceneIndex()); //TODO
 		Monster monster;
 		CombatLogic combat;
 		switch (room.getName()) {
 			case "Arcane Synth Bay": // set up for 3 rounds of fighting??
 				System.out.println("some kind of logic here get a weapon?");
-
 				break;
 			case "Abandoned Tech Labs":
 				System.out.println("some kind of logic here get a weapon?");
-
 				break;
 			case "Sky Bridge":
 				monster = new Gilgamesh();
@@ -270,7 +262,6 @@ public class Maze {
 				break;
 			case "NullSpace Hub":
 				System.out.println("some kind of logic here get a weapon?");
-
 				break;
 			case "Aether Nexus":
 				System.out.println("The final confrontation awaits...");
@@ -344,7 +335,7 @@ public class Maze {
 
 		System.out.println("You found a " + item);
 		switch (item) {
-			case IWeapon weapon -> player.addWeapon(weapon);
+			case Weapon weapon -> player.addWeapon(weapon); // TODO updated from IWEAPON
 			case Armor armor -> player.addArmor(armor);
 			case UsableItems usableItem -> player.addItem(usableItem);
 			default -> throw new IllegalStateException("Unexpected value: " + item);
@@ -369,7 +360,7 @@ public class Maze {
 	}
 
 	// Randomly pick a weapon from the list of custom weapons
-	private IWeapon generateRandomWeapon() {
+	private Weapon generateRandomWeapon() {
 		Random random = new Random();
 		return weapons.get(random.nextInt(weapons.size()));
 	}
@@ -412,8 +403,8 @@ public class Maze {
 		List<Object> inventory = player.getInventory();
 
 		for (Object item : inventory) {
-			if (item instanceof IWeapon) {
-				System.out.println("Weapon: " + ((IWeapon) item).getWeapon());
+			if (item instanceof Weapon) {
+				System.out.println("Weapon: " + ((Weapon) item).getWeapon());
 			} else if (item instanceof Armor) {
 				System.out.println("Armor: " + ((Armor) item).getArmor());
 			} else if (item instanceof UsableItems) {

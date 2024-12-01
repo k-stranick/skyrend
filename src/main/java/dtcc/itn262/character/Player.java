@@ -3,7 +3,7 @@ package dtcc.itn262.character;
 import dtcc.itn262.combat.effects.StatusEffect;
 import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.items.usableitems.UsableItems;
-import dtcc.itn262.items.weapons.IWeapon;
+import dtcc.itn262.items.weapons.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import static dtcc.itn262.utilities.input.Validation.validateName;
 
 public class Player {
 	private final List<UsableItems> itemsList;// = new ArrayList<>();  // Add an inventory
-	public final List<IWeapon> weaponList; // = new ArrayList<>();
+	public final List<Weapon> weaponList; // = new ArrayList<>();
 	public final List<Armor> armorList; // = new ArrayList<>();
 	private final String hero;
 	private final PlayerAttributes playerAttributes;
@@ -97,9 +97,9 @@ public class Player {
 		return playerAttributes.getHealth() > 0;
 	}
 
-	public void addWeapon(IWeapon item) {
-		weaponList.add(item);
-		System.out.println(item.getWeapon() + " added to the inventory.");
+	public void addWeapon(Weapon weapon) {
+		weaponList.add(weapon);
+		System.out.println(weapon.getWeapon() + " added to the inventory.");
 	}
 
 	public void addArmor(Armor armor) {
@@ -149,7 +149,7 @@ public class Player {
 		// Add all weapons to the inventory
 		inventory.addAll(weaponList);
 
-		// Add all armor to the inventory
+		// Add all armors to the inventory
 		inventory.addAll(armorList);
 
 		// Add all usable items to the inventory

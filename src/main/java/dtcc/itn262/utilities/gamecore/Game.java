@@ -1,20 +1,21 @@
 package dtcc.itn262.utilities.gamecore;
 
 import com.google.gson.Gson;
+import dtcc.itn262.SaveLoad.GameSaver;
+import dtcc.itn262.SaveLoad.GameState;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.json.HelpMenu;
 import dtcc.itn262.maze.Maze;
 import dtcc.itn262.maze.Room;
-import dtcc.itn262.utilities.display.AsciiArt;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.input.Validation;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Game {
 	private final HelpMenu helpMenu;
+	private Player player;
 
 	public Game() {
 		this.helpMenu = loadHelpMenu();
@@ -26,13 +27,7 @@ public class Game {
 		Scanner scanner = new Scanner(System.in);
 
 		while (running) {
-			AsciiArt.displayAsciiArt("src/main/java/dtcc/itn262/json/ascii-text-art.txt");  // Display the game logo
-			System.out.println("========================= START MENU ===============================");
-			System.out.println("1. Start New Game - Begin a new adventure and create your hero.");
-			System.out.println("2. Load Game - Load a saved game (coming soon).");
-			System.out.println("3. View Help - Learn how to play the game.");
-			System.out.println("4. Exit");
-			System.out.print("Enter your choice: ");
+			TextDisplayUtility.showMainMenu();  // Display the main menu
 
 			String choice = scanner.nextLine().trim();
 
@@ -59,7 +54,20 @@ public class Game {
 	}
 
 	private void loadGame() {
-		System.out.println("Loading game...NOT I will figure this out at some point");  // Placeholder for loading a saved game
+		// Load the game state from the file
+		GameState gameState = GameSaver.loadGame("src/main/java/dtcc/itn262/SaveLoad/game_state.json");
+
+		if (gameState != null) {
+			// Load the player from the game state
+			player = gameState.getPlayer();
+			System.out.println("Game loaded successfully!");
+			System.out.println(player); // Display the player's stats
+			Maze m = Maze.getInstance(player); // Get the Maze instance
+			m.displayMap(); // Display the map
+			startGame(); // Start the game
+		} else {
+			System.out.println("Failed to load the game.");
+		}
 	}
 
 
@@ -134,6 +142,11 @@ public class Game {
 				break;
 			case EAST, NORTH, SOUTH, WEST:
 				m.move(command);
+				break;
+			case SAVE:
+				// Create and save the game state
+				GameState gameState = new GameState(player,  false); // Example: isBossDefeated is false
+				GameSaver.saveGame(gameState, "src/main/java/dtcc/itn262/SaveLoad/game_state.json");
 				break;
 			default:
 				GameLogger.logWarning("Invalid command. Please try again.");

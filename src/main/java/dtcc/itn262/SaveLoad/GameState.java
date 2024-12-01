@@ -1,36 +1,30 @@
 package dtcc.itn262.SaveLoad;
 
-import java.util.List;
+import dtcc.itn262.character.Player;
 
 public class GameState {
-	private Player player;
-	private List<String> visitedRooms;
-	private List<Monster> monsters;
-	private GameStateInfo gameState;
+	private Player player;      // Player's current state
+	private boolean isBossDefeated; // Example persistent state
 
-	// Getters and setters (or use public fields for simplicity)
-}
-
-class Player {
-	private String name;
-	private int health;
-	private List<String> inventory;
-	private String currentPosition;
+	public GameState(Player player, boolean isBossDefeated) {
+		this.player = player;
+		this.isBossDefeated = isBossDefeated;
+	}
 
 	// Getters and setters
-}
+	public Player getPlayer() {
+		return player;
+	}
 
-class Monster {
-	private String name;
-	private int health;
-	private boolean isDefeated;
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 
-	// Getters and setters
-}
+	public boolean isBossDefeated() {
+		return isBossDefeated;
+	}
 
-class GameStateInfo {
-	private boolean isGhostCodeActive;
-	private String aetherGridStatus;
-
-	// Getters and setters
+	public void setBossDefeated(boolean bossDefeated) {
+		isBossDefeated = bossDefeated;
+	}
 }
