@@ -46,13 +46,13 @@ public class Zantetsuken implements IMonsterSkill {
 		// Check if the player gets one-hit killed
 		if (chance < adjustedOneHitKillChance) {
 			target.getPlayerAttributes().setHealth(0); // Instant kill
-			System.out.println(monster.getMonster() + " uses " + getSkillName() + "! It's an instant kill! " + target.getHero() + " has been defeated.");
+			System.out.println(monster.getMonster() + " uses " + getSkillName() + "! It's an instant kill! " + target.getHeroName() + " has been defeated.");
 		} else {
 			// If instant kill doesn't happen, deal base damage
 			int damage = BASE_DAMAGE - target.getPlayerAttributes().getDefense();
 			if (damage > 0) {
 				target.getPlayerAttributes().setHealth((target.getPlayerAttributes().getHealth() + target.getPlayerAttributes().getDefense()) - damage);
-				System.out.println(monster.getMonster() + " uses " + getSkillName() + " and deals " + damage + " damage to " + target.getHero());
+				System.out.println(monster.getMonster() + " uses " + getSkillName() + " and deals " + damage + " damage to " + target.getHeroName());
 			} else {
 				System.out.println(monster.getMonster() + " uses " + getSkillName() + " but the attack was ineffective.");
 			}

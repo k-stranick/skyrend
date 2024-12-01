@@ -26,9 +26,9 @@ public class MonsterActions {
 		int damage = (monster.getMonsterAttributes().getStrength() - target.getPlayerAttributes().getDefense());
 		if (damage > 0) {
 			target.getPlayerAttributes().setHealth(target.getPlayerAttributes().getHealth() - damage);
-			System.out.println(monster.getMonster() + " attacks " + target.getHero() + " for " + damage + " damage.");
+			System.out.println(monster.getMonster() + " attacks " + target.getHeroName() + " for " + damage + " damage.");
 		} else {
-			System.out.println(monster.getMonster() + " attacks " + target.getHero() + " but the attack is ineffective.");
+			System.out.println(monster.getMonster() + " attacks " + target.getHeroName() + " but the attack is ineffective.");
 		}
 	}
 

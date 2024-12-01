@@ -12,6 +12,12 @@ public class GameSaver {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
 	public static void saveGame(GameState gameState, String filePath) {
+		System.out.println("Saving player: " + gameState.getPlayer().getHeroName());
+		System.out.println("Current health: " + gameState.getPlayer().getPlayerAttributes().getHealth());
+		System.out.println("Weapons: " + gameState.getPlayer().getWeaponList());
+		System.out.println("Armor: " + gameState.getPlayer().getArmorList());
+		System.out.println("Items: " + gameState.getPlayer().getItemsList());
+
 		try (FileWriter writer = new FileWriter(filePath)) {
 			GSON.toJson(gameState, writer);
 			System.out.println("Game saved successfully!");

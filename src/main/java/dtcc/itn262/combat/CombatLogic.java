@@ -184,7 +184,7 @@ public class CombatLogic {
 				buff.revert(character);  // Revert the buff when it expires
 				iterator.remove();  // Remove the expired buff from the list
 				if (character instanceof Player)
-					System.out.println("Defense buff expired for " + ((Player) character).getHero() + ". Defense reverts back to " + ((Player) character).getPlayerAttributes().getDefense());
+					System.out.println("Defense buff expired for " + ((Player) character).getHeroName() + ". Defense reverts back to " + ((Player) character).getPlayerAttributes().getDefense());
 				else if (character instanceof Monster) {
 					System.out.println("Defense buff expired for " + ((Monster) character).getMonster() + ". Defense reverts back to " + ((Monster) character).getMonsterAttributes().getDefense());
 				}

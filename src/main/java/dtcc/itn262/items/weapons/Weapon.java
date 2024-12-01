@@ -1,6 +1,6 @@
 package dtcc.itn262.items.weapons;
 
-public abstract class Weapon {
+public class Weapon {
 	private String weapon;
 	private int damage;
 	private String type;

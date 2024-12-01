@@ -49,7 +49,7 @@ public class PlayerActions {
 			if (weaponIndex >= 0 && weaponIndex < player.weaponList.size()) {
 				Weapon weapon = player.weaponList.get(weaponIndex);
 				player.getPlayerAttributes().setStrength(weapon.getDamage() + player.getPlayerAttributes().getStrength());
-				System.out.println(player.getHero() + " equipped " + weapon.getWeapon() + ".");
+				System.out.println(player.getHeroName() + " equipped " + weapon.getWeapon() + ".");
 			} else {
 				System.out.println("Invalid weapon choice.");
 			}
@@ -74,9 +74,9 @@ public class PlayerActions {
 		int damage = (player.getPlayerAttributes().getStrength() - target.getMonsterAttributes().getDefense());
 		if (damage > 0) {
 			target.getMonsterAttributes().setHealth(target.getMonsterAttributes().getHealth() - damage);
-			System.out.println(player.getHero() + " attacks " + target.getMonster() + " for " + damage + " damage.");
+			System.out.println(player.getHeroName() + " attacks " + target.getMonster() + " for " + damage + " damage.");
 		} else {
-			System.out.println(player.getHero() + " attacks " + target.getMonster() + " but the attack is ineffective.");
+			System.out.println(player.getHeroName() + " attacks " + target.getMonster() + " but the attack is ineffective.");
 		}
 	}
 
@@ -84,7 +84,7 @@ public class PlayerActions {
 		int buffDuration = 1; // buff lasts for 1 turn
 		DefenseBuff<PlayerAttributes> playerDefenseBuff = new DefenseBuff<>(buffDuration, Constants.DEFENSE_BUFF);
 		playerDefenseBuff.apply(player.getPlayerAttributes());
-		System.out.println(player.getHero() + " defends and gains " + Constants.DEFENSE_BUFF + " defense for " + buffDuration + " turns. Defense increased to " + player.getPlayerAttributes().getDefense());
+		System.out.println(player.getHeroName() + " defends and gains " + Constants.DEFENSE_BUFF + " defense for " + buffDuration + " turns. Defense increased to " + player.getPlayerAttributes().getDefense());
 		combatLogic.activePlayerBuffs.add(playerDefenseBuff);
 	}
 

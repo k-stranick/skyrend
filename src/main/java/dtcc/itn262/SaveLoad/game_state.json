@@ -1,3 +1,59 @@
 {
+  "player": {
+    "itemsList": [],
+    "weaponList": [
+      {
+        "weapon": "Aetherblade",
+        "damage": 40,
+        "type": "Sword",
+        "description": "A sword forged with pure Aether energy, capable of slicing through both matter and code."
+      },
+      {
+        "weapon": "Aetherblade",
+        "damage": 40,
+        "type": "Sword",
+        "description": "A sword forged with pure Aether energy, capable of slicing through both matter and code."
+      }
+    ],
+    "armorList": [
+      {
+        "armor": "Phantom Cloak",
+        "defenseBoost": 25,
+        "description": "A cloak that allows the wearer to phase in and out of the Ghost Code, evading attacks and becoming nearly invisible."
+      },
+      {
+        "armor": "Phantom Circuit Armor",
+        "defenseBoost": 80,
+        "description": "The Phantom Circuit Armor is the pinnacle of AetherGrid technology, interwoven with the Ghost Code. It phases between realities, making the wearer impervious to all forms of damage as they flicker between dimensions."
+      },
+      {
+        "armor": "Phantom Cloak",
+        "defenseBoost": 25,
+        "description": "A cloak that allows the wearer to phase in and out of the Ghost Code, evading attacks and becoming nearly invisible."
+      }
+    ],
+    "hero": "Test",
+    "playerAttributes": {
+      "level": 1,
+      "strength": 1240,
+      "defense": 125,
+      "health": 200,
+      "maxHealth": 200,
+      "magic": 100,
+      "magicDefense": 100,
+      "mana": 150,
+      "maxMana": 150,
+      "speed": 100,
+      "luck": 100,
+      "experience": 0
+    },
+    "playerRow": 4,
+    "playerCol": 2,
+    "equippedArmor": {
+      "armor": "Phantom Cloak",
+      "defenseBoost": 25,
+      "description": "A cloak that allows the wearer to phase in and out of the Ghost Code, evading attacks and becoming nearly invisible."
+    }
+  },
   "isBossDefeated": false
 }

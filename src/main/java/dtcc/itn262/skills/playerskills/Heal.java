@@ -60,7 +60,7 @@ public class Heal implements PlayerSkill {
 		} else if (player.getPlayerAttributes().getMana() >= MANA_COST) {
 			player.getPlayerAttributes().setMana(player.getPlayerAttributes().getMana() - MANA_COST);
 			player.getPlayerAttributes().setHealth((int) Math.round(player.getPlayerAttributes().getHealth() + heal));
-			System.out.println(player.getHero() + " uses " + getSkillName() +" for " + heal + " health.");
+			System.out.println(player.getHeroName() + " uses " + getSkillName() +" for " + heal + " health.");
 		}
 	}
 

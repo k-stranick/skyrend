@@ -35,9 +35,9 @@ public class SelfDestruct implements IMonsterSkill {
 		} else if (monster.getMonsterAttributes().getMana() >= MANA_COST && damage > 0) {
 			monster.getMonsterAttributes().setMana(monster.getMonsterAttributes().getMana() - MANA_COST);
 			target.getPlayerAttributes().setHealth((int) Math.round(target.getPlayerAttributes().getHealth() - damage));
-			System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHero() + " for " + damage + " damage.");
+			System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHeroName() + " for " + damage + " damage.");
 		} else {
-			System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHero() + " but the attack is ineffective.");
+			System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHeroName() + " but the attack is ineffective.");
 		}
 	}
 }

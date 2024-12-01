@@ -23,7 +23,7 @@ public class StatusEffect {
 	 */
 	public void applyEffect(Player player) {
 		if (remainingTurns > 0) {
-			System.out.println(name + " deals " + damagePerTurn + " damage to " + player.getHero());
+			System.out.println(name + " deals " + damagePerTurn + " damage to " + player.getHeroName());
 			player.takeDamage(damagePerTurn);
 			remainingTurns--;
 		} else {

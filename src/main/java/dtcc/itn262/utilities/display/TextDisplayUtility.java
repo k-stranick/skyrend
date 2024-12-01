@@ -53,9 +53,9 @@ public class TextDisplayUtility {
         String enemyMpBar = generateBar(enemy.getMonsterAttributes().getMana(), enemy.getMonsterAttributes().getMaxMana());
 
         System.out.println("+------------------------------------------------------------+");
-        System.out.println("         Battle: " + player.getHero() + "        vs          " + enemy.getMonster());
+        System.out.println("         Battle: " + player.getHeroName() + "        vs          " + enemy.getMonster());
         System.out.println("+------------------------------------------------------------+");
-        System.out.println("  Hero: " + player.getHero() + "             Enemy: " + enemy.getMonster());
+        System.out.println("  Hero: " + player.getHeroName() + "             Enemy: " + enemy.getMonster());
         System.out.println("| HP: " + playerHpBar + "     HP: " + enemyHpBar + "                      |");
         System.out.println("| MP: " + playerMpBar + "     MP: " + enemyMpBar + "                      |");
         System.out.println("+------------------------------------------------------------+");

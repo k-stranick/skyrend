@@ -1,6 +1,5 @@
 package dtcc.itn262.character;
 
-import dtcc.itn262.combat.effects.StatusEffect;
 import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.items.usableitems.UsableItems;
 import dtcc.itn262.items.weapons.Weapon;
@@ -21,8 +20,7 @@ public class Player {
 	private Armor equippedArmor;
 	//private final List<StatusEffect> statusEffects = new ArrayList<>();
 
-
-
+	// Constructor for Player class
 	private Player(String hero, int startRow, int startCol) {
 		this.hero = hero;
 		playerAttributes = new PlayerAttributes();
@@ -59,14 +57,14 @@ public class Player {
 		this.playerCol = newCol;
 	}
 
-	public String getHero() {
+	public String getHeroName() {
 		return hero;
 	}
 
 	public void takeDamage(int damage) {
 		int currentHealth = playerAttributes.getHealth();
 		playerAttributes.setHealth(currentHealth - damage);  // Update health using the setter
-		System.out.println(getHero() + " took " + damage + " damage. Current health: " + playerAttributes.getHealth());
+		System.out.println(getHeroName() + " took " + damage + " damage. Current health: " + playerAttributes.getHealth());
 	}
 
 	public void displayItems() {
@@ -120,7 +118,7 @@ public class Player {
 		if (armorList.contains(armor)) {
 			equippedArmor = armor;
 			updateDefense();
-			System.out.println(getHero() + " equipped " + armor.getArmor() + ".");
+			System.out.println(getHeroName() + " equipped " + armor.getArmor() + ".");
 		} else {
 			System.out.println("You do not have " + armor.getArmor() + " in your inventory.");
 		}
@@ -141,6 +139,13 @@ public class Player {
 
 	public List<UsableItems> getItemsList() {
 		return itemsList;
+	}
+	public List<Weapon> getWeaponList() {
+		return weaponList;
+	}
+
+	public List<Armor> getArmorList() {
+		return armorList;
 	}
 
 	public List<Object> getInventory() {
@@ -172,6 +177,8 @@ public class Player {
 				"\nLuck: " + playerAttributes.getLuck() +
 				"\nExperience: " + playerAttributes.getExperience();
 	}
+
+
 
 	/*	public void setShielded(boolean b) {// TODO: Implement this method
 	}*/

@@ -282,9 +282,9 @@ public class Maze {
 
 	private void checkEscapeCondition() {
 		if (checkWinCondition(this)) { // Check if the player has visited enough rooms to escape
-			System.out.println("You have visited enough rooms to escape the city!");
+			System.out.println("You have defeated the final boss and escaped the maze!");
 			// Ask the player if they want to continue playing
-			if (!UserInput.askToContinue()) {
+			if (UserInput.askToContinue()) {
 				System.exit(0); // Only exit if they say "no"
 			} else {
 				System.out.println("Continuing the game... You are free to explore more.");
@@ -322,7 +322,7 @@ public class Maze {
 
 
 	private boolean chanceToFindItem() {
-		return random.nextDouble() < .2;  // 20% chance
+		return random.nextDouble() < 100;  // 20% chance //TODO
 	}
 
 
@@ -391,9 +391,7 @@ public class Maze {
 		return items.get(random.nextInt(items.size()));
 	}
 
-/*	private Room[][] initializeMap() {
-		return MazeLoader.loadMazeFromJson("src/main/java/dtcc/itn262/maze/maze.json");
-	}*/
+
 
 	public Room getCurrentRoom() {
 		return map[player.getPlayerRow()][player.getPlayerCol()];
@@ -453,7 +451,7 @@ public class Maze {
 
 				return maze;
 			} catch (JsonIOException | JsonSyntaxException | IOException e) {
-				e.printStackTrace();
+				e.printStackTrace();  //TODO
 				return null;
 			}
 		}
