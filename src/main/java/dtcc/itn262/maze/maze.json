@@ -9,8 +9,8 @@
         "s": -1,
         "e": 1,
         "w": -1,
-        "isSpecial": false,
-        "sceneIndex": -1
+        "isSpecial": true,
+        "sceneIndex": 0
       },
       {
         "index": 1,
@@ -170,7 +170,8 @@
         "e": -1,
         "w": 7,
         "isSpecial": false,
-        "sceneIndex": -1 },
+        "sceneIndex": -1
+      },
       {
         "index": 33,
         "name": "Quantum Nexus",
@@ -208,7 +209,8 @@
     [
       null,
       {
-        "index": 9, "name": "Arcane Synth Bay",
+        "index": 9,
+        "name": "Arcane Synth Bay",
         "description": "A fusion lab for cybernetic enhancements.",
         "n": -1,
         "s": -1,
@@ -219,7 +221,8 @@
       },
       {
         "index": 10,
-        "name": "Ghost Terminal", "description": "A server room where Ghost Code emerged.",
+        "name": "Ghost Terminal",
+        "description": "A server room where Ghost Code emerged.",
         "n": -1,
         "s": 14,
         "e": 11,
@@ -519,7 +522,8 @@
         "w": 49,
         "isSpecial": false,
         "sceneIndex": -1
-      }],
+      }
+    ],
     [
       {
         "index": 51,
@@ -539,7 +543,7 @@
         "n": -1,
         "s": -1,
         "e": 53,
-        "w": -1,
+        "w": 51,
         "isSpecial": false,
         "sceneIndex": -1
       },
@@ -605,7 +609,8 @@
         "isSpecial": false,
         "sceneIndex": -1
       },
-      { "index": 57,
+      {
+        "index": 57,
         "name": "Fenrisúlfr Gate",
         "description": "The last step before the unknown.",
         "n": 53,
@@ -617,7 +622,8 @@
       },
       null,
       {
-        "index": 22, "name": "Echo Vault",
+        "index": 22,
+        "name": "Echo Vault",
         "description": "A hidden digital vault.",
         "n": 21,
         "s": -1,
@@ -657,7 +663,8 @@
         "e": 26,
         "w": 24,
         "isSpecial": false,
-        "sceneIndex": -1 },
+        "sceneIndex": -1
+      },
       {
         "index": 26,
         "name": "Void Space",
@@ -678,7 +685,7 @@
         "e": -1,
         "w": 26,
         "isSpecial": true,
-        "sceneIndex": 7
+        "sceneIndex": 6
       }
     ]
   ]

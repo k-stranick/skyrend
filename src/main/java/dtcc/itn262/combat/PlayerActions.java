@@ -49,7 +49,7 @@ public class PlayerActions {
 			if (weaponIndex >= 0 && weaponIndex < player.weaponList.size()) {
 				Weapon weapon = player.weaponList.get(weaponIndex);
 				player.getPlayerAttributes().setStrength(weapon.getDamage() + player.getPlayerAttributes().getStrength());
-				System.out.println(player.getHeroName() + " equipped " + weapon.getWeapon() + ".");
+				System.out.println(player.getHeroName() + " equipped " + weapon.getName() + ".");
 			} else {
 				System.out.println("Invalid weapon choice.");
 			}

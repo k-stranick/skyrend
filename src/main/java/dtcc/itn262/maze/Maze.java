@@ -5,12 +5,17 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
+import dtcc.itn262.items.Item;
+import dtcc.itn262.items.ItemManagement;
 import dtcc.itn262.items.armor.AetherReaverSuit;
 import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.items.armor.PhantomCircuitArmor;
 import dtcc.itn262.items.armor.PhantomCloak;
-import dtcc.itn262.items.usableitems.UsableItems;
-import dtcc.itn262.items.weapons.*;
+import dtcc.itn262.items.usableitems.*;
+import dtcc.itn262.items.weapons.Aetherblade;
+import dtcc.itn262.items.weapons.GhostReaver;
+import dtcc.itn262.items.weapons.Voidbreaker;
+import dtcc.itn262.items.weapons.Weapon;
 import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.boss.GhostCodeManifested;
 import dtcc.itn262.monster.boss.Gilgamesh;
@@ -27,17 +32,18 @@ import dtcc.itn262.utilities.gamecore.Constants;
 import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-import static dtcc.itn262.utilities.input.Validation.checkWinCondition;
+//import static dtcc.itn262.utilities.input.Validation.checkWinCondition;
 
 
 public class Maze {
 	private static Maze instance;
 	private final Room[][] map;
-	private final int requiredVisitedRooms;
+	//private final int requiredVisitedRooms;
 	private final Set<String> uniqueVisitedRooms;
 	private final List<String> moveHistory = new ArrayList<>(); // tracks all moves
 	private final Player player; // change this if I add more characters to the game
@@ -47,22 +53,19 @@ public class Maze {
 	private final List<Armor> armors = new ArrayList<>();
 	private final List<UsableItems> items = new ArrayList<>();  // For items that aren't weapons or armor
 	private Map<Integer, int[]> roomIndexToPosition;
-
+	private final ItemManagement itemManagement;
 	//constructor
 	private Maze(Player player) {
 		this.map = MazeLoader.loadMazeFromJson();
-
+		this.itemManagement = new ItemManagement();
 		//this.map = initializeMap();
 		this.player = player;
-		this.requiredVisitedRooms = countSpecialRooms();
+		//this.requiredVisitedRooms = countSpecialRooms();
 		this.uniqueVisitedRooms = new HashSet<>();  //If a player visits the same room multiple times, the HashSet will only store that room once.
 		this.sceneManager = SceneManager.getInstance();
 		initializeRoomIndexMapping();
 		visitRoom(map[player.getPlayerRow()][player.getPlayerCol()]);  // Mark the starting room as visited
 		TextDisplayUtility.showCurrentRoom(map, player); // <-does this need to be here?
-		initializeWeapons();
-		initializeArmor();
-		initializeItems();
 	}
 
 
@@ -170,7 +173,7 @@ public class Maze {
 			}
 			visitRoom(newRoom);
 			displayMap();
-			checkEscapeCondition();
+			//checkEscapeCondition();
 			updateMoveHistory(newRoom);
 
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -182,14 +185,14 @@ public class Maze {
 
 
 	private void updateMoveHistory(Room room) {
-		moveHistory.add("Moved to " + room.getName()); // Add the move to the history
+		moveHistory.add(room.getName()); // Add the move to the history
 
 	}
 
 
 	private void triggerRandomEncounter() {
 		int chance = random.nextInt(100); // Generate a random number between 0 and 99
-		if (chance <= -1) { // 20% chance for an encounter //TODO 1
+		if (chance <= 100) { // 20% chance for an encounter //TODO 1
 
 			System.out.println("A wild monster appears!");
 			List<Monster> monsters = Arrays.asList(
@@ -255,7 +258,7 @@ public class Maze {
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
 				break;
-			case "Aetheric Sanctum":
+			case "Final Frontier":
 				monster = new GhostCodeManifested();
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
@@ -280,19 +283,22 @@ public class Maze {
 	}
 
 
-	private void checkEscapeCondition() {
+/*	private void checkEscapeCondition() {
 		if (checkWinCondition(this)) { // Check if the player has visited enough rooms to escape
 			System.out.println("You have defeated the final boss and escaped the maze!");
+			// TODO need to remove or refactor for just beating the final boss
 			// Ask the player if they want to continue playing
 			if (UserInput.askToContinue()) {
-				System.exit(0); // Only exit if they say "no"
-			} else {
 				System.out.println("Continuing the game... You are free to explore more.");
+			} else {
+				System.out.println("Thanks for playing! Goodbye.");
+				System.exit(0);  // Exit the game
 			}
-		} // TODO need to remove or refactor for jsut beating the final boss
-	} // TODO maybe jsut a check ONLY IN final boss?
+		}
+	} // TODO maybe just a check ONLY IN final boss?*/
 
 
+/*
 	// Method to count special rooms
 	private int countSpecialRooms() {
 		int count = 0;
@@ -305,11 +311,12 @@ public class Maze {
 		}
 		return count;
 	} // TODO will need to  remove only condition is to beat boss
+*/
 
 
-	public int getRequiredVisitedRooms() {
+/*	public int getRequiredVisitedRooms() {
 		return requiredVisitedRooms;
-	}
+	}*/
 
 
 	private boolean checkNullRoom(Room currentRoom) {
@@ -326,23 +333,24 @@ public class Maze {
 	}
 
 
-	public void searchRoom(Room room) { // random item generator from a predefined list and adds it to player's inventory
+	public void searchRoom(Room room) { // random item generator from a predefined list and adds it to the player's inventory
 		if (!chanceToFindItem()) {  // upgraded from if/else to enhanced switch
 			System.out.println("You didn't find anything.");
 			return;
 		}
-		Object item = generateRandomItem();
+		Item item = itemManagement.generateRandomItem();
 
 		System.out.println("You found a " + item);
 		switch (item) {
-			case Weapon weapon -> player.addWeapon(weapon); // TODO updated from IWEAPON
+			case Weapon weapon -> player.addWeapon(weapon);
 			case Armor armor -> player.addArmor(armor);
 			case UsableItems usableItem -> player.addItem(usableItem);
 			default -> throw new IllegalStateException("Unexpected value: " + item);
 		}
+
 	}
 
-	private Object generateRandomItem() {
+/*	private Object generateRandomItem() {
 		Random random = new Random();
 		int itemType = random.nextInt(3);  // 0 for a weapon, 1 for armor, 2 for items
 		return switch (itemType) {
@@ -351,15 +359,15 @@ public class Maze {
 			case 2 -> generateRandomOtherItem();
 			default -> throw new IllegalStateException("Unexpected value: " + itemType);
 		};
-	}
+	}*/
 
-	private void initializeWeapons() {// can search for a weapon across the entire map maybe change this
+/*	private void initializeWeapons() {// can search for a weapon across the entire map maybe change this
 		weapons.add(new GhostReaver());
 		weapons.add(new Aetherblade());
 		weapons.add(new Voidbreaker());
-	}
+	}*/
 
-	// Randomly pick a weapon from the list of custom weapons
+/*	// Randomly pick a weapon from the list of custom weapons
 	private Weapon generateRandomWeapon() {
 		Random random = new Random();
 		return weapons.get(random.nextInt(weapons.size()));
@@ -378,19 +386,18 @@ public class Maze {
 	}
 
 	private void initializeItems() {
-		items.add(new UsableItems("Health Potion", "Health Potion", 20)); // placeholders for now
-		items.add(new UsableItems("super Health Potion", "Health Potion", 40)); // placeholders for now
-		items.add(new UsableItems("Mana Potion", "Health Potion", 20));  // placeholders for now
-		items.add(new UsableItems("Super Mana Potion", "Health Potion", 40));  // placeholders for now
-		items.add(new UsableItems("Elixir", "Elixir", 100, 100));  // placeholders for now
+		items.add(new HealthStim(40)); // placeholders for now
+		items.add(new AethericStim(40)); // placeholders for now
+		items.add(new SystemRestore(250));  // placeholders for now
+		items.add(new FullHealthStim(80));  // placeholders for now
+		items.add(new FullAethericStim(80));  // placeholders for now
 	}
 
 	// Randomly pick an item from the list of custom other items
 	private UsableItems generateRandomOtherItem() {
 		Random random = new Random();
 		return items.get(random.nextInt(items.size()));
-	}
-
+	}*/
 
 
 	public Room getCurrentRoom() {
@@ -398,22 +405,67 @@ public class Maze {
 	}
 
 	public void displayInventory() {
-		List<Object> inventory = player.getInventory();
+		List<Item> inventory = player.getInventory(); // Get the player's inventory
 
-		for (Object item : inventory) {
-			if (item instanceof Weapon) {
-				System.out.println("Weapon: " + ((Weapon) item).getWeapon());
-			} else if (item instanceof Armor) {
-				System.out.println("Armor: " + ((Armor) item).getArmor());
-			} else if (item instanceof UsableItems) {
-				System.out.println("Usable Item: " + ((UsableItems) item).getName());
+		if (inventory.isEmpty()) {
+			System.out.println("Your inventory is empty.");
+			return;
+		}
+
+		System.out.println("Inventory:");
+		for (Item item : inventory) {
+			System.out.println(" - " + item.getName() + ": " + item.getDescription());
+		}
+	}
+
+
+	public void restoreState(Set<String> uniqueVisitedRooms, List<String> moveHistory) {
+		// Clear and restore the uniqueVisitedRooms set
+		this.uniqueVisitedRooms.clear();
+		this.uniqueVisitedRooms.addAll(uniqueVisitedRooms);
+
+		// Clear and restore the moveHistory list
+		this.moveHistory.clear();
+		this.moveHistory.addAll(moveHistory);
+
+		// Mark rooms in the map as visited based on uniqueVisitedRooms
+		for (Room[] row : map) {
+			for (Room room : row) {
+				if (room != null && uniqueVisitedRooms.contains(room.getName())) {
+					room.setVisited(true); // Mark room as visited
+					if (room.isSpecial()) {
+						room.setSpecialEventTriggered(true); // Mark special events as triggered
+					}
+				}
 			}
 		}
 	}
 
-/**
-* Private inner class to load the maze from a JSON file
-* */
+
+/*
+	public void restoreState(Set<String> uniqueVisitedRooms, List<String> moveHistory) {
+		this.uniqueVisitedRooms.clear();
+		this.uniqueVisitedRooms.addAll(uniqueVisitedRooms);
+
+		this.moveHistory.clear();
+		this.moveHistory.addAll(moveHistory);
+
+		// Optionally, reapply visited flags to rooms
+		for (String roomName : uniqueVisitedRooms) {
+			for (Room[] row : map) {
+				for (Room room : row) {
+					if (room != null && room.getName().equals(roomName)) {
+						room.setVisited(true);
+					}
+				}
+			}
+		}
+	}  //TODO THIS IS NEW MAYBE MOVE???
+*/
+
+	/**
+	 * Private inner class to load the maze from a JSON file
+	 */
 	private static class MazeLoader {
 		private static Room[][] loadMazeFromJson() {
 			Gson gson = new Gson();
@@ -438,16 +490,6 @@ public class Maze {
 						}
 					}
 				}
-				for (Room[] row : maze) { //TODO remove this debug
-					for (Room room : row) {
-						if (room != null) {
-							System.out.println("DEBUG: Room Index: " + room.getRoomIndex() +
-									", Name: " + room.getName() +
-									", isSpecial: " + room.isSpecial() +
-									", SceneIndex: " + room.getSceneIndex());
-						}
-					}
-				}
 
 				return maze;
 			} catch (JsonIOException | JsonSyntaxException | IOException e) {
@@ -469,8 +511,7 @@ public class Maze {
 		}
 	}
 }
-/*	}
-
+/*
 	public void handleInventoryFromMap() {
 		displayInventory();  // Display the inventory
 

@@ -1,25 +1,23 @@
 package dtcc.itn262.items.weapons;
 
-public class Weapon {
-	private String weapon;
+import dtcc.itn262.items.Item;
+
+public class Weapon extends Item {
 	private int damage;
-	private String type;
-	private String description;
+
 
 	public Weapon(String name, int damage, String type, String description) {
+		super(name, type, description);
+		this.damage = damage;
+	}
+
+/*	public Weapon(String name, int damage, String type, String description) {
 		this.weapon = name;
 		this.damage = damage;
 		this.type = type;
 		this.description = description;
-	}
+	}*/
 
-	public String getWeapon() {
-		return weapon;
-	}
-
-	public void setWeapon(String weapon) {
-		this.weapon = weapon;
-	}
 
 	public int getDamage() {
 		return damage;
@@ -29,24 +27,9 @@ public class Weapon {
 		this.damage = damage;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	@Override
-	public String toString() {
-		return weapon + ": " + description + " (Damage: " + damage + ")";
+	public String getDescription() {
+		return super.getDescription() + " (Damage: " + damage + ")";
 	}
 }

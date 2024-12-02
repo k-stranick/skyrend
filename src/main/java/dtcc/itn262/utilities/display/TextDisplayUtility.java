@@ -80,5 +80,4 @@ public class TextDisplayUtility {
         System.out.println("4. Exit");
         System.out.print("Enter your choice: ");
     }
-
 }

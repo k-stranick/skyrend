@@ -1,42 +1,13 @@
 {
   "player": {
     "itemsList": [],
-    "weaponList": [
-      {
-        "weapon": "Aetherblade",
-        "damage": 40,
-        "type": "Sword",
-        "description": "A sword forged with pure Aether energy, capable of slicing through both matter and code."
-      },
-      {
-        "weapon": "Aetherblade",
-        "damage": 40,
-        "type": "Sword",
-        "description": "A sword forged with pure Aether energy, capable of slicing through both matter and code."
-      }
-    ],
-    "armorList": [
-      {
-        "armor": "Phantom Cloak",
-        "defenseBoost": 25,
-        "description": "A cloak that allows the wearer to phase in and out of the Ghost Code, evading attacks and becoming nearly invisible."
-      },
-      {
-        "armor": "Phantom Circuit Armor",
-        "defenseBoost": 80,
-        "description": "The Phantom Circuit Armor is the pinnacle of AetherGrid technology, interwoven with the Ghost Code. It phases between realities, making the wearer impervious to all forms of damage as they flicker between dimensions."
-      },
-      {
-        "armor": "Phantom Cloak",
-        "defenseBoost": 25,
-        "description": "A cloak that allows the wearer to phase in and out of the Ghost Code, evading attacks and becoming nearly invisible."
-      }
-    ],
-    "hero": "Test",
+    "weaponList": [],
+    "armorList": [],
+    "hero": "Hero",
     "playerAttributes": {
       "level": 1,
-      "strength": 1240,
-      "defense": 125,
+      "strength": 1200,
+      "defense": 100,
       "health": 200,
       "maxHealth": 200,
       "magic": 100,
@@ -47,13 +18,35 @@
       "luck": 100,
       "experience": 0
     },
-    "playerRow": 4,
-    "playerCol": 2,
-    "equippedArmor": {
-      "armor": "Phantom Cloak",
-      "defenseBoost": 25,
-      "description": "A cloak that allows the wearer to phase in and out of the Ghost Code, evading attacks and becoming nearly invisible."
-    }
+    "playerRow": 5,
+    "playerCol": 3
   },
-  "isBossDefeated": false
+  "uniqueVisitedRooms": [
+    "The Outskirts",
+    "Arcane Synth Bay",
+    "Abandoned Tech Labs",
+    "Sky Bridge"
+  ],
+  "moveHistory": [
+    "Moved to Neon Corridor",
+    "Moved to Fusion Park",
+    "Moved to Cyber Alley",
+    "Moved to DataFall Plaza",
+    "Moved to Power Conduit",
+    "Moved to StormW3ll Station",
+    "Moved to The Drift Way",
+    "Moved to Rune Street Markets",
+    "Moved to Abandoned Tech Labs",
+    "Moved to Rune Street Markets",
+    "Moved to The Drift Way",
+    "Moved to StormW3ll Station",
+    "Moved to Circuit Yard",
+    "Moved to Giga Tower",
+    "Moved to Ghost Terminal",
+    "Moved to Arcane Synth Bay",
+    "Moved to Ghost Terminal",
+    "Moved to Sky Bridge",
+    "Moved to Iron District",
+    "Moved to Scrapyard"
+  ]
 }

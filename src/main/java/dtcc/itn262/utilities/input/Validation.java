@@ -31,10 +31,10 @@ public class Validation { // this will be a class of static methods
 				newCol >= 0 && newCol < map[newRow].length && map[newRow][newCol] != null;
 	}
 
-	public static boolean checkWinCondition(Maze maze) {
+/*	public static boolean checkWinCondition(Maze maze) {
 		// Logic for checking if the player has won (e.g., visited all special rooms)
 		return maze.getUniqueVisitedRooms().size() >= maze.getRequiredVisitedRooms();
-	}
+	}*/
 
 	public static boolean checkLoseCondition(Player player) {
 		// Logic for checking if the player has lost (e.g., player's health is 0)

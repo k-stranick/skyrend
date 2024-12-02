@@ -1,5 +1,6 @@
 package dtcc.itn262.maze;
 
+import dtcc.itn262.items.Item;
 import dtcc.itn262.items.usableitems.UsableItems;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Room {
 	private final int sceneIndex;
 	private boolean specialEventTriggered;
 	private boolean visited;
-	private List<UsableItems> items;
+	private final List<Item> items;
 
 	public Room(RoomConfiguration roomConfiguration) {
 		this.roomIndex = roomConfiguration.index();
@@ -97,11 +98,21 @@ public class Room {
 		items.add(item);
 	}
 
-	public List<UsableItems> getItems() {
+	public List<Item> getItems() {
 		return items;
 	}
 
 	public boolean hasItems() {
 		return !items.isEmpty();
+	}
+	public void displayRoomItems() {
+		if (hasItems()) {
+			System.out.println("Items in the room:");
+			for (int i =0; i < items.size(); i++) {
+				System.out.println(i + ". " + items.get(i).getName());
+			}
+		} else {
+			System.out.println("There are no items in this room.");
+		}
 	}
 }

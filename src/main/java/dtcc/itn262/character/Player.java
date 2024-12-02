@@ -1,5 +1,6 @@
 package dtcc.itn262.character;
 
+import dtcc.itn262.items.Item;
 import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.items.usableitems.UsableItems;
 import dtcc.itn262.items.weapons.Weapon;
@@ -74,7 +75,6 @@ public class Player {
 	}
 
 	public void addItem(UsableItems item) { 	// Method to add an item to the player's inventory
-
 		itemsList.add(item);
 		System.out.println(item.getName() + " added to the inventory.");
 	}
@@ -97,12 +97,12 @@ public class Player {
 
 	public void addWeapon(Weapon weapon) {
 		weaponList.add(weapon);
-		System.out.println(weapon.getWeapon() + " added to the inventory.");
+		System.out.println(weapon.getName() + " added to the inventory.");
 	}
 
 	public void addArmor(Armor armor) {
 		armorList.add(armor);
-		System.out.println(armor.getArmor() + " added to the inventory.");
+		System.out.println(armor.getName() + " added to the inventory.");
 
 	}
 
@@ -118,22 +118,22 @@ public class Player {
 		if (armorList.contains(armor)) {
 			equippedArmor = armor;
 			updateDefense();
-			System.out.println(getHeroName() + " equipped " + armor.getArmor() + ".");
+			System.out.println(getHeroName() + " equipped " + armor.getName() + ".");
 		} else {
-			System.out.println("You do not have " + armor.getArmor() + " in your inventory.");
+			System.out.println("You do not have " + armor.getName() + " in your inventory.");
 		}
 	}
 
 	public void displayWeapons() {
 		for (int i = 0; i < weaponList.size(); i++) {
-			System.out.println(i + ". " + weaponList.get(i).getWeapon());
+			System.out.println(i + ". " + weaponList.get(i).getName());
 		}
 	}
 
 
 	public void displayArmor() {
 		for (int i = 0; i < armorList.size(); i++) {
-			System.out.println(i + ". " + armorList.get(i).getArmor());
+			System.out.println(i + ". " + armorList.get(i).getName());
 		}
 	}
 
@@ -148,8 +148,8 @@ public class Player {
 		return armorList;
 	}
 
-	public List<Object> getInventory() {
-		List<Object> inventory = new ArrayList<>();
+	public List<Item> getInventory() {
+		List<Item> inventory = new ArrayList<>();
 
 		// Add all weapons to the inventory
 		inventory.addAll(weaponList);
