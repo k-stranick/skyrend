@@ -1,4 +1,4 @@
-package dtcc.itn262.utilities.gamecore;
+package dtcc.itn262.app;
 
 import dtcc.itn262.SaveLoad.GameSaver;
 import dtcc.itn262.SaveLoad.GameState;
@@ -7,11 +7,12 @@ import dtcc.itn262.json.HelpMenu;
 import dtcc.itn262.maze.Maze;
 import dtcc.itn262.maze.Room;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
+import dtcc.itn262.utilities.gamecore.Command;
+import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.Validation;
+import dtcc.itn262.utilities.soundandmusic.Music;
 
-import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Game {
 	private Player player;
@@ -68,25 +69,8 @@ public class Game {
 		}
 	}
 
-
-
-
-/*	private void loadGame() {
-		GameState gameState = GameSaver.loadGame("src/main/java/dtcc/itn262/SaveLoad/game_state.json");
-
-		if (gameState != null && gameState.getPlayer() != null) {
-			player = gameState.getPlayer(); // Assign the loaded Player to the field
-			System.out.println("Game loaded successfully!");
-			System.out.println("Welcome back, " + player.getHeroName() + "!");
-			maze = Maze.getInstance(player); // Reinitialize Maze with the loaded Player
-			maze.displayMap();
-			startGame(); // Continue the game
-		} else {
-			System.err.println("Failed to load the game.");
-		}
-	}*/
-
 	private void startGame() {
+
 		try (Scanner input = new Scanner(System.in)) {
 			if (player == null) { // Create a new Player if one does not already exist
 				System.out.print("Enter your hero's name: ");
@@ -100,6 +84,7 @@ public class Game {
 
 			Maze maze = Maze.getInstance(player); // Use the same Player instance
 			boolean continueGame = true;
+			Music.playBackgroundMusic("src/main/java/dtcc/itn262/utilities/soundandmusic/soundfiles/over_world_music.wav");
 
 			do {
 				System.out.print("?: ");
@@ -120,6 +105,7 @@ public class Game {
 			GameLogger.logError("An error occurred: " + e.getMessage());
 		}
 		System.out.println("Thank you for playing!");
+		Music.stopAllSounds();
 		System.exit(0);
 	}
 

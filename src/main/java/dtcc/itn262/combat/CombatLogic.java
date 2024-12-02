@@ -10,6 +10,8 @@ import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
+import dtcc.itn262.utilities.soundandmusic.Music;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +29,8 @@ public class CombatLogic {
 
 
 	public CombatLogic(Player player, Monster monster) {
+		Music.stopBackgroundMusic();
+		Music.playBackgroundMusic("src/main/java/dtcc/itn262/utilities/soundandmusic/soundfiles/boss_music_1.wav");
 		this.player = player;
 		this.monster = monster;
 		this.playerActions = new PlayerActions(CombatLogic.this, player);
@@ -48,6 +52,7 @@ public class CombatLogic {
 	}
 
 	public void startFight() { // need to check status for this also
+
 		boolean battleHasEnded = false;  // Declare battleHasEnded at the start of the method
 		boolean playerGoesFirst = player.getPlayerAttributes().getSpeed() > monster.getMonsterAttributes().getSpeed(); // move inside the if statement if I introduce buffs or de-buffs for speed
 
@@ -72,6 +77,8 @@ public class CombatLogic {
 			//CREATE METHOD FOR HERE TO HANDLE DEBUFF,COOLDOWN,STATUSEFFECTS, ETC
 		}
 		determineOutcome(battleHasEnded, player); // Check for win/loss conditions once the battle is over
+		Music.stopBackgroundMusic();
+		Music.playBackgroundMusic("src/main/java/dtcc/itn262/utilities/soundandmusic/soundfiles/over_world_music.wav");
 	}
 
 	private void monsterTurn() {
