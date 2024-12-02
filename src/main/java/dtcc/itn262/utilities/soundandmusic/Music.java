@@ -1,6 +1,9 @@
 package dtcc.itn262.utilities.soundandmusic;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -9,7 +12,6 @@ import java.util.Map;
 public class Music {
 	private static final Map<String, Clip> soundClips = new HashMap<>();
 	private static Clip backgroundMusicClip;
-
 	// Preload a sound file
 	public static void preloadSound(String name, String filePath) {
 		Clip clip = loadClip(filePath);
@@ -47,7 +49,10 @@ public class Music {
 	// Play background music
 	public static void playBackgroundMusic(String filePath) {
 		backgroundMusicClip = loadClip(filePath);
+
 		if (backgroundMusicClip != null) {
+			FloatControl gainControl = (FloatControl) backgroundMusicClip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-25.0f); // Reduce volume by 10 decibels (adjust as needed)
 			backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY); // Loop indefinitely
 			backgroundMusicClip.start();
 		}

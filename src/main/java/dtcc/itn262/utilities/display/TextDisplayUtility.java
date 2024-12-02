@@ -74,9 +74,9 @@ public class TextDisplayUtility {
     public static void showMainMenu(){
         AsciiArt.displayAsciiArt("src/main/java/dtcc/itn262/json/ascii-text-art.txt");  // Display the game logo
         System.out.println("========================= START MENU ===============================");
-        System.out.println("1. Start New Game - Begin a new adventure and create your hero.");
-        System.out.println("2. Load Game - Load a saved game (coming soon).");
-        System.out.println("3. View Help - Learn how to play the game.");
+        System.out.println("1. Start New Game - Begin a new adventure");
+        System.out.println("2. Load Game - Load a saved game");
+        System.out.println("3. View Help - Learn how to play the game");
         System.out.println("4. Exit");
         System.out.print("Enter your choice: ");
     }

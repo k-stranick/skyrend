@@ -28,11 +28,11 @@ public class Game {
 
 		while (running) {
 			TextDisplayUtility.showMainMenu();  // Display the main menu
-
 			String choice = scanner.nextLine().trim();
 
 			switch (choice) {
 				case "1":
+					Music.stopAllSounds();
 					startGame();  // Start a new game
 					running = false;  // Exit the menu after starting the game //TODO WHY IS THIS HERE
 					break;
@@ -70,7 +70,6 @@ public class Game {
 	}
 
 	private void startGame() {
-
 		try (Scanner input = new Scanner(System.in)) {
 			if (player == null) { // Create a new Player if one does not already exist
 				System.out.print("Enter your hero's name: ");

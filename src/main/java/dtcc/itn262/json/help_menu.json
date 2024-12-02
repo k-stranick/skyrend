@@ -62,6 +62,16 @@
       "command": "INVENTORY",
       "description": "Display Player Inventory.",
       "usage": "Type 'INVENTORY' to look at current inventory and (use items or equip armaments -> UNDER CONSTRUCTION)."
+    },
+    "Save": {
+      "command": "SAVE",
+      "description": "Save the game.",
+      "usage": "Type 'SAVE' to save the game."
+    },
+    "STATS": {
+      "command": "STATS",
+      "description": "Display Player Stats.",
+      "usage": "Type 'STATS' to view your current stats."
     }
   },
   "movementCommands": {

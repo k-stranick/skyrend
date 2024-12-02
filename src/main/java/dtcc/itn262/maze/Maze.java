@@ -54,6 +54,7 @@ public class Maze {
 	private final List<UsableItems> items = new ArrayList<>();  // For items that aren't weapons or armor
 	private Map<Integer, int[]> roomIndexToPosition;
 	private final ItemManagement itemManagement;
+
 	//constructor
 	private Maze(Player player) {
 		this.map = MazeLoader.loadMazeFromJson();
