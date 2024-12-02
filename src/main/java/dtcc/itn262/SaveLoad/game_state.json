@@ -1,8 +1,128 @@
 {
   "player": {
-    "itemsList": [],
-    "weaponList": [],
-    "armorList": [],
+    "itemsList": [
+      {
+        "value": 80,
+        "value2": 0,
+        "name": "Full Health Stim",
+        "description": "Health potion",
+        "type": ""
+      },
+      {
+        "value": 40,
+        "value2": 0,
+        "name": "Aetheric Stim",
+        "description": "Mana potion",
+        "type": ""
+      },
+      {
+        "value": 80,
+        "value2": 0,
+        "name": "Full Health Stim",
+        "description": "Health potion",
+        "type": ""
+      },
+      {
+        "value": 80,
+        "value2": 0,
+        "name": "Full Health Stim",
+        "description": "Health potion",
+        "type": ""
+      },
+      {
+        "value": 40,
+        "value2": 0,
+        "name": "Health Stim",
+        "description": "Health potion",
+        "type": ""
+      },
+      {
+        "value": 40,
+        "value2": 0,
+        "name": "Aetheric Stim",
+        "description": "Mana potion",
+        "type": ""
+      },
+      {
+        "value": 80,
+        "value2": 0,
+        "name": "Full Health Stim",
+        "description": "Health potion",
+        "type": ""
+      },
+      {
+        "value": 80,
+        "value2": 0,
+        "name": "Full Health Stim",
+        "description": "Health potion",
+        "type": ""
+      },
+      {
+        "value": 100,
+        "value2": 0,
+        "name": "System Restore",
+        "description": "Full restore",
+        "type": ""
+      }
+    ],
+    "weaponList": [
+      {
+        "damage": 20,
+        "name": "Neon Dagger",
+        "description": "A dagger that channels the power of the Neon Grid, allowing the wielder to move at the speed of light and strike with deadly precision.",
+        "type": "Dagger"
+      },
+      {
+        "damage": 40,
+        "name": "Aetherblade",
+        "description": "A sword forged with pure Aether energy, capable of slicing through both matter and code.",
+        "type": "Sword"
+      },
+      {
+        "damage": 10,
+        "name": "Night Club",
+        "description": "A basic club that can be used to bash enemies.",
+        "type": "Club"
+      },
+      {
+        "damage": 20,
+        "name": "Neon Dagger",
+        "description": "A dagger that channels the power of the Neon Grid, allowing the wielder to move at the speed of light and strike with deadly precision.",
+        "type": "Dagger"
+      },
+      {
+        "damage": 20,
+        "name": "Neon Dagger",
+        "description": "A dagger that channels the power of the Neon Grid, allowing the wielder to move at the speed of light and strike with deadly precision.",
+        "type": "Dagger"
+      }
+    ],
+    "armorList": [
+      {
+        "defenseBoost": 35,
+        "name": "Aether Reactor Suit",
+        "description": "A suit that harnesses Aether energy to power a protective barrier, greatly enhancing defense.",
+        "type": ""
+      },
+      {
+        "defenseBoost": 20,
+        "name": "Dream Weave Cloak",
+        "description": "A cloak woven from the dreams of the Dreamweaver, it allows the wearer to phase in and out of reality, evading attacks and becoming nearly invisible.",
+        "type": ""
+      },
+      {
+        "defenseBoost": 25,
+        "name": "Phantom Cloak",
+        "description": "A cloak that allows the wearer to phase in and out of the Ghost Code, evading attacks and becoming nearly invisible.",
+        "type": ""
+      },
+      {
+        "defenseBoost": 50,
+        "name": "Ghost Code Armor",
+        "description": "Armor Given to Arc Tech Soldiers to protect them from the Ghost Code Virus",
+        "type": ""
+      }
+    ],
     "hero": "Hero",
     "playerAttributes": {
       "level": 1,
@@ -18,35 +138,11 @@
       "luck": 100,
       "experience": 0
     },
-    "playerRow": 5,
-    "playerCol": 3
+    "playerRow": 0,
+    "playerCol": 0
   },
   "uniqueVisitedRooms": [
-    "The Outskirts",
-    "Arcane Synth Bay",
-    "Abandoned Tech Labs",
-    "Sky Bridge"
+    "The Outskirts"
   ],
-  "moveHistory": [
-    "Moved to Neon Corridor",
-    "Moved to Fusion Park",
-    "Moved to Cyber Alley",
-    "Moved to DataFall Plaza",
-    "Moved to Power Conduit",
-    "Moved to StormW3ll Station",
-    "Moved to The Drift Way",
-    "Moved to Rune Street Markets",
-    "Moved to Abandoned Tech Labs",
-    "Moved to Rune Street Markets",
-    "Moved to The Drift Way",
-    "Moved to StormW3ll Station",
-    "Moved to Circuit Yard",
-    "Moved to Giga Tower",
-    "Moved to Ghost Terminal",
-    "Moved to Arcane Synth Bay",
-    "Moved to Ghost Terminal",
-    "Moved to Sky Bridge",
-    "Moved to Iron District",
-    "Moved to Scrapyard"
-  ]
+  "moveHistory": []
 }

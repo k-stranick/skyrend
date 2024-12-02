@@ -350,54 +350,6 @@ public class Maze {
 
 	}
 
-/*	private Object generateRandomItem() {
-		Random random = new Random();
-		int itemType = random.nextInt(3);  // 0 for a weapon, 1 for armor, 2 for items
-		return switch (itemType) {
-			case 0 -> generateRandomWeapon();
-			case 1 -> generateRandomArmor();
-			case 2 -> generateRandomOtherItem();
-			default -> throw new IllegalStateException("Unexpected value: " + itemType);
-		};
-	}*/
-
-/*	private void initializeWeapons() {// can search for a weapon across the entire map maybe change this
-		weapons.add(new GhostReaver());
-		weapons.add(new Aetherblade());
-		weapons.add(new Voidbreaker());
-	}*/
-
-/*	// Randomly pick a weapon from the list of custom weapons
-	private Weapon generateRandomWeapon() {
-		Random random = new Random();
-		return weapons.get(random.nextInt(weapons.size()));
-	}
-
-	private void initializeArmor() {
-		armors.add(new AetherReaverSuit());
-		armors.add(new PhantomCircuitArmor());
-		armors.add(new PhantomCloak());
-	}
-
-	// Randomly pick an armor from the list of custom armors
-	private Armor generateRandomArmor() {
-		Random random = new Random();
-		return armors.get(random.nextInt(armors.size()));
-	}
-
-	private void initializeItems() {
-		items.add(new HealthStim(40)); // placeholders for now
-		items.add(new AethericStim(40)); // placeholders for now
-		items.add(new SystemRestore(250));  // placeholders for now
-		items.add(new FullHealthStim(80));  // placeholders for now
-		items.add(new FullAethericStim(80));  // placeholders for now
-	}
-
-	// Randomly pick an item from the list of custom other items
-	private UsableItems generateRandomOtherItem() {
-		Random random = new Random();
-		return items.get(random.nextInt(items.size()));
-	}*/
 
 
 	public Room getCurrentRoom() {

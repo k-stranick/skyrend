@@ -2,11 +2,6 @@ package dtcc.itn262.items;
 
 import dtcc.itn262.items.armor.*;
 import dtcc.itn262.items.usableitems.UsableItems;
-import dtcc.itn262.items.usableitems.AethericStim;
-import dtcc.itn262.items.usableitems.FullAethericStim;
-import dtcc.itn262.items.usableitems.FullHealthStim;
-import dtcc.itn262.items.usableitems.HealthStim;
-import dtcc.itn262.items.usableitems.SystemRestore;
 import dtcc.itn262.items.weapons.*;
 
 import java.util.Random;
@@ -14,11 +9,11 @@ import java.util.Random;
 public class ItemManagement {
 	// Arrays for predefined items
 	private final UsableItems[] usableItems = {
-			new HealthStim(40),
-			new AethericStim(40),
-			new SystemRestore(250),
-			new FullHealthStim(80),
-			new FullAethericStim(80)
+			new UsableItems("Health Stim", "Health potion", 40),
+			new UsableItems("Aetheric Stim", "Mana potion",40),
+			new UsableItems("Full Health Stim", "Health potion", 80),
+			new UsableItems("Full Aetheric Stim", "Mana potion", 80),
+			new UsableItems("System Restore", "Full restore", 100)
 	};
 
 	private final Weapon[] predefinedWeapons = {

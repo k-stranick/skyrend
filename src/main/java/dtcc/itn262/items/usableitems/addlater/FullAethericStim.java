@@ -1,6 +1,8 @@
-package dtcc.itn262.items.usableitems;
+/*
+package dtcc.itn262.items.usableitems.addlater;
 
 import dtcc.itn262.character.Player;
+import dtcc.itn262.items.usableitems.UsableItems;
 
 public class FullAethericStim extends UsableItems {
 	public FullAethericStim(int value) {
@@ -13,3 +15,4 @@ public class FullAethericStim extends UsableItems {
 		System.out.println("You restored " + getValue() + " aether!");
 	}
 }
+*/

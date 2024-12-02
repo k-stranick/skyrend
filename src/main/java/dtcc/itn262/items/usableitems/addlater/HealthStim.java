@@ -1,8 +1,10 @@
-package dtcc.itn262.items.usableitems;
+/*
+package dtcc.itn262.items.usableitems.addlater;
 
 import dtcc.itn262.character.Player;
+import dtcc.itn262.items.usableitems.UsableItems;
 
-public class HealthStim extends UsableItems{
+public class HealthStim extends UsableItems {
 	public HealthStim(int value) {
 		super("Health Stim", "Health potion", value);
 	}
@@ -13,3 +15,4 @@ public class HealthStim extends UsableItems{
 		System.out.println("You restored " + getValue() + " health!");
 	}
 }
+*/
