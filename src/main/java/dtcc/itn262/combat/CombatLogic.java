@@ -30,7 +30,7 @@ public class CombatLogic {
 
 	public CombatLogic(Player player, Monster monster) {
 		Music.stopBackgroundMusic();
-		Music.playBackgroundMusic("src/main/java/dtcc/itn262/utilities/soundandmusic/soundfiles/boss_music_1.wav");
+		Music.playBackgroundMusic("src/main/java/dtcc/itn262/utilities/soundandmusic/soundfiles/battle_music.wav");
 		this.player = player;
 		this.monster = monster;
 		this.playerActions = new PlayerActions(CombatLogic.this, player);
