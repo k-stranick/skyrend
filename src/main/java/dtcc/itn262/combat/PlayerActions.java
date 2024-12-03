@@ -3,7 +3,7 @@ package dtcc.itn262.combat;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
 import dtcc.itn262.combat.effects.DefenseBuff;
-import dtcc.itn262.items.usableitems.UsableItems;
+import dtcc.itn262.items.usableitems.HealingItems;
 import dtcc.itn262.items.weapons.Weapon;
 import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.playerskills.DivineStrike;
@@ -33,7 +33,7 @@ public class PlayerActions {
 	public void useItem(Player player, int index) {
 		try {
 			if (index >= 0 && index < player.getItemsList().size()) {
-				UsableItems item = player.getItemsList().get(index);
+				HealingItems item = player.getItemsList().get(index);
 				item.apply(player); // Apply the item's effect
 				player.getItemsList().remove(index); // Remove the item after use (optional for consumables)
 			} else {
@@ -161,7 +161,7 @@ public class PlayerActions {
 			switch (selectedItem) {
 				case IWeapon iWeapon -> equipWeapon(index);  // Equip weapon
 				case Armor armor -> equipArmor(index);  // Equip armor
-				case UsableItems usableItems -> useItem(player,index);  // Use consumable item
+				case HealingItems usableItems -> useItem(player,index);  // Use consumable item
 				case null, default -> System.out.println("Invalid item type.");
 			}
 		} else {

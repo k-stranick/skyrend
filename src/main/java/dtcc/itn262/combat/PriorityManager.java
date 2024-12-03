@@ -1,7 +1,7 @@
 package dtcc.itn262.combat;
 
 import dtcc.itn262.character.Player;
-
+import dtcc.itn262.monster.Monster;
 import java.util.PriorityQueue;
 
 public class PriorityManager {
@@ -12,7 +12,7 @@ public class PriorityManager {
 	}
 
 	public void addTurn(Object entity, int speed, int cooldownModifier, boolean isHero, String name) {
-		int priority = (speed * 2) - cooldownModifier; // Weighted formula
+		int priority = calculatePriority(entity);
 		turnOrderQueue.add(new TurnOrder(entity, priority, isHero, name));
 	}
 
@@ -22,10 +22,22 @@ public class PriorityManager {
 
 	public void refreshTurnOrder(Object entity, int newPriority) {
 		turnOrderQueue.removeIf(turnOrder -> turnOrder.getEntity().equals(entity));
-		turnOrderQueue.add(new TurnOrder(entity,newPriority,entity instanceof Player, entity.toString()));
+		boolean isPlayer = entity instanceof Player;
+		String name = isPlayer ? ((Player) entity).getHeroName() : ((Monster) entity).getMonster();
+		turnOrderQueue.add(new TurnOrder(entity, newPriority, isPlayer, name));
 	}
 
 	public boolean hasTurns() {
 		return !turnOrderQueue.isEmpty();
 	}
+
+	private int calculatePriority(Object entity) {
+		if (entity instanceof Player player) {
+			return player.getPlayerAttributes().getSpeed(); // Speed directly determines priority
+		} else if (entity instanceof Monster monster) {
+			return monster.getMonsterAttributes().getSpeed();
+		}
+		return 0; // Default priority
+	}
+
 }

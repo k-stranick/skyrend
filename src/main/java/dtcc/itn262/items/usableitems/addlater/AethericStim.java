@@ -2,9 +2,9 @@
 package dtcc.itn262.items.usableitems.addlater;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.items.usableitems.UsableItems;
+import dtcc.itn262.items.usableitems.HealingItems;
 
-public class AethericStim extends UsableItems {
+public class AethericStim extends HealingItems {
 	public AethericStim(int value) {
 		super("Aetheric Stim", "Aether potion", value);
 	}

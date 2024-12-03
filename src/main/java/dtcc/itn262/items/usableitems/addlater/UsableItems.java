@@ -4,10 +4,10 @@ package dtcc.itn262.items.usableitems;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.items.Item;
 
-public abstract class UsableItems extends Item {
+public abstract class HealingItems extends Item {
 	private final int value;
 
-	public UsableItems(String name, String type, int value) {
+	public HealingItems(String name, String type, int value) {
 		super(name, type);
 		this.value = value;
 	}

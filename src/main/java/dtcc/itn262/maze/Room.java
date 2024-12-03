@@ -1,7 +1,7 @@
 package dtcc.itn262.maze;
 
 import dtcc.itn262.items.Item;
-import dtcc.itn262.items.usableitems.UsableItems;
+import dtcc.itn262.items.usableitems.HealingItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +94,7 @@ public class Room {
 
 	}
 
-	public void addItem(UsableItems item) {
+	public void addItem(HealingItems item) {
 		items.add(item);
 	}
 

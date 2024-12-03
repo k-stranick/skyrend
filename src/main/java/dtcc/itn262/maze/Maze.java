@@ -7,14 +7,8 @@ import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
 import dtcc.itn262.items.Item;
 import dtcc.itn262.items.ItemManagement;
-import dtcc.itn262.items.armor.AetherReaverSuit;
 import dtcc.itn262.items.armor.Armor;
-import dtcc.itn262.items.armor.PhantomCircuitArmor;
-import dtcc.itn262.items.armor.PhantomCloak;
 import dtcc.itn262.items.usableitems.*;
-import dtcc.itn262.items.weapons.Aetherblade;
-import dtcc.itn262.items.weapons.GhostReaver;
-import dtcc.itn262.items.weapons.Voidbreaker;
 import dtcc.itn262.items.weapons.Weapon;
 import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.boss.GhostCodeManifested;
@@ -30,7 +24,6 @@ import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.gamecore.Command;
 import dtcc.itn262.utilities.gamecore.Constants;
 import dtcc.itn262.utilities.gamecore.GameLogger;
-import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
 
 import java.io.FileReader;
@@ -51,10 +44,9 @@ public class Maze {
 	private final Random random = new Random();
 	private final List<Weapon> weapons = new ArrayList<>();
 	private final List<Armor> armors = new ArrayList<>();
-	private final List<UsableItems> items = new ArrayList<>();  // For items that aren't weapons or armor
+	private final List<HealingItems> items = new ArrayList<>();  // For items that aren't weapons or armor
 	private Map<Integer, int[]> roomIndexToPosition;
 	private final ItemManagement itemManagement;
-
 	//constructor
 	private Maze(Player player) {
 		this.map = MazeLoader.loadMazeFromJson();
@@ -193,7 +185,7 @@ public class Maze {
 
 	private void triggerRandomEncounter() {
 		int chance = random.nextInt(100); // Generate a random number between 0 and 99
-		if (chance <= 100) { // 20% chance for an encounter //TODO 1
+		if (chance <= 20) { // 20% chance for an encounter //TODO 1
 
 			System.out.println("A wild monster appears!");
 			List<Monster> monsters = Arrays.asList(
@@ -345,7 +337,7 @@ public class Maze {
 		switch (item) {
 			case Weapon weapon -> player.addWeapon(weapon);
 			case Armor armor -> player.addArmor(armor);
-			case UsableItems usableItem -> player.addItem(usableItem);
+			case HealingItems usableItem -> player.addItem(usableItem);
 			default -> throw new IllegalStateException("Unexpected value: " + item);
 		}
 

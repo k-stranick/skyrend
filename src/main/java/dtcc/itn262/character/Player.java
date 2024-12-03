@@ -2,7 +2,7 @@ package dtcc.itn262.character;
 
 import dtcc.itn262.items.Item;
 import dtcc.itn262.items.armor.Armor;
-import dtcc.itn262.items.usableitems.UsableItems;
+import dtcc.itn262.items.usableitems.HealingItems;
 import dtcc.itn262.items.weapons.Weapon;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 import static dtcc.itn262.utilities.input.Validation.validateName;
 
 public class Player {
-	private final List<UsableItems> itemsList;// = new ArrayList<>();  // Add an inventory
+	private final List<HealingItems> itemsList;// = new ArrayList<>();  // Add an inventory
 	public final List<Weapon> weaponList; // = new ArrayList<>();
 	public final List<Armor> armorList; // = new ArrayList<>();
 	private final String hero;
@@ -74,7 +74,7 @@ public class Player {
 		}
 	}
 
-	public void addItem(UsableItems item) { 	// Method to add an item to the player's inventory
+	public void addItem(HealingItems item) { 	// Method to add an item to the player's inventory
 		itemsList.add(item);
 		System.out.println(item.getName() + " added to the inventory.");
 	}
@@ -137,7 +137,7 @@ public class Player {
 		}
 	}
 
-	public List<UsableItems> getItemsList() {
+	public List<HealingItems> getItemsList() {
 		return itemsList;
 	}
 	public List<Weapon> getWeaponList() {

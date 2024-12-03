@@ -11,7 +11,6 @@ import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
 import dtcc.itn262.utilities.soundandmusic.Music;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,6 +19,7 @@ import java.util.Random;
 
 public class CombatLogic {
 	private final Player player;
+
 	private final Monster monster;
 	private final PlayerActions playerActions;
 	private final MonsterActions monsterActions;

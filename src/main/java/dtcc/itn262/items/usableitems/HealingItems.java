@@ -1,29 +1,24 @@
 package dtcc.itn262.items.usableitems;
 
-
 import dtcc.itn262.character.Player;
 import dtcc.itn262.items.Item;
 
-public class UsableItems extends Item {
+public class HealingItems extends Item {
 	private final int value;
 	private final int value2;
 
 
-	public UsableItems(String name, String type, int value) {
+	public HealingItems(String name, String type, int value) {
 		super(name, type);
 		this.value = value;
 		this.value2 = 0;
 	}
 
-
-	public UsableItems(String name, String type, int value, int value2) {
+	public HealingItems(String name, String type, int value, int value2) {
 		super(name, type);
 		this.value = value;
 		this.value2 = value2;
 	}
-
-
-
 
 	public int getValue() {
 		return value;
@@ -35,14 +30,14 @@ public class UsableItems extends Item {
 
 	// Method to apply the item's effect to the player
 	public void apply(Player player) {
-		switch (getType()) {
-			case "Health Potion", "Super Health Potion":
+		switch (getName()) {
+			case "Health Stim", "Full Health Stim":
 				player.restoreHealth(value);  // Calls the method to restore health
 				break;
-			case "Mana Potion", "Super Mana Potion":
+			case "Aetheric stim", "Full Aetheric Stim":
 				player.restoreMana(value);  // Calls the method to restore mana
 				break;
-			case "Elixir":
+			case "System Restore":
 				player.restoreHealth(value);  // Calls the method to restore health
 				player.restoreMana(value);  // Calls the method to restore mana
 				break;
@@ -52,6 +47,7 @@ public class UsableItems extends Item {
 				break;
 		}
 	}
+
 	@Override
 	public String toString() {
 		return "Item: " + getName();

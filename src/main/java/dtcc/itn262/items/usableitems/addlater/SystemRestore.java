@@ -2,9 +2,9 @@
 package dtcc.itn262.items.usableitems.addlater;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.items.usableitems.UsableItems;
+import dtcc.itn262.items.usableitems.HealingItems;
 
-public class SystemRestore extends UsableItems {
+public class SystemRestore extends HealingItems {
 	public SystemRestore(int value) {
 		super("System Restore", "Full Restoration potion", value);
 	}

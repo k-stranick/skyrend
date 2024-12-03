@@ -52,7 +52,7 @@ public class Music {
 
 		if (backgroundMusicClip != null) {
 			FloatControl gainControl = (FloatControl) backgroundMusicClip.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(-25.0f); // Reduce volume by 10 decibels (adjust as needed)
+			gainControl.setValue(-10.0f); // Reduce volume by 10 decibels (adjust as needed)
 			backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY); // Loop indefinitely
 			backgroundMusicClip.start();
 		}

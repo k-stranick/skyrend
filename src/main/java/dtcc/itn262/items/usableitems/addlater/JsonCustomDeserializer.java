@@ -33,7 +33,7 @@ public class JsonCustomDeserializer implements JsonDeserializer<Item> {
 			case "Armor":
 				int defenseBoost = jsonObject.get("defense boost").getAsInt();
 				return new Armor(name, defenseBoost, description);
-			case "UsableItems":
+			case "HealingItems":
 				int value = jsonObject.get("value").getAsInt();
 				// Choose concrete subclass based on item name
 				if (name.equalsIgnoreCase("Health Stim")) {

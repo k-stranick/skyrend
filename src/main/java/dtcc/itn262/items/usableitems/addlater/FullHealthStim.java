@@ -2,9 +2,9 @@
 package dtcc.itn262.items.usableitems.addlater;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.items.usableitems.UsableItems;
+import dtcc.itn262.items.usableitems.HealingItems;
 
-public class FullHealthStim extends UsableItems {
+public class FullHealthStim extends HealingItems {
 	public FullHealthStim(int value) {
 		super("Full Stim", "Health potion", value);
 	}
