@@ -34,7 +34,7 @@ public class HealingItems extends Item {
 			case "Health Stim", "Full Health Stim":
 				player.restoreHealth(value);  // Calls the method to restore health
 				break;
-			case "Aetheric stim", "Full Aetheric Stim":
+			case "Aetheric Stim", "Full Aetheric Stim":
 				player.restoreMana(value);  // Calls the method to restore mana
 				break;
 			case "System Restore":

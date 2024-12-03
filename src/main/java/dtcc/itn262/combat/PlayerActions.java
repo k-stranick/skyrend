@@ -39,7 +39,7 @@ public class PlayerActions {
 			} else {
 				System.out.println("Invalid item choice.");
 			}
-		} catch (IndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException e) {//TODO log this
 			System.out.println("An error occurred while using the item: " + e.getMessage());
 		}
 	}

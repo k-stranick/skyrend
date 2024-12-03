@@ -126,18 +126,30 @@ public class CombatLogic {
 	}
 
 	private void handleArmorSwap() {
+		if(player.getArmorList().isEmpty()) {
+			System.out.println("No armor in inventory.");
+			return;
+		}
 		player.displayArmor();
 		int itemChoice = UserInput.getPlayerChoice("Choose an armor to equip: ");
 		playerActions.equipArmor(itemChoice);
 	}
 
 	private void handleWeaponSwap() {
+		if(player.getWeaponList().isEmpty()) {
+			System.out.println("No weapons in inventory.");
+			return;
+		}
 		player.displayWeapons();
 		int itemChoice = UserInput.getPlayerChoice("Choose a weapon to equip: ");
 		playerActions.equipWeapon(itemChoice);
 	}
 
 	private void handleItemUsage() {
+		if (player.getItemsList().isEmpty()) {
+			System.out.println("No items in inventory.");
+			return;
+		}
 		player.displayItems();  // Display player's items
 		int itemChoice = UserInput.getPlayerChoice("Choose an item to use: ");  // why is this returning 0?
 		playerActions.useItem(player, itemChoice);  // Use the selected item
@@ -155,7 +167,6 @@ public class CombatLogic {
 
 	private void handleDefense() {
 		playerActions.defend(player);
-
 	}
 
 	private void handleEnemyScan() {

@@ -1,0 +1,48 @@
+{
+  "player": {
+    "itemsList": [],
+    "weaponList": [
+      {
+        "damage": 20,
+        "name": "Neon Dagger",
+        "description": "A dagger that channels the power of the Neon Grid, allowing the wielder to move at the speed of light and strike with deadly precision.",
+        "type": "Dagger"
+      }
+    ],
+    "armorList": [],
+    "hero": "Hero",
+    "playerAttributes": {
+      "level": 1,
+      "strength": 1120,
+      "defense": 20,
+      "health": 1110,
+      "maxHealth": 1200,
+      "magic": 20,
+      "magicDefense": 20,
+      "mana": 1150,
+      "maxMana": 1150,
+      "speed": 20,
+      "luck": 100,
+      "experience": 0
+    },
+    "playerRow": 5,
+    "playerCol": 2
+  },
+  "uniqueVisitedRooms": [
+    "The Outskirts",
+    "Sky Bridge"
+  ],
+  "moveHistory": [
+    "Neon Corridor",
+    "Fusion Park",
+    "Cyber Alley",
+    "DataFall Plaza",
+    "Power Conduit",
+    "StormW3ll Station",
+    "Circuit Yard",
+    "Giga Tower",
+    "Ghost Terminal",
+    "Sky Bridge",
+    "Iron District"
+  ]
+}
