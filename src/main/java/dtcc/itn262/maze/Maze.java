@@ -29,6 +29,7 @@ import dtcc.itn262.utilities.input.Validation;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Supplier;
 
 //import static dtcc.itn262.utilities.input.Validation.checkWinCondition;
 
@@ -62,7 +63,6 @@ public class Maze {
 		TextDisplayUtility.showCurrentRoom(map, player); // <-does this need to be here?
 	}
 
-
 	public static Maze getInstance(Player player) {
 		if (instance == null) {
 			instance = new Maze(player);
@@ -70,11 +70,9 @@ public class Maze {
 		return instance;
 	}
 
-
 	public List<String> getMoveHistory() {
 		return moveHistory;
 	}
-
 
 	public Set<String> getUniqueVisitedRooms() {
 		return uniqueVisitedRooms;
@@ -152,7 +150,6 @@ public class Maze {
 		}
 	}
 
-
 	private void processRoomAfterMove(Room newRoom) {
 		TextDisplayUtility.showCurrentRoom(map, player);
 		try {
@@ -177,7 +174,6 @@ public class Maze {
 		}
 	}
 
-
 	private void updateMoveHistory(Room room) {
 		moveHistory.add(room.getName()); // Add the move to the history
 
@@ -201,7 +197,6 @@ public class Maze {
 		}
 	}
 
-
 	private void visitRoom(Room currentRoom) {
 		try {
 			if (!currentRoom.isVisited()) {
@@ -214,7 +209,6 @@ public class Maze {
 			GameLogger.logError(Constants.ROOM_ERROR + e.getMessage());
 		}
 	}
-
 
 	public void displayMap() {    // Display the map with the player's current position
 		for (int row = 0; row < map.length; row++) {
@@ -234,7 +228,6 @@ public class Maze {
 			System.out.println();  // Newline after each row
 		}
 	}  // TODO move this outside of this class to display class
-
 
 	// Define a method to trigger special events
 	private void triggerSpecialEvent(Room room) { //TODO add more
@@ -268,8 +261,8 @@ public class Maze {
 				break;
 			case "Fractured Nexus":
 				monster = new TheCipher();
-				combat = new CombatLogic(player, monster);
-				combat.startFight();
+				//combat = new CombatLogic(player, monster);
+				//combat.startFight();
 				break;
 			default:
 				break;
@@ -323,7 +316,7 @@ public class Maze {
 
 
 	private boolean chanceToFindItem() {
-		return random.nextDouble() < 100;  // 20% chance //TODO
+		return random.nextDouble() < 20;  // 20% chance //TODO
 	}
 
 

@@ -1,10 +1,11 @@
 package dtcc.itn262.utilities.display;
 
+import dtcc.itn262.character.Player;
 import dtcc.itn262.maze.Room;
+import dtcc.itn262.monster.Monster;
+
 import java.util.List;
 import java.util.Set;
-import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.Monster;
 
 public class TextDisplayUtility {
 
@@ -12,39 +13,39 @@ public class TextDisplayUtility {
     }
 
 
-    public static void printSeparator(int i) {
-        for (int j = 0; j < i; j++) {
-            System.out.print("-");
-        }
-        System.out.println();
-    }
+	public static void printSeparator(int i) {
+		for (int j = 0; j < i; j++) {
+			System.out.print("-");
+		}
+		System.out.println();
+	}
 
 
-    // Show the rooms the player has visited
-    public static void showProgress(Set<String> uniqueVisitedRooms) {
-        System.out.println("Special rooms you have visited: ");
-        for (String room : uniqueVisitedRooms) {
-            System.out.println(room);
-        }
-    }
+	// Show the rooms the player has visited
+	public static void showProgress(Set<String> uniqueVisitedRooms) {
+		System.out.println("Special rooms you have visited: ");
+		for (String room : uniqueVisitedRooms) {
+			System.out.println(room);
+		}
+	}
 
 
-    public static void showMoveHistory(List<String> moveHistory) {
-        System.out.println("Move History: ");
-        printSeparator(20);
-        int counter = 1;
-        for (String move : moveHistory) {
-            System.out.println(counter + ": Moved to " + move);  // Print each move on a new line
-            counter++;
-        }
-    }
+	public static void showMoveHistory(List<String> moveHistory) {
+		System.out.println("Move History: ");
+		printSeparator(20);
+		int counter = 1;
+		for (String move : moveHistory) {
+			System.out.println(counter + ": Moved to " + move);  // Print each move on a new line
+			counter++;
+		}
+	}
 
 
-    public static void showCurrentRoom(Room[][] map, Player player) {
-        Room currentRoom = map[player.getPlayerRow()][player.getPlayerCol()];
-        System.out.println("You are in: " + currentRoom.getName());
-        System.out.println(currentRoom.getDescription());
-    }
+	public static void showCurrentRoom(Room[][] map, Player player) {
+		Room currentRoom = map[player.getPlayerRow()][player.getPlayerCol()];
+		System.out.println("You are in: " + currentRoom.getName());
+		System.out.println(currentRoom.getDescription());
+	}
 
     public static void showBattleScreen(Player player, Monster enemy) {
         String playerHpBar = generateBar(player.getPlayerAttributes().getHealth(), player.getPlayerAttributes().getMaxHealth());
@@ -71,13 +72,15 @@ public class TextDisplayUtility {
 		return "[" + "#".repeat(filledBars) + "-".repeat(emptyBars) + "]";
     }
 
-    public static void showMainMenu(){
-        AsciiArt.displayAsciiArt("src/main/java/dtcc/itn262/json/ascii-text-art.txt");  // Display the game logo
-        System.out.println("========================= START MENU ===============================");
-        System.out.println("1. Start New Game - Begin a new adventure");
-        System.out.println("2. Load Game - Load a saved game");
-        System.out.println("3. View Help - Learn how to play the game");
-        System.out.println("4. Exit");
-        System.out.print("Enter your choice: ");
-    }
+	public static void showMainMenu() {
+		AsciiArt.displayAsciiArt("src/main/java/dtcc/itn262/json/ascii-text-art.txt");  // Display the game logo
+		System.out.println("========================= START MENU ===============================");
+		System.out.println("1. Start New Game - Begin a new adventure");
+		System.out.println("2. Load Game - Load a saved game");
+		System.out.println("3. View Help - Learn how to play the game");
+		System.out.println("4. Exit");
+		System.out.print("Enter your choice: ");
+	}
+
+
 }

@@ -26,7 +26,7 @@ public class PlayerActions {
 		skills.add(new PulseBlade());
 		skills.add(new Heal());
 		this.combatLogic = combatLogic;
-		this.player = player;
+		this.player = player;//TODO
 	}
 
 	// make these 3 private methods and add to a parent public method

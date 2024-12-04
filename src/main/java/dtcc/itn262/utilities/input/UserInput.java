@@ -22,7 +22,7 @@ public class UserInput {
     }
 
 
-    public static boolean askToContinue() {
+/*    public static boolean askToContinue() {
         Scanner input = new Scanner(System.in);
         System.out.println("Would you like to continue the game? (yes/no)");
         String response = input.nextLine().trim().toLowerCase();
@@ -35,5 +35,5 @@ public class UserInput {
             return askToContinue(); // Re-prompt if input is invalid
         }
         return true; // Return true to continue playing
-    }
+    }*/
 }

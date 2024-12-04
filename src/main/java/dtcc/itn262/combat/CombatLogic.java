@@ -119,7 +119,6 @@ public class CombatLogic {
 			}
 			default -> {
 				GameLogger.logWarning("Invalid choice. Please select a valid option.");
-				return false;
 			}
 		}
 		return false;

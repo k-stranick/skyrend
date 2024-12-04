@@ -28,11 +28,11 @@ public class PlayerAttributes {
 	public PlayerAttributes() {
 
 		this.magicDefense = 20;
-		this.strength = 17; //TODO
-		this.defense = 15;
+		this.strength = 1007; //TODO
+		this.defense = 1005;
 		this.magic = 20;
 		this.speed = 10;  //TODO
-		this.luck = 100; // crits
+		this.luck = 100; // crits?
 		this.experience = 0; // base experience
 		this.maxHealth = 200;  // base max health, need it for a leveling system
 		this.health = maxHealth;  // set current health to max health

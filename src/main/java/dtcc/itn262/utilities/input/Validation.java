@@ -5,6 +5,8 @@ import dtcc.itn262.maze.Maze;
 import dtcc.itn262.maze.Room;
 import dtcc.itn262.monster.Monster;
 
+import java.util.List;
+
 public class Validation { // this will be a class of static methods
 
 	private Validation() { // private constructor to prevent instantiation
@@ -45,4 +47,8 @@ public class Validation { // this will be a class of static methods
 		return !battleHasEnded && player.isAlive() && monster.isAlive();
 	}
 
+	public static boolean isBattleOver(Player player, List<Monster> combatMonsters) {
+		return !player.isAlive() || combatMonsters.isEmpty();
 	}
+
+}
