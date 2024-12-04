@@ -149,6 +149,9 @@ public class PlayerActions {
 		}
 	}
 
+	public void showPlayerStats() {
+		System.out.println(player);
+	}
 }
 /*	// Use or equip item based on type from the player's inventory
 	public static void equipOrUseItem(int index) {

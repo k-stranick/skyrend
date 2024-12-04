@@ -112,9 +112,10 @@ public class CombatLogic {
 			case 3 -> handleSkillUsage();
 			case 4 -> handleEnemyScan();
 			case 5 -> handleItemUsage();
-			case 6 -> handleWeaponSwap();
-			case 7 -> handleArmorSwap();
-			case 8 -> {
+			case 6 -> playerActions.showPlayerStats();
+			case 7 -> handleWeaponSwap();
+			case 8 -> handleArmorSwap();
+			case 9 -> {
 				return handleRunAttempt();
 			}
 			default -> {
