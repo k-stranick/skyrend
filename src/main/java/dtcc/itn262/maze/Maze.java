@@ -173,7 +173,7 @@ public class Maze {
 					new CorruptedAutomaton(),
 					new CyberHound(),
 					new SteelDevourer()
-			); // Add your custom monster instances here
+			);
 			Monster randomMonster = monsters.get(random.nextInt(monsters.size())); // Select a random monster
 			CombatLogic combat = new CombatLogic(player, randomMonster);
 			combat.startFight();
