@@ -161,26 +161,18 @@ public class CombatLogic {
 	}
 
 	private void handleArmorSwap() {
+		// Grab player's inventory exits if empty
 		List<Armor> armorList = player.getPlayerArmorList();
 		if (armorList.isEmpty()) {
 			System.out.println("No armor in inventory.");
 			return;
 		}
+
 		// Display armor with indices
-		for (int i = 0; i < armorList.size(); i++) {
-			Armor armor = armorList.get(i);
-			String equippedIndicator = armor.equals(player.getEquippedArmor()) ? "(Equipped)" : "";
-			System.out.println(i + ": " + armor.getName() + " " + equippedIndicator + " - " + armor.getDescription());
-		}
-		int itemChoice = UserInput.getPlayerChoice("Choose an armor to equip: ");
-		if (itemChoice >= 0 && itemChoice < armorList.size()) {
-			Armor selectedArmor = armorList.get(itemChoice);
-			playerActions.equipArmor(selectedArmor);
-		} else {
-			System.out.println("Invalid armor choice.");
-		}
+		displayAndChooseItem("Armor", armorList, player.getEquippedArmor());
 	}
-//TODO Fix these use generics to make this more efficient
+
+
 	private void handleWeaponSwap() {
 		List<Weapon> weaponList = player.getPlayerWeaponList();
 		if (weaponList.isEmpty()) {
@@ -188,18 +180,7 @@ public class CombatLogic {
 			return;
 		}
 		// Display weapons with indices
-		for (int i = 0; i < weaponList.size(); i++) {
-			Weapon weapon = weaponList.get(i);
-			String equippedIndicator = weapon.equals(player.getEquippedWeapon()) ? "(Equipped)" : "";
-			System.out.println(i + ": " + weapon.getName() + " " + equippedIndicator + " - " + weapon.getDescription());
-		}
-		int itemChoice = UserInput.getPlayerChoice("Choose a weapon to equip: ");
-		if (itemChoice >= 0 && itemChoice < weaponList.size()) {
-			Weapon selectedWeapon = weaponList.get(itemChoice);
-			playerActions.equipWeapon(selectedWeapon);
-		} else {
-			System.out.println("Invalid weapon choice.");
-		}
+		displayAndChooseItem("Weapons", weaponList, player.getEquippedWeapon());
 	}
 
 	private void handleItemUsage() {
@@ -209,16 +190,25 @@ public class CombatLogic {
 			return;
 		}
 		// Display items with indices
-		for (int i = 0; i < itemsList.size(); i++) {
-			HealingItems item = itemsList.get(i);
-			System.out.println(i + ": " + item.getName() + " - " + item.getDescription());
+		displayAndChooseItem("Items", itemsList, null);
+
+	}
+
+	private <T extends Item> void displayAndChooseItem(String itemType, List<T> itemList, T equippedItem) {
+		TextDisplayUtility.displayItemsInBattle(itemType, itemList, equippedItem);
+		int itemChoice = UserInput.getPlayerChoice("Choose a " + itemType.toLowerCase() + " to equip: ");
+		if (itemChoice == -1) {
+			return;
 		}
-		int itemChoice = UserInput.getPlayerChoice("Choose an item to use: ");
-		if (itemChoice >= 0 && itemChoice < itemsList.size()) {
-			HealingItems selectedItem = itemsList.get(itemChoice);
-			playerActions.useItem(selectedItem);  // Use the selected item
-		} else {
-			System.out.println("Invalid item choice.");
+		while (itemChoice < -2 || itemChoice >= itemList.size()) {
+			System.out.println("Invalid " + itemType.toLowerCase() + " choice.");
+			itemChoice = UserInput.getPlayerChoice("Choose a " + itemType.toLowerCase() + " to equip: ");
+		}
+		T selectedItem = itemList.get(itemChoice);
+		if (selectedItem instanceof Armor) {
+			playerActions.equipArmor((Armor) selectedItem);
+		} else if (selectedItem instanceof Weapon) {
+			playerActions.equipWeapon((Weapon) selectedItem);
 		}
 	}
 

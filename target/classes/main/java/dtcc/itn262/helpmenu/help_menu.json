@@ -25,6 +25,26 @@
       "command": "Use Item",
       "description": "Use a healing item or other consumable from your inventory.",
       "usage": "Choose '5' to use an item and recover health or gain a buff."
+    },
+    "6": {
+      "command": "Stats",
+      "description": "View your current stats and (status effects <-need to implement).",
+      "usage": "Choose '6' to view the players current stats while in combat."
+    },
+    "7": {
+      "command": "Swap Weapon",
+      "description": "Swap your current weapon for another weapon in your inventory.",
+      "usage": "Choose '7' to swap your current weapon for another weapon in your inventory."
+    },
+    "8": {
+      "command": "Swap Armor",
+      "description": "Swap your current armor for another armor in your inventory.",
+      "usage": "Choose '8' to swap your current armor for another armor in your inventory."
+    },
+    "9": {
+      "command": "Run",
+      "description": "Attempt to run from the current monster encounter.",
+      "usage": "Choose '9' to attempt to run from the current monster encounter."
     }
   },
   "mazeAndGeneralCommands": {
@@ -35,7 +55,7 @@
     },
     "Progress": {
       "command": "PROGRESS",
-      "description": "Show the number of unique rooms you've visited.",
+      "description": "Show the number of unique rooms you've visited will flush out with quests at some point .",
       "usage": "Type 'PROGRESS' to see how much of the maze you've explored."
     },
     "History": {
@@ -56,12 +76,17 @@
     "Search": {
       "command": "SEARCH",
       "description": "Search for items.",
-      "usage": "Type 'SEARCH' to look for items in the current room."
+      "usage": "Type 'SEARCH' to look for items in the current room, each room can only be searched once."
     },
     "Inventory": {
       "command": "INVENTORY",
       "description": "Display Player Inventory.",
-      "usage": "Type 'INVENTORY' to look at current inventory and (use items or equip armaments -> UNDER CONSTRUCTION)."
+      "usage": "Type 'INVENTORY' to look at current inventory and use items or equip armaments."
+    },
+    "Save": {
+      "command": "SAVE",
+      "description": "Save the game.",
+      "usage": "Type 'SAVE' to save the game."
     }
   },
   "movementCommands": {

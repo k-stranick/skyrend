@@ -44,9 +44,9 @@ public class PlayerActions {
 	public void useItem(HealingItems item) {
 
 		if (player.getPlayerItemsList().contains(item)) {
+			System.out.println("Used " + item.getName() + ".");
 			item.apply(player); // Apply the item's effect
 			player.getPlayerItemsList().remove(item); // Remove the item after use
-			System.out.println("Used " + item.getName() + ".");
 		} else {
 			System.out.println("You do not have " + item.getName() + " in your inventory.");
 		}

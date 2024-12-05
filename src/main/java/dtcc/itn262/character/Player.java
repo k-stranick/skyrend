@@ -177,22 +177,6 @@ public class Player {
 		return equippedWeapon;
 	}
 
-	public void displayAllItemsInInventory(List<? extends Item> itemList, String itemType) {
-		for (int i = 0; i < itemList.size(); i++) {
-			Item item = itemList.get(i);
-			String equippedIndicator = "";
-
-			// Check if the item is equipped, if applicable
-			if (item instanceof Weapon && item.equals(this.getEquippedWeapon())) {
-				equippedIndicator = "(Equipped)";
-			} else if (item instanceof Armor && item.equals(this.getEquippedArmor())) {
-				equippedIndicator = "(Equipped)";
-			}
-
-			System.out.println(i + ": " + item.getName() + " " + equippedIndicator + " - " + item.getDescription());
-		}
-	}
-
 	public List<HealingItems> getPlayerItemsList() {
 		return playerItemsList;
 	}
@@ -205,19 +189,12 @@ public class Player {
 		return playerArmorList;
 	}
 
-	public List<Item> getInventory() {
-		List<Item> inventory = new ArrayList<>();
+	public void setInventoryIndexMap(Map<Integer, Item> map) {
+		this.inventoryIndexMap = map;
+	}
 
-		// Add all weapons to the inventory
-		inventory.addAll(playerWeaponList);
-
-		// Add all armors to the inventory
-		inventory.addAll(playerArmorList);
-
-		// Add all usable items to the inventory
-		inventory.addAll(playerItemsList);
-
-		return inventory;
+	public Map<Integer, Item> getInventoryIndexMap() {
+		return inventoryIndexMap;
 	}
 
 	@Override
@@ -236,17 +213,6 @@ public class Player {
 				"\nSpeed: " + playerAttributes.getSpeed() +
 				"\nLuck: " + playerAttributes.getLuck();
 	}
-
-	public void setInventoryIndexMap(Map<Integer, Item> map) {
-		this.inventoryIndexMap = map;
-	}
-
-	public Map<Integer, Item> getInventoryIndexMap() {
-		return inventoryIndexMap;
-	}
-
-
-
 
 	/*	public void setShielded(boolean b) {// TODO: Implement this method
 	}*/

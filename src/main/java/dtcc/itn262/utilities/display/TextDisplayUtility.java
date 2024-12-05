@@ -9,14 +9,13 @@ import dtcc.itn262.items.usableitems.HealingItems;
 import dtcc.itn262.items.weapons.Weapon;
 import dtcc.itn262.maze.Room;
 import dtcc.itn262.monster.Monster;
-
 import java.util.*;
+
 
 public class TextDisplayUtility {
 
     private TextDisplayUtility() {
     }
-
 
 	public static void printSeparator(int i) {
 		for (int j = 0; j < i; j++) {
@@ -25,7 +24,6 @@ public class TextDisplayUtility {
 		System.out.println();
 	}
 
-
 	// Show the rooms the player has visited
 	public static void showProgress(Set<String> uniqueVisitedRooms) {
 		System.out.println("Special rooms you have visited: ");
@@ -33,7 +31,6 @@ public class TextDisplayUtility {
 			System.out.println(room);
 		}
 	}
-
 
 	public static void showMoveHistory(List<String> moveHistory) {
 		System.out.println("Move History: ");
@@ -45,13 +42,11 @@ public class TextDisplayUtility {
 		}
 	}
 
-
 	public static void showCurrentRoom(Room[][] map, Player player) {
 		Room currentRoom = map[player.getPlayerRow()][player.getPlayerCol()];
 		System.out.println("You are in: " + currentRoom.getName());
 		System.out.println(currentRoom.getDescription());
 	}
-
 
 	private static String generateBar(int current, int max) {
 		if (max <= 0) {
@@ -91,18 +86,15 @@ public class TextDisplayUtility {
 		String title = "Battle";
 		int padding = (totalWidth - title.length()) / 2; // Calculate padding for centering
 		String centeredTitle = " ".repeat(padding) + title + " ".repeat(totalWidth - title.length() - padding);
-
 		System.out.println("+" + "-".repeat(totalWidth) + "+");
 		System.out.println("|" + centeredTitle + "|");
 		System.out.println("+" + "-".repeat(totalWidth) + "+");
 	}
 
-
 	// Prints the stats of the hero (player)
 	private static void printHeroStats(Player player, int totalWidth) {
 		String playerHpBar = generateBar(player.getPlayerAttributes().getHealth(), player.getPlayerAttributes().getMaxHealth());
 		String playerMpBar = generateBar(player.getPlayerAttributes().getMana(), player.getPlayerAttributes().getMaxMana());
-
 		System.out.println("| Hero: " + player.getHeroName());
 		System.out.println("| HP: " + padRight(playerHpBar, totalWidth - 5) + "|");
 		System.out.println("| MP: " + padRight(playerMpBar, totalWidth - 5) + "|");
@@ -116,7 +108,6 @@ public class TextDisplayUtility {
 		}
 		String enemyHpBar = generateBar(monster.getMonsterAttributes().getHealth(), monster.getMonsterAttributes().getMaxHealth());
 		String enemyMpBar = generateBar(monster.getMonsterAttributes().getMana(), monster.getMonsterAttributes().getMaxMana());
-
 		System.out.printf("| Monster: %-20s HP: %-30s MP: %-30s  %n",
 				padRight(monster.getMonster(), 20),
 				padRight(enemyHpBar, 30),
@@ -203,49 +194,11 @@ public class TextDisplayUtility {
 		System.out.println("\n====== INVENTORY ======\n");
 
 		int index = 0; // This will be used to assign a unique index to each item
-
 		Map<Integer, Item> indexToItemMap = new HashMap<>(); // To map indices to items for selection
 
-		// Display Weapons
-		if (!weapons.isEmpty()) {
-			System.out.println("Weapons:");
-			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
-			System.out.println("--------------------------------------------------------------------------");
-			for (Weapon weapon : weapons) {
-				String equippedIndicator = weapon.equals(player.getEquippedWeapon()) ? "(Equipped)" : "";
-				System.out.printf("%-5d %-25s %-15s %-30s%n", index, weapon.getName() + " " + equippedIndicator, "Weapon", weapon.getDescription());
-				indexToItemMap.put(index, weapon);
-				index++;
-			}
-			System.out.println();
-		}
-
-		// Display Armor
-		if (!armors.isEmpty()) {
-			System.out.println("Armor:");
-			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
-			System.out.println("--------------------------------------------------------------------------");
-			for (Armor armor : armors) {
-				String equippedIndicator = armor.equals(player.getEquippedArmor()) ? "(Equipped)" : "";
-				System.out.printf("%-5d %-25s %-15s %-30s%n", index, armor.getName() + " " + equippedIndicator, "Armor", armor.getDescription());
-				indexToItemMap.put(index, armor);
-				index++;
-			}
-			System.out.println();
-		}
-
-		// Display Consumables
-		if (!consumables.isEmpty()) {
-			System.out.println("Consumables:");
-			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
-			System.out.println("--------------------------------------------------------------------------");
-			for (HealingItems item : consumables) {
-				System.out.printf("%-5d %-25s %-15s %-30s%n", index, item.getName(), "Consumable", item.getDescription());
-				indexToItemMap.put(index, item);
-				index++;
-			}
-			System.out.println();
-		}
+		index = displayItems("Weapons", weapons, player.getEquippedWeapon(), index, indexToItemMap);
+		index = displayItems("Armor", armors, player.getEquippedArmor(), index, indexToItemMap);
+		displayItems("Consumables", consumables, null, index, indexToItemMap);
 
 		// Store the index-to-item mapping for later use
 		player.setInventoryIndexMap(indexToItemMap);
@@ -253,8 +206,36 @@ public class TextDisplayUtility {
 		return true;
 	}
 
-	private void displayConsumablesForInventory(List<HealingItems> consumables){
+	// for use out of combat to display items
+	private static <T extends Item> int displayItems(String itemType, List<T> items, T equippedItem, int startIndex, Map<Integer, Item> indexToItemMap) {
+		if (!items.isEmpty()) {
+			System.out.println(itemType + ":");
+			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
+			printFooter(104);
+			for (T item : items) {
+				String equippedIndicator = (item.equals(equippedItem)) ? "(Equipped)" : "";
+				System.out.printf("%-5d %-25s %-15s %-30s%n", startIndex, item.getName() + " " + equippedIndicator, itemType, item.getDescription());
+				indexToItemMap.put(startIndex, item);
+				startIndex++;
+			}
+			System.out.println();
+		}
+		return startIndex;
+	}
 
+	// for use in combat to display items
+	public static <T extends Item> void displayItemsInBattle(String itemType, List<T> items, T equippedItem) {
+		if (!items.isEmpty()) {
+			System.out.println(itemType + ":");
+			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
+			TextDisplayUtility.printSeparator(104);
+			for (int i = 0; i < items.size(); i++) {
+				T item = items.get(i);
+				String equippedIndicator = (item.equals(equippedItem)) ? "(Equipped)" : "";
+				System.out.printf("%-5d %-25s %-15s %-30s%n", i, item.getName() + " " + equippedIndicator, itemType, item.getDescription());
+			}
+			System.out.println();
+		}
 	}
 
 

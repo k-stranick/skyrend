@@ -14,6 +14,7 @@ import dtcc.itn262.maze.Room;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.gamecore.Command;
 import dtcc.itn262.utilities.gamecore.GameLogger;
+import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
 import dtcc.itn262.utilities.soundandmusic.Music;
 
@@ -171,19 +172,8 @@ public class Game {
 			return;
 		}
 
-		Scanner scanner = new Scanner(System.in);
-
 		while (true) {
-			System.out.print("\nEnter the index of the item you want to equip or use (-1 to exit): ");
-
-			String inputLine = scanner.nextLine().trim();
-			int index;
-			try {
-				index = Integer.parseInt(inputLine);
-			} catch (NumberFormatException e) {
-				System.out.println("Invalid input. Please enter a valid index.");
-				continue;
-			}
+			int index = UserInput.getPlayerChoice("\nEnter the index of the item you want to equip or use (-1 to exit): ");
 
 			if (index == -1) {
 				System.out.println("Returning to Skyrend...");
