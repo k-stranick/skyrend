@@ -1,12 +1,11 @@
 /*
-package dtcc.itn262.items.usableitems.addlater;
+package dtcc.itn262.items.usableitems;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.items.usableitems.HealingItems;
 
 public class SystemRestore extends HealingItems {
 	public SystemRestore(int value) {
-		super("System Restore", "Full Restoration potion", value);
+		super("System Restore", "Full Restoration potion", value, .1);
 	}
 
 	@Override

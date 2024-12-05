@@ -21,6 +21,7 @@ public class TheCipher extends Monster {
 				.withDescription("The Cipher is a rogue fragment of the Ghost Code that has evolved into a self-aware entity, existing in both the physical and digital realms of Skyrend. Its form constantly shifts between solid matter and raw code, warping reality and causing chaos wherever it manifests.\\n" +
 						"\\n" +
 						"Once a mere anomaly in the AetherGrid, The Cipher now controls entire sectors of the Ghost Code, manipulating both magic and technology to destabilize Skyrend. It seeks to unravel the carefully maintained order of the AetherGrid and plunge the city into digital chaos. Encountering The Cipher means facing a being that can rewrite reality, disrupt spells, and erase code, leaving behind nothing but entropy.")
+				.withExperience(0)
 				.build());
 		//addSkill("Rewrite Reality", "The Cipher warps reality, causing all attacks to miss for 1 turn.");
 		//addSkill("Aether Torrent", "The Cipher unleashes a torrent of Aether energy, dealing massive damage to all enemies.");

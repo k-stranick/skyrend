@@ -14,9 +14,9 @@ public class GameSaver {
 	public static void saveGame(GameState gameState, String filePath) {
 		System.out.println("Saving player: " + gameState.getPlayer().getHeroName());
 		System.out.println("Current health: " + gameState.getPlayer().getPlayerAttributes().getHealth());
-		System.out.println("Weapons: " + gameState.getPlayer().getWeaponList());
-		System.out.println("Armor: " + gameState.getPlayer().getArmorList());
-		System.out.println("Items: " + gameState.getPlayer().getItemsList());
+		System.out.println("Weapons: " + gameState.getPlayer().getPlayerWeaponList());
+		System.out.println("Armor: " + gameState.getPlayer().getPlayerArmorList());
+		System.out.println("Items: " + gameState.getPlayer().getPlayerItemsList());
 
 		try (FileWriter writer = new FileWriter(filePath)) {
 			GSON.toJson(gameState, writer);

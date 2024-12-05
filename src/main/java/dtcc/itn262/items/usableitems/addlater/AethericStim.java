@@ -1,12 +1,11 @@
 /*
-package dtcc.itn262.items.usableitems.addlater;
+package dtcc.itn262.items.usableitems;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.items.usableitems.HealingItems;
 
 public class AethericStim extends HealingItems {
 	public AethericStim(int value) {
-		super("Aetheric Stim", "Aether potion", value);
+		super("Aetheric Stim", "Aether potion", value, .1);
 	}
 
 	@Override

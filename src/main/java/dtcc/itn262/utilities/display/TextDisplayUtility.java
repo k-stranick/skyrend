@@ -3,12 +3,14 @@ package dtcc.itn262.utilities.display;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.PriorityManager;
 import dtcc.itn262.combat.TurnOrder;
+import dtcc.itn262.items.Item;
+import dtcc.itn262.items.armor.Armor;
+import dtcc.itn262.items.usableitems.HealingItems;
+import dtcc.itn262.items.weapons.Weapon;
 import dtcc.itn262.maze.Room;
 import dtcc.itn262.monster.Monster;
 
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Set;
+import java.util.*;
 
 public class TextDisplayUtility {
 
@@ -169,7 +171,7 @@ public class TextDisplayUtility {
 	// Pads a string with spaces to ensure consistent width
 	private static String padRight(String text, int length) {
 		if (text.length() >= length) {
-			return text; // If text is already the desired length or longer, return as-is
+			return text; // If the text is already the desired length or longer, return as-is
 		}
 		StringBuilder padded = new StringBuilder(text);
 		while (padded.length() < length) {
@@ -186,6 +188,73 @@ public class TextDisplayUtility {
 		System.out.println("3. View Help - Learn how to play the game");
 		System.out.println("4. Exit");
 		System.out.print("Enter your choice: ");
+	}
+
+	public static boolean displayInventory(Player player) {
+		List<Weapon> weapons = player.getPlayerWeaponList();
+		List<Armor> armors = player.getPlayerArmorList();
+		List<HealingItems> consumables = player.getPlayerItemsList();
+
+		if (weapons.isEmpty() && armors.isEmpty() && consumables.isEmpty()) {
+			System.out.println("Your inventory is empty.");
+			return false;
+		}
+
+		System.out.println("\n====== INVENTORY ======\n");
+
+		int index = 0; // This will be used to assign a unique index to each item
+
+		Map<Integer, Item> indexToItemMap = new HashMap<>(); // To map indices to items for selection
+
+		// Display Weapons
+		if (!weapons.isEmpty()) {
+			System.out.println("Weapons:");
+			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
+			System.out.println("--------------------------------------------------------------------------");
+			for (Weapon weapon : weapons) {
+				String equippedIndicator = weapon.equals(player.getEquippedWeapon()) ? "(Equipped)" : "";
+				System.out.printf("%-5d %-25s %-15s %-30s%n", index, weapon.getName() + " " + equippedIndicator, "Weapon", weapon.getDescription());
+				indexToItemMap.put(index, weapon);
+				index++;
+			}
+			System.out.println();
+		}
+
+		// Display Armor
+		if (!armors.isEmpty()) {
+			System.out.println("Armor:");
+			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
+			System.out.println("--------------------------------------------------------------------------");
+			for (Armor armor : armors) {
+				String equippedIndicator = armor.equals(player.getEquippedArmor()) ? "(Equipped)" : "";
+				System.out.printf("%-5d %-25s %-15s %-30s%n", index, armor.getName() + " " + equippedIndicator, "Armor", armor.getDescription());
+				indexToItemMap.put(index, armor);
+				index++;
+			}
+			System.out.println();
+		}
+
+		// Display Consumables
+		if (!consumables.isEmpty()) {
+			System.out.println("Consumables:");
+			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
+			System.out.println("--------------------------------------------------------------------------");
+			for (HealingItems item : consumables) {
+				System.out.printf("%-5d %-25s %-15s %-30s%n", index, item.getName(), "Consumable", item.getDescription());
+				indexToItemMap.put(index, item);
+				index++;
+			}
+			System.out.println();
+		}
+
+		// Store the index-to-item mapping for later use
+		player.setInventoryIndexMap(indexToItemMap);
+
+		return true;
+	}
+
+	private void displayConsumablesForInventory(List<HealingItems> consumables){
+
 	}
 
 

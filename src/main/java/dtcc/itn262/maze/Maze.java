@@ -5,11 +5,8 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
-import dtcc.itn262.items.Item;
 import dtcc.itn262.items.ItemManagement;
-import dtcc.itn262.items.armor.Armor;
-import dtcc.itn262.items.usableitems.*;
-import dtcc.itn262.items.weapons.Weapon;
+import dtcc.itn262.items.usableitems.HealingItems;
 import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.boss.GhostCodeManifested;
 import dtcc.itn262.monster.boss.Gilgamesh;
@@ -29,37 +26,27 @@ import dtcc.itn262.utilities.input.Validation;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Supplier;
-
-//import static dtcc.itn262.utilities.input.Validation.checkWinCondition;
-
 
 public class Maze {
 	private static Maze instance;
 	private final Room[][] map;
-	//private final int requiredVisitedRooms;
 	private final Set<String> uniqueVisitedRooms;
 	private final List<String> moveHistory = new ArrayList<>(); // tracks all moves
 	private final Player player; // change this if I add more characters to the game
 	private final SceneManager sceneManager;
 	private final Random random = new Random();
-	private final List<Weapon> weapons = new ArrayList<>();
-	private final List<Armor> armors = new ArrayList<>();
-	private final List<HealingItems> items = new ArrayList<>();  // For items that aren't weapons or armor
-	private Map<Integer, int[]> roomIndexToPosition;
 	private final ItemManagement itemManagement;
+	private Map<Integer, int[]> roomIndexToPosition;
 
 	//constructor
 	private Maze(Player player) {
 		this.map = MazeLoader.loadMazeFromJson();
 		this.itemManagement = new ItemManagement();
-		//this.map = initializeMap();
 		this.player = player;
-		//this.requiredVisitedRooms = countSpecialRooms();
 		this.uniqueVisitedRooms = new HashSet<>();  //If a player visits the same room multiple times, the HashSet will only store that room once.
 		this.sceneManager = SceneManager.getInstance();
 		initializeRoomIndexMapping();
-		visitRoom(map[player.getPlayerRow()][player.getPlayerCol()]);  // Mark the starting room as visited
+		map[player.getPlayerRow()][player.getPlayerCol()].visitRoom(this.uniqueVisitedRooms);  // Mark the starting room as visited
 		TextDisplayUtility.showCurrentRoom(map, player); // <-does this need to be here?
 	}
 
@@ -162,7 +149,8 @@ public class Maze {
 			} else {
 				triggerRandomEncounter();
 			}
-			visitRoom(newRoom);
+
+			newRoom.visitRoom(uniqueVisitedRooms);
 			displayMap();
 			//checkEscapeCondition();
 			updateMoveHistory(newRoom);
@@ -179,7 +167,6 @@ public class Maze {
 
 	}
 
-
 	private void triggerRandomEncounter() {
 		int chance = random.nextInt(100); // Generate a random number between 0 and 99
 		if (chance <= 20) { // 20% chance for an encounter //TODO 1
@@ -194,19 +181,6 @@ public class Maze {
 			Monster randomMonster = monsters.get(random.nextInt(monsters.size())); // Select a random monster
 			CombatLogic combat = new CombatLogic(player, randomMonster);
 			combat.startFight();
-		}
-	}
-
-	private void visitRoom(Room currentRoom) {
-		try {
-			if (!currentRoom.isVisited()) {
-				currentRoom.setVisited(true);  // Mark room as visited
-				if (currentRoom.isSpecial()) {
-					uniqueVisitedRooms.add(currentRoom.getName());  // Track special rooms
-				}
-			}
-		} catch (NullPointerException e) {
-			GameLogger.logError(Constants.ROOM_ERROR + e.getMessage());
 		}
 	}
 
@@ -269,43 +243,6 @@ public class Maze {
 		}
 	}
 
-
-/*	private void checkEscapeCondition() {
-		if (checkWinCondition(this)) { // Check if the player has visited enough rooms to escape
-			System.out.println("You have defeated the final boss and escaped the maze!");
-			// TODO need to remove or refactor for just beating the final boss
-			// Ask the player if they want to continue playing
-			if (UserInput.askToContinue()) {
-				System.out.println("Continuing the game... You are free to explore more.");
-			} else {
-				System.out.println("Thanks for playing! Goodbye.");
-				System.exit(0);  // Exit the game
-			}
-		}
-	} // TODO maybe just a check ONLY IN final boss?*/
-
-
-/*
-	// Method to count special rooms
-	private int countSpecialRooms() {
-		int count = 0;
-		for (Room[] row : map) {
-			for (Room room : row) {
-				if (room != null && room.isSpecial()) {
-					count++;
-				}
-			}
-		}
-		return count;
-	} // TODO will need to  remove only condition is to beat boss
-*/
-
-
-/*	public int getRequiredVisitedRooms() {
-		return requiredVisitedRooms;
-	}*/
-
-
 	private boolean checkNullRoom(Room currentRoom) {
 		if (currentRoom == null) {
 			System.out.println("This space is empty. You can't visit it.");
@@ -314,49 +251,35 @@ public class Maze {
 		return false;
 	}
 
-
-	private boolean chanceToFindItem() {
-		return random.nextDouble() < 20;  // 20% chance //TODO
+	private double chanceToFindItem() {
+		return random.nextDouble();  // 20% chance //TODO
 	}
 
+	public void searchRoom(Room room) { //
+		if (room.hasBeenSearched()) {
+			System.out.println("You've already searched this room.");
+			return;
+		}
 
-	public void searchRoom(Room room) { // random item generator from a predefined list and adds it to the player's inventory
-		if (!chanceToFindItem()) {  // upgraded from if/else to enhanced switch
+		room.setHasBeenSearched(true);
+
+		// random item generator from a predefined list and adds it to the player's inventory
+		if (chanceToFindItem() <= .2) {  // upgraded from if/else to enhanced switch
 			System.out.println("You didn't find anything.");
 			return;
 		}
-		Item item = itemManagement.generateRandomItem();
-
-		System.out.println("You found a " + item);
-		switch (item) {
-			case Weapon weapon -> player.addWeapon(weapon);
-			case Armor armor -> player.addArmor(armor);
-			case HealingItems usableItem -> player.addItem(usableItem);
-			default -> throw new IllegalStateException("Unexpected value: " + item);
+		HealingItems item = itemManagement.pickRandomItem(itemManagement.getUsableItems());
+		try {
+			player.addItem(item);
+			System.out.println("You found a " + item.getName());
+		} catch (ClassCastException e) {
+			System.out.println("Found item is not a HealingItem.");
 		}
-
 	}
-
-
 
 	public Room getCurrentRoom() {
 		return map[player.getPlayerRow()][player.getPlayerCol()];
 	}
-
-	public void displayInventory() {
-		List<Item> inventory = player.getInventory(); // Get the player's inventory
-
-		if (inventory.isEmpty()) {
-			System.out.println("Your inventory is empty.");
-			return;
-		}
-
-		System.out.println("Inventory:");
-		for (Item item : inventory) {
-			System.out.println(" - " + item.getName() + ": " + item.getDescription());
-		}
-	}
-
 
 	public void restoreState(Set<String> uniqueVisitedRooms, List<String> moveHistory) {
 		// Clear and restore the uniqueVisitedRooms set
@@ -379,28 +302,6 @@ public class Maze {
 			}
 		}
 	}
-
-
-/*
-	public void restoreState(Set<String> uniqueVisitedRooms, List<String> moveHistory) {
-		this.uniqueVisitedRooms.clear();
-		this.uniqueVisitedRooms.addAll(uniqueVisitedRooms);
-
-		this.moveHistory.clear();
-		this.moveHistory.addAll(moveHistory);
-
-		// Optionally, reapply visited flags to rooms
-		for (String roomName : uniqueVisitedRooms) {
-			for (Room[] row : map) {
-				for (Room room : row) {
-					if (room != null && room.getName().equals(roomName)) {
-						room.setVisited(true);
-					}
-				}
-			}
-		}
-	}  //TODO THIS IS NEW MAYBE MOVE???
-*/
 
 	/**
 	 * Private inner class to load the maze from a JSON file
@@ -449,20 +350,8 @@ public class Maze {
 			this.rooms = rooms;
 		}
 	}
+
+
 }
-/*
-	public void handleInventoryFromMap() {
-		displayInventory();  // Display the inventory
-
-		Scanner scanner = new Scanner(System.in); // Get input from the player
-		System.out.print("Enter the index of the item you want to equip or use: ");
-
-		try {
-			int index = scanner.nextInt();  // Read player's choice of item index
-			PlayerActions.equipOrUseItem(index);  // Call equip or use item method with the selected index
-		} catch (Exception e) {
-			System.out.println("Invalid input. Please enter a valid index.");
-		}
-	}*/// BROKEN
 
 

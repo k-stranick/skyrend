@@ -9,11 +9,11 @@ import java.util.Random;
 public class ItemManagement {
 	// Arrays for predefined items
 	private final HealingItems[] healingItems = {
-			new HealingItems("Health Stim", "Health potion", 40),
-			new HealingItems("Aetheric Stim", "Mana potion",40),
-			new HealingItems("Full Health Stim", "Health potion", 80),
-			new HealingItems("Full Aetheric Stim", "Mana potion", 80),
-			new HealingItems("System Restore", "Full restore", 100)
+			new HealingItems("Health Stim", "Health potion", 40, 0.5),
+			new HealingItems("Aetheric Stim", "Mana potion", 40, 0.5),
+			new HealingItems("Full Health Stim", "Health potion", 80, 0.3),
+			new HealingItems("Full Aetheric Stim", "Mana potion", 80, 0.3),
+			new HealingItems("System Restore", "Full restore", 100, 100, 0.2)
 	};
 
 	private final Weapon[] predefinedWeapons = {
@@ -38,7 +38,7 @@ public class ItemManagement {
 	private final Random random = new Random();
 
 	// Generic method to pick a random item from an array
-	private <T> T pickRandomItem(T[] items) {
+	public <T> T pickRandomItem(T[] items) {
 		return items[random.nextInt(items.length)];
 	}
 
@@ -53,7 +53,7 @@ public class ItemManagement {
 		};
 	}
 
-/*	// Access specific item lists
+	// Access specific item lists
 	public HealingItems[] getUsableItems() {
 		return healingItems;
 	}
@@ -64,6 +64,6 @@ public class ItemManagement {
 
 	public Armor[] getArmor() {
 		return predefinedArmor;
-	}*/
+	}
 }
 

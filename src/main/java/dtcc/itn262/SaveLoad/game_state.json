@@ -1,48 +1,36 @@
 {
   "player": {
-    "itemsList": [],
-    "weaponList": [
+    "playerWeaponList": [],
+    "playerArmorList": [],
+    "playerItemsList": [
       {
-        "damage": 20,
-        "name": "Neon Dagger",
-        "description": "A dagger that channels the power of the Neon Grid, allowing the wielder to move at the speed of light and strike with deadly precision.",
-        "type": "Dagger"
+        "value": 80,
+        "name": "Full Aetheric Stim",
+        "description": "Aether potion",
+        "type": "",
+        "dropRate": 0.1
       }
     ],
-    "armorList": [],
     "hero": "Hero",
     "playerAttributes": {
       "level": 1,
-      "strength": 1120,
-      "defense": 20,
-      "health": 1110,
-      "maxHealth": 1200,
+      "strength": 1007,
+      "defense": 1005,
+      "health": 200,
+      "maxHealth": 200,
       "magic": 20,
       "magicDefense": 20,
-      "mana": 1150,
-      "maxMana": 1150,
-      "speed": 20,
+      "mana": 100,
+      "maxMana": 100,
+      "speed": 10,
       "luck": 100,
       "experience": 0
     },
-    "playerRow": 5,
-    "playerCol": 2
+    "playerRow": 0,
+    "playerCol": 0
   },
   "uniqueVisitedRooms": [
-    "The Outskirts",
-    "Sky Bridge"
+    "The Outskirts"
   ],
-  "moveHistory": [
-    "Neon Corridor",
-    "Fusion Park",
-    "Cyber Alley",
-    "DataFall Plaza",
-    "Power Conduit",
-    "StormW3ll Station",
-    "Circuit Yard",
-    "Giga Tower",
-    "Ghost Terminal",
-    "Sky Bridge",
-    "Iron District"
-  ]
+  "moveHistory": []
 }

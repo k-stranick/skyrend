@@ -3,6 +3,7 @@ package dtcc.itn262.combat;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
 import dtcc.itn262.combat.effects.DefenseBuff;
+import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.items.usableitems.HealingItems;
 import dtcc.itn262.items.weapons.Weapon;
 import dtcc.itn262.monster.Monster;
@@ -16,59 +17,57 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class PlayerActions {
-	static Player player;
 	private final ArrayList<PlayerSkill> skills = new ArrayList<>();
 	CombatLogic combatLogic;
 	Random rand = new Random();
+	private Player player;
 
 	public PlayerActions(CombatLogic combatLogic, Player player) { // adding skills to the player
+		this.combatLogic = combatLogic;
+		this.player = player;
+		initializeSkills();
+	}
+
+	// Overloaded constructor for non-combat
+	public PlayerActions(Player player) {
+		this.player = player;
+		initializeSkills();
+	}
+
+	private void initializeSkills() {
 		skills.add(new DivineStrike());
 		skills.add(new PulseBlade());
 		skills.add(new Heal());
-		this.combatLogic = combatLogic;
-		this.player = player;//TODO
 	}
 
 	// make these 3 private methods and add to a parent public method
-	public void useItem(Player player, int index) {
-		try {
-			if (index >= 0 && index < player.getItemsList().size()) {
-				HealingItems item = player.getItemsList().get(index);
-				item.apply(player); // Apply the item's effect
-				player.getItemsList().remove(index); // Remove the item after use (optional for consumables)
-			} else {
-				System.out.println("Invalid item choice.");
-			}
-		} catch (IndexOutOfBoundsException e) {//TODO log this
-			System.out.println("An error occurred while using the item: " + e.getMessage());
+	public void useItem(HealingItems item) {
+
+		if (player.getPlayerItemsList().contains(item)) {
+			item.apply(player); // Apply the item's effect
+			player.getPlayerItemsList().remove(item); // Remove the item after use
+			System.out.println("Used " + item.getName() + ".");
+		} else {
+			System.out.println("You do not have " + item.getName() + " in your inventory.");
 		}
 	}
 
-	public void equipWeapon(int weaponIndex) {
-		try {
-			if (weaponIndex >= 0 && weaponIndex < player.weaponList.size()) {
-				Weapon weapon = player.weaponList.get(weaponIndex);
-				player.getPlayerAttributes().setStrength(weapon.getDamage() + player.getPlayerAttributes().getStrength());
-				System.out.println(player.getHeroName() + " equipped " + weapon.getName() + ".");
-			} else {
-				System.out.println("Invalid weapon choice.");
-			}
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("An error occurred while equipping the weapon: " + e.getMessage());
+	public void equipWeapon(Weapon weapon) {
+		if (player.getPlayerWeaponList().contains(weapon)) {
+			player.equippedWeapon(weapon);
+		} else {
+			System.out.println("You do not have " + weapon.getName() + " in your inventory.");
 		}
 	}
 
-	public void equipArmor(int armorIndex) {
-		try {
-			if (armorIndex >= 0 && armorIndex < player.armorList.size()) {
-				player.equipArmor(player.armorList.get(armorIndex));
-			} else {
-				System.out.println("Invalid armor choice.");
-			}
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("An error occurred while equipping the armor: " + e.getMessage());
+	public void equipArmor(Armor armor) {
+		if (player.getPlayerArmorList().contains(armor)) {
+			player.equippedArmor(armor);
+		} else {
+			System.out.println("You do not have " + armor.getName() + " in your inventory.");
 		}
 	}
+
 
 	protected void attack(Player player, Monster target) {
 		int damage = (player.getPlayerAttributes().getStrength() - target.getMonsterAttributes().getDefense());

@@ -19,6 +19,7 @@ public class CyberHound extends Monster {
 				.withLuck(15)
 				.withType("Cybernetic Beast")
 				.withDescription("A mechanical beast that roams the streets of Skyrend.")
+				.withExperience(25)
 				.build());
 
 		// Define unique abilities here like Pounce, Bite, etc.

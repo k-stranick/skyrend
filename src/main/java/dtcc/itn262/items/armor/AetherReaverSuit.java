@@ -5,7 +5,12 @@ package dtcc.itn262.items.armor;
  * */
 public class AetherReaverSuit extends Armor {
 	public AetherReaverSuit() {
-		super("Aether Reactor Suit", 35, "A suit that harnesses Aether energy to power a protective barrier, greatly enhancing defense.");
+		super(
+				"Aether Reactor Suit",
+				35,
+				"A suit that harnesses Aether energy to power a protective barrier, greatly enhancing defense.",
+				0.1
+		);
 	}
 }
 

@@ -4,9 +4,9 @@ package dtcc.itn262.json;
 import com.google.gson.*;
 import dtcc.itn262.items.Item;
 import dtcc.itn262.items.armor.Armor;
-import dtcc.itn262.items.usableitems.addlater.AethericStim;
-import dtcc.itn262.items.usableitems.addlater.HealthStim;
-import dtcc.itn262.items.usableitems.addlater.SystemRestore;
+import dtcc.itn262.items.usableitems.AethericStim;
+import dtcc.itn262.items.usableitems.HealthStim;
+import dtcc.itn262.items.usableitems.SystemRestore;
 import dtcc.itn262.items.weapons.Weapon;
 
 import java.lang.reflect.Type;

@@ -3,14 +3,20 @@ package dtcc.itn262.combat;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
 import dtcc.itn262.combat.effects.BuffAndDeBuff;
-import dtcc.itn262.monster.MonsterAttributes;
+import dtcc.itn262.items.Item;
+import dtcc.itn262.items.ItemManagement;
+import dtcc.itn262.items.armor.Armor;
+import dtcc.itn262.items.usableitems.HealingItems;
+import dtcc.itn262.items.weapons.Weapon;
 import dtcc.itn262.monster.Monster;
+import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.skills.playerskills.PlayerSkill;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.UserInput;
 import dtcc.itn262.utilities.input.Validation;
 import dtcc.itn262.utilities.soundandmusic.Music;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -39,30 +45,59 @@ public class CombatLogic {
 		this.activeMonsterBuffs = new ArrayList<>();
 	}
 
-
-	private static void determineOutcome(boolean battleEnded, Player player) {
+	private static void determineOutcome(boolean battleEnded, Player player, Monster monster) {
 		if (battleEnded) {
 			System.out.println("You successfully ran away!");
 		} else if (!player.isAlive()) {
 			System.out.println("You were defeated!");
-		} else {// will this print if I win??
-			//!monster.isAlive()
+		} else {
 			System.out.println("Player wins! The monster is defeated.");
+			int xpGained = monster.getMonsterAttributes().getExperience();
+			player.gainExperience(xpGained);
+			System.out.println(player.getHeroName() + " gained " + xpGained + " XP.");
+
+			handleLootDrops(player);
+		}
+	}
+
+	private static void handleLootDrops(Player player) {
+		Random rand = new Random();
+		ItemManagement itemManagement = new ItemManagement();
+
+		// Decide whether the monster drops an item
+		double dropChance = 0.5; // 50% chance to drop an item (adjust as needed)
+		if (rand.nextDouble() < dropChance) {
+			// Generate a random item
+			Item item = itemManagement.generateRandomItem();
+			System.out.println("The monster dropped an item: " + item.getName());
+
+			// Clone the item before adding it to the player's inventory
+			Item itemClone = item.clone();
+			// Use a switch statement to determine the item type and add it to the inventory
+			switch (itemClone) {
+				case Weapon weapon -> player.addWeapon(weapon);
+				case Armor armor -> player.addArmor(armor);
+				case HealingItems usableItem -> player.addItem(usableItem);
+				default -> System.out.println("Unknown item type: " + itemClone.getName());
+			}
+
+		} else {
+			System.out.println("The monster didn't drop any items.");
 		}
 	}
 
 	public void startFight() { // need to check status for this also
 
-		boolean battleHasEnded = false;  // Declare battleHasEnded at the start of the method
+		boolean playerUsedRun = false;  // Declare playerUsedRun at the start of the method
 		boolean playerGoesFirst = player.getPlayerAttributes().getSpeed() > monster.getMonsterAttributes().getSpeed(); // move inside the if statement if I introduce buffs or de-buffs for speed
 
-		while (Validation.keepBattleGoing(battleHasEnded, player, monster)) {
+		while (Validation.keepBattleGoing(playerUsedRun, player, monster)) {
 			reduceCooldown();  // Reduce cooldowns at the start of each turn
 
 			if (playerGoesFirst) {   // Player goes first if their speed is higher
-				battleHasEnded = playerTurn();  // Check if the player ends the battle
+				playerUsedRun = playerTurn();  // Check if the player ends the battle
 				updateBuffs(monster.getMonsterAttributes(), activeMonsterBuffs); // Update buffs at the end of each PLAYER TURN
-				if (Validation.keepBattleGoing(battleHasEnded, player, monster)) { // monster's turn still goes if dead...
+				if (Validation.keepBattleGoing(playerUsedRun, player, monster)) { // monster's turn still goes if dead...
 					monsterTurn();  // Monster's turn if the fight continues
 					updateBuffs(player.getPlayerAttributes(), activePlayerBuffs); // Update buffs at the end of each turn??
 				}
@@ -70,13 +105,13 @@ public class CombatLogic {
 				monsterTurn(); // Monster's turn first
 				updateBuffs(player.getPlayerAttributes(), activePlayerBuffs); // Update buffs at the end of each turn??
 				if (player.isAlive()) {
-					battleHasEnded = playerTurn(); // Player's turn after monster
+					playerUsedRun = playerTurn(); // Player's turn after monster
 					updateBuffs(monster.getMonsterAttributes(), activeMonsterBuffs); // Update buf fs at the end of each PLAYER TURN
 				}
 			}
 			//CREATE METHOD FOR HERE TO HANDLE DEBUFF,COOLDOWN,STATUSEFFECTS, ETC
 		}
-		determineOutcome(battleHasEnded, player); // Check for win/loss conditions once the battle is over
+		determineOutcome(playerUsedRun, player, monster); // Check for win/loss conditions once the battle is over
 		Music.stopBackgroundMusic();
 		Music.playBackgroundMusic("src/main/java/dtcc/itn262/utilities/soundandmusic/soundfiles/over_world_music.wav");
 	}
@@ -104,7 +139,7 @@ public class CombatLogic {
 		return false;
 	}
 
-	private boolean battleMenuChoice(int choice) {	// Helper method to execute the player's choice
+	private boolean battleMenuChoice(int choice) {    // Helper method to execute the player's choice
 
 		switch (choice) {
 			case 1 -> handleAttack();
@@ -126,34 +161,65 @@ public class CombatLogic {
 	}
 
 	private void handleArmorSwap() {
-		if(player.getArmorList().isEmpty()) {
+		List<Armor> armorList = player.getPlayerArmorList();
+		if (armorList.isEmpty()) {
 			System.out.println("No armor in inventory.");
 			return;
 		}
-		player.displayArmor();
+		// Display armor with indices
+		for (int i = 0; i < armorList.size(); i++) {
+			Armor armor = armorList.get(i);
+			String equippedIndicator = armor.equals(player.getEquippedArmor()) ? "(Equipped)" : "";
+			System.out.println(i + ": " + armor.getName() + " " + equippedIndicator + " - " + armor.getDescription());
+		}
 		int itemChoice = UserInput.getPlayerChoice("Choose an armor to equip: ");
-		playerActions.equipArmor(itemChoice);
+		if (itemChoice >= 0 && itemChoice < armorList.size()) {
+			Armor selectedArmor = armorList.get(itemChoice);
+			playerActions.equipArmor(selectedArmor);
+		} else {
+			System.out.println("Invalid armor choice.");
+		}
 	}
-
+//TODO Fix these use generics to make this more efficient
 	private void handleWeaponSwap() {
-		if(player.getWeaponList().isEmpty()) {
+		List<Weapon> weaponList = player.getPlayerWeaponList();
+		if (weaponList.isEmpty()) {
 			System.out.println("No weapons in inventory.");
 			return;
 		}
-		player.displayWeapons();
+		// Display weapons with indices
+		for (int i = 0; i < weaponList.size(); i++) {
+			Weapon weapon = weaponList.get(i);
+			String equippedIndicator = weapon.equals(player.getEquippedWeapon()) ? "(Equipped)" : "";
+			System.out.println(i + ": " + weapon.getName() + " " + equippedIndicator + " - " + weapon.getDescription());
+		}
 		int itemChoice = UserInput.getPlayerChoice("Choose a weapon to equip: ");
-		playerActions.equipWeapon(itemChoice);
+		if (itemChoice >= 0 && itemChoice < weaponList.size()) {
+			Weapon selectedWeapon = weaponList.get(itemChoice);
+			playerActions.equipWeapon(selectedWeapon);
+		} else {
+			System.out.println("Invalid weapon choice.");
+		}
 	}
 
 	private void handleItemUsage() {
-		if (player.getItemsList().isEmpty()) {
+		List<HealingItems> itemsList = player.getPlayerItemsList();
+		if (itemsList.isEmpty()) {
 			System.out.println("No items in inventory.");
 			return;
 		}
-		player.displayItems();  // Display player's items
-		int itemChoice = UserInput.getPlayerChoice("Choose an item to use: ");  // why is this returning 0?
-		playerActions.useItem(player, itemChoice);  // Use the selected item
-
+		// Display items with indices
+		for (int i = 0; i < itemsList.size(); i++) {
+			HealingItems item = itemsList.get(i);
+			System.out.println(i + ": " + item.getName() + " - " + item.getDescription());
+		}
+		int itemChoice = UserInput.getPlayerChoice("Choose an item to use: ");
+		if (itemChoice >= 0 && itemChoice < itemsList.size()) {
+			HealingItems selectedItem = itemsList.get(itemChoice);
+			playerActions.useItem(selectedItem);  // Use the selected item
+		} else {
+			System.out.println("Invalid item choice.");
+		}
 	}
 
 	private boolean handleRunAttempt() { //TODO test
@@ -209,4 +275,5 @@ public class CombatLogic {
 			}
 		}
 	}
+
 }

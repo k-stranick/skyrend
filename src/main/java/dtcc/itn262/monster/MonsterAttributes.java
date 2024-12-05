@@ -3,7 +3,8 @@ package dtcc.itn262.monster;
 import java.util.Random;
 
 public class MonsterAttributes {
-	static Random rand = new Random();
+	//static Random rand = new Random();
+	private int level;
 	private int health;
 	private int maxHealth;
 	private int strength;
@@ -34,6 +35,9 @@ public class MonsterAttributes {
 		this.maxMana = builder.maxMana;
 		this.type = builder.type;
 		this.description = builder.description;
+		this.experience = builder.experience;
+		this.level = builder.level;
+		this.gold = builder.gold;
 	}
 
 
@@ -68,6 +72,7 @@ public class MonsterAttributes {
 	public int getMaxMana() {
 		return maxMana;
 	}
+
 	public void setMaxMana(int maxMana) {
 		this.maxMana = maxMana;
 	}
@@ -124,6 +129,14 @@ public class MonsterAttributes {
 		this.experience = experience;
 	}
 
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	public int getGold() {
 		return gold;
 	}
@@ -131,7 +144,6 @@ public class MonsterAttributes {
 	public void setGold(int gold) {
 		this.gold = gold;
 	}
-
 
 	public String getType() {
 		return type;
@@ -159,6 +171,7 @@ public class MonsterAttributes {
 		private int speed = 5;
 		private int luck = 5;
 		private int experience = 0;
+		private int level = 1;
 		private int gold = 0;
 		private int maxMana = 50;
 		private int mana= 50;
@@ -170,6 +183,7 @@ public class MonsterAttributes {
 			this.health = health;
 			return this;
 		}
+
 		public MonsterAttributesBuilder withMaxHealth(int maxHealth) {
 			this.maxHealth = maxHealth;
 			return this;
@@ -179,6 +193,7 @@ public class MonsterAttributes {
 			this.mana = mana;
 			return this;
 		}
+
 		public MonsterAttributesBuilder withMaxMana(int maxMana) {
 			this.maxMana = maxMana;
 			return this;
@@ -226,6 +241,11 @@ public class MonsterAttributes {
 
 		public MonsterAttributesBuilder withExperience(int experience) {
 			this.experience = experience;
+			return this;
+		}
+
+		public MonsterAttributesBuilder withLevel(int level) {
+			this.level = level;
 			return this;
 		}
 

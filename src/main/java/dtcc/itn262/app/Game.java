@@ -3,7 +3,12 @@ package dtcc.itn262.app;
 import dtcc.itn262.SaveLoad.GameSaver;
 import dtcc.itn262.SaveLoad.GameState;
 import dtcc.itn262.character.Player;
-import dtcc.itn262.json.HelpMenu;
+import dtcc.itn262.combat.PlayerActions;
+import dtcc.itn262.items.Item;
+import dtcc.itn262.items.armor.Armor;
+import dtcc.itn262.items.usableitems.HealingItems;
+import dtcc.itn262.items.weapons.Weapon;
+import dtcc.itn262.helpmenu.HelpMenu;
 import dtcc.itn262.maze.Maze;
 import dtcc.itn262.maze.Room;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
@@ -12,10 +17,12 @@ import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.Validation;
 import dtcc.itn262.utilities.soundandmusic.Music;
 
+import java.util.Map;
 import java.util.Scanner;
 
 public class Game {
 	private Player player;
+	private PlayerActions playerActions;
 	private final HelpMenu helpMenu = new HelpMenu();
 
 	public Game() {
@@ -58,7 +65,8 @@ public class Game {
 
 		if (gameState != null) {
 			player = gameState.getPlayer();
-			Maze maze = Maze.getInstance(player);
+			playerActions = new PlayerActions(player); // Initialize PlayerActions for non-combat
+			Maze maze = Maze.getInstance(player); // Use the same Player instance
 			maze.restoreState(gameState.getUniqueVisitedRooms(), gameState.getMoveHistory());
 			System.out.println("Game loaded successfully!");
 			System.out.println("Welcome back, " + player.getHeroName() + "!");
@@ -80,7 +88,7 @@ public class Game {
 			} else {
 				System.out.println("Resuming game for " + player.getHeroName() + "!");
 			}
-
+			playerActions = new PlayerActions(player); // Initialize PlayerActions for non-combat
 			Maze maze = Maze.getInstance(player); // Use the same Player instance
 			boolean continueGame = true;
 			Music.playBackgroundMusic("src/main/java/dtcc/itn262/utilities/soundandmusic/soundfiles/over_world_music.wav");
@@ -107,7 +115,6 @@ public class Game {
 		Music.stopAllSounds();
 		System.exit(0);
 	}
-
 
 	private void inGameCommands(String value, Maze m) {
 		Command command = Command.fromString(value);
@@ -137,7 +144,7 @@ public class Game {
 				m.searchRoom(currentRoom);
 				break;
 			case INVENTORY:
-				m.displayInventory();
+				handleInventory();
 				break;
 			case EAST, NORTH, SOUTH, WEST:
 				m.move(command);
@@ -156,6 +163,52 @@ public class Game {
 				break;
 			default:
 				GameLogger.logWarning("Invalid command. Please try again.");
+		}
+	}
+
+	private void handleInventory() {
+		if (!TextDisplayUtility.displayInventory(player)) {
+			return;
+		}
+
+		Scanner scanner = new Scanner(System.in);
+
+		while (true) {
+			System.out.print("\nEnter the index of the item you want to equip or use (-1 to exit): ");
+
+			String inputLine = scanner.nextLine().trim();
+			int index;
+			try {
+				index = Integer.parseInt(inputLine);
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid input. Please enter a valid index.");
+				continue;
+			}
+
+			if (index == -1) {
+				System.out.println("Returning to Skyrend...");
+				break; // Exit the inventory menu
+			}
+
+			Map<Integer, Item> indexToItemMap = player.getInventoryIndexMap();
+
+			if (indexToItemMap.containsKey(index)) {
+				Item selectedItem = indexToItemMap.get(index);
+
+				// Check item type and perform the corresponding action
+				switch (selectedItem) {
+					case Weapon weapon -> playerActions.equipWeapon(weapon);
+					case Armor armor -> playerActions.equipArmor(armor);
+					case HealingItems healingItems -> playerActions.useItem(healingItems);
+					case null, default -> System.out.println("Invalid item type.");
+				}
+			} else {
+				System.out.println("Invalid index.");
+			}
+
+			// After action, display inventory again
+			TextDisplayUtility.displayInventory(player);
+
 		}
 	}
 }

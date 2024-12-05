@@ -2,9 +2,12 @@ package dtcc.itn262.maze;
 
 import dtcc.itn262.items.Item;
 import dtcc.itn262.items.usableitems.HealingItems;
+import dtcc.itn262.utilities.gamecore.Constants;
+import dtcc.itn262.utilities.gamecore.GameLogger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Room {
 	private final int roomIndex;
@@ -19,6 +22,7 @@ public class Room {
 	private boolean specialEventTriggered;
 	private boolean visited;
 	private final List<Item> items;
+	private boolean hasBeenSearched;
 
 	public Room(RoomConfiguration roomConfiguration) {
 		this.roomIndex = roomConfiguration.index();
@@ -33,6 +37,7 @@ public class Room {
 		this.w = roomConfiguration.w();
 		this.sceneIndex = roomConfiguration.sceneIndex();
 		this.items = new ArrayList<>();
+		this.hasBeenSearched = false;
 	}
 
 	public boolean isSpecial() {
@@ -58,7 +63,6 @@ public class Room {
 	public String getDescription() {
 		return "This is " + description;
 	}
-
 
 	public int getN() {
 		return n;
@@ -105,6 +109,15 @@ public class Room {
 	public boolean hasItems() {
 		return !items.isEmpty();
 	}
+
+	public boolean hasBeenSearched() {
+		return hasBeenSearched;
+	}
+
+	public void setHasBeenSearched(boolean hasBeenSearched) {
+		this.hasBeenSearched = hasBeenSearched;
+	}
+
 	public void displayRoomItems() {
 		if (hasItems()) {
 			System.out.println("Items in the room:");
@@ -113,6 +126,23 @@ public class Room {
 			}
 		} else {
 			System.out.println("There are no items in this room.");
+		}
+	}
+
+	public void visitRoom(Set<String> uniqueVisitedRooms)
+	{
+		try {
+			if (this.isVisited()) {
+				return;
+			}
+
+			this.setVisited(true);  // Mark room as visited
+			if (this.isSpecial()) {
+				uniqueVisitedRooms.add(this.getName());  // Track special rooms
+			}
+
+		} catch (NullPointerException e) {
+			GameLogger.logError(Constants.ROOM_ERROR + e.getMessage());
 		}
 	}
 }

@@ -1,12 +1,11 @@
 /*
-package dtcc.itn262.items.usableitems.addlater;
+package dtcc.itn262.items.usableitems;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.items.usableitems.HealingItems;
 
 public class HealthStim extends HealingItems {
 	public HealthStim(int value) {
-		super("Health Stim", "Health potion", value);
+		super("Health Stim", "Health potion", value, .1);
 	}
 
 	@Override

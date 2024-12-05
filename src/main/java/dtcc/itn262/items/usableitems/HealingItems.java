@@ -8,14 +8,14 @@ public class HealingItems extends Item {
 	private final int value2;
 
 
-	public HealingItems(String name, String type, int value) {
-		super(name, type);
+	public HealingItems(String name, String type, int value, double dropRate) {
+		super(name, type, dropRate);
 		this.value = value;
 		this.value2 = 0;
 	}
 
-	public HealingItems(String name, String type, int value, int value2) {
-		super(name, type);
+	public HealingItems(String name, String type, int value, int value2, double dropRate) {
+		super(name, type, dropRate);
 		this.value = value;
 		this.value2 = value2;
 	}
@@ -39,13 +39,17 @@ public class HealingItems extends Item {
 				break;
 			case "System Restore":
 				player.restoreHealth(value);  // Calls the method to restore health
-				player.restoreMana(value);  // Calls the method to restore mana
+				player.restoreMana(value2);  // Calls the method to restore mana
 				break;
-			// Add other item types here or try and use a factory pattern
 			default:
 				System.out.println("Unknown item type");
 				break;
 		}
+	}
+
+	@Override
+	public HealingItems clone() {
+		return (HealingItems) super.clone();
 	}
 
 	@Override

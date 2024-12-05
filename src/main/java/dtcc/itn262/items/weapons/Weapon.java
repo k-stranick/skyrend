@@ -6,18 +6,10 @@ public class Weapon extends Item {
 	private int damage;
 
 
-	public Weapon(String name, int damage, String type, String description) {
-		super(name, type, description);
+	public Weapon(String name, int damage, String type, String description, double dropRate) {
+		super(name, type, description, dropRate);
 		this.damage = damage;
 	}
-
-/*	public Weapon(String name, int damage, String type, String description) {
-		this.weapon = name;
-		this.damage = damage;
-		this.type = type;
-		this.description = description;
-	}*/
-
 
 	public int getDamage() {
 		return damage;
@@ -27,6 +19,10 @@ public class Weapon extends Item {
 		this.damage = damage;
 	}
 
+	@Override
+	public Weapon clone() {
+		return (Weapon) super.clone();
+	}
 
 	@Override
 	public String getDescription() {

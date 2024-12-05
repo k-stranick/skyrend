@@ -1,0 +1,692 @@
+{
+  "rooms": [
+    [
+      {
+        "index": 0,
+        "name": "The Outskirts",
+        "description": "A lawless area on the edge of the city.",
+        "n": -1,
+        "s": -1,
+        "e": 1,
+        "w": -1,
+        "isSpecial": true,
+        "sceneIndex": 0
+      },
+      {
+        "index": 1,
+        "name": "Neon Corridor",
+        "description": "A bustling district filled with traders.",
+        "n": -1,
+        "s": -1,
+        "e": 2,
+        "w": 0,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 2,
+        "name": "Fusion Park",
+        "description": "A public park where nature and tech blend.",
+        "n": -1,
+        "s": -1,
+        "e": 3,
+        "w": 1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 3,
+        "name": "Cyber Alley",
+        "description": "A narrow alley with questionable tech.",
+        "n": -1,
+        "s": 4,
+        "e": -1,
+        "w": 2,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      null,
+      null,
+      {
+        "index": 28,
+        "name": "Central Node",
+        "description": "An advanced relay hub.",
+        "n": 43,
+        "s": 29,
+        "e": -1,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      {
+        "index": 4,
+        "name": "DataFall Plaza",
+        "description": "A bustling square surrounded by neon billboards.",
+        "n": 3,
+        "s": -1,
+        "e": 5,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 5,
+        "name": "Power Conduit",
+        "description": "A maintenance area for energy conduits.",
+        "n": -1,
+        "s": 6,
+        "e": -1,
+        "w": 4,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      null,
+      {
+        "index": 29,
+        "name": "Neon Hive",
+        "description": "A buzzing hive of activity.",
+        "n": 28,
+        "s": -1,
+        "e": 30,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 30,
+        "name": "Market Square",
+        "description": "A bustling square full of merchants.",
+        "n": -1,
+        "s": 33,
+        "e": 31,
+        "w": 29,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 31,
+        "name": "Cyber Plaza",
+        "description": "A neon-lit meeting spot.",
+        "n": -1,
+        "s": 34,
+        "e": 32,
+        "w": 30,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 32,
+        "name": "Data Core",
+        "description": "The heart of Skyrend's data system.",
+        "n": -1,
+        "s": 35,
+        "e": -1,
+        "w": 31,
+        "isSpecial": false,
+        "sceneIndex": -1
+      }
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      {
+        "index": 6,
+        "name": "StormW3ll Station",
+        "description": "An old train station repurposed as a meeting ground.",
+        "n": 5,
+        "s": 12,
+        "e": 7,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 7,
+        "name": "The Drift Way",
+        "description": "A dangerous floating sky rail.",
+        "n": -1,
+        "s": -1,
+        "e": 8,
+        "w": 6,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 8,
+        "name": "Rune Street Markets",
+        "description": "A chaotic black market.",
+        "n": -1,
+        "s": 13,
+        "e": -1,
+        "w": 7,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 33,
+        "name": "Quantum Nexus",
+        "description": "A hub for scientific research.",
+        "n": 30,
+        "s": -1,
+        "e": 34,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 34,
+        "name": "Quantum Labs",
+        "description": "A high-tech laboratory.",
+        "n": 31,
+        "s": -1,
+        "e": 35,
+        "w": 33,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 35,
+        "name": "Research Core",
+        "description": "The center of groundbreaking experiments.",
+        "n": 32,
+        "s": -1,
+        "e": -1,
+        "w": 34,
+        "isSpecial": false,
+        "sceneIndex": -1
+      }
+    ],
+    [
+      null,
+      {
+        "index": 9,
+        "name": "Arcane Synth Bay",
+        "description": "A fusion lab for cybernetic enhancements.",
+        "n": -1,
+        "s": -1,
+        "e": 10,
+        "w": -1,
+        "isSpecial": true,
+        "sceneIndex": 1
+      },
+      {
+        "index": 10,
+        "name": "Ghost Terminal",
+        "description": "A server room where Ghost Code emerged.",
+        "n": -1,
+        "s": 14,
+        "e": 11,
+        "w": 9,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 11,
+        "name": "Giga Tower",
+        "description": "A towering skyscraper.",
+        "n": -1,
+        "s": -1,
+        "e": 12,
+        "w": 10,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 12,
+        "name": "Circuit Yard",
+        "description": "A spacious yard used by traders and scavengers.",
+        "n": 6,
+        "s": -1,
+        "e": -1,
+        "w": 11,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      null,
+      {
+        "index": 13,
+        "name": "Abandoned Tech Labs",
+        "description": "A research facility overrun with AI.",
+        "n": 8,
+        "s": -1,
+        "e": -1,
+        "w": -1,
+        "isSpecial": true,
+        "sceneIndex": 2
+      },
+      {
+        "index": 36,
+        "name": "Prototype Zone",
+        "description": "Testing grounds for new inventions.",
+        "n": -1,
+        "s": -1,
+        "e": 37,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 37,
+        "name": "Memory Fields",
+        "description": "A quiet area for reflection.",
+        "n": -1,
+        "s": -1,
+        "e": 38,
+        "w": 36,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 38,
+        "name": "Digital Gardens",
+        "description": "A tranquil garden filled with tech flora.",
+        "n": -1,
+        "s": 42,
+        "e": -1,
+        "w": 37,
+        "isSpecial": false,
+        "sceneIndex": -1
+      }
+    ],
+    [
+      null,
+      null,
+      {
+        "index": 14,
+        "name": "Sky Bridge",
+        "description": "A high-altitude bridge connecting sectors.",
+        "n": 10,
+        "s": 16,
+        "e": -1,
+        "w": -1,
+        "isSpecial": true,
+        "sceneIndex": 3
+      },
+      null,
+      {
+        "index": 15,
+        "name": "Aetheric Archway",
+        "description": "An ornate gateway leading to Skyrend's beautiful cybernetic gardens.",
+        "n": -1,
+        "s": 18,
+        "e": 39,
+        "w": -1,
+        "isSpecial": true,
+        "sceneIndex": 4
+      },
+      {
+        "index": 39,
+        "name": "Harmony Bay",
+        "description": "A serene port by the Aether rivers.",
+        "n": -1,
+        "s": -1,
+        "e": 40,
+        "w": 15,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 40,
+        "name": "Aetheric Pathway",
+        "description": "A serene path leading to the heart of the Aether Garden.",
+        "n": -1,
+        "s": -1,
+        "e": 41,
+        "w": 39,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 41,
+        "name": "Garden's Core",
+        "description": "The central hub where Aether energy converges.",
+        "n": -1,
+        "s": 44,
+        "e": -1,
+        "w": 40,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      null,
+      {
+        "index": 42,
+        "name": "Ethereal Gate",
+        "description": "A mystical gateway into the deeper realms of the garden.",
+        "n": 38,
+        "s": 45,
+        "e": -1,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      }
+    ],
+    [
+      {
+        "index": 43,
+        "name": "Final Frontier",
+        "description": "The last step before the unknown.",
+        "n": 28,
+        "s": 46,
+        "e": -1,
+        "w": -1,
+        "isSpecial": true,
+        "sceneIndex": 6
+      },
+      null,
+      {
+        "index": 16,
+        "name": "Iron District",
+        "description": "An industrial zone filled with factories.",
+        "n": 14,
+        "s": -1,
+        "e": 17,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 17,
+        "name": "Scrapyard",
+        "description": "A graveyard of discarded machinery.",
+        "n": -1,
+        "s": -1,
+        "e": 18,
+        "w": 16,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 18,
+        "name": "Red Circuit Warehouse",
+        "description": "A storage facility for stolen tech.",
+        "n": 15,
+        "s": 19,
+        "e": -1,
+        "w": 17,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      null,
+      null,
+      {
+        "index": 44,
+        "name": "Phantom's Edge",
+        "description": "An overlook with an eerie past.",
+        "n": 41,
+        "s": 48,
+        "e": -1,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      null,
+      {
+        "index": 45,
+        "name": "Dark Passage",
+        "description": "Some kind of description.",
+        "n": 42,
+        "s": 50,
+        "e": -1,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      }
+    ],
+    [
+      {
+        "index": 46,
+        "name": "Old Archive",
+        "description": "An ancient vault of knowledge.",
+        "n": 43,
+        "s": 51,
+        "e": -1,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      null,
+      {
+        "index": 47,
+        "name": "5kyl1ne",
+        "description": "A breathtaking view of the city.",
+        "n": -1,
+        "s": 53,
+        "e": -1,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      null,
+      {
+        "index": 19,
+        "name": "Obsidian Relay",
+        "description": "A central hub of the AetherGrid.",
+        "n": 18,
+        "s": 21,
+        "e": 20,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 20,
+        "name": "NullSpace Hub",
+        "description": "A digital realm where space and time distort.",
+        "n": -1,
+        "s": -1,
+        "e": -1,
+        "w": 19,
+        "isSpecial": true,
+        "sceneIndex": 5
+      },
+      null,
+      {
+        "index": 48,
+        "name": "Aetheric Grove",
+        "description": "A lush grove glowing with vibrant Aether energy.",
+        "n": 44,
+        "s": -1,
+        "e": 49,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 49,
+        "name": "Luminal Corridor",
+        "description": "A radiant passage that seems to stretch infinitely.",
+        "n": -1,
+        "s": -1,
+        "e": 50,
+        "w": 48,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 50,
+        "name": "Aetheric Chasm",
+        "description": "A vast, glowing chasm where Aether flows endlessly.",
+        "n": 45,
+        "s": -1,
+        "e": -1,
+        "w": 49,
+        "isSpecial": false,
+        "sceneIndex": -1
+      }
+    ],
+    [
+      {
+        "index": 51,
+        "name": "Forgotten Path",
+        "description": "A mysterious road leading nowhere.",
+        "n": 46,
+        "s": 55,
+        "e": 52,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 52,
+        "name": "Silent Observatory",
+        "description": "A peaceful spot for observation.",
+        "n": -1,
+        "s": -1,
+        "e": 53,
+        "w": 51,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 53,
+        "name": "Luminous Field",
+        "description": "A field glowing with magical energy.",
+        "n": 47,
+        "s": 57,
+        "e": 54,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 54,
+        "name": "Stellar Bridge",
+        "description": "A fragmented bridge above the stars.",
+        "n": -1,
+        "s": -1,
+        "e": 21,
+        "w": 53,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 21,
+        "name": "Aether Nexus",
+        "description": "The towering heart of Skyrend.",
+        "n": 19,
+        "s": 22,
+        "e": -1,
+        "w": 54,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      {
+        "index": 55,
+        "name": "Echoing Halls",
+        "description": "An immense music hall that reverberates with power.",
+        "n": 51,
+        "s": -1,
+        "e": 56,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 56,
+        "name": "Eternal Hallway",
+        "description": "A place where time seems to stop.",
+        "n": -1,
+        "s": -1,
+        "e": 57,
+        "w": 55,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 57,
+        "name": "Fenrisúlfr Gate",
+        "description": "The last step before the unknown.",
+        "n": 53,
+        "s": -1,
+        "e": -1,
+        "w": 56,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      null,
+      {
+        "index": 22,
+        "name": "Echo Vault",
+        "description": "A hidden digital vault.",
+        "n": 21,
+        "s": -1,
+        "e": 23,
+        "w": -1,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 23,
+        "name": "Void Space",
+        "description": "The long path to a worthy foe...",
+        "n": -1,
+        "s": -1,
+        "e": 24,
+        "w": 22,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 24,
+        "name": "Void Space",
+        "description": "...",
+        "n": -1,
+        "s": -1,
+        "e": 25,
+        "w": 23,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 25,
+        "name": "Void Space",
+        "description": "...getting closer...",
+        "n": -1,
+        "s": -1,
+        "e": 26,
+        "w": 24,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 26,
+        "name": "Void Space",
+        "description": "... in the words of Scar 'Be Prepared'...",
+        "n": -1,
+        "s": -1,
+        "e": 27,
+        "w": 25,
+        "isSpecial": false,
+        "sceneIndex": -1
+      },
+      {
+        "index": 27,
+        "name": "Fractured Nexus",
+        "description": "A hidden digital plane where reality fractures, distorting time and space.",
+        "n": -1,
+        "s": -1,
+        "e": -1,
+        "w": 26,
+        "isSpecial": true,
+        "sceneIndex": 6
+      }
+    ]
+  ]
+}

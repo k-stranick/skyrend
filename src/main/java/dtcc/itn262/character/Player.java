@@ -7,18 +7,21 @@ import dtcc.itn262.items.weapons.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static dtcc.itn262.utilities.input.Validation.validateName;
 
 public class Player {
-	private final List<HealingItems> itemsList;// = new ArrayList<>();  // Add an inventory
-	public final List<Weapon> weaponList; // = new ArrayList<>();
-	public final List<Armor> armorList; // = new ArrayList<>();
+	public final List<Weapon> playerWeaponList; // = new ArrayList<>();
+	public final List<Armor> playerArmorList; // = new ArrayList<>();
+	private final List<HealingItems> playerItemsList;// = new ArrayList<>();  // Add an inventory
+	private transient Map<Integer, Item> inventoryIndexMap; // Tried to use @Expose annotation but it didn't work will need to revisit
 	private final String hero;
 	private final PlayerAttributes playerAttributes;
 	private int playerRow;
 	private int playerCol;
 	private Armor equippedArmor;
+	private Weapon equippedWeapon;
 	//private final List<StatusEffect> statusEffects = new ArrayList<>();
 
 	// Constructor for Player class
@@ -27,11 +30,10 @@ public class Player {
 		playerAttributes = new PlayerAttributes();
 		this.playerRow = startRow;
 		this.playerCol = startCol;
-		this.armorList = new ArrayList<>();
-		this.weaponList = new ArrayList<>();
-		this.itemsList = new ArrayList<>();
+		this.playerArmorList = new ArrayList<>();
+		this.playerWeaponList = new ArrayList<>();
+		this.playerItemsList = new ArrayList<>();
 	}
-
 
 	// Factory method to create a Player with validation
 	public static Player createPlayer(String name, int startRow, int startCol) {
@@ -39,20 +41,24 @@ public class Player {
 		return new Player(validatedName, startRow, startCol);
 	}
 
+	// returns the player attributes in PlayerAttributes class
 	public PlayerAttributes getPlayerAttributes() {
 		return playerAttributes;
-	} // returns the player attributes in PlayerAttributes class
+	}
 
+	// Getter playerRow
 	public int getPlayerRow() {
 		return playerRow;
 	}
 
-	public int getPlayerCol() { 	// Getter playerCol
+	// Getter playerCol
+	public int getPlayerCol() {
 
 		return playerCol;
 	}
 
-	public void moveTo(int newRow, int newCol) {	// Method to move the player to a new position
+	// Method to move the player to a new position by setting current playerRow and playerCol to new row/col
+	public void moveTo(int newRow, int newCol) {
 
 		this.playerRow = newRow;
 		this.playerCol = newCol;
@@ -62,21 +68,37 @@ public class Player {
 		return hero;
 	}
 
+	public void gainExperience(int xp) {
+		playerAttributes.setExperience(playerAttributes.getExperience() + xp);
+		checkLevelUp();
+	}
+
+	private void checkLevelUp() {
+		while (playerAttributes.getExperience() >= LevelingSystem.getXpForNextLevel(playerAttributes.getLevel())) {
+			playerAttributes.setExperience(playerAttributes.getExperience() - LevelingSystem.getXpForNextLevel(playerAttributes.getLevel()));
+			levelUp();
+		}
+	}
+
+	private void levelUp() {
+		playerAttributes.setLevel(playerAttributes.getLevel() + 1 + playerAttributes.getLevel());
+		playerAttributes.setStrength(playerAttributes.getStrength() + 5 + playerAttributes.getLevel());
+		playerAttributes.setDefense(playerAttributes.getDefense() + 5 + playerAttributes.getLevel());
+		playerAttributes.setMaxHealth(playerAttributes.getMaxHealth() + 20 + playerAttributes.getLevel());
+		playerAttributes.setHealth(playerAttributes.getMaxHealth());
+		playerAttributes.setMagic(playerAttributes.getMagic() + 5 + playerAttributes.getLevel());
+		playerAttributes.setMagicDefense(playerAttributes.getMagicDefense() + 5 + playerAttributes.getLevel());
+		playerAttributes.setMaxMana(playerAttributes.getMaxMana() + 10 + playerAttributes.getLevel());
+		playerAttributes.setMana(playerAttributes.getMaxMana());
+		playerAttributes.setSpeed(playerAttributes.getSpeed() + 2 + playerAttributes.getLevel());
+		playerAttributes.setLuck(playerAttributes.getLuck() + 1 + playerAttributes.getLevel());
+		System.out.println(hero + " leveled up to level " + playerAttributes.getLevel() + "!");
+	}
+
 	public void takeDamage(int damage) {
 		int currentHealth = playerAttributes.getHealth();
 		playerAttributes.setHealth(currentHealth - damage);  // Update health using the setter
 		System.out.println(getHeroName() + " took " + damage + " damage. Current health: " + playerAttributes.getHealth());
-	}
-
-	public void displayItems() {
-		for (int i = 0; i < itemsList.size(); i++) {
-			System.out.println(i + ". " + itemsList.get(i).getName());
-		}
-	}
-
-	public void addItem(HealingItems item) { 	// Method to add an item to the player's inventory
-		itemsList.add(item);
-		System.out.println(item.getName() + " added to the inventory.");
 	}
 
 	public void restoreHealth(int amount) {
@@ -95,17 +117,6 @@ public class Player {
 		return playerAttributes.getHealth() > 0;
 	}
 
-	public void addWeapon(Weapon weapon) {
-		weaponList.add(weapon);
-		System.out.println(weapon.getName() + " added to the inventory.");
-	}
-
-	public void addArmor(Armor armor) {
-		armorList.add(armor);
-		System.out.println(armor.getName() + " added to the inventory.");
-
-	}
-
 	private void updateDefense() {
 		int totalDefense = playerAttributes.getDefense();
 		if (equippedArmor != null) {
@@ -114,8 +125,32 @@ public class Player {
 		playerAttributes.setDefense(totalDefense);
 	}
 
-	public void equipArmor(Armor armor) {
-		if (armorList.contains(armor)) {
+	private void updateStrength() {
+		int totalStrength = playerAttributes.getStrength();
+		if (equippedWeapon != null) {
+			totalStrength += equippedWeapon.getDamage();
+		}
+		playerAttributes.setStrength(totalStrength);
+	}
+
+	public void addWeapon(Weapon weapon) {
+		playerWeaponList.add(weapon);
+		System.out.println(weapon.getName() + " added to the inventory.");
+	}
+
+	public void addArmor(Armor armor) {
+		playerArmorList.add(armor);
+		System.out.println(armor.getName() + " added to the inventory.");
+
+	}
+
+	public void addItem(HealingItems item) {    // Method to add an item to the player's inventory
+		playerItemsList.add(item);
+		System.out.println(item.getName() + " added to the inventory.");
+	}
+
+	public void equippedArmor(Armor armor) {
+		if (playerArmorList.contains(armor)) {
 			equippedArmor = armor;
 			updateDefense();
 			System.out.println(getHeroName() + " equipped " + armor.getName() + ".");
@@ -124,91 +159,99 @@ public class Player {
 		}
 	}
 
-	public void displayWeapons() {
-		for (int i = 0; i < weaponList.size(); i++) {
-			System.out.println(i + ". " + weaponList.get(i).getName());
+	public void equippedWeapon(Weapon weapon) {
+		if (playerWeaponList.contains(weapon)) {
+			equippedWeapon = weapon;
+			updateStrength();
+			System.out.println(getHeroName() + " equipped " + weapon.getName() + ".");
+		} else {
+			System.out.println("You do not have " + weapon.getName() + " in your inventory.");
+		}
+	}
+	
+	public Armor getEquippedArmor() {
+		return equippedArmor;
+	}
+
+	public Weapon getEquippedWeapon() {
+		return equippedWeapon;
+	}
+
+	public void displayAllItemsInInventory(List<? extends Item> itemList, String itemType) {
+		for (int i = 0; i < itemList.size(); i++) {
+			Item item = itemList.get(i);
+			String equippedIndicator = "";
+
+			// Check if the item is equipped, if applicable
+			if (item instanceof Weapon && item.equals(this.getEquippedWeapon())) {
+				equippedIndicator = "(Equipped)";
+			} else if (item instanceof Armor && item.equals(this.getEquippedArmor())) {
+				equippedIndicator = "(Equipped)";
+			}
+
+			System.out.println(i + ": " + item.getName() + " " + equippedIndicator + " - " + item.getDescription());
 		}
 	}
 
-
-	public void displayArmor() {
-		for (int i = 0; i < armorList.size(); i++) {
-			System.out.println(i + ". " + armorList.get(i).getName());
-		}
+	public List<HealingItems> getPlayerItemsList() {
+		return playerItemsList;
 	}
 
-	public List<HealingItems> getItemsList() {
-		return itemsList;
-	}
-	public List<Weapon> getWeaponList() {
-		return weaponList;
+	public List<Weapon> getPlayerWeaponList() {
+		return playerWeaponList;
 	}
 
-	public List<Armor> getArmorList() {
-		return armorList;
+	public List<Armor> getPlayerArmorList() {
+		return playerArmorList;
 	}
 
 	public List<Item> getInventory() {
 		List<Item> inventory = new ArrayList<>();
 
 		// Add all weapons to the inventory
-		inventory.addAll(weaponList);
+		inventory.addAll(playerWeaponList);
 
 		// Add all armors to the inventory
-		inventory.addAll(armorList);
+		inventory.addAll(playerArmorList);
 
 		// Add all usable items to the inventory
-		inventory.addAll(itemsList);
+		inventory.addAll(playerItemsList);
 
 		return inventory;
 	}
 
 	@Override
 	public String toString() {  //Should I move this to PlayerAttributes class?
+		int xpForNextLevel = LevelingSystem.getXpForNextLevel(playerAttributes.getLevel());
+
 		return "Hero: " + hero +
+				"\nLevel: " + playerAttributes.getLevel() +
+				"\nExperience: " + playerAttributes.getExperience() + "/" + xpForNextLevel +
 				"\nStrength: " + playerAttributes.getStrength() +
 				"\nHealth: " + playerAttributes.getHealth() +
 				"\nMana: " + playerAttributes.getMana() +
-				"\nLevel: " + playerAttributes.getLevel() +
 				"\nDefense: " + playerAttributes.getDefense() +
 				"\nMagic: " + playerAttributes.getMagic() +
 				"\nMagic Defense: " + playerAttributes.getMagicDefense() +
 				"\nSpeed: " + playerAttributes.getSpeed() +
-				"\nLuck: " + playerAttributes.getLuck() +
-				"\nExperience: " + playerAttributes.getExperience();
+				"\nLuck: " + playerAttributes.getLuck();
 	}
+
+	public void setInventoryIndexMap(Map<Integer, Item> map) {
+		this.inventoryIndexMap = map;
+	}
+
+	public Map<Integer, Item> getInventoryIndexMap() {
+		return inventoryIndexMap;
+	}
+
 
 
 
 	/*	public void setShielded(boolean b) {// TODO: Implement this method
 	}*/
-	/*	public void equipWeapon(int weaponIndex) {
-		if (weaponIndex >= 0 && weaponIndex < weaponList.size()) {
-			IWeapon weapon = weaponList.get(weaponIndex);
-			playerAttributes.setStrength(weapon.getDamage());
-			System.out.println(getHero() + " equipped " + weapon.getWeapon() + ".");
-		} else {
-			System.out.println("Invalid weapon choice.");
-		}
-	}*/
-	/*    public void setHero(String hero) {
-			this.hero = hero;
-		}*/  // keep give players option later to change their same
-	/*	public void unequipArmor() {
-		if (equippedArmor != null) {
-			System.out.println(getHero() + " unequipped " + equippedArmor.getArmor() + ".");
-			equippedArmor = null;
-			updateDefense();
-		} else {
-			System.out.println(getHero() + " has no armor equipped.");
-		}
-	}*/
-	/*	public void unequipWeapon() {
-		playerAttributes.setStrength(0);
-		System.out.println(getHero() + " unequipped weapon.");
-	}*/
-	/*
 
+	/*
 
 	public void addStatusEffect(StatusEffect effect) {
 		System.out.println(getHero() + " is now affected by " + effect.getName() + ".");
@@ -224,15 +267,5 @@ public class Player {
 	}
 
 */
-	/*    public void setPlayerCol(int playerCol) {
-        this.playerCol = playerCol;
-    }*/ // keep I can set up random entry once a player object is created
-	/*    // Method to remove an item from the player's inventory
-    public void removeItem(Items item) {
-        inventory.remove(item);
-        System.out.println(item.getName() + " removed from the inventory.");
-    }*/ // KEEP THIS I CAN TRY AND USE IT FOR OUTSIDE OF COMBAT??
- 	/*   public void setPlayerRow(int playerRow) {
-        this.playerRow = playerRow;
-    }*/ // keep I can set up random entry once a player object is created
+
 }

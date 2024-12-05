@@ -140,7 +140,6 @@ public class PlayerAttributes {
 		this.speed = speed;
 	}
 
-
 	public int getLuck() {
 		return luck;
 	}
@@ -156,4 +155,7 @@ public class PlayerAttributes {
 	public void setExperience(int experience) {
 		this.experience = experience;
 	}
+
+
+
 }

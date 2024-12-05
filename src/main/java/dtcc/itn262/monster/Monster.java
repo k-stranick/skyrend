@@ -1,6 +1,7 @@
 package dtcc.itn262.monster;
 // TODO Turn this into an interface and allow generic monsters and bosses implement it
 
+import dtcc.itn262.items.Item;
 import dtcc.itn262.skills.monsterskills.IMonsterSkill;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Monster {
         this.monster = monster;
         this.monsterAttributes = attributes;
         this.monsterSkills = new ArrayList<>();
+
     }
 
     public String getMonster() {
@@ -41,15 +43,17 @@ public class Monster {
         monsterSkills.add(skill);
     }
 
+
     @Override
     public String toString() {
-        return "Monster: " + monster + "\nStrength: " + monsterAttributes.getStrength()
+        return "Monster: " + monster
+                + "\nExperience: " + monsterAttributes.getExperience()
+                + "\nStrength: " + monsterAttributes.getStrength()
                 + "\nHealth: " + monsterAttributes.getHealth()
                 + "\nMana: " + monsterAttributes.getMana()
                 + "\nDefense: " + monsterAttributes.getDefense()
                 + "\nSpeed: " + monsterAttributes.getSpeed()
                 + "\nLuck: " + monsterAttributes.getLuck()
-                + "\nExperience: " + monsterAttributes.getExperience()
                 + "\nGold: " + monsterAttributes.getGold()
                 + "\nMagic: " + monsterAttributes.getMagic()
                 + "\nMagic Defense: " + monsterAttributes.getMagicDefense()
