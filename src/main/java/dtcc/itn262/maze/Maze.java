@@ -186,13 +186,13 @@ public class Maze {
 				Room room = this.map[row][col];  // Get the room from the map
 
 				if (room == null) {
-					System.out.print("     ");  // Empty spaces for null rooms
+					System.out.print("~~~~~~");  // Empty spaces for null rooms
 				} else if (row == player.getPlayerRow() && col == player.getPlayerCol()) {
-					System.out.print("[P]  ");  // Show player's position
+					System.out.print(" <[P]>");  // Show player's position
 				} else if (room.isVisited()) {
-					System.out.print("[ ]  ");  // Show visited rooms
+					System.out.print(" <[x]>");  // Show visited rooms
 				} else {
-					System.out.print("[=]  ");  // Show unvisited rooms
+					System.out.print(" <[ ]>");  // Show unvisited rooms
 				}
 			}
 			System.out.println();  // Newline after each row
