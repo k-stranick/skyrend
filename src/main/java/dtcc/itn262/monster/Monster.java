@@ -1,7 +1,6 @@
 package dtcc.itn262.monster;
 // TODO Turn this into an interface and allow generic monsters and bosses implement it
 
-import dtcc.itn262.items.Item;
 import dtcc.itn262.skills.monsterskills.IMonsterSkill;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class Monster {
     }
 
     public boolean isAlive() {
-        return monsterAttributes.getHealth() > 0;
+        return monsterAttributes.getActiveHealth() > 0;
     }
 
     public List<IMonsterSkill> getMonsterSkills() {
@@ -49,7 +48,7 @@ public class Monster {
         return "Monster: " + monster
                 + "\nExperience: " + monsterAttributes.getExperience()
                 + "\nStrength: " + monsterAttributes.getStrength()
-                + "\nHealth: " + monsterAttributes.getHealth()
+                + "\nHealth: " + monsterAttributes.getActiveHealth()
                 + "\nMana: " + monsterAttributes.getMana()
                 + "\nDefense: " + monsterAttributes.getDefense()
                 + "\nSpeed: " + monsterAttributes.getSpeed()

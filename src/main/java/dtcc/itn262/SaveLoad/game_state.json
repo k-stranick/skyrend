@@ -24,7 +24,7 @@
     "playerAttributes": {
       "level": 1,
       "strength": 1007,
-      "defense": 1040,
+      "defense": 1075,
       "health": 200,
       "maxHealth": 200,
       "magic": 20,
@@ -33,10 +33,10 @@
       "maxMana": 100,
       "speed": 10,
       "luck": 100,
-      "experience": 100
+      "experience": 125
     },
-    "playerRow": 0,
-    "playerCol": 1,
+    "playerRow": 2,
+    "playerCol": 5,
     "equippedArmor": {
       "defenseBoost": 35,
       "name": "Aether Reactor Suit",
@@ -46,7 +46,9 @@
     }
   },
   "uniqueVisitedRooms": [
-    "The Outskirts"
+    "The Outskirts",
+    "Arcane Synth Bay",
+    "Abandoned Tech Labs"
   ],
   "moveHistory": [
     "Neon Corridor",
@@ -61,6 +63,24 @@
     "Fusion Park",
     "Cyber Alley",
     "Fusion Park",
-    "Neon Corridor"
+    "Neon Corridor",
+    "Fusion Park",
+    "Cyber Alley",
+    "DataFall Plaza",
+    "Power Conduit",
+    "StormW3ll Station",
+    "Circuit Yard",
+    "Giga Tower",
+    "Ghost Terminal",
+    "Arcane Synth Bay",
+    "Ghost Terminal",
+    "Giga Tower",
+    "Circuit Yard",
+    "StormW3ll Station",
+    "The Drift Way",
+    "Rune Street Markets",
+    "Abandoned Tech Labs",
+    "Rune Street Markets",
+    "The Drift Way"
   ]
 }

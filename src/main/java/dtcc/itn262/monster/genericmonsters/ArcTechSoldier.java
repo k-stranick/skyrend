@@ -5,7 +5,7 @@ import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.skills.monsterskills.Slash;
 
 public class ArcTechSoldier extends Monster {
-	public ArcTechSoldier() {
+	public ArcTechSoldier(int playerLevel) {
 		super("ArcTech Soldier", new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(150)
 				.withMaxHealth(150)
@@ -20,7 +20,7 @@ public class ArcTechSoldier extends Monster {
 				.withType("Cybernetic Enforcer")
 				.withDescription("Cybernetic enforcers patrolling the streets of Skyrend, ensuring the Council's laws are upheld. They are heavily armed and dangerous, following strict orders to maintain control over the populace.")
 				.withExperience(25)
-				.build());
+				.build(playerLevel));
 
 		// Skills for the enemy
 		addSkill(new Slash());

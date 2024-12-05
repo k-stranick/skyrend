@@ -577,7 +577,7 @@
         "s": 22,
         "e": -1,
         "w": 54,
-        "isSpecial": false,
+        "isSpecial": true,
         "sceneIndex": -1
       },
       null,

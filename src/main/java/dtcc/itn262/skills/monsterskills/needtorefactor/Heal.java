@@ -46,7 +46,7 @@ public class Heal implements IMonsterSkill {
 			System.out.println("Not enough mana to use " + getSkillName());
 		} else if (monster.getMonsterAttributes().getMana()  >= MANA_COST) {
 			monster.getMonsterAttributes().setMana(monster.getMonsterAttributes().getMana() - MANA_COST);
-			monster.getMonsterAttributes().setHealth((int) Math.round(monster.getMonsterAttributes().getHealth() + heal));
+			monster.getMonsterAttributes().setActiveHealth((int) Math.round(monster.getMonsterAttributes().getActiveHealth() + heal));
 			System.out.println(monster.getMonster() + " uses " + getSkillName() + " for " + heal + " health.");
 		}
 	}

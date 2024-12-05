@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05182ae1-d102-4666-b7ff-0513447a3bd8" name="Changes" comment="building the basis for a turned based text-based game, but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown, but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat, but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at a map to see where player it&#10;&#10;combat is less broken need to fix issue with monster attacking multiple times, and if I use the other code I exit right after I attack&#10;&#10;fixed the issue of re-instantiating player a second time when maze is created&#10;&#10;currently runs, but I am facing issues where turns will still execute even after death.&#10;need to still refactor turn-based fight logic.&#10;&#10;refactored the turn-based logic, able to implement random encounters, flushed out classes implementing logging&#10;&#10;added monsters and bosses, fixed repeating special event logic, fixed special events, maybe implement leveling up or just increase stats for the time being&#10;&#10;&#10;working&#10;&#10;&#10;added search items, added better random logic fixed class cast exception error, created weapons, items, special boss, need to flush out story need to add to PlayerActions equip and unequipped methods&#10;there are issues where I can access rooms that were not accessible before, but i never changed the movement logic so why is this?? &#10;did a bunch of stuff, but I need to polish this game&#10;&#10;added music for battle and traversal&#10;&#10;MOVEMENT now kind of broken will pull new branch and debug&#10;&#10;11/4 &#10;where is this updating to?&#10;if this breaks, then revert to the previous&#10;&#10;updating commit to GitHub&#10;&#10;11/22&#10;starting Final due 12/6 PrimaryBranchTEST&#10;&#10;11/28&#10;refactored map to add additional rooms need to add logic to bring in JSON file and display the map now&#10;&#10;JSON is loaded properly, need to clean up the classes associated&#10;currently working on turn-based combat then &#10;I will build the exp and leveling system&#10;after this I will work on adjusting turn based on cooldowns and skills will work on save/load&#10;finalize with easy stuff like music&#10;&#10;working on save state and changing interfaces to parent classes&#10;&#10;save load working trying to refactor to make more sense,&#10;&#10;working on item expansion will circle back to save/load&#10;worked around items not serializing properly due to abstract classes &#10;save load works as it should, it does not clear the x's on the map but that is ok for now&#10;&#10;12/3&#10;Working on adding more than 1 monster to combat need to implement selecting a monster &#10;need to add priority queue to combat &#10;need to polish code and seperate concerns&#10;&#10;&#10;the priority queue is more challenging than I thought I do not know why it keeps looping.&#10;I have reverted back to a previous state where the game works and I will stat new.&#10;for now I will build the EXP system&#10;&#10;&#10; exp works items work inventory from map works need to add multiple enemies and continue back on queue&#10; &#10; still not working on queue but I am cleaning up code with generics&#10; &#10; cleaning up the map a little" />
+    <list default="true" id="05182ae1-d102-4666-b7ff-0513447a3bd8" name="Changes" comment="building the basis for a turned based text-based game, but I need to implement stacks. the cooldowns will help since I can add the skills to a list and i can use peek(); to see if the previous skill is still on cooldown, but I need to use push and .isEmpty(); maybe i can implement in moving around the map&#10;&#10;9/14/2024:&#10;Setting up monster and player skills&#10;implemented interfaces for modularity, &#10;each skill is responsible for its own methods leading to more robust skills&#10;added to other base classes, but nothing notable &#10; currently building combat logic to stack skills for cooldown need to implement peek():&#10;will implement REDO ATTACK DEFEND SKILL EQUIP will need to place skills into an array that I can select from &#10;will work on weapons class next which will add buffs to player attributes based off item&#10;TODO:&#10;need to build simple map and use stack logic to move from one area to the next&#10;need to create random encounters&#10;need to finish weapons class&#10;need to create equipment&#10;need to create action list??&#10;&#10;stopping for the night finished basic combat, but it is still broken&#10;&#10;worked on movement and setting up for special events&#10;need to build special events&#10;created run function but need to make better&#10;can look at a map to see where player it&#10;&#10;combat is less broken need to fix issue with monster attacking multiple times, and if I use the other code I exit right after I attack&#10;&#10;fixed the issue of re-instantiating player a second time when maze is created&#10;&#10;currently runs, but I am facing issues where turns will still execute even after death.&#10;need to still refactor turn-based fight logic.&#10;&#10;refactored the turn-based logic, able to implement random encounters, flushed out classes implementing logging&#10;&#10;added monsters and bosses, fixed repeating special event logic, fixed special events, maybe implement leveling up or just increase stats for the time being&#10;&#10;&#10;working&#10;&#10;&#10;added search items, added better random logic fixed class cast exception error, created weapons, items, special boss, need to flush out story need to add to PlayerActions equip and unequipped methods&#10;there are issues where I can access rooms that were not accessible before, but i never changed the movement logic so why is this?? &#10;did a bunch of stuff, but I need to polish this game&#10;&#10;added music for battle and traversal&#10;&#10;MOVEMENT now kind of broken will pull new branch and debug&#10;&#10;11/4 &#10;where is this updating to?&#10;if this breaks, then revert to the previous&#10;&#10;updating commit to GitHub&#10;&#10;11/22&#10;starting Final due 12/6 PrimaryBranchTEST&#10;&#10;11/28&#10;refactored map to add additional rooms need to add logic to bring in JSON file and display the map now&#10;&#10;JSON is loaded properly, need to clean up the classes associated&#10;currently working on turn-based combat then &#10;I will build the exp and leveling system&#10;after this I will work on adjusting turn based on cooldowns and skills will work on save/load&#10;finalize with easy stuff like music&#10;&#10;working on save state and changing interfaces to parent classes&#10;&#10;save load working trying to refactor to make more sense,&#10;&#10;working on item expansion will circle back to save/load&#10;worked around items not serializing properly due to abstract classes &#10;save load works as it should, it does not clear the x's on the map but that is ok for now&#10;&#10;12/3&#10;Working on adding more than 1 monster to combat need to implement selecting a monster &#10;need to add priority queue to combat &#10;need to polish code and seperate concerns&#10;&#10;&#10;the priority queue is more challenging than I thought I do not know why it keeps looping.&#10;I have reverted back to a previous state where the game works and I will stat new.&#10;for now I will build the EXP system&#10;&#10;&#10; exp works items work inventory from map works need to add multiple enemies and continue back on queue&#10; &#10; still not working on queue but I am cleaning up code with generics&#10; &#10; cleaning up the map a little">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/LevelingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/LevelingSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/PlayerAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/character/PlayerAttributes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/PlayerActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/PlayerActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/Monster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/MonsterAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/monster/MonsterAttributes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/monsterskills/DataDrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/monsterskills/DataDrain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/monsterskills/needtorefactor/GlitchSwipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/monsterskills/needtorefactor/GlitchSwipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/monsterskills/needtorefactor/Heal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/monsterskills/needtorefactor/Heal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/playerskills/DivineStrike.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/playerskills/DivineStrike.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/playerskills/PulseBlade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/playerskills/PulseBlade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/playerskills/tobeadded/AetherShield.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/playerskills/tobeadded/AetherShield.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/display/TextDisplayUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtcc/itn262/utilities/display/TextDisplayUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/java/dtcc/itn262/maze/maze.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/resources/maze.txt" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +43,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="PrimaryBranchTEST" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -46,6 +62,10 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="FinalizingProject" />
+                    <option name="lastUsedInstant" value="1733421249" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="PrimaryBranch" />
                     <option name="lastUsedInstant" value="1726285273" />
@@ -110,7 +130,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "#3 on PrimaryBranchTEST",
+    "git-widget-placeholder": "FinalizingProject",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/kstra/OneDrive/Desktop/SCHOOL/5_Fifth_Semester_DTCC/ITN_262_Programming_III/TextBasedAdventure/src/main/java/dtcc/itn262/utilities/soundandmusic/soundfiles",
     "project.structure.last.edited": "SDKs",
@@ -666,7 +686,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/skills/playerskills/DivineStrike.java</url>
           <line>64</line>
-          <properties class="dtcc.itn262.skills.playerskills.DivineStrike" method="useSkill">
+          <properties class="dtcc.itn262.skills.playerskills.DivineStrike">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -675,7 +695,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/combat/MonsterActions.java</url>
           <line>35</line>
-          <properties class="dtcc.itn262.combat.MonsterActions" method="defend">
+          <properties class="dtcc.itn262.combat.MonsterActions">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -684,7 +704,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/dtcc/itn262/SaveLoad/GameSaver.java</url>
           <line>13</line>
-          <properties class="dtcc.itn262.SaveLoad.GameSaver" method="saveGame">
+          <properties class="dtcc.itn262.SaveLoad.GameSaver">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>

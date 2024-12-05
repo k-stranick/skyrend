@@ -69,7 +69,7 @@ public class PlayerActions {
 	protected void attack(Player player, Monster target) {
 		int damage = (player.getPlayerAttributes().getStrength() - target.getMonsterAttributes().getDefense());
 		if (damage > 0) {
-			target.getMonsterAttributes().setHealth(target.getMonsterAttributes().getHealth() - damage);
+			target.getMonsterAttributes().setActiveHealth(target.getMonsterAttributes().getActiveHealth() - damage);
 			System.out.println(player.getHeroName() + " attacks " + target.getMonster() + " for " + damage + " damage.");
 		} else {
 			System.out.println(player.getHeroName() + " attacks " + target.getMonster() + " but the attack is ineffective.");
@@ -87,7 +87,7 @@ public class PlayerActions {
 	protected void scanEnemy(Monster target) {
 		System.out.println("Enemy: " + target.getMonster() +
 				"\nDescription: " + target.getMonsterAttributes().getDescription() +
-				"\nHealth: " + target.getMonsterAttributes().getHealth() +
+				"\nHealth: " + target.getMonsterAttributes().getActiveHealth() +
 				"\nStrength: " + target.getMonsterAttributes().getStrength() +
 				"\nMana: " + target.getMonsterAttributes().getMana() +
 				"\nDefense: " + target.getMonsterAttributes().getDefense() +

@@ -168,11 +168,12 @@ public class Maze {
 		if (chance <= 20) { // 20% chance for an encounter //TODO 1
 
 			System.out.println("A wild monster appears!");
+			int playerLevel = player.getPlayerAttributes().getLevel();
 			List<Monster> monsters = Arrays.asList(
-					new ArcTechSoldier(),
-					new CorruptedAutomaton(),
-					new CyberHound(),
-					new SteelDevourer()
+					new ArcTechSoldier(playerLevel),
+					new CorruptedAutomaton(playerLevel),
+					new CyberHound(playerLevel),
+					new SteelDevourer(playerLevel)
 			);
 			Monster randomMonster = monsters.get(random.nextInt(monsters.size())); // Select a random monster
 			CombatLogic combat = new CombatLogic(player, randomMonster);
@@ -202,6 +203,7 @@ public class Maze {
 	// Define a method to trigger special events
 	private void triggerSpecialEvent(Room room) { //TODO add more
 		Monster monster;
+		int playerLevel = player.getPlayerAttributes().getLevel();
 		CombatLogic combat;
 		switch (room.getName()) {
 			case "Arcane Synth Bay": // set up for 3 rounds of fighting??
@@ -211,12 +213,12 @@ public class Maze {
 				System.out.println("some kind of logic here get a weapon?");
 				break;
 			case "Sky Bridge":
-				monster = new Gilgamesh();
+				monster = new Gilgamesh(playerLevel);
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
 				break;
 			case "Final Frontier":
-				monster = new GhostCodeManifested();
+				monster = new GhostCodeManifested(playerLevel);
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
 				break;
@@ -225,12 +227,12 @@ public class Maze {
 				break;
 			case "Aether Nexus":
 				System.out.println("The final confrontation awaits...");
-				monster = new TheArchitect();
+				monster = new TheArchitect(playerLevel);
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
 				break;
 			case "Fractured Nexus":
-				monster = new TheCipher();
+				monster = new TheCipher(playerLevel);
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
 				break;

@@ -43,7 +43,7 @@ public class DataDrain implements IMonsterSkill {
 		target.getPlayerAttributes().setHealth((int) (target.getPlayerAttributes().getHealth() - healthToAbsorb));
 		target.getPlayerAttributes().setMana((int) (target.getPlayerAttributes().getMana() - manaToAbsorb));
 
-		monster.getMonsterAttributes().setHealth((int) (monster.getMonsterAttributes().getHealth() + healthToAbsorb));
+		monster.getMonsterAttributes().setActiveHealth((int) (monster.getMonsterAttributes().getActiveHealth() + healthToAbsorb));
 		monster.getMonsterAttributes().setMana((int) (monster.getMonsterAttributes().getMana() + manaToAbsorb));
 
 		System.out.println(monster.getMonster() + " uses " + getSkillName() + " on " + target.getHeroName() + " and absorbs " + healthToAbsorb + " health and " + manaToAbsorb + " mana.");

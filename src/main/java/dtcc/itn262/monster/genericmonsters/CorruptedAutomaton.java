@@ -7,7 +7,7 @@ import dtcc.itn262.skills.monsterskills.Slash;
 import dtcc.itn262.skills.monsterskills.SelfDestruct;
 
 public class CorruptedAutomaton extends Monster {
-	public CorruptedAutomaton() {
+	public CorruptedAutomaton(int playerLevel) {
 		super("Corrupted Automaton", new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(200)
 				.withMaxHealth(200)
@@ -22,7 +22,7 @@ public class CorruptedAutomaton extends Monster {
 				.withType("Corrupted Automaton")
 				.withDescription("Machines once built to serve Skyrend but now corrupted by the Ghost Code. They act unpredictably, often attacking everything in sight.")
 				.withExperience(25)
-				.build());
+				.build(playerLevel));
 
 		//Skills for the enemy
 		addSkill(new SelfDestruct());
