@@ -2,7 +2,7 @@
 package dtcc.itn262.skills.monsterskills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.monster.Monster;
 // maybe interfaces are too much
 
 public class Heal implements IMonsterSkill {

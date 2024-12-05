@@ -1,5 +1,6 @@
 package dtcc.itn262.monster.genericmonsters;
 
+import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.skills.monsterskills.DataDrain;
 import dtcc.itn262.skills.monsterskills.Slash;
@@ -20,6 +21,7 @@ public class CorruptedAutomaton extends Monster {
 				.withLuck(5)
 				.withType("Corrupted Automaton")
 				.withDescription("Machines once built to serve Skyrend but now corrupted by the Ghost Code. They act unpredictably, often attacking everything in sight.")
+				.withExperience(25)
 				.build());
 
 		//Skills for the enemy

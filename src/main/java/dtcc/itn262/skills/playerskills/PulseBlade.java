@@ -1,7 +1,7 @@
 package dtcc.itn262.skills.playerskills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.monster.Monster;
 
 
 public class PulseBlade implements PlayerSkill {
@@ -83,7 +83,7 @@ public class PulseBlade implements PlayerSkill {
                     System.out.println(target.getMonster() + " blocked " + getSkillName() + ".");
                 } else {
                     target.getMonsterAttributes().setHealth((int) Math.round(target.getMonsterAttributes().getHealth() - damage)); // deals damage
-                    System.out.println(player.getHero() + " uses " + getSkillName() + " on " + target.getMonster() + " for " + damage + " damage.");
+                    System.out.println(player.getHeroName() + " uses " + getSkillName() + " on " + target.getMonster() + " for " + damage + " damage.");
                 }
                 setCooldown();
             }

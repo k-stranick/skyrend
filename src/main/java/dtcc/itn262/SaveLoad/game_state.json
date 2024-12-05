@@ -1,0 +1,66 @@
+{
+  "player": {
+    "playerWeaponList": [],
+    "playerArmorList": [
+      {
+        "defenseBoost": 35,
+        "name": "Aether Reactor Suit",
+        "description": "A suit that harnesses Aether energy to power a protective barrier, greatly enhancing defense.",
+        "type": "",
+        "dropRate": 0.1
+      }
+    ],
+    "playerItemsList": [
+      {
+        "value": 80,
+        "value2": 0,
+        "name": "Full Aetheric Stim",
+        "description": "Aether potion",
+        "type": "",
+        "dropRate": 0.1
+      }
+    ],
+    "hero": "Hero",
+    "playerAttributes": {
+      "level": 1,
+      "strength": 1007,
+      "defense": 1040,
+      "health": 200,
+      "maxHealth": 200,
+      "magic": 20,
+      "magicDefense": 20,
+      "mana": 100,
+      "maxMana": 100,
+      "speed": 10,
+      "luck": 100,
+      "experience": 100
+    },
+    "playerRow": 0,
+    "playerCol": 1,
+    "equippedArmor": {
+      "defenseBoost": 35,
+      "name": "Aether Reactor Suit",
+      "description": "A suit that harnesses Aether energy to power a protective barrier, greatly enhancing defense.",
+      "type": "",
+      "dropRate": 0.1
+    }
+  },
+  "uniqueVisitedRooms": [
+    "The Outskirts"
+  ],
+  "moveHistory": [
+    "Neon Corridor",
+    "Fusion Park",
+    "Neon Corridor",
+    "Fusion Park",
+    "Neon Corridor",
+    "Fusion Park",
+    "Neon Corridor",
+    "Fusion Park",
+    "Neon Corridor",
+    "Fusion Park",
+    "Cyber Alley",
+    "Fusion Park",
+    "Neon Corridor"
+  ]
+}

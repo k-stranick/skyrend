@@ -1,12 +1,14 @@
 package dtcc.itn262.monster.boss;
 
 import dtcc.itn262.monster.MonsterAttributes;
-import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.monsterskills.*;
 
 public class GhostCodeManifested extends Monster {
 	public GhostCodeManifested() {
-		super("Ghost Code Manifested", new MonsterAttributes.MonsterAttributesBuilder()
+		super(
+				"Ghost Code Manifested",
+				new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(500)
 				.withMaxHealth(500)
 				.withMana(300)
@@ -19,7 +21,9 @@ public class GhostCodeManifested extends Monster {
 				.withLuck(30)
 				.withType("Ghost Code")
 				.withDescription("The Ghost Code Manifested is the embodiment of the chaotic, glitching energy that has disrupted Skyrend's AetherGrid. It is a swirling mass of corrupted data, constantly shifting and morphing, with tendrils of fragmented code flickering in and out of existence. Its form is unstable, often appearing as a distortion in reality itself, with areas around it warping and bending unpredictably.")
-				.build());
+				.withExperience(0)
+				.build()
+		);
 		// Define unique abilities here like Corrupt, DataDrain, etc.
 		addSkill(new Slash());
 		addSkill(new DataDrain());

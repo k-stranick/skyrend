@@ -1,5 +1,6 @@
 package dtcc.itn262.monster.genericmonsters;
 
+import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.skills.monsterskills.Slash;
 
@@ -18,6 +19,7 @@ public class ArcTechSoldier extends Monster {
 				.withLuck(10)
 				.withType("Cybernetic Enforcer")
 				.withDescription("Cybernetic enforcers patrolling the streets of Skyrend, ensuring the Council's laws are upheld. They are heavily armed and dangerous, following strict orders to maintain control over the populace.")
+				.withExperience(25)
 				.build());
 
 		// Skills for the enemy

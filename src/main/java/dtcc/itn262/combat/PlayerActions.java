@@ -3,9 +3,10 @@ package dtcc.itn262.combat;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
 import dtcc.itn262.combat.effects.DefenseBuff;
-import dtcc.itn262.items.usableitems.UsableItems;
-import dtcc.itn262.items.weapons.IWeapon;
-import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.items.armor.Armor;
+import dtcc.itn262.items.usableitems.HealingItems;
+import dtcc.itn262.items.weapons.Weapon;
+import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.playerskills.DivineStrike;
 import dtcc.itn262.skills.playerskills.Heal;
 import dtcc.itn262.skills.playerskills.PlayerSkill;
@@ -16,57 +17,52 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class PlayerActions {
-	static Player player;
 	private final ArrayList<PlayerSkill> skills = new ArrayList<>();
 	CombatLogic combatLogic;
 	Random rand = new Random();
+	private Player player;
 
 	public PlayerActions(CombatLogic combatLogic, Player player) { // adding skills to the player
+		this.combatLogic = combatLogic;
+		this.player = player;
+		initializeSkills();
+	}
+
+	// Overloaded constructor for non-combat
+	public PlayerActions(Player player) {
+		this.player = player;
+		initializeSkills();
+	}
+
+	private void initializeSkills() {
 		skills.add(new DivineStrike());
 		skills.add(new PulseBlade());
 		skills.add(new Heal());
-		this.combatLogic = combatLogic;
-		this.player = player;
 	}
 
-	// make these 3 private methods and add to a parent public method
-	public static void useItem(Player player, int index) {
-		try {
-			if (index >= 0 && index < player.getItemsList().size()) {
-				UsableItems item = player.getItemsList().get(index);
-				item.apply(player); // Apply the item's effect
-				player.getItemsList().remove(index); // Remove the item after use (optional for consumables)
-			} else {
-				System.out.println("Invalid item choice.");
-			}
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("An error occurred while using the item: " + e.getMessage());
+	public void useItem(HealingItems item) {
+		if (player.getPlayerItemsList().contains(item)) {
+			System.out.println("Used " + item.getName() + ".");
+			item.apply(player); // Apply the item's effect
+			player.getPlayerItemsList().remove(item); // Remove the item after use
+		} else {
+			System.out.println("You do not have " + item.getName() + " in your inventory.");
 		}
 	}
 
-	public static void equipWeapon(int weaponIndex) {
-		try {
-			if (weaponIndex >= 0 && weaponIndex < player.weaponList.size()) {
-				IWeapon weapon = player.weaponList.get(weaponIndex);
-				player.getPlayerAttributes().setStrength(weapon.getDamage() + player.getPlayerAttributes().getStrength());
-				System.out.println(player.getHero() + " equipped " + weapon.getWeapon() + ".");
-			} else {
-				System.out.println("Invalid weapon choice.");
-			}
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("An error occurred while equipping the weapon: " + e.getMessage());
+	public void handleWeaponSwapInBattle(Weapon weapon) {
+		if (player.getPlayerWeaponList().contains(weapon)) {
+			player.equippedWeapon(weapon);
+		} else {
+			System.out.println("You do not have " + weapon.getName() + " in your inventory.");
 		}
 	}
 
-	public static void equipArmor(int armorIndex) {
-		try {
-			if (armorIndex >= 0 && armorIndex < player.armorList.size()) {
-				player.equipArmor(player.armorList.get(armorIndex));
-			} else {
-				System.out.println("Invalid armor choice.");
-			}
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("An error occurred while equipping the armor: " + e.getMessage());
+	public void handleArmorSwapInBattle(Armor armor) {
+		if (player.getPlayerArmorList().contains(armor)) {
+			player.equippedArmor(armor);
+		} else {
+			System.out.println("You do not have " + armor.getName() + " in your inventory.");
 		}
 	}
 
@@ -74,9 +70,9 @@ public class PlayerActions {
 		int damage = (player.getPlayerAttributes().getStrength() - target.getMonsterAttributes().getDefense());
 		if (damage > 0) {
 			target.getMonsterAttributes().setHealth(target.getMonsterAttributes().getHealth() - damage);
-			System.out.println(player.getHero() + " attacks " + target.getMonster() + " for " + damage + " damage.");
+			System.out.println(player.getHeroName() + " attacks " + target.getMonster() + " for " + damage + " damage.");
 		} else {
-			System.out.println(player.getHero() + " attacks " + target.getMonster() + " but the attack is ineffective.");
+			System.out.println(player.getHeroName() + " attacks " + target.getMonster() + " but the attack is ineffective.");
 		}
 	}
 
@@ -84,7 +80,7 @@ public class PlayerActions {
 		int buffDuration = 1; // buff lasts for 1 turn
 		DefenseBuff<PlayerAttributes> playerDefenseBuff = new DefenseBuff<>(buffDuration, Constants.DEFENSE_BUFF);
 		playerDefenseBuff.apply(player.getPlayerAttributes());
-		System.out.println(player.getHero() + " defends and gains " + Constants.DEFENSE_BUFF + " defense for " + buffDuration + " turns. Defense increased to " + player.getPlayerAttributes().getDefense());
+		System.out.println(player.getHeroName() + " defends and gains " + Constants.DEFENSE_BUFF + " defense for " + buffDuration + " turns. Defense increased to " + player.getPlayerAttributes().getDefense());
 		combatLogic.activePlayerBuffs.add(playerDefenseBuff);
 	}
 
@@ -149,6 +145,9 @@ public class PlayerActions {
 		}
 	}
 
+	public void showPlayerStats() {
+		System.out.println(player);
+	}
 }
 /*	// Use or equip item based on type from the player's inventory
 	public static void equipOrUseItem(int index) {
@@ -161,7 +160,7 @@ public class PlayerActions {
 			switch (selectedItem) {
 				case IWeapon iWeapon -> equipWeapon(index);  // Equip weapon
 				case Armor armor -> equipArmor(index);  // Equip armor
-				case UsableItems usableItems -> useItem(player,index);  // Use consumable item
+				case HealingItems usableItems -> useItem(player,index);  // Use consumable item
 				case null, default -> System.out.println("Invalid item type.");
 			}
 		} else {

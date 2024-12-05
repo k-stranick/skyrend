@@ -3,7 +3,7 @@ package dtcc.itn262.skills.monsterskills.needtorefactor;
 
 import dtcc.itn262.character.Player;
 import dtcc.itn262.monster.MonsterAttributes;
-import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.monsterskills.IMonsterSkill;
 
 public class GlitchSwipe implements IMonsterSkill {

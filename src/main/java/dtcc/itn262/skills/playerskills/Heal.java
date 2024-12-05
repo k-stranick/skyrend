@@ -1,7 +1,7 @@
 package dtcc.itn262.skills.playerskills;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.monster.genericmonsters.Monster;
+import dtcc.itn262.monster.Monster;
 
 public class Heal implements PlayerSkill {
 	private static final int MANA_COST = 33;
@@ -60,7 +60,7 @@ public class Heal implements PlayerSkill {
 		} else if (player.getPlayerAttributes().getMana() >= MANA_COST) {
 			player.getPlayerAttributes().setMana(player.getPlayerAttributes().getMana() - MANA_COST);
 			player.getPlayerAttributes().setHealth((int) Math.round(player.getPlayerAttributes().getHealth() + heal));
-			System.out.println(player.getHero() + " uses " + getSkillName() +" for " + heal + " health.");
+			System.out.println(player.getHeroName() + " uses " + getSkillName() +" for " + heal + " health.");
 		}
 	}
 
