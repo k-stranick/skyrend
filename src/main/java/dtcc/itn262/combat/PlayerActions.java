@@ -40,9 +40,7 @@ public class PlayerActions {
 		skills.add(new Heal());
 	}
 
-	// make these 3 private methods and add to a parent public method
 	public void useItem(HealingItems item) {
-
 		if (player.getPlayerItemsList().contains(item)) {
 			System.out.println("Used " + item.getName() + ".");
 			item.apply(player); // Apply the item's effect
@@ -52,7 +50,7 @@ public class PlayerActions {
 		}
 	}
 
-	public void equipWeapon(Weapon weapon) {
+	public void handleWeaponSwapInBattle(Weapon weapon) {
 		if (player.getPlayerWeaponList().contains(weapon)) {
 			player.equippedWeapon(weapon);
 		} else {
@@ -60,14 +58,13 @@ public class PlayerActions {
 		}
 	}
 
-	public void equipArmor(Armor armor) {
+	public void handleArmorSwapInBattle(Armor armor) {
 		if (player.getPlayerArmorList().contains(armor)) {
 			player.equippedArmor(armor);
 		} else {
 			System.out.println("You do not have " + armor.getName() + " in your inventory.");
 		}
 	}
-
 
 	protected void attack(Player player, Monster target) {
 		int damage = (player.getPlayerAttributes().getStrength() - target.getMonsterAttributes().getDefense());

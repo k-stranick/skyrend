@@ -10,7 +10,7 @@
         "e": 1,
         "w": -1,
         "isSpecial": true,
-        "sceneIndex": 0
+        "sceneIndex": -1
       },
       {
         "index": 1,
@@ -217,7 +217,7 @@
         "e": 10,
         "w": -1,
         "isSpecial": true,
-        "sceneIndex": 1
+        "sceneIndex": 0
       },
       {
         "index": 10,
@@ -262,7 +262,7 @@
         "e": -1,
         "w": -1,
         "isSpecial": true,
-        "sceneIndex": 2
+        "sceneIndex": 1
       },
       {
         "index": 36,
@@ -310,7 +310,7 @@
         "e": -1,
         "w": -1,
         "isSpecial": true,
-        "sceneIndex": 3
+        "sceneIndex": 2
       },
       null,
       {
@@ -322,7 +322,7 @@
         "e": 39,
         "w": -1,
         "isSpecial": true,
-        "sceneIndex": 4
+        "sceneIndex": 3
       },
       {
         "index": 39,
@@ -380,7 +380,7 @@
         "e": -1,
         "w": -1,
         "isSpecial": true,
-        "sceneIndex": 6
+        "sceneIndex": 4
       },
       null,
       {
@@ -646,7 +646,7 @@
       {
         "index": 24,
         "name": "Void Space",
-        "description": "...",
+        "description": "...Have you acquired the strength to face it?...",
         "n": -1,
         "s": -1,
         "e": 25,
@@ -657,7 +657,7 @@
       {
         "index": 25,
         "name": "Void Space",
-        "description": "...getting closer...",
+        "description": "...His strength is immeasurable, he will not go down easy ...",
         "n": -1,
         "s": -1,
         "e": 26,
@@ -668,7 +668,7 @@
       {
         "index": 26,
         "name": "Void Space",
-        "description": "... in the words of Scar 'Be Prepared'...",
+        "description": "...You should probably save...",
         "n": -1,
         "s": -1,
         "e": 27,

@@ -211,7 +211,7 @@ public class TextDisplayUtility {
 		if (!items.isEmpty()) {
 			System.out.println(itemType + ":");
 			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
-			printFooter(104);
+			printFooter(164);
 			for (T item : items) {
 				String equippedIndicator = (item.equals(equippedItem)) ? "(Equipped)" : "";
 				System.out.printf("%-5d %-25s %-15s %-30s%n", startIndex, item.getName() + " " + equippedIndicator, itemType, item.getDescription());
@@ -228,7 +228,7 @@ public class TextDisplayUtility {
 		if (!items.isEmpty()) {
 			System.out.println(itemType + ":");
 			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
-			TextDisplayUtility.printSeparator(104);
+			TextDisplayUtility.printSeparator(164);
 			for (int i = 0; i < items.size(); i++) {
 				T item = items.get(i);
 				String equippedIndicator = (item.equals(equippedItem)) ? "(Equipped)" : "";

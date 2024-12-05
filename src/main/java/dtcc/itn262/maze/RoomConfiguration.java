@@ -4,4 +4,3 @@ public record RoomConfiguration(int index,String name, String description,int n,
 
 
 }
-//boolean hasNorthExit, boolean hasSouthExit, boolean hasEastExit, boolean hasWestExit

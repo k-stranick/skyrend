@@ -1,5 +1,6 @@
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\app\Game.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\app\Skyrend.java
+C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\character\LevelingSystem.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\character\Player.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\character\PlayerAttributes.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\combat\CombatLogic.java
@@ -11,6 +12,8 @@ C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\combat\PlayerActions.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\combat\PriorityManager.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\combat\TurnOrder.java
+C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\helpmenu\CommandDetails.java
+C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\helpmenu\HelpMenu.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\armor\AetherReaverSuit.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\armor\Armor.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\armor\DreamWeaveCloak.java
@@ -22,13 +25,13 @@ C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\Item.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\ItemManagement.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\usableitems\addlater\AethericStim.java
+C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\usableitems\addlater\CHANGENAMEHealingItems.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\usableitems\addlater\FullAethericStim.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\usableitems\addlater\FullHealthStim.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\usableitems\addlater\HealthStim.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\usableitems\addlater\JsonCustomDeserializer.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\usableitems\addlater\SystemRestore.java
-C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\usableitems\addlater\UsableItems.java
-C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\usableitems\UsableItems.java
+C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\usableitems\HealingItems.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\weapons\Aetherblade.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\weapons\GhostCodeGauntlets.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\weapons\GhostReaver.java
@@ -38,8 +41,8 @@ C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\weapons\PlasmaSaber.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\weapons\Voidbreaker.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\items\weapons\Weapon.java
-C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\json\CommandDetails.java
-C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\json\HelpMenu.java
+C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\json\JsonSubtype.java
+C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\json\JsonType.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\maze\EventHandler.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\maze\Maze.java
 C:\Users\kstra\OneDrive\Desktop\SCHOOL\5_Fifth_Semester_DTCC\ITN_262_Programming_III\TextBasedAdventure\src\main\java\dtcc\itn262\maze\MazeJson.java

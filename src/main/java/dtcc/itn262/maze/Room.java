@@ -61,7 +61,7 @@ public class Room {
 	}
 
 	public String getDescription() {
-		return "This is " + description;
+		return description;
 	}
 
 	public int getN() {

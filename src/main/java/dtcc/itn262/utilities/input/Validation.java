@@ -23,8 +23,8 @@ public class Validation { // this will be a class of static methods
 			System.out.println("Name contains invalid characters. Only letters are allowed. Defaulting to 'Hero'.");
 			return "Hero";
 		} else {
-			// Capitalize first letter and lower the rest
-			return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+
+			return name;
 		}
 	}
 

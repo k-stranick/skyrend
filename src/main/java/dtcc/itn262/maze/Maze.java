@@ -1,8 +1,5 @@
 package dtcc.itn262.maze;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
 import dtcc.itn262.items.ItemManagement;
@@ -23,8 +20,6 @@ import dtcc.itn262.utilities.gamecore.Constants;
 import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.Validation;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
 public class Maze {
@@ -40,13 +35,14 @@ public class Maze {
 
 	//constructor
 	private Maze(Player player) {
-		this.map = MazeLoader.loadMazeFromJson();
+		this.map = MazeLoader.loadMazeFromJson("src/main/java/dtcc/itn262/maze/maze.json");
 		this.itemManagement = new ItemManagement();
 		this.player = player;
 		this.uniqueVisitedRooms = new HashSet<>();  //If a player visits the same room multiple times, the HashSet will only store that room once.
 		this.sceneManager = SceneManager.getInstance();
 		initializeRoomIndexMapping();
-		map[player.getPlayerRow()][player.getPlayerCol()].visitRoom(this.uniqueVisitedRooms);  // Mark the starting room as visited
+		map[player.getPlayerRow()][player.getPlayerCol()].visitRoom(this.uniqueVisitedRooms);  // Mark the starting room
+		// as visited do i need this??
 		TextDisplayUtility.showCurrentRoom(map, player); // <-does this need to be here?
 	}
 
@@ -138,21 +134,21 @@ public class Maze {
 	}
 
 	private void processRoomAfterMove(Room newRoom) {
-		TextDisplayUtility.showCurrentRoom(map, player);
+		TextDisplayUtility.showCurrentRoom(map, player); // <-- test this without
+		if (checkNullRoom(newRoom)) {
+			return;
+		}
+
 		try {
-			if (checkNullRoom(newRoom)) {
-				return;
-			} else if (newRoom.isSpecial() && !newRoom.isSpecialEventTriggered()) { // Check if the room is special and if the event has not been triggered
+			if (newRoom.isSpecial() && !newRoom.isSpecialEventTriggered()) { // Check if the room is special and if the event has not been triggered
 				sceneManager.displayScene(newRoom.getSceneIndex());
 				triggerSpecialEvent(newRoom);
 				newRoom.setSpecialEventTriggered(true); // Mark the event as triggered
 			} else {
 				triggerRandomEncounter();
 			}
-
 			newRoom.visitRoom(uniqueVisitedRooms);
 			displayMap();
-			//checkEscapeCondition();
 			updateMoveHistory(newRoom);
 
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -196,7 +192,7 @@ public class Maze {
 				} else if (room.isVisited()) {
 					System.out.print("[ ]  ");  // Show visited rooms
 				} else {
-					System.out.print("[X]  ");  // Show unvisited rooms
+					System.out.print("[=]  ");  // Show unvisited rooms
 				}
 			}
 			System.out.println();  // Newline after each row
@@ -235,8 +231,8 @@ public class Maze {
 				break;
 			case "Fractured Nexus":
 				monster = new TheCipher();
-				//combat = new CombatLogic(player, monster);
-				//combat.startFight();
+				combat = new CombatLogic(player, monster);
+				combat.startFight();
 				break;
 			default:
 				break;
@@ -270,7 +266,7 @@ public class Maze {
 		}
 		HealingItems item = itemManagement.pickRandomItem(itemManagement.getUsableItems());
 		try {
-			player.addItem(item);
+			player.addItemToPlayerInventory(item);
 			System.out.println("You found a " + item.getName());
 		} catch (ClassCastException e) {
 			System.out.println("Found item is not a HealingItem.");
@@ -302,56 +298,6 @@ public class Maze {
 			}
 		}
 	}
-
-	/**
-	 * Private inner class to load the maze from a JSON file
-	 */
-	private static class MazeLoader {
-		private static Room[][] loadMazeFromJson() {
-			Gson gson = new Gson();
-
-			try (FileReader reader = new FileReader("src/main/java/dtcc/itn262/maze/maze.json")) {
-				// Deserialize the JSON file
-				MazeJson mazeJson = gson.fromJson(reader, MazeJson.class);
-
-				// Convert List<List<RoomConfiguration>> to Room[][]
-				List<List<RoomConfiguration>> roomConfigurations = mazeJson.getRooms();
-				int rows = roomConfigurations.size();
-				int cols = roomConfigurations.getFirst().size();
-				Room[][] maze = new Room[rows][cols];
-
-				for (int i = 0; i < rows; i++) {
-					for (int j = 0; j < cols; j++) {
-						RoomConfiguration config = roomConfigurations.get(i).get(j);
-						if (config != null) {
-							maze[i][j] = new Room(config);
-						} else {
-							maze[i][j] = null;
-						}
-					}
-				}
-
-				return maze;
-			} catch (JsonIOException | JsonSyntaxException | IOException e) {
-				e.printStackTrace();  //TODO
-				return null;
-			}
-		}
-	}
-
-	private static class MazeJson {
-		private List<List<RoomConfiguration>> rooms;
-
-		public List<List<RoomConfiguration>> getRooms() {
-			return rooms;
-		}
-
-		public void setRooms(List<List<RoomConfiguration>> rooms) {
-			this.rooms = rooms;
-		}
-	}
-
-
 }
 
 

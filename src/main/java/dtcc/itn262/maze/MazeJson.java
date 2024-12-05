@@ -1,4 +1,3 @@
-/*
 package dtcc.itn262.maze;
 
 import java.util.List;
@@ -14,4 +13,3 @@ public class MazeJson {
 		this.rooms = rooms;
 	}
 }
-*/

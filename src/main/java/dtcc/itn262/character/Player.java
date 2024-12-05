@@ -133,18 +133,18 @@ public class Player {
 		playerAttributes.setStrength(totalStrength);
 	}
 
-	public void addWeapon(Weapon weapon) {
+	public void addWeaponToPlayerInventory(Weapon weapon) {
 		playerWeaponList.add(weapon);
 		System.out.println(weapon.getName() + " added to the inventory.");
 	}
 
-	public void addArmor(Armor armor) {
+	public void addArmorToPlayerInventory(Armor armor) {
 		playerArmorList.add(armor);
 		System.out.println(armor.getName() + " added to the inventory.");
 
 	}
 
-	public void addItem(HealingItems item) {    // Method to add an item to the player's inventory
+	public void addItemToPlayerInventory(HealingItems item) {    // Method to add an item to the player's inventory
 		playerItemsList.add(item);
 		System.out.println(item.getName() + " added to the inventory.");
 	}

@@ -1,4 +1,3 @@
-/*
 package dtcc.itn262.maze;
 
 import com.google.gson.Gson;
@@ -20,7 +19,7 @@ public class MazeLoader {
 			// Convert List<List<RoomConfiguration>> to Room[][]
 			List<List<RoomConfiguration>> roomConfigurations = mazeJson.getRooms();
 			int rows = roomConfigurations.size();
-			int cols = roomConfigurations.get(0).size();
+			int cols = roomConfigurations.getFirst().size();
 			Room[][] maze = new Room[rows][cols];
 
 			for (int i = 0; i < rows; i++) {
@@ -41,4 +40,3 @@ public class MazeLoader {
 		}
 	}
 }
-*/
