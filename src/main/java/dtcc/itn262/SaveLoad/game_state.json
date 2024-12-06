@@ -129,7 +129,7 @@
     "playerCol": 2,
     "equippedArmor": {
       "defenseBoost": 25,
-      "isEquipped": false,
+      "isEquipped": true,
       "name": "Neon Shroud",
       "description": "A shroud made of colorful cybernetic fibers that can absorb and redirect energy attacks.",
       "type": "",
@@ -137,7 +137,7 @@
     },
     "equippedWeapon": {
       "damage": 35,
-      "isEquipped": true,
+      "isEquipped": false,
       "name": "Ghost Reaver",
       "description": "An axe that channels the Ghost Code, phasing in and out of reality to bypass defenses.",
       "type": "Axe",

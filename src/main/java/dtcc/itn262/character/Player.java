@@ -5,6 +5,7 @@ import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.items.usableitems.HealingItems;
 import dtcc.itn262.items.weapons.Weapon;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -164,6 +165,7 @@ public class Player {
 			equippedArmor.setEquipped(false);
 		}
 		equippedArmor = armor;
+		armor.setEquipped(true);
 		updateDefense();
 		System.out.println(getHeroName() + " equipped " + armor.getName() + ".");
 
