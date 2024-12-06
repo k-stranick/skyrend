@@ -224,14 +224,20 @@ public class TextDisplayUtility {
 	}
 
 	// for use in combat to display items
-	public static <T extends Item> void displayItemsInBattle(String itemType, List<T> items, T equippedItem) {
+	public static <T extends Item> void displayItemsInBattle( String itemType, List<T> items, T equippedItem) {
 		if (!items.isEmpty()) {
 			System.out.println(itemType + ":");
 			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
 			TextDisplayUtility.printSeparator(164);
 			for (int i = 0; i < items.size(); i++) {
 				T item = items.get(i);
-				String equippedIndicator = (item.equals(equippedItem)) ? "(Equipped)" : "";
+				//String equippedIndicator = (item.equals(equippedItem)) ? "(Equipped)" : "";
+				String equippedIndicator = "";
+				if (item instanceof Armor && ((Armor) item).isEquipped()) {
+					equippedIndicator = "(Equipped)";
+				} else if (item instanceof Weapon && ((Weapon) item).isEquipped()) {
+					equippedIndicator = "(Equipped)";
+				}
 				System.out.printf("%-5d %-25s %-15s %-30s%n", i, item.getName() + " " + equippedIndicator, itemType, item.getDescription());
 			}
 			System.out.println();

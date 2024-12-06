@@ -18,12 +18,6 @@ public class PlayerAttributes {
 	private int luck; // governs critical hit chance
 	private int experience; // governs level
 
-/*
-	{
-		this.health = maxHealth;
-		this.mana = maxMana;
-	}
-*/
 
 	public PlayerAttributes() {
 

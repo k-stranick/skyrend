@@ -150,9 +150,18 @@ public class Player {
 	}
 
 	public void equippedArmor(Armor armor) {
-		if (!playerArmorList.contains(armor)) {
+/*		if (!playerArmorList.contains(armor)) {
 			System.out.println("You do not have " + armor.getName() + " in your inventory.");
 			return;
+		}*/
+// i feel like i need to pass in the currently selected piece of armor
+		if (armor.isEquipped()) {
+			System.out.println("You already have armor equipped.");
+			return;
+		}
+
+		if (equippedArmor != null) {
+			equippedArmor.setEquipped(false);
 		}
 		equippedArmor = armor;
 		updateDefense();
@@ -165,11 +174,15 @@ public class Player {
 			System.out.println("You do not have " + weapon.getName() + " in your inventory.");
 			return;
 		}*/
-		if (getEquippedWeapon().isEquipped()){
+/*		if (weapon.isEquipped()){
 			System.out.println("You already have a weapon equipped.");
 			return;
+		}*/
+		if (equippedWeapon != null) {
+			equippedWeapon.setEquipped(false);
+			System.out.println("You unequipped " + equippedWeapon.getName() + ".");
+			return;
 		}
-
 		equippedWeapon = weapon;
 		weapon.setEquipped(true);
 		updateStrength();

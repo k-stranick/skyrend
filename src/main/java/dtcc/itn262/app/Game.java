@@ -87,7 +87,7 @@ public class Game {
 				System.out.println(player);
 				System.out.println("Welcome, " + player.getHeroName() + "!");
 			} else {
-				System.out.println("Resuming game for " + player.getHeroName() + "!");
+				System.out.println("Resuming game for " + player.getHeroName() + "!"); //<-- do i need this??
 			}
 			playerActions = new PlayerActions(player); // Initialize PlayerActions for non-combat
 			Maze maze = Maze.getInstance(player); // Use the same Player instance

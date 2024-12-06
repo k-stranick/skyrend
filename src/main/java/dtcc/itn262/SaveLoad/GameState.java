@@ -37,7 +37,7 @@ public class GameState {
 		return moveHistory;
 	}
 
-	public static void updatePlayerEquippedWeaponStatus(Player player) {
+	public void updatePlayerEquippedWeaponStatus() {
 		// Update the equipped status of the player's weapons
 		player.getPlayerWeaponList().forEach(weapon -> {
 			weapon.setEquipped(player.getEquippedWeapon() != null && player.getEquippedWeapon().getName().equals(weapon.getName()));
