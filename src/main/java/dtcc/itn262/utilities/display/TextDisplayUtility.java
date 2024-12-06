@@ -196,9 +196,9 @@ public class TextDisplayUtility {
 		int index = 0; // This will be used to assign a unique index to each item
 		Map<Integer, Item> indexToItemMap = new HashMap<>(); // To map indices to items for selection
 
-		index = displayItems("Weapons", weapons, player.getEquippedWeapon(), index, indexToItemMap);
-		index = displayItems("Armor", armors, player.getEquippedArmor(), index, indexToItemMap);
-		displayItems("Consumables", consumables, null, index, indexToItemMap);
+		index = displayItems("Weapons", weapons, index, indexToItemMap);
+		index = displayItems("Armor", armors, index, indexToItemMap);
+		displayItems("Consumables", consumables, index, indexToItemMap);
 
 		// Store the index-to-item mapping for later use
 		player.setInventoryIndexMap(indexToItemMap);
@@ -207,13 +207,19 @@ public class TextDisplayUtility {
 	}
 
 	// for use out of combat to display items
-	private static <T extends Item> int displayItems(String itemType, List<T> items, T equippedItem, int startIndex, Map<Integer, Item> indexToItemMap) {
+	private static <T extends Item> int displayItems(String itemType, List<T> items, int startIndex, Map<Integer, Item> indexToItemMap) {
 		if (!items.isEmpty()) {
 			System.out.println(itemType + ":");
 			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
 			printFooter(164);
 			for (T item : items) {
-				String equippedIndicator = (item.equals(equippedItem)) ? "(Equipped)" : "";
+//				String equippedIndicator = (item.equals(equippedItem)) ? "(Equipped)" : "";
+				String equippedIndicator = "";
+				if (item instanceof Armor && ((Armor) item).isEquipped()) {
+					equippedIndicator = "(Equipped)";
+				} else if (item instanceof Weapon && ((Weapon) item).isEquipped()) {
+					equippedIndicator = "(Equipped)";
+				}
 				System.out.printf("%-5d %-25s %-15s %-30s%n", startIndex, item.getName() + " " + equippedIndicator, itemType, item.getDescription());
 				indexToItemMap.put(startIndex, item);
 				startIndex++;
