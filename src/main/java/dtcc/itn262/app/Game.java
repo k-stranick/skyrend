@@ -187,8 +187,8 @@ public class Game {
 
 				// Check item type and perform the corresponding action
 				switch (selectedItem) {
-					case Weapon weapon -> playerActions.handleWeaponSwapInBattle(weapon);
-					case Armor armor -> playerActions.handleArmorSwapInBattle(armor);
+					case Weapon weapon -> playerActions.handleWeaponSwap(weapon);
+					case Armor armor -> playerActions.handleArmorSwap(armor);
 					case HealingItems healingItems -> playerActions.useItem(healingItems);
 					case null, default -> System.out.println("Invalid item type.");
 				}

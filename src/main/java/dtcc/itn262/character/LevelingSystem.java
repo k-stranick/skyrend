@@ -9,7 +9,7 @@ public class LevelingSystem {
 		return (int) (50 * Math.pow(currentLevel, 2) + 100);
 	}
 
-	// Final Fantasy 8 style exp scaling but i need to figure out how to scale enemies to player level as well
+	// Final Fantasy 8 style exp scaling, but I need to figure out how to scale enemies to player level as well
 	// https://gamefaqs.gamespot.com/boards/197343-final-fantasy-viii/63959027
 	// https://forums.qhimm.com/index.php?topic=16898.0
 	public static int calculateExpAwarded(Player player, Monster monster) {
@@ -22,14 +22,16 @@ public class LevelingSystem {
 			P = 1;
 		}
 
+		//double scalingFactor = 5.0 * (((double) (M - P) / P) + 4.0); use this when I create a party
+
 		// Calculate scaling factor
-		double scalingFactor = 5.0 * (((double) (M - P) / P) + 4.0);
+		double scalingFactor = (double) M - P;
 
 		// Calculate final EXP awarded
 		int expAwarded = (int) (X * scalingFactor);
 
-		// Ensure EXP is not negative
-		return Math.max(expAwarded, 0);
+		// Ensure EXP is given if monsters are weak
+		return Math.max(expAwarded, 10);
 	}
 
 }

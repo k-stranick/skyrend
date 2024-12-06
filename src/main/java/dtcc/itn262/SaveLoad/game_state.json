@@ -1,6 +1,14 @@
 {
   "player": {
-    "playerWeaponList": [],
+    "playerWeaponList": [
+      {
+        "damage": 10,
+        "name": "Night Club",
+        "description": "A basic club that can be used to bash enemies.",
+        "type": "Club",
+        "dropRate": 0.1
+      }
+    ],
     "playerArmorList": [
       {
         "defenseBoost": 35,
@@ -22,21 +30,23 @@
     ],
     "hero": "Hero",
     "playerAttributes": {
-      "level": 1,
+      "level": 3,
+      "baseStrength": 45,
       "strength": 1007,
+      "baseDefense": 33,
       "defense": 1075,
-      "health": 200,
-      "maxHealth": 200,
-      "magic": 20,
-      "magicDefense": 20,
-      "mana": 100,
-      "maxMana": 100,
-      "speed": 10,
-      "luck": 100,
-      "experience": 125
+      "health": 245,
+      "maxHealth": 245,
+      "magic": 35,
+      "magicDefense": 35,
+      "mana": 125,
+      "maxMana": 125,
+      "speed": 19,
+      "luck": 107,
+      "experience": 38
     },
     "playerRow": 2,
-    "playerCol": 5,
+    "playerCol": 6,
     "equippedArmor": {
       "defenseBoost": 35,
       "name": "Aether Reactor Suit",
@@ -81,6 +91,19 @@
     "Rune Street Markets",
     "Abandoned Tech Labs",
     "Rune Street Markets",
-    "The Drift Way"
+    "The Drift Way",
+    "Rune Street Markets",
+    "The Drift Way",
+    "Rune Street Markets",
+    "The Drift Way",
+    "Rune Street Markets",
+    "The Drift Way",
+    "Rune Street Markets",
+    "The Drift Way",
+    "Rune Street Markets",
+    "The Drift Way",
+    "Rune Street Markets",
+    "The Drift Way",
+    "Rune Street Markets"
   ]
 }

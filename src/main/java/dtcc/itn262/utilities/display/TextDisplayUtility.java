@@ -1,8 +1,8 @@
 package dtcc.itn262.utilities.display;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.combat.PriorityManager;
-import dtcc.itn262.combat.TurnOrder;
+//import dtcc.itn262.combat.PriorityManager;
+//import dtcc.itn262.combat.TurnOrder;
 import dtcc.itn262.items.Item;
 import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.items.usableitems.HealingItems;
@@ -132,6 +132,7 @@ public class TextDisplayUtility {
 		System.out.println("+" + "-".repeat(totalWidth) + "+");
 	}*/
 
+/*
 	private static void displayBattleQueue(PriorityManager priorityManager, int totalWidth) {
 		System.out.println("+" + "-".repeat(totalWidth) + "+");
 		System.out.println("| Current Turn Queue: ");
@@ -151,6 +152,7 @@ public class TextDisplayUtility {
 
 		System.out.println("+" + "-".repeat(totalWidth) + "+");
 	}
+*/
 
 
 	// Prints the action menu for the player

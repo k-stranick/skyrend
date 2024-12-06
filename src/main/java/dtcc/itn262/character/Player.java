@@ -81,9 +81,9 @@ public class Player {
 	}
 
 	private void levelUp() {
-		playerAttributes.setLevel(playerAttributes.getLevel() + 1 + playerAttributes.getLevel());
+		playerAttributes.setLevel(playerAttributes.getLevel() + 1);
 		playerAttributes.setBaseStrength(playerAttributes.getBaseStrength() + 5 + playerAttributes.getLevel());
-		playerAttributes.setBaseStrength(playerAttributes.getBaseDefense() + 5 + playerAttributes.getLevel());
+		playerAttributes.setBaseDefense(playerAttributes.getBaseDefense() + 5 + playerAttributes.getLevel());
 		playerAttributes.setMaxHealth(playerAttributes.getMaxHealth() + 20 + playerAttributes.getLevel());
 		playerAttributes.setHealth(playerAttributes.getMaxHealth());
 		playerAttributes.setMagic(playerAttributes.getMagic() + 5 + playerAttributes.getLevel());
@@ -182,7 +182,6 @@ public class Player {
 		// After changing equipped armor, update the defense
 		updateStrength();
 	}
-
 
 	public Armor getEquippedArmor() {
 		return equippedArmor;

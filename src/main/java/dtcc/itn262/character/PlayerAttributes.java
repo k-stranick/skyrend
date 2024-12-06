@@ -106,6 +106,9 @@ public class PlayerAttributes {
 		return defense;
 	}
 
+	public void setBaseDefense(int defense) {
+		this.baseDefense = defense;
+	}
 	public void setDefense(int defense) {
 		this.defense = defense;
 	}
@@ -152,4 +155,6 @@ public class PlayerAttributes {
 	public void setExperience(int experience) {
 		this.experience = experience;
 	}
+
+
 }

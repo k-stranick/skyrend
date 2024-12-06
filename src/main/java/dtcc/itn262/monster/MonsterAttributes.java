@@ -34,7 +34,7 @@ public class MonsterAttributes {
 		this.type = builder.type;
 		this.description = builder.description;
 		this.experience = builder.experience + (playerLevel * 3);
-		this.level = builder.level == 0 ? (playerLevel + 4) : builder.level;
+		this.level = builder.level > 0 ? builder.level : (playerLevel + 3);
 		this.gold = builder.gold;
 	}
 
@@ -159,6 +159,8 @@ public class MonsterAttributes {
 		this.description = description;
 	}
 
+
+
 	public static class MonsterAttributesBuilder { // for generic monsters
 		private int maxHealth = 100;
 		private int activeHealth = 100;
@@ -169,7 +171,7 @@ public class MonsterAttributes {
 		private int speed = 5;
 		private int luck = 5;
 		private int experience = 0;
-		private int level = 1;
+		private int level = 0;
 		private int gold = 0;
 		private int maxMana = 50;
 		private int mana= 50;
