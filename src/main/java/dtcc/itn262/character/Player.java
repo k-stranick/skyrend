@@ -226,7 +226,9 @@ public class Player {
 				"\nMagic: " + playerAttributes.getMagic() +
 				"\nMagic Defense: " + playerAttributes.getMagicDefense() +
 				"\nSpeed: " + playerAttributes.getSpeed() +
-				"\nLuck: " + playerAttributes.getLuck();
+				"\nLuck: " + playerAttributes.getLuck() +
+				"\n Currently equipped armor: " + (equippedArmor != null ? equippedArmor.getName() : "None") +
+				"\n Currently equipped weapon: " + (equippedWeapon != null ? equippedWeapon.getName() : "None");
 	}
 
 	/*	public void setShielded(boolean b) {// TODO: Implement this method
