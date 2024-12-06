@@ -1,7 +1,6 @@
 package dtcc.itn262.monster;
 
 public class MonsterAttributes {
-	//static Random rand = new Random();
 	private int level;
 	private int activeHealth;
 	private int maxHealth;
@@ -33,7 +32,7 @@ public class MonsterAttributes {
 		this.maxMana = builder.maxMana + (playerLevel * 5);
 		this.type = builder.type;
 		this.description = builder.description;
-		this.experience = builder.experience + (playerLevel * 3);
+		this.experience = builder.experience;
 		this.level = builder.level == 0 ? (playerLevel + 4) : builder.level;
 		this.gold = builder.gold;
 	}

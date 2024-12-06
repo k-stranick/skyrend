@@ -1,47 +1,87 @@
 {
   "player": {
-    "playerWeaponList": [],
-    "playerArmorList": [
+    "playerWeaponList": [
       {
-        "defenseBoost": 35,
-        "name": "Aether Reactor Suit",
-        "description": "A suit that harnesses Aether energy to power a protective barrier, greatly enhancing defense.",
-        "type": "",
+        "damage": 20,
+        "name": "Neon Dagger",
+        "description": "A dagger that channels the power of the Neon Grid, allowing the wielder to move at the speed of light and strike with deadly precision.",
+        "type": "Dagger",
         "dropRate": 0.1
       }
     ],
+    "playerArmorList": [],
     "playerItemsList": [
+      {
+        "value": 40,
+        "value2": 0,
+        "name": "Health Stim",
+        "description": "Health potion",
+        "type": "",
+        "dropRate": 0.5
+      },
+      {
+        "value": 40,
+        "value2": 0,
+        "name": "Health Stim",
+        "description": "Health potion",
+        "type": "",
+        "dropRate": 0.5
+      },
+      {
+        "value": 40,
+        "value2": 0,
+        "name": "Health Stim",
+        "description": "Health potion",
+        "type": "",
+        "dropRate": 0.5
+      },
       {
         "value": 80,
         "value2": 0,
-        "name": "Full Aetheric Stim",
-        "description": "Aether potion",
+        "name": "Full Health Stim",
+        "description": "Health potion",
         "type": "",
-        "dropRate": 0.1
+        "dropRate": 0.3
+      },
+      {
+        "value": 40,
+        "value2": 0,
+        "name": "Health Stim",
+        "description": "Health potion",
+        "type": "",
+        "dropRate": 0.5
+      },
+      {
+        "value": 100,
+        "value2": 100,
+        "name": "System Restore",
+        "description": "Full restore",
+        "type": "",
+        "dropRate": 0.2
       }
     ],
-    "hero": "Hero",
+    "hero": "Kyle",
     "playerAttributes": {
-      "level": 1,
-      "strength": 1007,
-      "defense": 1075,
-      "health": 200,
-      "maxHealth": 200,
-      "magic": 20,
-      "magicDefense": 20,
-      "mana": 100,
-      "maxMana": 100,
-      "speed": 10,
-      "luck": 100,
-      "experience": 125
+      "level": 3,
+      "strength": 118,
+      "defense": 26,
+      "health": 300,
+      "maxHealth": 373,
+      "magic": 28,
+      "magicDefense": 26,
+      "mana": 61,
+      "maxMana": 138,
+      "speed": 20,
+      "luck": 12,
+      "experience": 465
     },
-    "playerRow": 2,
-    "playerCol": 5,
-    "equippedArmor": {
-      "defenseBoost": 35,
-      "name": "Aether Reactor Suit",
-      "description": "A suit that harnesses Aether energy to power a protective barrier, greatly enhancing defense.",
-      "type": "",
+    "playerRow": 0,
+    "playerCol": 2,
+    "equippedWeapon": {
+      "damage": 20,
+      "name": "Neon Dagger",
+      "description": "A dagger that channels the power of the Neon Grid, allowing the wielder to move at the speed of light and strike with deadly precision.",
+      "type": "Dagger",
       "dropRate": 0.1
     }
   },
@@ -54,20 +94,18 @@
     "Neon Corridor",
     "Fusion Park",
     "Neon Corridor",
-    "Fusion Park",
-    "Neon Corridor",
-    "Fusion Park",
-    "Neon Corridor",
-    "Fusion Park",
-    "Neon Corridor",
-    "Fusion Park",
-    "Cyber Alley",
-    "Fusion Park",
+    "The Outskirts",
     "Neon Corridor",
     "Fusion Park",
     "Cyber Alley",
     "DataFall Plaza",
     "Power Conduit",
+    "StormW3ll Station",
+    "The Drift Way",
+    "Rune Street Markets",
+    "Abandoned Tech Labs",
+    "Rune Street Markets",
+    "The Drift Way",
     "StormW3ll Station",
     "Circuit Yard",
     "Giga Tower",
@@ -77,10 +115,15 @@
     "Giga Tower",
     "Circuit Yard",
     "StormW3ll Station",
-    "The Drift Way",
-    "Rune Street Markets",
-    "Abandoned Tech Labs",
-    "Rune Street Markets",
-    "The Drift Way"
+    "Power Conduit",
+    "StormW3ll Station",
+    "Power Conduit",
+    "DataFall Plaza",
+    "Cyber Alley",
+    "Fusion Park",
+    "Neon Corridor",
+    "The Outskirts",
+    "Neon Corridor",
+    "Fusion Park"
   ]
 }

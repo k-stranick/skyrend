@@ -27,16 +27,16 @@ public class PlayerAttributes {
 
 	public PlayerAttributes() {
 
-		this.magicDefense = 15;
-		this.strength = 20; //TODO
-		this.defense = 15;
-		this.magic = 10;
-		this.speed = 10;  //TODO
-		this.luck = 5; // crits?
+		this.magicDefense = 18;
+		this.strength = 30;
+		this.defense = 18;
+		this.magic = 20;
+		this.speed = 15;
+		this.luck = 8; // should govern anything with chance like crits or dodges finding items etc
 		this.experience = 0; // base experience
-		this.maxHealth = 200;  // base max health, need it for a leveling system
+		this.maxHealth = 350;  // base max health, need it for a leveling system
 		this.health = maxHealth;  // set current health to max health
-		this.maxMana = 75; // base max mana  //TODO
+		this.maxMana = 125; // base max mana
 		this.mana = maxMana; // set current mana to max mana, need it for a leveling system
 		this.level = 1; // base level
 	}

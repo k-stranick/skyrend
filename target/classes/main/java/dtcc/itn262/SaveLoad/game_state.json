@@ -1,0 +1,129 @@
+{
+  "player": {
+    "playerWeaponList": [
+      {
+        "damage": 20,
+        "name": "Neon Dagger",
+        "description": "A dagger that channels the power of the Neon Grid, allowing the wielder to move at the speed of light and strike with deadly precision.",
+        "type": "Dagger",
+        "dropRate": 0.1
+      }
+    ],
+    "playerArmorList": [],
+    "playerItemsList": [
+      {
+        "value": 40,
+        "value2": 0,
+        "name": "Health Stim",
+        "description": "Health potion",
+        "type": "",
+        "dropRate": 0.5
+      },
+      {
+        "value": 40,
+        "value2": 0,
+        "name": "Health Stim",
+        "description": "Health potion",
+        "type": "",
+        "dropRate": 0.5
+      },
+      {
+        "value": 40,
+        "value2": 0,
+        "name": "Health Stim",
+        "description": "Health potion",
+        "type": "",
+        "dropRate": 0.5
+      },
+      {
+        "value": 80,
+        "value2": 0,
+        "name": "Full Health Stim",
+        "description": "Health potion",
+        "type": "",
+        "dropRate": 0.3
+      },
+      {
+        "value": 40,
+        "value2": 0,
+        "name": "Health Stim",
+        "description": "Health potion",
+        "type": "",
+        "dropRate": 0.5
+      },
+      {
+        "value": 100,
+        "value2": 100,
+        "name": "System Restore",
+        "description": "Full restore",
+        "type": "",
+        "dropRate": 0.2
+      }
+    ],
+    "hero": "Kyle",
+    "playerAttributes": {
+      "level": 3,
+      "strength": 118,
+      "defense": 26,
+      "health": 300,
+      "maxHealth": 373,
+      "magic": 28,
+      "magicDefense": 26,
+      "mana": 61,
+      "maxMana": 138,
+      "speed": 20,
+      "luck": 12,
+      "experience": 465
+    },
+    "playerRow": 0,
+    "playerCol": 2,
+    "equippedWeapon": {
+      "damage": 20,
+      "name": "Neon Dagger",
+      "description": "A dagger that channels the power of the Neon Grid, allowing the wielder to move at the speed of light and strike with deadly precision.",
+      "type": "Dagger",
+      "dropRate": 0.1
+    }
+  },
+  "uniqueVisitedRooms": [
+    "The Outskirts",
+    "Arcane Synth Bay",
+    "Abandoned Tech Labs"
+  ],
+  "moveHistory": [
+    "Neon Corridor",
+    "Fusion Park",
+    "Neon Corridor",
+    "The Outskirts",
+    "Neon Corridor",
+    "Fusion Park",
+    "Cyber Alley",
+    "DataFall Plaza",
+    "Power Conduit",
+    "StormW3ll Station",
+    "The Drift Way",
+    "Rune Street Markets",
+    "Abandoned Tech Labs",
+    "Rune Street Markets",
+    "The Drift Way",
+    "StormW3ll Station",
+    "Circuit Yard",
+    "Giga Tower",
+    "Ghost Terminal",
+    "Arcane Synth Bay",
+    "Ghost Terminal",
+    "Giga Tower",
+    "Circuit Yard",
+    "StormW3ll Station",
+    "Power Conduit",
+    "StormW3ll Station",
+    "Power Conduit",
+    "DataFall Plaza",
+    "Cyber Alley",
+    "Fusion Park",
+    "Neon Corridor",
+    "The Outskirts",
+    "Neon Corridor",
+    "Fusion Park"
+  ]
+}

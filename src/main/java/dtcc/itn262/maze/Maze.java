@@ -21,6 +21,7 @@ import dtcc.itn262.utilities.gamecore.GameLogger;
 import dtcc.itn262.utilities.input.Validation;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 public class Maze {
 	private static Maze instance;

@@ -1,5 +1,6 @@
 package dtcc.itn262.combat;
 
+import dtcc.itn262.character.LevelingSystem;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
 import dtcc.itn262.combat.effects.BuffAndDeBuff;
@@ -87,7 +88,6 @@ public class CombatLogic {
 
 	private boolean playerTurn() {
 		TextDisplayUtility.showBattleScreen(player, monster);
-		//System.out.print("Choose an action: ");
 		int choice = UserInput.getPlayerChoice("Choose an Action: ");  // Extracted method for getting choice
 		try {
 			// If the method returns true, it means the player successfully ran away
@@ -134,7 +134,7 @@ public class CombatLogic {
 			System.out.println("You were defeated!");
 		} else {
 			System.out.println("Player wins! The monster is defeated.");
-			int xpGained = monster.getMonsterAttributes().getExperience();
+			int xpGained = LevelingSystem.calculateExpAwarded(player, monster);
 			player.gainExperience(xpGained);
 			System.out.println(player.getHeroName() + " gained " + xpGained + " XP.");
 
@@ -202,6 +202,8 @@ public class CombatLogic {
 			playerActions.handleArmorSwapInBattle((Armor) selectedItem);
 		} else if (selectedItem instanceof Weapon) {
 			playerActions.handleWeaponSwapInBattle((Weapon) selectedItem);
+		}else if (selectedItem instanceof HealingItems) {
+			playerActions.useItem((HealingItems) selectedItem);
 		}
 	}
 

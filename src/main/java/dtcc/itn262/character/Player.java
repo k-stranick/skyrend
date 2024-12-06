@@ -15,9 +15,9 @@ public class Player {
 	public final List<Weapon> playerWeaponList; // = new ArrayList<>();
 	public final List<Armor> playerArmorList; // = new ArrayList<>();
 	private final List<HealingItems> playerItemsList;// = new ArrayList<>();  // Add an inventory
-	private transient Map<Integer, Item> inventoryIndexMap; // Tried to use @Expose annotation but it didn't work will need to revisit
 	private final String hero;
 	private final PlayerAttributes playerAttributes;
+	private transient Map<Integer, Item> inventoryIndexMap; // Tried to use @Expose annotation but it didn't work will need to revisit
 	private int playerRow;
 	private int playerCol;
 	private Armor equippedArmor;
@@ -150,25 +150,32 @@ public class Player {
 	}
 
 	public void equippedArmor(Armor armor) {
-		if (playerArmorList.contains(armor)) {
-			equippedArmor = armor;
-			updateDefense();
-			System.out.println(getHeroName() + " equipped " + armor.getName() + ".");
-		} else {
+		if (!playerArmorList.contains(armor)) {
 			System.out.println("You do not have " + armor.getName() + " in your inventory.");
+			return;
 		}
+		equippedArmor = armor;
+		updateDefense();
+		System.out.println(getHeroName() + " equipped " + armor.getName() + ".");
+
 	}
 
 	public void equippedWeapon(Weapon weapon) {
-		if (playerWeaponList.contains(weapon)) {
-			equippedWeapon = weapon;
-			updateStrength();
-			System.out.println(getHeroName() + " equipped " + weapon.getName() + ".");
-		} else {
+/*		if (!playerWeaponList.contains(weapon)) {
 			System.out.println("You do not have " + weapon.getName() + " in your inventory.");
+			return;
+		}*/
+		if (getEquippedWeapon().isEquipped()){
+			System.out.println("You already have a weapon equipped.");
+			return;
 		}
+
+		equippedWeapon = weapon;
+		weapon.setEquipped(true);
+		updateStrength();
+		System.out.println(getHeroName() + " equipped " + weapon.getName() + ".");
 	}
-	
+
 	public Armor getEquippedArmor() {
 		return equippedArmor;
 	}
@@ -189,12 +196,12 @@ public class Player {
 		return playerArmorList;
 	}
 
-	public void setInventoryIndexMap(Map<Integer, Item> map) {
-		this.inventoryIndexMap = map;
-	}
-
 	public Map<Integer, Item> getInventoryIndexMap() {
 		return inventoryIndexMap;
+	}
+
+	public void setInventoryIndexMap(Map<Integer, Item> map) {
+		this.inventoryIndexMap = map;
 	}
 
 	@Override
