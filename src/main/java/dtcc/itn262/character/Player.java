@@ -12,12 +12,12 @@ import java.util.Map;
 import static dtcc.itn262.utilities.input.Validation.validateName;
 
 public class Player {
-	public final List<Weapon> playerWeaponList; // = new ArrayList<>();
-	public final List<Armor> playerArmorList; // = new ArrayList<>();
-	private final List<HealingItems> playerItemsList;// = new ArrayList<>();  // Add an inventory
-	private transient Map<Integer, Item> inventoryIndexMap; // Tried to use @Expose annotation but it didn't work will need to revisit
+	public final List<Weapon> playerWeaponList;
+	public final List<Armor> playerArmorList;
+	private final List<HealingItems> playerItemsList;
 	private final String hero;
 	private final PlayerAttributes playerAttributes;
+	private transient Map<Integer, Item> inventoryIndexMap; // Tried to use @Expose annotation but it didn't work will need to revisit
 	private int playerRow;
 	private int playerCol;
 	private Armor equippedArmor;
@@ -82,8 +82,8 @@ public class Player {
 
 	private void levelUp() {
 		playerAttributes.setLevel(playerAttributes.getLevel() + 1 + playerAttributes.getLevel());
-		playerAttributes.setStrength(playerAttributes.getStrength() + 5 + playerAttributes.getLevel());
-		playerAttributes.setDefense(playerAttributes.getDefense() + 5 + playerAttributes.getLevel());
+		playerAttributes.setBaseStrength(playerAttributes.getBaseStrength() + 5 + playerAttributes.getLevel());
+		playerAttributes.setBaseStrength(playerAttributes.getBaseDefense() + 5 + playerAttributes.getLevel());
 		playerAttributes.setMaxHealth(playerAttributes.getMaxHealth() + 20 + playerAttributes.getLevel());
 		playerAttributes.setHealth(playerAttributes.getMaxHealth());
 		playerAttributes.setMagic(playerAttributes.getMagic() + 5 + playerAttributes.getLevel());
@@ -118,7 +118,7 @@ public class Player {
 	}
 
 	private void updateDefense() {
-		int totalDefense = playerAttributes.getDefense();
+		int totalDefense = playerAttributes.getBaseDefense();
 		if (equippedArmor != null) {
 			totalDefense += equippedArmor.getDefenseBoost();
 		}
@@ -126,7 +126,7 @@ public class Player {
 	}
 
 	private void updateStrength() {
-		int totalStrength = playerAttributes.getStrength();
+		int totalStrength = playerAttributes.getBaseStrength();
 		if (equippedWeapon != null) {
 			totalStrength += equippedWeapon.getDamage();
 		}
@@ -150,25 +150,40 @@ public class Player {
 	}
 
 	public void equippedArmor(Armor armor) {
-		if (playerArmorList.contains(armor)) {
-			equippedArmor = armor;
-			updateDefense();
-			System.out.println(getHeroName() + " equipped " + armor.getName() + ".");
+		// If the same armor is selected, and it's already equipped, unequip it
+		if (equippedArmor != null && equippedArmor.equals(armor)) {
+			System.out.println("Unequipped " + armor.getName() + ".");
+			equippedArmor = null;
 		} else {
-			System.out.println("You do not have " + armor.getName() + " in your inventory.");
+			// Equipping new armor
+			if (equippedArmor != null) {
+				System.out.println("Removing currently equipped armor: " + equippedArmor.getName());
+			}
+			equippedArmor = armor;
+			System.out.println(getHeroName() + " equipped " + armor.getName() + ".");
 		}
+		// After changing equipped armor, update the defense
+		updateDefense();
 	}
 
 	public void equippedWeapon(Weapon weapon) {
-		if (playerWeaponList.contains(weapon)) {
-			equippedWeapon = weapon;
-			updateStrength();
-			System.out.println(getHeroName() + " equipped " + weapon.getName() + ".");
+		// If the same armor is selected, and it's already equipped, unequip it
+		if (equippedWeapon != null && equippedWeapon.equals(weapon)) {
+			System.out.println("Unequipped " + weapon.getName() + ".");
+			equippedWeapon = null;
 		} else {
-			System.out.println("You do not have " + weapon.getName() + " in your inventory.");
+			// Equipping new armor
+			if (equippedWeapon != null) {
+				System.out.println("Removing currently equipped armor: " + equippedWeapon.getName());
+			}
+			equippedWeapon = weapon;
+			System.out.println(getHeroName() + " equipped " + weapon.getName() + ".");
 		}
+		// After changing equipped armor, update the defense
+		updateStrength();
 	}
-	
+
+
 	public Armor getEquippedArmor() {
 		return equippedArmor;
 	}
@@ -189,12 +204,12 @@ public class Player {
 		return playerArmorList;
 	}
 
-	public void setInventoryIndexMap(Map<Integer, Item> map) {
-		this.inventoryIndexMap = map;
-	}
-
 	public Map<Integer, Item> getInventoryIndexMap() {
 		return inventoryIndexMap;
+	}
+
+	public void setInventoryIndexMap(Map<Integer, Item> map) {
+		this.inventoryIndexMap = map;
 	}
 
 	@Override

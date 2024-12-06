@@ -1,0 +1,86 @@
+{
+  "player": {
+    "playerWeaponList": [],
+    "playerArmorList": [
+      {
+        "defenseBoost": 35,
+        "name": "Aether Reactor Suit",
+        "description": "A suit that harnesses Aether energy to power a protective barrier, greatly enhancing defense.",
+        "type": "",
+        "dropRate": 0.1
+      }
+    ],
+    "playerItemsList": [
+      {
+        "value": 80,
+        "value2": 0,
+        "name": "Full Aetheric Stim",
+        "description": "Aether potion",
+        "type": "",
+        "dropRate": 0.1
+      }
+    ],
+    "hero": "Hero",
+    "playerAttributes": {
+      "level": 1,
+      "strength": 1007,
+      "defense": 1075,
+      "health": 200,
+      "maxHealth": 200,
+      "magic": 20,
+      "magicDefense": 20,
+      "mana": 100,
+      "maxMana": 100,
+      "speed": 10,
+      "luck": 100,
+      "experience": 125
+    },
+    "playerRow": 2,
+    "playerCol": 5,
+    "equippedArmor": {
+      "defenseBoost": 35,
+      "name": "Aether Reactor Suit",
+      "description": "A suit that harnesses Aether energy to power a protective barrier, greatly enhancing defense.",
+      "type": "",
+      "dropRate": 0.1
+    }
+  },
+  "uniqueVisitedRooms": [
+    "The Outskirts",
+    "Arcane Synth Bay",
+    "Abandoned Tech Labs"
+  ],
+  "moveHistory": [
+    "Neon Corridor",
+    "Fusion Park",
+    "Neon Corridor",
+    "Fusion Park",
+    "Neon Corridor",
+    "Fusion Park",
+    "Neon Corridor",
+    "Fusion Park",
+    "Neon Corridor",
+    "Fusion Park",
+    "Cyber Alley",
+    "Fusion Park",
+    "Neon Corridor",
+    "Fusion Park",
+    "Cyber Alley",
+    "DataFall Plaza",
+    "Power Conduit",
+    "StormW3ll Station",
+    "Circuit Yard",
+    "Giga Tower",
+    "Ghost Terminal",
+    "Arcane Synth Bay",
+    "Ghost Terminal",
+    "Giga Tower",
+    "Circuit Yard",
+    "StormW3ll Station",
+    "The Drift Way",
+    "Rune Street Markets",
+    "Abandoned Tech Labs",
+    "Rune Street Markets",
+    "The Drift Way"
+  ]
+}

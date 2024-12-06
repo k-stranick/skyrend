@@ -31,7 +31,7 @@ public class DefenseBuff<T> implements BuffAndDeBuff<T> {
     @Override
     public void apply(T target) {
         if (target instanceof PlayerAttributes player) {
-            player.setDefense(player.getDefense() + defenseIncrease);
+            player.setDefense(player.getBaseDefense() + defenseIncrease);
         } else if (target instanceof MonsterAttributes monster) {
             monster.setDefense(monster.getDefense() + defenseIncrease);
         }
@@ -45,7 +45,7 @@ public class DefenseBuff<T> implements BuffAndDeBuff<T> {
     @Override
     public void revert(T target) {
         if (target instanceof PlayerAttributes player) {
-            player.setDefense(player.getDefense() - defenseIncrease);
+            player.setDefense(player.getBaseDefense());
         } else if (target instanceof MonsterAttributes monster) {
             monster.setDefense(monster.getDefense() - defenseIncrease);
         }
