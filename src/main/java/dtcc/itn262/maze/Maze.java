@@ -3,7 +3,9 @@ package dtcc.itn262.maze;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.combat.CombatLogic;
 import dtcc.itn262.items.ItemManagement;
+import dtcc.itn262.items.armor.PhantomCircuitArmor;
 import dtcc.itn262.items.usableitems.HealingItems;
+import dtcc.itn262.items.weapons.Voidbreaker;
 import dtcc.itn262.monster.Monster;
 import dtcc.itn262.monster.boss.GhostCodeManifested;
 import dtcc.itn262.monster.boss.Gilgamesh;
@@ -42,7 +44,7 @@ public class Maze {
 		this.sceneManager = SceneManager.getInstance();
 		initializeRoomIndexMapping();
 		map[player.getPlayerRow()][player.getPlayerCol()].visitRoom(this.uniqueVisitedRooms);  // Mark the starting room
-		// as visited do i need this??
+		// as visited
 		TextDisplayUtility.showCurrentRoom(map, player); // <-does this need to be here?
 	}
 
@@ -118,20 +120,23 @@ public class Maze {
 	}
 
 	private void positionValidation(int newRow, int newCol) {
+		if (!Validation.isRoomValid(newRow, newCol, map)) {
+			System.out.println("Invalid room. Please try again.");
+			return;
+		}
+
 		try {
-			if (Validation.isRoomValid(newRow, newCol, map)) { // Check if the new position is valid
-				player.moveTo(newRow, newCol); // Move the player to the new room
-				Room newRoom = map[newRow][newCol];
-				processRoomAfterMove(newRoom);
-			} else {
-				System.out.println("You can't move in that direction.");
-			}
+			player.moveTo(newRow, newCol); // Move the player to the new room
+			Room newRoom = map[newRow][newCol];
+			processRoomAfterMove(newRoom);
+
 		} catch (ArrayIndexOutOfBoundsException e) {
-			GameLogger.logWarning("You can't move in that direction.");
+			GameLogger.logWarning("Error: " + e.getMessage());
 		} catch (NullPointerException e) {
 			GameLogger.logWarning(Constants.ROOM_ERROR + e.getMessage());
 		}
 	}
+
 
 	private void processRoomAfterMove(Room newRoom) {
 		TextDisplayUtility.showCurrentRoom(map, player); // <-- test this without
@@ -140,21 +145,24 @@ public class Maze {
 		}
 
 		try {
-			if (newRoom.isSpecial() && !newRoom.isSpecialEventTriggered()) { // Check if the room is special and if the event has not been triggered
-				sceneManager.displayScene(newRoom.getSceneIndex());
-				triggerSpecialEvent(newRoom);
-				newRoom.setSpecialEventTriggered(true); // Mark the event as triggered
-			} else {
-				triggerRandomEncounter();
-			}
+			handleSpecialRoom(newRoom);
 			newRoom.visitRoom(uniqueVisitedRooms);
 			displayMap();
 			updateMoveHistory(newRoom);
-
 		} catch (ArrayIndexOutOfBoundsException e) {
 			GameLogger.logInfo(e.getMessage());
 		} catch (NullPointerException e) {
 			GameLogger.logError("Critical Error " + e.getMessage());
+		}
+	}
+
+	private void handleSpecialRoom(Room newRoom) {
+		if (newRoom.isSpecial() && !newRoom.isSpecialEventTriggered()) {
+			sceneManager.displayScene(newRoom.getSceneIndex());
+			triggerSpecialEvent(newRoom);
+			newRoom.setSpecialEventTriggered(true);
+		} else {
+			triggerRandomEncounter();
 		}
 	}
 
@@ -168,17 +176,20 @@ public class Maze {
 		if (chance <= 20) { // 20% chance for an encounter //TODO 1
 
 			System.out.println("A wild monster appears!");
-			int playerLevel = player.getPlayerAttributes().getLevel();
-			List<Monster> monsters = Arrays.asList(
-					new ArcTechSoldier(playerLevel),
-					new CorruptedAutomaton(playerLevel),
-					new CyberHound(playerLevel),
-					new SteelDevourer(playerLevel)
-			);
-			Monster randomMonster = monsters.get(random.nextInt(monsters.size())); // Select a random monster
+			Monster randomMonster = generateRandomMonsterFromList(player.getPlayerAttributes().getLevel());
 			CombatLogic combat = new CombatLogic(player, randomMonster);
 			combat.startFight();
 		}
+	}
+
+	private Monster generateRandomMonsterFromList(int playerLevel) {
+		List<Monster> monsters = Arrays.asList(
+				new ArcTechSoldier(playerLevel),
+				new CorruptedAutomaton(playerLevel),
+				new CyberHound(playerLevel),
+				new SteelDevourer(playerLevel)
+		);
+		return monsters.get(random.nextInt(monsters.size()));
 	}
 
 	public void displayMap() {    // Display the map with the player's current position
@@ -207,31 +218,34 @@ public class Maze {
 		CombatLogic combat;
 		switch (room.getName()) {
 			case "Arcane Synth Bay": // set up for 3 rounds of fighting??
-				System.out.println("some kind of logic here get a weapon?");
-				break;
-			case "Abandoned Tech Labs":
-				System.out.println("some kind of logic here get a weapon?");
-				break;
-			case "Sky Bridge":
-				monster = new Gilgamesh(playerLevel);
+				monster = new CorruptedAutomaton(playerLevel);
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
 				break;
-			case "Final Frontier":
+			case "Abandoned Tech Labs":
+				player.addArmorToPlayerInventory(new PhantomCircuitArmor());
+				break;
+			case "Sky Bridge": // room 14
+				monster = new Gilgamesh(playerLevel);
+				combat = new CombatLogic(player, monster);
+				combat.startFight();
+				player.addWeaponToPlayerInventory(new Voidbreaker());
+				break;
+			case "Final Frontier": // room 43
 				monster = new GhostCodeManifested(playerLevel);
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
 				break;
-			case "NullSpace Hub":
-				System.out.println("some kind of logic here get a weapon?");
+			case "NullSpace Hub": // room 19
+				System.out.println("You've come this far be prepared for a formidable foe.");
 				break;
-			case "Aether Nexus":
+			case "The Architect's Citadel": // room 35
 				System.out.println("The final confrontation awaits...");
 				monster = new TheArchitect(playerLevel);
 				combat = new CombatLogic(player, monster);
 				combat.startFight();
 				break;
-			case "Fractured Nexus":
+			case "Fractured Nexus": //room 27
 				monster = new TheCipher(playerLevel);
 				combat = new CombatLogic(player, monster);
 				combat.startFight();

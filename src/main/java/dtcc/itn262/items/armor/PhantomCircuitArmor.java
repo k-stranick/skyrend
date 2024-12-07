@@ -6,7 +6,7 @@ public class PhantomCircuitArmor extends Armor {
 		super(
 				"Phantom Circuit Armor",
 				80,
-				"The Phantom Circuit Armor is the pinnacle of AetherGrid technology, interwoven with the Ghost Code. It phases between realities, making the wearer impervious to all forms of damage as they flicker between dimensions.",
+				"A prototype armor designed by the Council. Enhances speed and agility at the cost of stability.",
 				100
 		);
 	}

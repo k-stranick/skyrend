@@ -11,10 +11,6 @@ public class CommandDetails {
 		return command;
 	}
 
-	public void setCommand(String command) {
-		this.command = command;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -27,7 +23,4 @@ public class CommandDetails {
 		return usage;
 	}
 
-	public void setUsage(String usage) {
-		this.usage = usage;
-	}
 }

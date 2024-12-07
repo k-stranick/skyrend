@@ -192,6 +192,7 @@ public class CombatLogic {
 		TextDisplayUtility.displayItemsInBattle(itemType, itemList, equippedItem);
 		int itemChoice = UserInput.getPlayerChoice("Choose Wisely, you waste your turn with a poor choice: ");
 		if (itemChoice == -1) {
+			System.out.println("Returning to Skyrend...");
 			return;
 		}
 		while (itemChoice < -2 || itemChoice >= itemList.size()) {

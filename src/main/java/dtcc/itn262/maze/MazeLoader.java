@@ -3,6 +3,7 @@ package dtcc.itn262.maze;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
+import dtcc.itn262.utilities.gamecore.GameLogger;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -35,7 +36,8 @@ public class MazeLoader {
 
 			return maze;
 		} catch (JsonIOException | JsonSyntaxException | IOException e) {
-			e.printStackTrace();
+			GameLogger.logError("Failed to load maze from JSON file: " + jsonFilePath);
+			GameLogger.logError(e.getMessage());
 			return null;
 		}
 	}

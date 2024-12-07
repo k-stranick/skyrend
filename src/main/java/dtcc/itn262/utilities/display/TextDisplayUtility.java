@@ -174,7 +174,7 @@ public class TextDisplayUtility {
 	}
 
 	public static void showMainMenu() {
-		AsciiArt.displayAsciiArt("src/main/java/dtcc/itn262/json/ascii-text-art.txt");  // Display the game logo
+		AsciiArt.displayAsciiArt("src/main/java/dtcc/itn262/asciiart/ascii-text-art.txt");  // Display the game logo
 		System.out.println("========================= START MENU ===============================");
 		System.out.println("1. Start New Game - Begin a new adventure");
 		System.out.println("2. Load Game - Load a saved game");
