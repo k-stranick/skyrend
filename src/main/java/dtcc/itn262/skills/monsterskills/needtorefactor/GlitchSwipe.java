@@ -15,7 +15,7 @@ public class GlitchSwipe implements IMonsterSkill {
 
 
 	public void apply(MonsterAttributes target) {
-		target.setHealth(target.getHealth() - damage);
+		target.setActiveHealth(target.getActiveHealth() - damage);
 	}
 
 

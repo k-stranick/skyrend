@@ -9,7 +9,7 @@
         "s": -1,
         "e": 1,
         "w": -1,
-        "isSpecial": true,
+        "isSpecial": false,
         "sceneIndex": -1
       },
       {
@@ -577,7 +577,7 @@
         "s": 22,
         "e": -1,
         "w": 54,
-        "isSpecial": false,
+        "isSpecial": true,
         "sceneIndex": -1
       },
       null,

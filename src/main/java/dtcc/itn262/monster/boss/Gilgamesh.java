@@ -5,7 +5,7 @@ import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.monsterskills.*;
 
 public class Gilgamesh extends Monster {
-	public Gilgamesh() {
+	public Gilgamesh(int playerLevel) {
 		super("G1lg@mesh", new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(700)
 				.withMaxHealth(700)
@@ -18,9 +18,9 @@ public class Gilgamesh extends Monster {
 				.withMagicDefense(30)
 				.withLuck(25)
 				.withType("Gilgamesh")
-				.withDescription("G1lg@mesh (often referred to as Gilgamesh) is a powerful, corrupted entity born from the fusion of ancient technology and Ghost Code. Once a revered protector of the city’s AetherGrid, G1lg@mesh has been tainted by the chaotic energies of the Ghost Code, causing it to transform into a being of immense destructive force. Its body is a towering amalgamation of sleek metal and glowing circuitry, crackling with unstable Aether energy. It now seeks to dominate both the physical and digital realms, making it a formidable final boss.")
+				.withDescription("G1lg@mesh (often referred to as Gilgamesh) is a powerful, corrupted entity born from the fusion of ancient technology and Ghost Code. Once a revered protector of the city’s AetherGrid, G1lg@mesh has been tainted by the chaotic energies of the Ghost Code, causing it to transform into a being of immense destructive force. Its body is a towering amalgamation of sleek metal and glowing circuitry, crackling with unstable Aether energy. It now seeks to dominate both the physical and digital realms, making it a formidable foe.")
 				.withExperience(0)
-				.build());
+				.build(playerLevel));
 		// Define unique abilities here like Corrupt, DataDrain, etc.
 		addSkill(new Slash());
 		addSkill(new Zantetsuken()); // Zantetsuken is a one-hit kill ability

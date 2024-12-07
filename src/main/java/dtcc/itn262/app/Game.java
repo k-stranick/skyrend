@@ -11,6 +11,7 @@ import dtcc.itn262.items.weapons.Weapon;
 import dtcc.itn262.helpmenu.HelpMenu;
 import dtcc.itn262.maze.Maze;
 import dtcc.itn262.maze.Room;
+import dtcc.itn262.utilities.display.SceneManager;
 import dtcc.itn262.utilities.display.TextDisplayUtility;
 import dtcc.itn262.utilities.gamecore.Command;
 import dtcc.itn262.utilities.gamecore.GameLogger;
@@ -25,6 +26,7 @@ public class Game {
 	private Player player;
 	private PlayerActions playerActions;
 	private final HelpMenu helpMenu = new HelpMenu();
+	private final SceneManager sceneManger = SceneManager.getInstance();
 
 	public Game() {
 		showStartMenu();
@@ -41,8 +43,8 @@ public class Game {
 			switch (choice) {
 				case "1":
 					Music.stopAllSounds();
-					startGame();  // Start a new game
-					running = false;  // Exit the menu after starting the game //TODO WHY IS THIS HERE
+					startGame(true);  // Start a new game
+					running = false;  // Exit the menu after starting the game
 					break;
 				case "2":
 					loadGame();  // Load a saved game (optional)
@@ -72,49 +74,57 @@ public class Game {
 			System.out.println("Game loaded successfully!");
 			System.out.println("Welcome back, " + player.getHeroName() + "!");
 			maze.displayMap();
-			startGame(); // Continue the game
+			startGame(false); // Continue the game
 		} else {
 			System.err.println("Failed to load the game.");
 		}
 	}
 
-	private void startGame() {
+
+	private void startGame(boolean isNewGame) {
+		if (isNewGame) {
+			sceneManger.displayIntro();
+		}
 		try (Scanner input = new Scanner(System.in)) {
-			if (player == null) { // Create a new Player if one does not already exist
-				System.out.print("Enter your hero's name: ");
-				String playerName = input.nextLine().trim();
-				player = Player.createPlayer(playerName, 0, 0); // Create and assign the Player
-				System.out.println(player);
-				System.out.println("Welcome, " + player.getHeroName() + "!");
-			} else {
-				System.out.println("Resuming game for " + player.getHeroName() + "!");
-			}
+			initializePlayer(input);
 			playerActions = new PlayerActions(player); // Initialize PlayerActions for non-combat
 			Maze maze = Maze.getInstance(player); // Use the same Player instance
-			boolean continueGame = true;
 			Music.playBackgroundMusic("src/main/java/dtcc/itn262/utilities/soundandmusic/soundfiles/over_world_music.wav");
-
-			do {
-				System.out.print("?: ");
-				String value = input.nextLine().trim().toLowerCase();
-				inGameCommands(value, maze);
-
-				if (value.equalsIgnoreCase("exit")) {
-					continueGame = false;
-				/*} else if (Validation.checkWinCondition(maze)) {
-					System.out.println("Congratulations! You've won the game!");
-					continueGame = false;*/
-				} else if (Validation.checkLoseCondition(player)) {
-					System.out.println("Game Over! You have lost the game.");
-					continueGame = false;
-				}
-			} while (continueGame);
+			runGameLoop(input, maze);
 		} catch (Exception e) {
 			GameLogger.logError("An error occurred: " + e.getMessage());
 		}
 		System.out.println("Thank you for playing!");
 		Music.stopAllSounds();
 		System.exit(0);
+	}
+
+	private void initializePlayer(Scanner input) {
+		if (player == null) { // Create a new Player if one does not already exist
+			System.out.print("Enter your hero's name: ");
+			String playerName = input.nextLine().trim();
+			player = Player.createPlayer(playerName, 0, 0); // Create and assign the Player
+			System.out.println(player);
+			System.out.println("Welcome, " + player.getHeroName() + "!");
+		} else {
+			System.out.println("Resuming game for " + player.getHeroName() + "!");
+		}
+	}
+
+	private void runGameLoop(Scanner input, Maze maze) {
+		boolean continueGame = true;
+		do {
+			System.out.print("?: ");
+			String value = input.nextLine().trim().toLowerCase();
+			inGameCommands(value, maze);
+
+			if (value.equalsIgnoreCase("exit")) {
+				continueGame = false;
+			} else if (Validation.checkLoseCondition(player)) {
+				System.out.println("Game Over! You have lost the game.");
+				continueGame = false;
+			}
+		} while (continueGame);
 	}
 
 	private void inGameCommands(String value, Maze m) {
@@ -187,8 +197,8 @@ public class Game {
 
 				// Check item type and perform the corresponding action
 				switch (selectedItem) {
-					case Weapon weapon -> playerActions.handleWeaponSwapInBattle(weapon);
-					case Armor armor -> playerActions.handleArmorSwapInBattle(armor);
+					case Weapon weapon -> playerActions.handleWeaponSwap(weapon);
+					case Armor armor -> playerActions.handleArmorSwap(armor);
 					case HealingItems healingItems -> playerActions.useItem(healingItems);
 					case null, default -> System.out.println("Invalid item type.");
 				}
@@ -198,7 +208,6 @@ public class Game {
 
 			// After action, display inventory again
 			TextDisplayUtility.displayInventory(player);
-
 		}
 	}
 }

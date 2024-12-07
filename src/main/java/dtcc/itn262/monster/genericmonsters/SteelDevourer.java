@@ -7,7 +7,7 @@ import dtcc.itn262.skills.monsterskills.MemoryLeak;
 import dtcc.itn262.skills.monsterskills.Slash;
 
 public class SteelDevourer extends Monster {
-	public SteelDevourer() {
+	public SteelDevourer(int playerLevel) {
 		super("Steel Devourer", new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(300)
 				.withMaxHealth(300)
@@ -22,7 +22,7 @@ public class SteelDevourer extends Monster {
 				.withType("Mechanical Beast")
 				.withDescription("A massive, corrupted machine created to dismantle buildings but now turned against the people. Its enormous size and power make it a devastating force in battle.")
 				.withExperience(50)
-				.build());
+				.build(playerLevel));
 
 		// Define unique abilities here like Devour, Metal Claw, etc.
 		//addSkill(new Heal());

@@ -68,8 +68,8 @@ public class AetherShield implements PlayerSkill {
 		double absorbedDamage = damage;
 		double reflectedDamage = damage * 0.15;
 
-		player.getPlayerAttributes().setHealth((int) (player.getPlayerAttributes().getHealth() - absorbedDamage));
-		attacker.getMonsterAttributes().setHealth((int) (attacker.getMonsterAttributes().getHealth() - reflectedDamage));
+		player.getPlayerAttributes().setActiveHealth((int) (player.getPlayerAttributes().getActiveHealth() - absorbedDamage));
+		attacker.getMonsterAttributes().setActiveHealth((int) (attacker.getMonsterAttributes().getActiveHealth() - reflectedDamage));
 
 		System.out.println(player.getHero() + " absorbs " + absorbedDamage + " damage and reflects " + reflectedDamage + " damage back to " + attacker.getMonster() + "!");
 	}

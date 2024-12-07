@@ -1,8 +1,8 @@
 package dtcc.itn262.utilities.display;
 
 import dtcc.itn262.character.Player;
-import dtcc.itn262.combat.PriorityManager;
-import dtcc.itn262.combat.TurnOrder;
+//import dtcc.itn262.combat.PriorityManager;
+//import dtcc.itn262.combat.TurnOrder;
 import dtcc.itn262.items.Item;
 import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.items.usableitems.HealingItems;
@@ -103,10 +103,10 @@ public class TextDisplayUtility {
 
 	// Prints the stats of each monster in the battle
 	private static void printMonsterStats(Monster monster, int totalWidth) {
-		if (monster.getMonsterAttributes().getHealth() <= 0) {
+		if (monster.getMonsterAttributes().getActiveHealth() <= 0) {
 			return; // Skip if the monster is defeated
 		}
-		String enemyHpBar = generateBar(monster.getMonsterAttributes().getHealth(), monster.getMonsterAttributes().getMaxHealth());
+		String enemyHpBar = generateBar(monster.getMonsterAttributes().getActiveHealth(), monster.getMonsterAttributes().getMaxHealth());
 		String enemyMpBar = generateBar(monster.getMonsterAttributes().getMana(), monster.getMonsterAttributes().getMaxMana());
 		System.out.printf("| Monster: %-20s HP: %-30s MP: %-30s  %n",
 				padRight(monster.getMonster(), 20),
@@ -117,10 +117,10 @@ public class TextDisplayUtility {
 	/*	private static void printMonsterStats(List<Monster> monsters, int totalWidth) {
 		for (int i = 0; i < monsters.size(); i++) {
 			Monster enemy = monsters.get(i);
-			if (enemy.getMonsterAttributes().getHealth() <= 0) {
+			if (enemy.getMonsterAttributes().getActiveHealth() <= 0) {
 				continue; // Skip defeated monsters
 			}
-			String enemyHpBar = generateBar(enemy.getMonsterAttributes().getHealth(), enemy.getMonsterAttributes().getMaxHealth());
+			String enemyHpBar = generateBar(enemy.getMonsterAttributes().getActiveHealth(), enemy.getMonsterAttributes().getMaxHealth());
 			String enemyMpBar = generateBar(enemy.getMonsterAttributes().getMana(), enemy.getMonsterAttributes().getMaxMana());
 
 			System.out.printf("| Monster %d: %-20s HP: %-30s MP: %-30s  %n",
@@ -132,6 +132,7 @@ public class TextDisplayUtility {
 		System.out.println("+" + "-".repeat(totalWidth) + "+");
 	}*/
 
+/*
 	private static void displayBattleQueue(PriorityManager priorityManager, int totalWidth) {
 		System.out.println("+" + "-".repeat(totalWidth) + "+");
 		System.out.println("| Current Turn Queue: ");
@@ -151,6 +152,7 @@ public class TextDisplayUtility {
 
 		System.out.println("+" + "-".repeat(totalWidth) + "+");
 	}
+*/
 
 
 	// Prints the action menu for the player
@@ -172,7 +174,7 @@ public class TextDisplayUtility {
 	}
 
 	public static void showMainMenu() {
-		AsciiArt.displayAsciiArt("src/main/java/dtcc/itn262/json/ascii-text-art.txt");  // Display the game logo
+		AsciiArt.displayAsciiArt("src/main/java/dtcc/itn262/asciiart/ascii-text-art.txt");  // Display the game logo
 		System.out.println("========================= START MENU ===============================");
 		System.out.println("1. Start New Game - Begin a new adventure");
 		System.out.println("2. Load Game - Load a saved game");

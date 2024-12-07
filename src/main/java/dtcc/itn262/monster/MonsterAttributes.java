@@ -1,11 +1,9 @@
 package dtcc.itn262.monster;
 
-import java.util.Random;
-
 public class MonsterAttributes {
 	//static Random rand = new Random();
 	private int level;
-	private int health;
+	private int activeHealth;
 	private int maxHealth;
 	private int strength;
 	private int defense;
@@ -22,21 +20,21 @@ public class MonsterAttributes {
 
 
 	// Custom constructor for specific monsters or bosses
-	public MonsterAttributes(MonsterAttributesBuilder builder) {
-		this.health = builder.health;
-		this.maxHealth = builder.maxHealth;
-		this.strength = builder.strength;
-		this.defense = builder.defense;
-		this.magic = builder.magic;
-		this.magicDefense = builder.magicDefense;
-		this.speed = builder.speed;
-		this.luck = builder.luck;
-		this.mana = builder.mana;
-		this.maxMana = builder.maxMana;
+	protected MonsterAttributes(MonsterAttributesBuilder builder, int playerLevel) {
+		this.activeHealth = builder.activeHealth + (playerLevel * 10);
+		this.maxHealth = builder.maxHealth + (playerLevel * 10);
+		this.strength = builder.strength + (playerLevel * 5);
+		this.defense = builder.defense + playerLevel;
+		this.magic = builder.magic + (playerLevel * 5);
+		this.magicDefense = builder.magicDefense + playerLevel;
+		this.speed = builder.speed + playerLevel;
+		this.luck = builder.luck + playerLevel;
+		this.mana = builder.mana + (playerLevel * 5);
+		this.maxMana = builder.maxMana + (playerLevel * 5);
 		this.type = builder.type;
 		this.description = builder.description;
-		this.experience = builder.experience;
-		this.level = builder.level;
+		this.experience = builder.experience + (playerLevel * 3);
+		this.level = builder.level > 0 ? builder.level : (playerLevel + 3);
 		this.gold = builder.gold;
 	}
 
@@ -49,8 +47,8 @@ public class MonsterAttributes {
 		this.defense = defense;
 	}
 
-	public int getHealth() {
-		return health;
+	public int getActiveHealth() {
+		return activeHealth;
 	}
 
 	public int getMaxHealth() {
@@ -77,8 +75,8 @@ public class MonsterAttributes {
 		this.maxMana = maxMana;
 	}
 
-	public void setHealth(int health) {
-		this.health = health;
+	public void setActiveHealth(int activeHealth) {
+		this.activeHealth = activeHealth;
 	}
 
 	public int getStrength() {
@@ -161,9 +159,11 @@ public class MonsterAttributes {
 		this.description = description;
 	}
 
+
+
 	public static class MonsterAttributesBuilder { // for generic monsters
 		private int maxHealth = 100;
-		private int health = 100;
+		private int activeHealth = 100;
 		private int strength = 10;
 		private int defense = 10 ;
 		private int magic = 10;
@@ -171,16 +171,21 @@ public class MonsterAttributes {
 		private int speed = 5;
 		private int luck = 5;
 		private int experience = 0;
-		private int level = 1;
+		private int level = 0;
 		private int gold = 0;
 		private int maxMana = 50;
 		private int mana= 50;
 		private String type = "Monster";
 		private String description = "A monster";
 
+		// Build method to return a MonsterAttributes instance
+		public MonsterAttributes build(int playerLevel) {
+			return new MonsterAttributes(this, playerLevel);
+		}
 
-		public MonsterAttributesBuilder withHealth(int health) {
-			this.health = health;
+		public MonsterAttributesBuilder withHealth(int activeHealth) {
+			this.activeHealth = activeHealth;
+
 			return this;
 		}
 
@@ -254,10 +259,10 @@ public class MonsterAttributes {
 			return this;
 		}
 
-		// Build method to return a MonsterAttributes instance
+/*		// Build method to return a MonsterAttributes instance
 		public MonsterAttributes build() {
 			return new MonsterAttributes(this);
-		}
+		}*/
 	}
 }
 

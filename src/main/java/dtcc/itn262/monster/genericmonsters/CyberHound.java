@@ -5,7 +5,7 @@ import dtcc.itn262.monster.MonsterAttributes;
 import dtcc.itn262.skills.monsterskills.Slash;
 
 public class CyberHound extends Monster {
-	public CyberHound() {
+	public CyberHound(int playerLevel) {
 		super("Cyber Hound", new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(100)
 				.withMaxHealth(100)
@@ -20,7 +20,7 @@ public class CyberHound extends Monster {
 				.withType("Cybernetic Beast")
 				.withDescription("A mechanical beast that roams the streets of Skyrend.")
 				.withExperience(25)
-				.build());
+				.build(playerLevel));
 
 		// Define unique abilities here like Pounce, Bite, etc.
 		addSkill(new Slash());

@@ -1,3 +1,4 @@
+/*
 package dtcc.itn262.combat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -37,6 +38,7 @@ public class TurnOrder  {
         return Comparator.comparingInt(TurnOrder::getPriority).reversed();
     }
 }
+*/
 
 
 

@@ -5,7 +5,7 @@ import dtcc.itn262.monster.Monster;
 import dtcc.itn262.skills.monsterskills.*;
 
 public class TheArchitect extends Monster {
-	public TheArchitect() {
+	public TheArchitect(int playerLevel) {
 		super("The Architect", new MonsterAttributes.MonsterAttributesBuilder()
 				.withHealth(600)
 				.withMaxHealth(600)
@@ -22,7 +22,7 @@ public class TheArchitect extends Monster {
 						"\n" +
 						"He doesn’t just want control; he craves perfection through order and the elimination of those who oppose his vision for Skyrend. While The Ghost Code Manifest represents chaos, The Architect represents cold, methodical control over both the physical and digital realms.")
 				.withExperience(0)
-				.build());
+				.build(playerLevel));
 		// Define unique abilities here like Code Injection, Firewall, etc.
 		//addSkill(new CodeInjection());
 		//addSkill(new Firewall());

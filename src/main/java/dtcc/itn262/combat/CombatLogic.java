@@ -1,5 +1,6 @@
 package dtcc.itn262.combat;
 
+import dtcc.itn262.character.LevelingSystem;
 import dtcc.itn262.character.Player;
 import dtcc.itn262.character.PlayerAttributes;
 import dtcc.itn262.combat.effects.BuffAndDeBuff;
@@ -22,7 +23,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-
 public class CombatLogic {
 	private final Player player;
 	private final Monster monster;
@@ -31,7 +31,6 @@ public class CombatLogic {
 	private final ArrayList<PlayerSkill> cooldownList = new ArrayList<>();  // this is a generic stack that holds PlayerSkill objects
 	protected List<BuffAndDeBuff<PlayerAttributes>> activePlayerBuffs;
 	protected List<BuffAndDeBuff<MonsterAttributes>> activeMonsterBuffs;
-
 
 	public CombatLogic(Player player, Monster monster) {
 		Music.stopBackgroundMusic();
@@ -127,22 +126,21 @@ public class CombatLogic {
 		}
 	}
 
-	private static void determineOutcome(boolean battleEnded, Player player, Monster monster) {
+	private void determineOutcome(boolean battleEnded, Player player, Monster monster) {
 		if (battleEnded) {
 			System.out.println("You successfully ran away!");
 		} else if (!player.isAlive()) {
 			System.out.println("You were defeated!");
 		} else {
 			System.out.println("Player wins! The monster is defeated.");
-			int xpGained = monster.getMonsterAttributes().getExperience();
-			player.gainExperience(xpGained);
+			int xpGained = LevelingSystem.calculateExpAwarded(player, monster);
 			System.out.println(player.getHeroName() + " gained " + xpGained + " XP.");
-
+			player.gainExperience(xpGained);
 			handleLootDrops(player);
 		}
 	}
 
-	private static void handleLootDrops(Player player) {
+	private void handleLootDrops(Player player) {
 		Random rand = new Random();
 		ItemManagement itemManagement = new ItemManagement();
 
@@ -152,19 +150,22 @@ public class CombatLogic {
 			// Generate a random item
 			Item item = itemManagement.generateRandomItem();
 			System.out.println("The monster dropped an item: " + item.getName());
-
-			// Clone the item before adding it to the player's inventory
-			Item itemClone = item.clone();
-			// Use a switch statement to determine the item type and add it to the inventory
-			switch (itemClone) {
-				case Weapon weapon -> player.addWeaponToPlayerInventory(weapon);
-				case Armor armor -> player.addArmorToPlayerInventory(armor);
-				case HealingItems usableItem -> player.addItemToPlayerInventory(usableItem);
-				default -> System.out.println("Unknown item type: " + itemClone.getName());
-			}
+			handleClonedItemsForPlayerInventory(item, player);
 
 		} else {
 			System.out.println("The monster didn't drop any items.");
+		}
+	}
+
+	private void handleClonedItemsForPlayerInventory(Item item, Player player) {
+		// Clone the item before adding it to the player's inventory
+		Item itemClone = item.clone();
+		// Use a switch statement to determine the item type and add it to the inventory
+		switch (itemClone) {
+			case Weapon weapon -> player.addWeaponToPlayerInventory(weapon);
+			case Armor armor -> player.addArmorToPlayerInventory(armor);
+			case HealingItems usableItem -> player.addItemToPlayerInventory(usableItem);
+			default -> System.out.println("Unknown item type: " + itemClone.getName());
 		}
 	}
 
@@ -189,19 +190,20 @@ public class CombatLogic {
 
 	private <T extends Item> void displayAndChooseItem(String itemType, List<T> itemList, T equippedItem) {
 		TextDisplayUtility.displayItemsInBattle(itemType, itemList, equippedItem);
-		int itemChoice = UserInput.getPlayerChoice("Choose a " + itemType.toLowerCase() + " to equip: ");
+		int itemChoice = UserInput.getPlayerChoice("Choose Wisely, you waste your turn with a poor choice: ");
 		if (itemChoice == -1) {
+			System.out.println("Returning to Skyrend...");
 			return;
 		}
 		while (itemChoice < -2 || itemChoice >= itemList.size()) {
 			System.out.println("Invalid " + itemType.toLowerCase() + " choice.");
-			itemChoice = UserInput.getPlayerChoice("Choose a " + itemType.toLowerCase() + " to equip: ");
+			itemChoice = UserInput.getPlayerChoice("Choose Wisely, you waste your turn with a poor choice: ");
 		}
 		T selectedItem = itemList.get(itemChoice);
 		if (selectedItem instanceof Armor) {
-			playerActions.handleArmorSwapInBattle((Armor) selectedItem);
+			playerActions.handleArmorSwap((Armor) selectedItem);
 		} else if (selectedItem instanceof Weapon) {
-			playerActions.handleWeaponSwapInBattle((Weapon) selectedItem);
+			playerActions.handleWeaponSwap((Weapon) selectedItem);
 		}
 	}
 

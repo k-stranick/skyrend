@@ -50,7 +50,7 @@ public class PlayerActions {
 		}
 	}
 
-	public void handleWeaponSwapInBattle(Weapon weapon) {
+	public void handleWeaponSwap(Weapon weapon) {
 		if (player.getPlayerWeaponList().contains(weapon)) {
 			player.equippedWeapon(weapon);
 		} else {
@@ -58,7 +58,7 @@ public class PlayerActions {
 		}
 	}
 
-	public void handleArmorSwapInBattle(Armor armor) {
+	public void handleArmorSwap(Armor armor) {
 		if (player.getPlayerArmorList().contains(armor)) {
 			player.equippedArmor(armor);
 		} else {
@@ -69,7 +69,7 @@ public class PlayerActions {
 	protected void attack(Player player, Monster target) {
 		int damage = (player.getPlayerAttributes().getStrength() - target.getMonsterAttributes().getDefense());
 		if (damage > 0) {
-			target.getMonsterAttributes().setHealth(target.getMonsterAttributes().getHealth() - damage);
+			target.getMonsterAttributes().setActiveHealth(target.getMonsterAttributes().getActiveHealth() - damage);
 			System.out.println(player.getHeroName() + " attacks " + target.getMonster() + " for " + damage + " damage.");
 		} else {
 			System.out.println(player.getHeroName() + " attacks " + target.getMonster() + " but the attack is ineffective.");
@@ -86,8 +86,9 @@ public class PlayerActions {
 
 	protected void scanEnemy(Monster target) {
 		System.out.println("Enemy: " + target.getMonster() +
+				"\nLevel: " + target.getMonsterAttributes().getLevel() +
 				"\nDescription: " + target.getMonsterAttributes().getDescription() +
-				"\nHealth: " + target.getMonsterAttributes().getHealth() +
+				"\nHealth: " + target.getMonsterAttributes().getActiveHealth() +
 				"\nStrength: " + target.getMonsterAttributes().getStrength() +
 				"\nMana: " + target.getMonsterAttributes().getMana() +
 				"\nDefense: " + target.getMonsterAttributes().getDefense() +
@@ -149,21 +150,3 @@ public class PlayerActions {
 		System.out.println(player);
 	}
 }
-/*	// Use or equip item based on type from the player's inventory
-	public static void equipOrUseItem(int index) {
-		List<Object> inventory = player.getInventory();  // Get inventory from Player class
-
-		if (index >= 0 && index < inventory.size()) {
-			Object selectedItem = inventory.get(index);
-
-			// Check an item type and perform the corresponding action
-			switch (selectedItem) {
-				case IWeapon iWeapon -> equipWeapon(index);  // Equip weapon
-				case Armor armor -> equipArmor(index);  // Equip armor
-				case HealingItems usableItems -> useItem(player,index);  // Use consumable item
-				case null, default -> System.out.println("Invalid item type.");
-			}
-		} else {
-			System.out.println("Invalid index.");
-		}
-	}*/ //BROKEN CODE

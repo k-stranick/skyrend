@@ -1,12 +1,12 @@
 package dtcc.itn262.character;
 
-import java.util.Random;
-
 public class PlayerAttributes {
 	//Random rand = new Random();
 
 	private int level;
+	private int baseStrength;  //TODO
 	private int strength;  // governs attack power
+	private int baseDefense;  //TODO
 	private int defense;  // governs attack resistance
 	private int health; // governs current life
 	private int maxHealth; // governs max life
@@ -18,37 +18,32 @@ public class PlayerAttributes {
 	private int luck; // governs critical hit chance
 	private int experience; // governs level
 
-/*
-	{
-		this.health = maxHealth;
-		this.mana = maxMana;
-	}
-*/
-
 	public PlayerAttributes() {
 
-		this.magicDefense = 20;
-		this.strength = 1007; //TODO
-		this.defense = 1005;
+		this.magicDefense = 18;
+		this.baseStrength = 30;
+		this.strength = baseStrength; //TODO
+		this.baseDefense = 18;
+		this.defense = baseDefense;
 		this.magic = 20;
-		this.speed = 10;  //TODO
-		this.luck = 100; // crits?
+		this.speed = 15;  //TODO
+		this.luck = 9; // crits?
 		this.experience = 0; // base experience
-		this.maxHealth = 200;  // base max health, need it for a leveling system
+		this.maxHealth = 350;  // base max health, need it for a leveling system
 		this.health = maxHealth;  // set current health to max health
-		this.maxMana = 100; // base max mana  //TODO
+		this.maxMana = 125; // base max mana  //TODO
 		this.mana = maxMana; // set current mana to max mana, need it for a leveling system
 		this.level = 1; // base level
 	}
-/*
 
-	private int randStat() {
-		Random rand = new Random();
-		//TODO make equations constants to avoid magic numbers and allow for easier balancing
-		return rand.nextInt(16) + 13; // generates a random int between 13 and 29
+
+	public int getBaseStrength() {
+		return baseStrength;
 	}
-*/
 
+	public void setBaseStrength(int baseStrength) {
+		this.baseStrength = baseStrength;
+	}
 
 	public int getStrength() {
 		return strength;
@@ -64,7 +59,6 @@ public class PlayerAttributes {
 	}
 
 	public void setHealth(int health) {
-		//this.health = health;
 		// Prevent health from going over maxHealth or below 0
 		this.health = Math.max(0, Math.min(health, maxHealth));
 	}
@@ -104,11 +98,17 @@ public class PlayerAttributes {
 		this.level = level;
 	}
 
+	public int getBaseDefense() {
+		return baseDefense;
+	}
 
 	public int getDefense() {
 		return defense;
 	}
 
+	public void setBaseDefense(int defense) {
+		this.baseDefense = defense;
+	}
 	public void setDefense(int defense) {
 		this.defense = defense;
 	}
@@ -155,7 +155,6 @@ public class PlayerAttributes {
 	public void setExperience(int experience) {
 		this.experience = experience;
 	}
-
 
 
 }
