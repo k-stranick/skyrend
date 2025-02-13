@@ -1,5 +1,5 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+Java built Text based adventure game. Buiilt from the ground up, the player has access to inventory management, saving the state of the game, leveling, boss fights, random encounters and more. I am looking to expand into a GUI element. The game needs polished but as of Now it works well. I will update this introduction when I have accomplished more
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
