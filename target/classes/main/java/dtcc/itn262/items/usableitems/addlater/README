@@ -1,0 +1,8 @@
+These are here for future use. They are not implemented yet.
+I could not figure out how to properly deserialize Abstract classes.
+I have some test classes but I will not implement this until I can figure out how to properly deserialize abstract classes.
+
+
+Look into jackson annotations for abstract classes.
+http://websystique.com/java/json/gson-json-annotations-example/
+https://medium.com/@iliamsharipov_56660/handling-polymorphism-with-gson-f4a702014ffe

@@ -32,7 +32,7 @@ public class Game {
 		showStartMenu();
 	}
 
-	private void showStartMenu() {
+	private void showStartMenu() {  // main method to start the game
 		boolean running = true;
 		Scanner scanner = new Scanner(System.in);
 
@@ -47,7 +47,7 @@ public class Game {
 					running = false;  // Exit the menu after starting the game
 					break;
 				case "2":
-					loadGame();  // Load a saved game (optional)
+					loadGame();  // Load a saved game
 					break;
 				case "3":
 					helpMenu.displayHelp();  // Show the help menu
@@ -114,7 +114,8 @@ public class Game {
 	private void runGameLoop(Scanner input, Maze maze) {
 		boolean continueGame = true;
 		do {
-			System.out.print("?: ");
+
+			System.out.print(getPlayerPrompt());
 			String value = input.nextLine().trim().toLowerCase();
 			inGameCommands(value, maze);
 
@@ -190,7 +191,8 @@ public class Game {
 				break; // Exit the inventory menu
 			}
 
-			Map<Integer, Item> indexToItemMap = player.getInventoryIndexMap();
+			Map<Integer, Item> indexToItemMap = player.getInventoryIndexMap(); // should this be changed
+			// since I am calling to the abstract Item class??
 
 			if (indexToItemMap.containsKey(index)) {
 				Item selectedItem = indexToItemMap.get(index);
@@ -210,4 +212,15 @@ public class Game {
 			TextDisplayUtility.displayInventory(player);
 		}
 	}
+
+	private String getPlayerPrompt() {
+		int hp = this.player.getPlayerAttributes().getHealth();
+		int maxHp = this.player.getPlayerAttributes().getMaxHealth();
+		int mp = this.player.getPlayerAttributes().getMana();
+		int maxMp = this.player.getPlayerAttributes().getMaxMana();
+		return "HP: " + hp + "/" + maxHp + "  MP: " + mp + "/" + maxMp + "  >> ";
+	}
 }
+
+
+
