@@ -7,6 +7,7 @@ import dtcc.itn262.items.armor.Armor;
 import dtcc.itn262.items.usableitems.HealingItems;
 import dtcc.itn262.items.weapons.Weapon;
 import dtcc.itn262.monster.Monster;
+import dtcc.itn262.skills.monsterskills.IMonsterSkill;
 import dtcc.itn262.skills.playerskills.DivineStrike;
 import dtcc.itn262.skills.playerskills.Heal;
 import dtcc.itn262.skills.playerskills.PlayerSkill;
@@ -85,7 +86,8 @@ public class PlayerActions {
 	}
 
 	protected void scanEnemy(Monster target) {
-		System.out.println("Enemy: " + target.getMonster() +
+		System.out.println(
+				"Enemy: " + target.getMonster() +
 				"\nLevel: " + target.getMonsterAttributes().getLevel() +
 				"\nDescription: " + target.getMonsterAttributes().getDescription() +
 				"\nHealth: " + target.getMonsterAttributes().getActiveHealth() +
@@ -95,7 +97,14 @@ public class PlayerActions {
 				"\nMagic: " + target.getMonsterAttributes().getMagic() +
 				"\nMagic Defense: " + target.getMonsterAttributes().getMagicDefense() +
 				"\nSpeed: " + target.getMonsterAttributes().getSpeed() +
-				"\nLuck: " + target.getMonsterAttributes().getLuck());
+				"\nLuck: " + target.getMonsterAttributes().getLuck()
+		);
+
+		System.out.println("Skills: "); // will print skills but doubles the space in between this is not clean
+
+		for(IMonsterSkill skill : target.getMonsterSkills()) {
+			System.out.println("- " + skill.getSkillName());
+		}
 	}
 
 	protected boolean run(Player player) {

@@ -43,6 +43,18 @@ public class Monster {
 		monsterSkills.add(skill);
 	}
 
+<<<<<<< HEAD
+=======
+	private String getMonsterSkillName () {
+		StringBuilder skillNames = new StringBuilder();
+
+		for(IMonsterSkill skill : monsterSkills) {
+			skillNames.append(skill.getSkillName()).append(",");
+		}
+
+		return skillNames.toString();
+	}
+>>>>>>> 7af519c (Reinitialize repository)
 
 	@Override
 	public String toString() {
@@ -60,7 +72,13 @@ public class Monster {
 						+ "\nMagic: " + monsterAttributes.getMagic()
 						+ "\nMagic Defense: " + monsterAttributes.getMagicDefense()
 						+ "\nType: " + monsterAttributes.getType()
+<<<<<<< HEAD
 						+ "\nDescription: " + monsterAttributes.getDescription();
+=======
+						+ "\nDescription: " + monsterAttributes.getDescription()
+						+ "\nSkills: " + this.getMonsterSkillName() // do i need this here?
+				;
+>>>>>>> 7af519c (Reinitialize repository)
 
 
 	}

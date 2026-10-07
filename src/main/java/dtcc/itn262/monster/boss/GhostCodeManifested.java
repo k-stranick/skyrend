@@ -19,7 +19,13 @@ public class GhostCodeManifested extends Monster {
 				.withMagic(60)
 				.withMagicDefense(50)
 				.withLuck(30)
+<<<<<<< HEAD
 				.withType("Ghost Code")
+=======
+				// have types mean something? gain weaknesses and buffs but make in its own dedicated file
+				.withType("Ghost Code")
+				// pull descriptions out and place in its own file?
+>>>>>>> 7af519c (Reinitialize repository)
 				.withDescription("The Ghost Code Manifested is the embodiment of the chaotic, glitching energy that has disrupted Skyrend's AetherGrid. It is a swirling mass of corrupted data, constantly shifting and morphing, with tendrils of fragmented code flickering in and out of existence. Its form is unstable, often appearing as a distortion in reality itself, with areas around it warping and bending unpredictably.")
 				.withExperience(0)
 				.build(playerLevel)
