@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
-
+// separate game saving and game loading
 public class GameSaver {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -18,7 +18,8 @@ public class GameSaver {
 		System.out.println("Armor: " + gameState.getPlayer().getPlayerArmorList());
 		System.out.println("Items: " + gameState.getPlayer().getPlayerItemsList());
 
-		try (FileWriter writer = new FileWriter(filePath)) {
+		try (FileWriter writer = new FileWriter(filePath)) { // try-with-resources
+			// to ensure the FileWriter is closed automatically saves file to game_state.json in the SaveLoad directory
 			GSON.toJson(gameState, writer);
 			System.out.println("Game saved successfully!");
 		} catch (IOException e) {

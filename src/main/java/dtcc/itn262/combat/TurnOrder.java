@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class TurnOrder  {
+public class TurnOrder {
 
     private final Object entity;
     private final int priority;

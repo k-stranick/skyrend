@@ -7,6 +7,13 @@
         "description": "A basic club that can be used to bash enemies.",
         "type": "Club",
         "dropRate": 0.1
+      },
+      {
+        "damage": 100,
+        "name": "Voidbreaker",
+        "description": "Forged from the essence of the Ghost Code and the heart of the AetherGrid, the Voidbreaker can tear through the fabric of reality itself, annihilating enemies in both the physical and digital realms.",
+        "type": "Sword",
+        "dropRate": 100.0
       }
     ],
     "playerArmorList": [
@@ -16,6 +23,27 @@
         "description": "A suit that harnesses Aether energy to power a protective barrier, greatly enhancing defense.",
         "type": "",
         "dropRate": 0.1
+      },
+      {
+        "defenseBoost": 25,
+        "name": "Neon Shroud",
+        "description": "A shroud made of colorful cybernetic fibers that can absorb and redirect energy attacks.",
+        "type": "",
+        "dropRate": 0.1
+      },
+      {
+        "defenseBoost": 35,
+        "name": "Aether Reactor Suit",
+        "description": "A suit that harnesses Aether energy to power a protective barrier, greatly enhancing defense.",
+        "type": "",
+        "dropRate": 0.1
+      },
+      {
+        "defenseBoost": 80,
+        "name": "Phantom Circuit Armor",
+        "description": "A prototype armor designed by the Council. Enhances speed and agility at the cost of stability.",
+        "type": "",
+        "dropRate": 100.0
       }
     ],
     "playerItemsList": [
@@ -26,27 +54,35 @@
         "description": "Aether potion",
         "type": "",
         "dropRate": 0.1
+      },
+      {
+        "value": 40,
+        "value2": 0,
+        "name": "Health Stim",
+        "description": "Health potion",
+        "type": "",
+        "dropRate": 0.5
       }
     ],
     "hero": "Hero",
     "playerAttributes": {
-      "level": 3,
-      "baseStrength": 45,
-      "strength": 1007,
-      "baseDefense": 33,
-      "defense": 1075,
-      "health": 245,
-      "maxHealth": 245,
-      "magic": 35,
-      "magicDefense": 35,
-      "mana": 125,
-      "maxMana": 125,
-      "speed": 19,
-      "luck": 107,
-      "experience": 38
+      "level": 4,
+      "baseStrength": 54,
+      "strength": 9999,
+      "baseDefense": 10008,
+      "defense": 9999,
+      "health": 299969,
+      "maxHealth": 9999,
+      "magic": 44,
+      "magicDefense": 44,
+      "mana": 139,
+      "maxMana": 139,
+      "speed": 21235,
+      "luck": 112,
+      "experience": 109
     },
-    "playerRow": 2,
-    "playerCol": 6,
+    "playerRow": 4,
+    "playerCol": 2,
     "equippedArmor": {
       "defenseBoost": 35,
       "name": "Aether Reactor Suit",
@@ -56,7 +92,9 @@
     }
   },
   "uniqueVisitedRooms": [
-
+    "Arcane Synth Bay",
+    "Abandoned Tech Labs",
+    "Sky Bridge"
   ],
   "moveHistory": [
     "Neon Corridor",
@@ -102,6 +140,26 @@
     "The Drift Way",
     "Rune Street Markets",
     "The Drift Way",
-    "Rune Street Markets"
+    "Rune Street Markets",
+    "The Drift Way",
+    "StormW3ll Station",
+    "Circuit Yard",
+    "Giga Tower",
+    "Ghost Terminal",
+    "Arcane Synth Bay",
+    "Ghost Terminal",
+    "Giga Tower",
+    "Circuit Yard",
+    "StormW3ll Station",
+    "The Drift Way",
+    "Rune Street Markets",
+    "Abandoned Tech Labs",
+    "Rune Street Markets",
+    "The Drift Way",
+    "StormW3ll Station",
+    "Circuit Yard",
+    "Giga Tower",
+    "Ghost Terminal",
+    "Sky Bridge"
   ]
 }
