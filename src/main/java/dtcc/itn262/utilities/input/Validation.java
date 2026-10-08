@@ -18,7 +18,7 @@ public class Validation { // this will be a class of static methods
 			return "Hero";  // Default name
 		} else if (name.length() < 2 || name.length() > 20) {
 			System.out.println("Name must be between 2 and 20 characters. Defaulting to 'Hero'.");
-			return "Hero";
+			return "Hero"; // should not default to hero it should give player a chance to re-enter their name
 		} else if (!name.matches("[a-zA-Z]+")) {
 			System.out.println("Name contains invalid characters. Only letters are allowed. Defaulting to 'Hero'.");
 			return "Hero";

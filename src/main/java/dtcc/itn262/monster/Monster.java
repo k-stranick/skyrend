@@ -43,8 +43,7 @@ public class Monster {
 		monsterSkills.add(skill);
 	}
 
-<<<<<<< HEAD
-=======
+
 	private String getMonsterSkillName () {
 		StringBuilder skillNames = new StringBuilder();
 
@@ -54,12 +53,12 @@ public class Monster {
 
 		return skillNames.toString();
 	}
->>>>>>> 7af519c (Reinitialize repository)
 
 	@Override
 	public String toString() {
 		return
-				"Monster: " + monster
+				"Monster: "
+						+ monster
 						+ "\nLevel: " + monsterAttributes.getLevel()
 						+ "\nExperience: " + monsterAttributes.getExperience()
 						+ "\nStrength: " + monsterAttributes.getStrength()
@@ -72,14 +71,8 @@ public class Monster {
 						+ "\nMagic: " + monsterAttributes.getMagic()
 						+ "\nMagic Defense: " + monsterAttributes.getMagicDefense()
 						+ "\nType: " + monsterAttributes.getType()
-<<<<<<< HEAD
-						+ "\nDescription: " + monsterAttributes.getDescription();
-=======
 						+ "\nDescription: " + monsterAttributes.getDescription()
-						+ "\nSkills: " + this.getMonsterSkillName() // do i need this here?
-				;
->>>>>>> 7af519c (Reinitialize repository)
-
-
+						+ "\nSkills: " + this.getMonsterSkillName() // do i need this here?//;
+		;
 	}
 }

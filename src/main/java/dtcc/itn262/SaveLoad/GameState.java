@@ -9,8 +9,8 @@ import java.util.Set;
 public class GameState {
 	private Player player;      // Player's current state
 	//private boolean isBossDefeated; // TODO this should change and I should keep track of all bosses defeated
-	private Set<String> uniqueVisitedRooms; // this should allow me to make sure I do not trigger the same event twice
-	private List<String> moveHistory;
+	private final Set<String> uniqueVisitedRooms; // this should allow me to make sure I do not trigger the same event twice
+	private final List<String> moveHistory;
 
 
 	public GameState(Player player,Set<String> uniqueVisitedRooms,List<String> moveHistory) {

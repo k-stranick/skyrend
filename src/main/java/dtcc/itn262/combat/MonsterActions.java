@@ -12,14 +12,15 @@ import java.util.List;
 import java.util.Random;
 
 public class MonsterActions {
+/*
 <<<<<<< HEAD
-	private final List<IMonsterSkill> monsterSkills = new ArrayList<>();
-	CombatLogic combatLogic;
+*/
+/*	private final List<IMonsterSkill> monsterSkills = new ArrayList<>();
+	CombatLogic combatLogic;*/
 
 
-	public MonsterActions(CombatLogic combatLogic) { // adding skills to the player
-		monsterSkills.add(new QuantumDistortion());
-=======
+/*	public MonsterActions(CombatLogic combatLogic) { // adding skills to the player
+		monsterSkills.add(new QuantumDistortion());*/
 	//private final List<IMonsterSkill> monsterSkills = new ArrayList<>();
 	// removed because this was creating a separate list and overriding the list for EACH monster
 	CombatLogic combatLogic;
@@ -28,7 +29,6 @@ public class MonsterActions {
 	public MonsterActions(CombatLogic combatLogic) { // adding skills to the player...
 		// Stores a reference to the current combat system
 		//	monsterSkills.add(new QuantumDistortion());
->>>>>>> 7af519c (Reinitialize repository)
 		this.combatLogic = combatLogic;
 	}
 
@@ -53,15 +53,12 @@ public class MonsterActions {
 	}
 
 
-<<<<<<< HEAD
-	protected void useSkill(Monster target, Player player) {
+/*	protected void useSkill(Monster target, Player player) {
 		try {
-			List<IMonsterSkill> monsterSkills = getMonsterSkills();
-=======
+			List<IMonsterSkill> monsterSkills = getMonsterSkills();*/
 	protected void useSkill(Monster target, Player player) { // change target to something better
 		try {
 			List<IMonsterSkill> monsterSkills = target.getMonsterSkills();
->>>>>>> 7af519c (Reinitialize repository)
 			if (!monsterSkills.isEmpty()) {
 				// Generate a random index from the available skills
 				Random rand = new Random();
@@ -69,31 +66,21 @@ public class MonsterActions {
 				IMonsterSkill skill = monsterSkills.get(skillIndex);// Retrieve the randomly selected skill and use it
 				skill.useSkill(target, player);  // Use the skill on the player
 			} else {
-<<<<<<< HEAD
-				System.out.println("The monster has no skills available.");
-=======
 				System.out.println(target.getMonster() + " has no skills available.");
->>>>>>> 7af519c (Reinitialize repository)
 			}
 		} catch (Exception e) {
 			System.out.println("An error occurred while using the skill: " + e.getMessage());
 		}
 	}
-<<<<<<< HEAD
 
 	// Method to get all the monster's skills
-=======
-}
 
-	// Method to get all the monster's skills
-/*
->>>>>>> 7af519c (Reinitialize repository)
-	private List<IMonsterSkill> getMonsterSkills() {
+
+/*	private List<IMonsterSkill> getMonsterSkills() {
 		return monsterSkills;
-	}
+	}*/
+
+
 
 }
-<<<<<<< HEAD
-=======
-*/
->>>>>>> 7af519c (Reinitialize repository)
+

@@ -208,14 +208,14 @@ public class TextDisplayUtility {
 		return true;
 	}
 
-	// for use out of combat to display items
+	// for use out of combat to display items amd imvemtory
 	private static <T extends Item> int displayItems(String itemType, List<T> items, T equippedItem, int startIndex, Map<Integer, Item> indexToItemMap) {
 		if (!items.isEmpty()) {
 			System.out.println(itemType + ":");
 			System.out.printf("%-5s %-25s %-15s %-30s%n", "Index", "Name", "Type", "Description");
 			printFooter(164);
 			for (T item : items) {
-				String equippedIndicator = (item.equals(equippedItem)) ? "(Equipped)" : "";
+				String equippedIndicator = (item.equals(equippedItem)) ? "(*)" : "";
 				System.out.printf("%-5d %-25s %-15s %-30s%n", startIndex, item.getName() + " " + equippedIndicator, itemType, item.getDescription());
 				indexToItemMap.put(startIndex, item);
 				startIndex++;

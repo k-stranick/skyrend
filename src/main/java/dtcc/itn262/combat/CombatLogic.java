@@ -34,11 +34,10 @@ public class CombatLogic {
 
 	public CombatLogic(Player player, Monster monster) {
 		Music.stopBackgroundMusic();
-<<<<<<< HEAD
 		Music.playBackgroundMusic("src/main/java/dtcc/itn262/utilities/soundandmusic/soundfiles/battle_music.wav");
-=======
+/*=======
 		Music.playBackgroundMusic("src/main/java/dtcc/itn262/utilities/soundandmusic/soundfiles/battle_music.wav");// create file path file
->>>>>>> 7af519c (Reinitialize repository)
+>>>>>>> 7af519c (Reinitialize repository)*/
 		this.player = player;
 		this.monster = monster;
 		this.playerActions = new PlayerActions(CombatLogic.this, player);

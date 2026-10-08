@@ -46,10 +46,8 @@ public class Zantetsuken implements IMonsterSkill {
 		// Check if the player gets one-hit killed
 		if (chance < adjustedOneHitKillChance) {
 			target.getPlayerAttributes().setHealth(0); // Instant kill
-<<<<<<< HEAD
-=======
+
 			// should this be using get monster? it is pulling the entire file not just the name
->>>>>>> 7af519c (Reinitialize repository)
 			System.out.println(monster.getMonster() + " uses " + getSkillName() + "! It's an instant kill! " + target.getHeroName() + " has been defeated.");
 		} else {
 			// If instant kill doesn't happen, deal base damage
